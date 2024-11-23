@@ -23,7 +23,7 @@ The extension is still a work in progress and is not yet available in the Visual
    - Go to the Extensions view.
    - Click Views and More Actions (or the ... icon) and select Install from VSIX....
 
-To uninstall the extension and cleanup everything, you can remove the extension files (waldiez.* folder) from the extensions directory. The extensions directory is located at:
+After uninstalling the extension, to cleanup everything you can remove the extension files (waldiez.* folder) from the extensions directory. The extensions directory is located at:
 
 - Windows: %USERPROFILE%\.vscode\extensions
 - macOS: ~/.vscode/extensions
