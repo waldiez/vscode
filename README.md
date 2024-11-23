@@ -7,7 +7,7 @@ A waldiez extension for Visual Studio Code.
 
 ## Features
 
-- [x] Handle .waldiez files
+- [x] Visualize .waldiez files
 - [x] Load existing .waldiez flows
 - [ ] Convert .waldiez flows to .py scripts or .ipynb notebooks
 - [ ] Run .waldiez flows using a python interpreter
