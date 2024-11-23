@@ -1,0 +1,7 @@
+**/*
+!icons/
+!dist/
+!LICENSE
+!README.md
+!package.json
+!public/

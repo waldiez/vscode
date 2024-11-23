@@ -1,0 +1,11 @@
+/node_modules/
+/.vscode-test/
+.yarn/
+.local/
+.eslintcache
+.stylelintcache
+out/
+public/*
+!public/overview.webp
+**/*.vsix
+dist/

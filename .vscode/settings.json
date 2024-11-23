@@ -1,0 +1,30 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "files.exclude": {
+        "out": false // set this to true to hide the "out" folder with the compiled JS files
+    },
+    "search.exclude": {
+        "out": true // set this to false to include "out" folder in search results
+    },
+    "files.eol": "\n",
+    "npm.packageManager": "yarn",
+    // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
+    "typescript.tsc.autoDetect": "off",
+    "cSpell.words": [
+        "autohiding",
+        "csstree",
+        "eslintcache",
+        "forlint",
+        "ipynb",
+        "nosources",
+        "stylelintcache",
+        "trivago",
+        "USERPROFILE",
+        "waldiez",
+        "webp",
+        "xyflow",
+        "yarnrc"
+    ],
+    "stm32-for-vscode.openOCDPath": false,
+    "stm32-for-vscode.armToolchainPath": false
+}
