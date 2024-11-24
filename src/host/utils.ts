@@ -1,6 +1,6 @@
-import * as fs from 'fs';
+import * as fs from 'fs-extra';
 import * as path from 'path';
-import * as vscode from 'vscode';
+import { Uri, Webview } from 'vscode';
 
 export const getNonce = () => {
     let text = '';
@@ -13,17 +13,14 @@ export const getNonce = () => {
 };
 
 export const getUri = (
-    webview: vscode.Webview,
-    extensionUri: vscode.Uri,
+    webview: Webview,
+    extensionUri: Uri,
     pathList: string[]
 ) => {
-    return webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, ...pathList));
+    return webview.asWebviewUri(Uri.joinPath(extensionUri, ...pathList));
 };
 
-export const getMonacoUri = (
-    webview: vscode.Webview,
-    extensionUri: vscode.Uri
-) => {
+export const getMonacoUri = (webview: Webview, extensionUri: Uri) => {
     const localPath = path.join(__dirname, '..', 'public', 'vs');
     if (fs.existsSync(localPath)) {
         return getUri(webview, extensionUri, ['public', 'vs']);

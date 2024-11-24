@@ -8,19 +8,22 @@ export const App = () => {
     const flowId = sessionData.id;
     const storageId = sessionData.storageId ?? flowId;
     const onRun = (flowJson: string) => {
-        console.info('Running flow:', flowJson);
+        messaging.send({
+            action: 'run',
+            value: flowJson
+        });
     };
     const onUserInput = (input: string) => {
-        console.info('User input:', input);
+        console.info('<Waldiez> TODO: handle user input:', input);
     };
     const onChange = (flowJson: string) => {
         messaging.send({
-            action: 'update',
+            action: 'change',
             value: flowJson
         });
     };
     const onUpload = (files: File[]) => {
-        console.info('Files uploaded:', files);
+        console.info('<Waldiez> TODO: handle files upload:', files);
         return new Promise<string[]>(resolve => {
             setTimeout(() => {
                 resolve(files.map(file => file.name));

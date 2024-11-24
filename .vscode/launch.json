@@ -19,7 +19,7 @@
 				"${workspaceFolder}/dist/**/*.js",
 				"${workspaceFolder}/public/**/*"
 			],
-			"preLaunchTask": "npm: compile",
+			"preLaunchTask": "npm: compile:dev",
 			"debugWebviews": true,
 			"trace": true,
 		},
@@ -33,9 +33,9 @@
                 "${workspaceFolder}/examples"
 			],
 			"outFiles": [
-				"${workspaceFolder}/out/test/**/*.js"
+				"${workspaceFolder}/dist/test/**/*.js"
 			],
-			"preLaunchTask": "npm: pre-test"
+			"preLaunchTask": "npm: compile:tests"
 		}
 	]
 }

@@ -12,6 +12,7 @@
     "typescript.tsc.autoDetect": "off",
     "cSpell.words": [
         "autohiding",
+        "bitness",
         "csstree",
         "eslintcache",
         "forlint",
@@ -24,7 +25,5 @@
         "webp",
         "xyflow",
         "yarnrc"
-    ],
-    "stm32-for-vscode.openOCDPath": false,
-    "stm32-for-vscode.armToolchainPath": false
+    ]
 }

@@ -9,8 +9,15 @@ A waldiez extension for Visual Studio Code.
 
 - [x] Visualize .waldiez files
 - [x] Load existing .waldiez flows
-- [ ] Convert .waldiez flows to .py scripts or .ipynb notebooks
-- [ ] Run .waldiez flows using a python interpreter
+- [x] Convert .waldiez flows to .py scripts or .ipynb notebooks
+- [ ] Handle uploaded files in .waldiez flows (for RAG)
+- [ ] Run .waldiez flows using a compatible python interpreter
+
+## Requirements
+
+- Visual Studio Code v1.95.0 or later
+- Python >= 3.10, < 3.13 (for converting and/or running .waldiez flows)
+- Vscode Python [Extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 
 ## Installation
 

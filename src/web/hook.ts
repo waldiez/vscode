@@ -1,4 +1,4 @@
-import type { HostMessage, InitMessage } from '../types';
+import type { ContentUpdate, HostMessage, Initialization } from '../types';
 import { messaging } from './messaging';
 import { importFlow } from '@waldiez/react';
 import { Edge, Node, Viewport } from '@xyflow/react';
@@ -39,11 +39,18 @@ export const useWaldiezWebview = () => {
         tags: [],
         requirements: []
     });
-    const _initialize = (hostMsg: InitMessage) => {
+    const _initialize = (hostMsg: Initialization | ContentUpdate) => {
         setInitialized(true);
+        const flowData =
+            typeof hostMsg.value === 'string'
+                ? hostMsg.value
+                : hostMsg.value.flow;
+        const vsPath =
+            typeof hostMsg.value === 'string'
+                ? null
+                : (hostMsg.value.monaco ?? sessionData.vsPath);
         try {
-            const parsedData = JSON.parse(hostMsg.value.flow);
-            const vsPath = hostMsg.value.monaco ?? null;
+            const parsedData = JSON.parse(flowData);
             const importedData = importFlow(parsedData);
             setSessionData({ ...importedData, vsPath });
         } catch (e) {
@@ -60,6 +67,10 @@ export const useWaldiezWebview = () => {
                 case 'init':
                     _initialize(msg);
                     break;
+                // case 'update':
+                //     setInitialized(false);
+                //     _initialize(msg);
+                //     break;
                 default:
                     break;
             }

@@ -1,29 +1,42 @@
-/** A custom messaging class to handle
- *   `webviewPanel.webview.onDidReceiveMessage` and
+/** A messaging class to handle
+ *  `webviewPanel.webview.onDidReceiveMessage` and
  *  `webviewPanel.webview.postMessage`
  */
-import type { HostMessage, WebviewMessage } from './types';
+import type { HostMessage, WebviewMessage } from '../types';
 import { getMonacoUri } from './utils';
 import * as vscode from 'vscode';
 
 export class MessageHandler {
     private _webviewPanel: vscode.WebviewPanel;
     private _document: vscode.TextDocument;
+    private _disposable: vscode.Disposable;
+    private _onRun: (path: vscode.Uri) => void;
+    private _onInit: () => void;
+
     constructor(
         private readonly context: vscode.ExtensionContext,
         webviewPanel: vscode.WebviewPanel,
-        document: vscode.TextDocument
+        document: vscode.TextDocument,
+        onRun: (path: vscode.Uri) => void,
+        onInit: () => void
     ) {
         this._webviewPanel = webviewPanel;
         this._document = document;
-        this._webview.onDidReceiveMessage(this._handleMessage.bind(this));
+        this._disposable = this._webview.onDidReceiveMessage(
+            this._handleMessage.bind(this)
+        );
+        this._onRun = onRun;
+        this._onInit = onInit;
     }
 
+    public dispose() {
+        this._disposable.dispose();
+    }
     private get _webview() {
         return this._webviewPanel.webview;
     }
 
-    private _sendMessage(message: HostMessage) {
+    public sendMessage(message: HostMessage) {
         if (this._webviewPanel.active) {
             this._webview.postMessage(message);
         }
@@ -39,20 +52,33 @@ export class MessageHandler {
         vscode.workspace.applyEdit(edit);
     }
 
+    private async _handleRun(value: any) {
+        this._updateDocument(value);
+        vscode.workspace.save(this._document.uri);
+        this._onRun(this._document.uri);
+    }
+
     private async _handleMessage(message: any) {
         const msg: WebviewMessage = message;
+        if (!msg.action || !this._webviewPanel.active) {
+            return;
+        }
         switch (msg.action) {
             case 'ready':
-                this._sendMessage({
+                this.sendMessage({
                     type: 'init',
                     value: {
                         monaco: `${getMonacoUri(this._webview, this.context.extensionUri)}`,
                         flow: this._document.getText()
                     }
                 });
+                this._onInit();
                 break;
-            case 'update':
+            case 'change':
                 this._updateDocument(msg.value);
+                break;
+            case 'run':
+                this._handleRun(msg.value);
                 break;
             default:
                 break;

@@ -4,6 +4,8 @@
 .local/
 .eslintcache
 .stylelintcache
+coverage/
+.webpack/
 out/
 public/*
 !public/overview.webp

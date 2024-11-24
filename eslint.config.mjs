@@ -23,7 +23,7 @@ const defaultConfig = eslintTs.config({
                 trailingComma: 'none',
                 arrowParens: 'avoid',
                 endOfLine: 'auto'
-            },
+            }
         ],
         '@typescript-eslint/naming-convention': [
             'error',

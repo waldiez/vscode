@@ -2,13 +2,16 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "ES6",
-    "outDir": "out",
+    "outDir": "dist",
     "lib": ["ES6", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
     "sourceMap": true,
     "rootDir": "src",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictBuiltinIteratorReturn": false
   },
   "exclude": ["webpack.config.ts", "scripts/*.ts"],
 }

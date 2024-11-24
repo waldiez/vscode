@@ -1,43 +1,60 @@
-export type InitMessage = {
+export type Initialization = {
     type: 'init';
     value: {
         monaco: string;
         flow: string;
     };
 };
-export type OutputMessage = {
+export type ContentUpdate = {
+    type: 'update';
+    value: string;
+};
+export type FlowOutput = {
     type: 'output';
     value: any;
 };
-export type InputMessage = {
+export type InputResponse = {
     type: 'input';
-    value: any;
+    value: {
+        previousMessages: string[];
+        prompt: string;
+    };
 };
-export type UploadMessage = {
+export type UploadResponse = {
     type: 'upload';
     value: any;
 };
-export type ExportMessage = {
+export type ExportResponse = {
     type: 'export';
     value: any;
 };
 export type HostMessage =
-    | InitMessage
-    | OutputMessage
-    | InputMessage
-    | UploadMessage
-    | ExportMessage;
+    | Initialization
+    | ContentUpdate
+    | FlowOutput
+    | InputResponse
+    | UploadResponse
+    | ExportResponse;
 
-export type ReadyMessage = {
+export type ViewReady = {
     action: 'ready';
 };
-export type UpdateMessage = {
-    action: 'update';
+export type ContentChange = {
+    action: 'change';
     value: string;
 };
-export type RunMessage = {
+export type RunRequest = {
     action: 'run';
     value: any;
 };
 
-export type WebviewMessage = ReadyMessage | UpdateMessage | RunMessage;
+export type InputRequest = {
+    action: 'prompt';
+    value: string;
+};
+
+export type WebviewMessage =
+    | ViewReady
+    | ContentChange
+    | RunRequest
+    | InputRequest;
