@@ -46,19 +46,3 @@ body {
     width: var(--app-width);
     overflow: hidden;
 }
-
-.flow-wrapper * {
-    scrollbar-width: thin;
-}
-
-.flow-wrapper *::-webkit-scrollbar {
-    width: 10px;
-}
-
-.flow-wrapper.dark * {
-    scrollbar-color: #ccc #333;
-}
-
-.flow-wrapper.light * {
-    scrollbar-color: #333 #fefefe;
-}

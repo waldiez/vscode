@@ -10,7 +10,7 @@ A waldiez extension for Visual Studio Code.
 - [x] Visualize .waldiez files
 - [x] Load existing .waldiez flows
 - [x] Convert .waldiez flows to .py scripts or .ipynb notebooks
-- [ ] Handle uploaded files in .waldiez flows (for RAG)
+- [x] Handle uploaded files in .waldiez flows (for RAG)
 - [ ] Run .waldiez flows using a compatible python interpreter
 
 ## Requirements

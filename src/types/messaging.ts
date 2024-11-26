@@ -43,6 +43,12 @@ export type ContentChange = {
     action: 'change';
     value: string;
 };
+
+export type UploadRequest = {
+    action: 'upload';
+    value: any;
+};
+
 export type RunRequest = {
     action: 'run';
     value: any;
@@ -56,5 +62,6 @@ export type InputRequest = {
 export type WebviewMessage =
     | ViewReady
     | ContentChange
+    | UploadRequest
     | RunRequest
     | InputRequest;

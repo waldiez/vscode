@@ -2,7 +2,7 @@
  *  `webviewPanel.webview.onDidReceiveMessage` and
  *  `webviewPanel.webview.postMessage`
  */
-import type { HostMessage, WebviewMessage } from '../types';
+import type { HostMessage, UploadRequest, WebviewMessage } from '../types';
 import { getMonacoUri } from './utils';
 import * as vscode from 'vscode';
 
@@ -58,12 +58,60 @@ export class MessageHandler {
         this._onRun(this._document.uri);
     }
 
-    private async _handleMessage(message: any) {
-        const msg: WebviewMessage = message;
-        if (!msg.action || !this._webviewPanel.active) {
+    private async _handleUpload(message: UploadRequest) {
+        const files = message.value;
+        //let's also send nulls, to have a fixed length array
+        const savedPaths: (string | null)[] = [];
+        for (const file of files) {
+            const path = await this._saveFileToWorkspace(file);
+            savedPaths.push(path);
+        }
+        this.sendMessage({
+            type: 'upload',
+            value: savedPaths
+        });
+    }
+
+    private async _saveFileToWorkspace(file: any) {
+        const buffer = Buffer.from(file.content, 'base64');
+        const workspaceFolders = vscode.workspace.workspaceFolders;
+        // let destination = // relative to this._document.uri
+        let destination = vscode.Uri.joinPath(
+            this._document.uri,
+            '..',
+            file.name
+        );
+        if (workspaceFolders) {
+            destination = vscode.Uri.joinPath(
+                workspaceFolders[0].uri,
+                file.name
+            );
+        }
+        try {
+            await vscode.workspace.fs.writeFile(destination, buffer);
+            return destination.fsPath;
+        } catch (e) {
+            console.error('<Waldiez> Error saving file:', e);
+            return null;
+        }
+    }
+
+    private async _handlePrompt(value: any) {
+        console.log('<Waldiez> TODO: handle prompt:', value);
+    }
+
+    private getInitialText() {
+        const text = this._document.getText();
+        if (text === '') {
+            return '{}';
+        }
+        return text;
+    }
+    private async _handleMessage(message: WebviewMessage) {
+        if (!message.action || !this._webviewPanel.active) {
             return;
         }
-        switch (msg.action) {
+        switch (message.action) {
             case 'ready':
                 this.sendMessage({
                     type: 'init',
@@ -75,14 +123,19 @@ export class MessageHandler {
                 this._onInit();
                 break;
             case 'change':
-                this._updateDocument(msg.value);
+                this._updateDocument(message.value);
                 break;
             case 'run':
-                this._handleRun(msg.value);
+                this._handleRun(message.value);
+                break;
+            case 'upload':
+                this._handleUpload(message);
+                break;
+            case 'prompt':
+                this._handlePrompt(message.value);
                 break;
             default:
                 break;
         }
-        // TODO: add upload, run and user input handling
     }
 }

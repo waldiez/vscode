@@ -50,7 +50,9 @@ export class FlowConverter extends vscode.Disposable {
                 reject();
                 return;
             }
-            const convert = spawn(this._wrapper.executable, toRun);
+            const convert = spawn(this._wrapper.executable, toRun, {
+                cwd: vscode.workspace.workspaceFolders?.[0].uri.fsPath
+            });
             this._proc = convert;
             convert.stdout.on('data', data => {
                 traceLog(data);

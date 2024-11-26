@@ -1,5 +1,6 @@
 import type { ContentUpdate, HostMessage, Initialization } from '../types';
 import { messaging } from './messaging';
+import { transferFiles } from './uploading';
 import { importFlow } from '@waldiez/react';
 import { Edge, Node, Viewport } from '@xyflow/react';
 import { useEffect, useState } from 'react';
@@ -57,24 +58,67 @@ export const useWaldiezWebview = () => {
             console.error('Error parsing JSON', e);
         }
     };
-    // TODO: add the rest of the message handling
+    const onRun = (flowJson: string) => {
+        messaging.send({
+            action: 'run',
+            value: flowJson
+        });
+    };
+    const onUserInput = (input: string) => {
+        console.log('<Waldiez> TODO: handle user input:', input);
+    };
+    const onChange = (flowJson: string) => {
+        messaging.send({
+            action: 'change',
+            value: flowJson
+        });
+    };
+    const onUpload = (files: File[]) => {
+        return new Promise<string[]>((resolve, reject) => {
+            transferFiles(files).then(resolve).catch(reject);
+        });
+    };
+    const checkFocus = (event: FocusEvent) => {
+        const target = event.target;
+        // Check if the element is an input or textarea
+        if (
+            target instanceof Element &&
+            (target.tagName === 'TEXTAREA' ||
+                (target.tagName === 'INPUT' &&
+                    ['text', 'number'].includes(
+                        target.getAttribute('type') ?? ''
+                    )))
+        ) {
+            target.setAttribute(
+                'data-vscode-context',
+                JSON.stringify({ preventDefaultContextMenuItems: false })
+                // data-vscode-context='{"preventDefaultContextMenuItems": true}'
+            );
+        }
+    };
+    // TODO: handle user input and run requests
+    const messageHandler = (msg: HostMessage) => {
+        switch (msg.type) {
+            case 'init':
+                if (!initialized) {
+                    _initialize(msg);
+                }
+                break;
+            default:
+                break;
+        }
+    };
     useEffect(() => {
         messaging.send({
             action: 'ready'
         });
-        messaging.listen((msg: HostMessage) => {
-            switch (msg.type) {
-                case 'init':
-                    _initialize(msg);
-                    break;
-                // case 'update':
-                //     setInitialized(false);
-                //     _initialize(msg);
-                //     break;
-                default:
-                    break;
-            }
-        });
+        messaging.setMessageHandler(messageHandler);
+        messaging.listen();
+        document.addEventListener('focusin', checkFocus);
+        return () => {
+            messaging.stopListening();
+            document.removeEventListener('focusin', checkFocus);
+        };
     }, []);
-    return { initialized, sessionData };
+    return { initialized, sessionData, onRun, onUserInput, onChange, onUpload };
 };

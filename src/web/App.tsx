@@ -1,35 +1,12 @@
 import { useWaldiezWebview } from './hook';
-import { messaging } from './messaging';
 import { Waldiez } from '@waldiez/react';
 
 export const App = () => {
-    const { initialized, sessionData } = useWaldiezWebview();
+    const { initialized, sessionData, onRun, onChange, onUpload, onUserInput } =
+        useWaldiezWebview();
     const vsPath = sessionData.vsPath;
     const flowId = sessionData.id;
     const storageId = sessionData.storageId ?? flowId;
-    const onRun = (flowJson: string) => {
-        messaging.send({
-            action: 'run',
-            value: flowJson
-        });
-    };
-    const onUserInput = (input: string) => {
-        console.info('<Waldiez> TODO: handle user input:', input);
-    };
-    const onChange = (flowJson: string) => {
-        messaging.send({
-            action: 'change',
-            value: flowJson
-        });
-    };
-    const onUpload = (files: File[]) => {
-        console.info('<Waldiez> TODO: handle files upload:', files);
-        return new Promise<string[]>(resolve => {
-            setTimeout(() => {
-                resolve(files.map(file => file.name));
-            }, 1000);
-        });
-    };
     const {
         nodes,
         edges,
