@@ -1,11 +1,11 @@
 import { useWaldiezWebview } from './hook';
 import { Waldiez } from '@waldiez/react';
 
-export const App = () => {
+export const App = (props: { flowId: string }) => {
+    const { flowId } = props;
     const { initialized, sessionData, onRun, onChange, onUpload, onUserInput } =
         useWaldiezWebview();
     const vsPath = sessionData.vsPath;
-    const flowId = sessionData.id;
     const storageId = sessionData.storageId ?? flowId;
     const {
         nodes,
