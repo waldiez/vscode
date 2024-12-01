@@ -9,5 +9,8 @@ coverage/
 out/
 public/*
 !public/overview.webp
-**/*.vsix
 dist/
+**/*db
+**/*cache
+**/*.vsix
+.nyc_output/

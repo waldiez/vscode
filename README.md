@@ -11,7 +11,7 @@ A waldiez extension for Visual Studio Code.
 - [x] Load existing .waldiez flows
 - [x] Convert .waldiez flows to .py scripts or .ipynb notebooks
 - [x] Handle uploaded files in .waldiez flows (for RAG)
-- [ ] Run .waldiez flows using a compatible python interpreter
+- [x] Run .waldiez flows using a compatible python interpreter
 
 ## Requirements
 
@@ -37,3 +37,7 @@ After uninstalling the extension, to cleanup everything you can remove the exten
 - Linux: ~/.vscode/extensions
 
 Reference: <https://code.visualstudio.com/api/working-with-extensions/publishing-extension#packaging-extensions>
+
+## Known Issues
+
+- `Uncaught NetworkError: Failed to execute 'importScripts' on 'WorkerGlobalScope'. Could not create web worker(s). Falling back to loading web worker code in main thread, which might cause UI freezes`. <https://github.com/microsoft/vscode/issues/233060>. This is a known issue in VSCode and might cause performance degradation.

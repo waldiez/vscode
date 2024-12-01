@@ -1,6 +1,6 @@
 // ensure monaco loader files are present in the public folder (public/vs)
 import crypto from 'crypto';
-import fs from 'fs';
+import fs from 'fs-extra';
 import https from 'https';
 import path from 'path';
 import tar from 'tar-stream';
@@ -59,16 +59,29 @@ function extractTarFile(file: string, dest: string): Promise<void> {
     });
 }
 
-function keepOnlyMinVs(dir: string): void {
+function keepOnlyMinVs(dir: string): Promise<void> {
     const packageDir = path.join(dir, 'package');
     const minVsDir = path.join(packageDir, 'min', 'vs');
     const destDir = path.join(dir, 'vs');
     if (fs.existsSync(minVsDir)) {
         if (fs.existsSync(destDir)) {
-            fs.rmSync(destDir, { recursive: true });
+            fs.rmSync(destDir, { recursive: true, force: true });
         }
         fs.renameSync(minVsDir, destDir);
-        fs.rmSync(packageDir, { recursive: true });
+        return new Promise((resolve, reject) => {
+            // fs.rmSync gives Error: ENOTEMPTY: directory not empty
+            // fs.rmSync(packageDir, { recursive: true, force: true, maxRetries: 3 });
+            fs.promises
+                .rm(packageDir, { recursive: true })
+                .then(() => {
+                    resolve();
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
+    } else {
+        return Promise.resolve();
     }
 }
 
@@ -102,7 +115,8 @@ function removeUnneededFiles(dir: string): void {
     for (const language of basicLanguages) {
         if (language !== 'python') {
             fs.rmSync(path.join(basicLanguagesDir, language), {
-                recursive: true
+                recursive: true,
+                force: true
             });
         }
     }
@@ -115,7 +129,13 @@ function removeUnneededFiles(dir: string): void {
         const entryPath = path.join(rootDir, entry);
         const stat = fs.statSync(entryPath);
         if (stat.isFile()) {
-            fs.rmSync(entryPath);
+            fs.rmSync(entryPath, { force: true });
+        }
+        if (entry === 'language') {
+            fs.rmSync(path.join(rootDir, 'language'), {
+                recursive: true,
+                force: true
+            });
         }
     }
 }
@@ -132,13 +152,19 @@ function handleDownload(
                 if (isValid) {
                     extractTarFile(tempFile, publicPath)
                         .then(() => {
-                            keepOnlyMinVs(publicPath);
-                            removeUnneededFiles(publicPath);
-                            fs.unlinkSync(tempFile);
-                            fs.rmSync(tempDir, {
-                                recursive: true
-                            });
-                            resolve();
+                            keepOnlyMinVs(publicPath)
+                                .then(() => {
+                                    removeUnneededFiles(publicPath);
+                                    fs.unlinkSync(tempFile);
+                                    fs.rmSync(tempDir, {
+                                        recursive: true,
+                                        force: true
+                                    });
+                                    resolve();
+                                })
+                                .catch(err => {
+                                    reject(err);
+                                });
                         })
                         .catch(err => {
                             reject(err);

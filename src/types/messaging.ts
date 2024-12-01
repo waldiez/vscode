@@ -13,7 +13,7 @@ export type FlowOutput = {
     type: 'output';
     value: any;
 };
-export type InputResponse = {
+export type InputRequest = {
     type: 'input';
     value: {
         previousMessages: string[];
@@ -32,8 +32,8 @@ export type HostMessage =
     | Initialization
     | ContentUpdate
     | FlowOutput
-    | InputResponse
     | UploadResponse
+    | InputRequest
     | ExportResponse;
 
 export type ViewReady = {
@@ -53,9 +53,8 @@ export type RunRequest = {
     action: 'run';
     value: any;
 };
-
-export type InputRequest = {
-    action: 'prompt';
+export type InputResponse = {
+    action: 'input';
     value: string;
 };
 
@@ -64,4 +63,4 @@ export type WebviewMessage =
     | ContentChange
     | UploadRequest
     | RunRequest
-    | InputRequest;
+    | InputResponse;

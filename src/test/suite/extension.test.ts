@@ -1,31 +1,43 @@
-import * as extension from '../../extension';
+import packageJSON from '../../../package.json';
 import * as assert from 'assert';
 import { before, suite, test } from 'mocha';
 import * as vscode from 'vscode';
 
+const extensionId = `${packageJSON.publisher}.${packageJSON.name}`;
+
 suite('Extension Test Suite', () => {
-    let extensionContext: vscode.ExtensionContext;
-    suiteSetup(async () => {
-        await vscode.extensions
-            .getExtension('Waldiez.waldiez-vscode')!
-            .activate();
-        vscode.window.showInformationMessage('Start all tests.');
-        extensionContext = (global as any).testExtensionContext;
-    });
-    suiteTeardown(() => {
-        vscode.window.showInformationMessage('All tests done!');
+    before(async () => {
+        await vscode.extensions.getExtension(extensionId)?.activate();
     });
 
-    let waldiezExtension: vscode.Extension<any> | undefined;
-    before(async () => {
-        waldiezExtension = vscode.extensions.getExtension(
-            'Waldiez.waldiez-vscode'
+    test('It should be present and active', () => {
+        const extension = vscode.extensions.getExtension(extensionId);
+        assert.ok(extension);
+        assert.strictEqual(extension?.isActive, true);
+    });
+
+    test('it should register the language', async () => {
+        const languages = await vscode.languages.getLanguages();
+        assert.ok(languages.includes('waldiez'));
+    });
+
+    test('it should have the correct package.json', () => {
+        const extension = vscode.extensions.getExtension(extensionId);
+        assert.strictEqual(extension?.packageJSON.name, packageJSON.name);
+        assert.strictEqual(
+            extension?.packageJSON.publisher,
+            packageJSON.publisher
         );
+        assert.strictEqual(extension?.packageJSON.version, packageJSON.version);
     });
-    test('It should be present', () => {
-        assert.ok(waldiezExtension);
-    });
-    test('it should be activated', async () => {
-        await extension.activate(extensionContext);
+    test('it should handle opening a waldiez file', async () => {
+        const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
+        assert.ok(workspaceFolder, 'No workspace folder found');
+        const uri = vscode.Uri.joinPath(workspaceFolder.uri, 'simple.waldiez');
+        const document = await vscode.workspace.openTextDocument(uri);
+        assert.strictEqual(
+            document.languageId,
+            packageJSON.contributes.languages[0].id
+        );
     });
 });

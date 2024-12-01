@@ -3,20 +3,19 @@ import { Waldiez } from '@waldiez/react';
 
 export const App = (props: { flowId: string }) => {
     const { flowId } = props;
-    const { initialized, sessionData, onRun, onChange, onUpload, onUserInput } =
-        useWaldiezWebview();
+    const {
+        initialized,
+        sessionData,
+        inputPrompt,
+        onRun,
+        onChange,
+        onUpload,
+        onUserInput
+    } = useWaldiezWebview();
     const vsPath = sessionData.vsPath;
     const storageId = sessionData.storageId ?? flowId;
-    const {
-        nodes,
-        edges,
-        viewport,
-        name,
-        description,
-        tags,
-        requirements,
-        inputPrompt
-    } = sessionData;
+    const { nodes, edges, viewport, name, description, tags, requirements } =
+        sessionData;
     return initialized ? (
         <Waldiez
             monacoVsPath={vsPath}

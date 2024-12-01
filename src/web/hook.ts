@@ -1,4 +1,9 @@
-import type { ContentUpdate, HostMessage, Initialization } from '../types';
+import type {
+    ContentUpdate,
+    HostMessage,
+    Initialization,
+    InputRequest
+} from '../types';
 import { messaging } from './messaging';
 import { transferFiles } from './uploading';
 import { importFlow } from '@waldiez/react';
@@ -7,6 +12,10 @@ import { useEffect, useState } from 'react';
 
 export const useWaldiezWebview = () => {
     const [initialized, setInitialized] = useState(false);
+    const [inputPrompt, setInputPrompt] = useState<{
+        previousMessages: string[];
+        prompt: string;
+    } | null>(null);
     const [sessionData, setSessionData] = useState<{
         vsPath: string | null;
         inputPrompt?: {
@@ -64,8 +73,15 @@ export const useWaldiezWebview = () => {
             value: flowJson
         });
     };
-    const onUserInput = (input: string) => {
-        console.log('<Waldiez> TODO: handle user input:', input);
+    const onInputRequest = (msg: InputRequest) => {
+        setInputPrompt(msg.value);
+    };
+    const onUserInput = (value: string) => {
+        messaging.send({
+            action: 'input',
+            value
+        });
+        setInputPrompt(null);
     };
     const onChange = (flowJson: string) => {
         messaging.send({
@@ -80,7 +96,6 @@ export const useWaldiezWebview = () => {
     };
     const checkFocus = (event: FocusEvent) => {
         const target = event.target;
-        // Check if the element is an input or textarea
         if (
             target instanceof Element &&
             (target.tagName === 'TEXTAREA' ||
@@ -92,17 +107,18 @@ export const useWaldiezWebview = () => {
             target.setAttribute(
                 'data-vscode-context',
                 JSON.stringify({ preventDefaultContextMenuItems: false })
-                // data-vscode-context='{"preventDefaultContextMenuItems": true}'
             );
         }
     };
-    // TODO: handle user input and run requests
     const messageHandler = (msg: HostMessage) => {
         switch (msg.type) {
             case 'init':
                 if (!initialized) {
                     _initialize(msg);
                 }
+                break;
+            case 'input':
+                onInputRequest(msg);
                 break;
             default:
                 break;
@@ -120,5 +136,13 @@ export const useWaldiezWebview = () => {
             document.removeEventListener('focusin', checkFocus);
         };
     }, []);
-    return { initialized, sessionData, onRun, onUserInput, onChange, onUpload };
+    return {
+        initialized,
+        sessionData,
+        inputPrompt,
+        onRun,
+        onUserInput,
+        onChange,
+        onUpload
+    };
 };

@@ -3,6 +3,7 @@ import type { WebviewApi } from 'vscode-webview';
 
 export class Messaging {
     private readonly vscode: WebviewApi<unknown> | null;
+    private _addedListener: boolean = false;
     private _onMessageCallback?: (msg: HostMessage) => void;
     constructor() {
         if (typeof acquireVsCodeApi === 'function') {
@@ -23,22 +24,23 @@ export class Messaging {
             console.error('No message callback set');
             return;
         }
-        switch (hostMsg.type) {
-            case 'init':
-                this._onMessageCallback(hostMsg);
-                break;
-            default:
-                break;
-        }
+        this._onMessageCallback(hostMsg);
     }
     public listen() {
-        window.addEventListener('message', this.handleMessageEvent.bind(this));
+        if (!this._addedListener) {
+            window.addEventListener(
+                'message',
+                this.handleMessageEvent.bind(this)
+            );
+            this._addedListener = true;
+        }
     }
     public stopListening() {
         window.removeEventListener(
             'message',
             this.handleMessageEvent.bind(this)
         );
+        this._addedListener = false;
     }
     public setState(state: Record<string, unknown>) {
         this.vscode?.setState(state);

@@ -1,8 +1,10 @@
-/** A messaging class to handle
- *  `webviewPanel.webview.onDidReceiveMessage` and
+/** A messaging class to handle messages between the host and the webview
+ *   on the host side.
+ *  `webviewPanel.webview.onDidReceiveMessage`,
  *  `webviewPanel.webview.postMessage`
  */
 import type { HostMessage, UploadRequest, WebviewMessage } from '../types';
+import { TIME_TO_WAIT_FOR_INPUT } from './flow/runner';
 import { getMonacoUri } from './utils';
 import * as vscode from 'vscode';
 
@@ -10,6 +12,8 @@ export class MessageHandler {
     private _webviewPanel: vscode.WebviewPanel;
     private _document: vscode.TextDocument;
     private _disposable: vscode.Disposable;
+    private _inputPromise: Promise<string | undefined> | null = null;
+    private _inputResolve: ((value: string | undefined) => void) | null = null;
     private _onRun: (path: vscode.Uri) => void;
     private _onInit: () => void;
 
@@ -41,6 +45,30 @@ export class MessageHandler {
             this._webview.postMessage(message);
         }
     }
+
+    public askForInput: (request: {
+        previousMessages: string[];
+        prompt: string;
+    }) => Promise<string | undefined> = ({ previousMessages, prompt }) => {
+        this.sendMessage({
+            type: 'input',
+            value: {
+                previousMessages,
+                prompt
+            }
+        });
+        this._inputPromise = new Promise<string | undefined>(
+            (resolve, _reject) => {
+                setTimeout(() => {
+                    resolve(undefined);
+                    this._inputPromise = null;
+                    this._inputResolve = null;
+                }, TIME_TO_WAIT_FOR_INPUT);
+                this._inputResolve = resolve;
+            }
+        );
+        return this._inputPromise;
+    };
 
     private _updateDocument(value: any) {
         const edit = new vscode.WorkspaceEdit();
@@ -96,14 +124,18 @@ export class MessageHandler {
         }
     }
 
-    private async _handlePrompt(value: any) {
-        console.log('<Waldiez> TODO: handle prompt:', value);
+    private async _handleUserInput(value: string) {
+        if (this._inputResolve) {
+            this._inputResolve(value);
+            this._inputResolve = null;
+            this._inputPromise = null;
+        }
     }
 
-    private getInitialText() {
+    private _getInitialText() {
         const text = this._document.getText();
         if (text === '') {
-            return '{}';
+            return '{"type": "flow", "data": {}}';
         }
         return text;
     }
@@ -117,7 +149,7 @@ export class MessageHandler {
                     type: 'init',
                     value: {
                         monaco: `${getMonacoUri(this._webview, this.context.extensionUri)}`,
-                        flow: this._document.getText()
+                        flow: this._getInitialText()
                     }
                 });
                 this._onInit();
@@ -131,8 +163,8 @@ export class MessageHandler {
             case 'upload':
                 this._handleUpload(message);
                 break;
-            case 'prompt':
-                this._handlePrompt(message.value);
+            case 'input':
+                this._handleUserInput(message.value);
                 break;
             default:
                 break;
