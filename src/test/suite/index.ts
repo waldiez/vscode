@@ -3,6 +3,8 @@ import { glob } from 'glob';
 import Mocha from 'mocha';
 import path from 'path';
 
+const isWIndows = process.platform === 'win32';
+
 function setupCoverage() {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const NYC = require('nyc');
@@ -10,7 +12,12 @@ function setupCoverage() {
         cwd: path.resolve(__dirname, '..', '..', '..'),
         include: ['dist'],
         exclude: ['!**/node_modules/', '!**/test/', '!**/coverage/'],
-        reporter: ['text', 'text-summary', 'lcov'],
+        // on windows we get:
+        // Error: Path contains invalid characters:
+        // d:\a\vscode\vscode\coverage\lcov-report\dist\webpack:\waldiez-vscode...
+        reporter: isWIndows
+            ? ['text', 'text-summary']
+            : ['text', 'text-summary', 'lcov'],
         all: true,
         // sourceMap: false,
         sourceMap: true,
