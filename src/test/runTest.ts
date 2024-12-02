@@ -8,6 +8,8 @@ import fs from 'fs-extra';
 import { glob } from 'glob';
 import path from 'path';
 
+const isWIndows = process.platform === 'win32';
+
 async function main() {
     try {
         const extensionDevelopmentPath = path.resolve(__dirname, '../../');
@@ -22,7 +24,7 @@ async function main() {
             {
                 encoding: 'utf-8',
                 stdio: 'inherit',
-                shell: true
+                shell: isWIndows
             }
         );
         const launchArgs = [
