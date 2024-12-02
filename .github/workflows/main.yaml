@@ -19,6 +19,11 @@ jobs:
           uses: actions/setup-node@v4
           with:
             node-version: 20.x
+        - name: Install python on windows
+          uses: actions/setup-python@v5
+          with:
+            python-version: '3.12'
+          if: matrix.os == 'windows-latest'
         - run: corepack enable
         - run: yarn set version stable
         - run: yarn install
