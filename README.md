@@ -21,7 +21,10 @@ A waldiez extension for Visual Studio Code.
 
 ## Installation
 
-The extension is still a work in progress and is not yet available in the Visual Studio Code marketplace. To build and install the extension locally, follow the instructions below.
+The extension is still a work in progress and is not yet available in the Visual Studio Code marketplace. You can either download the latest release from the [releases page](
+    https://github.com/waldiez/vscode/releases/latest) or build and install the extension locally.
+
+ To build and install the extension locally, follow the instructions below.
 
 1. Clone the repository
 2. Run `yarn install` to install the dependencies

@@ -24,6 +24,7 @@
         "libnss",
         "nosources",
         "PVSC",
+        "softprops",
         "stylelintcache",
         "trivago",
         "USERPROFILE",
