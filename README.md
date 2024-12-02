@@ -24,14 +24,16 @@ A waldiez extension for Visual Studio Code.
 The extension is still a work in progress and is not yet available in the Visual Studio Code marketplace. You can either download the latest release from the [releases page](
     https://github.com/waldiez/vscode/releases/latest) or build and install the extension locally.
 
- To build and install the extension locally, follow the instructions below.
+ To build the extension locally, follow the instructions below.
 
 1. Clone the repository
 2. Run `yarn install` to install the dependencies
 3. Run `yarn build` to build the extension. It should generate waldiez-vscode-x.y.z.vsix in the root directory
-4. Install the extension by running `code --install-extension waldiez-vscode-x.y.z.vsix` or:
-   - Go to the Extensions view.
-   - Click Views and More Actions (or the ... icon) and select Install from VSIX....
+
+Install the extension by running `code --install-extension waldiez-vscode-x.y.z.vsix` or:
+
+- Go to the Extensions view.
+- Click Views and More Actions (or the ... icon) and select Install from VSIX....
 
 After uninstalling the extension, to cleanup everything you can remove the extension files (waldiez.* folder) from the extensions directory. The extensions directory is located at:
 
