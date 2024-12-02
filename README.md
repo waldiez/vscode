@@ -54,3 +54,7 @@ Reference: <https://code.visualstudio.com/api/working-with-extensions/publishing
 ## Known Issues
 
 - `Uncaught NetworkError: Failed to execute 'importScripts' on 'WorkerGlobalScope'. Could not create web worker(s). Falling back to loading web worker code in main thread, which might cause UI freezes`. <https://github.com/microsoft/vscode/issues/233060>. This is a known issue in VSCode and might cause performance degradation.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://raw.githubusercontent.com/waldiez/vscode/refs/heads/main/LICENSE) file for details.
