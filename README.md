@@ -41,6 +41,8 @@ Install the extension by running `code --install-extension waldiez-vscode-x.y.z.
 - Go to the Extensions view.
 - Click Views and More Actions (or the ... icon) and select Install from VSIX....
 
+<img src="public/from_vsix.webp" alt="Install from VSIX" style="max-width: 480px">
+
 After uninstalling the extension, to cleanup everything you can remove the extension files (waldiez.* folder) from the extensions directory. The extensions directory is located at:
 
 - Windows: %USERPROFILE%\.vscode\extensions

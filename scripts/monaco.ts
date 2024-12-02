@@ -131,7 +131,7 @@ function removeUnneededFiles(dir: string): void {
         if (stat.isFile()) {
             fs.rmSync(entryPath, { force: true });
         }
-        if (entry === 'language') {
+        if (entry === 'language' && stat.isDirectory()) {
             fs.rmSync(path.join(rootDir, 'language'), {
                 recursive: true,
                 force: true
