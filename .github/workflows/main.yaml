@@ -43,7 +43,7 @@ jobs:
           uses: actions/upload-artifact@v4
           with:
             name: waldiez-vscode-${{ github.ref_name }}.vsix
-            path: waldiez-vscode-${{ github.ref_name }}.vsix
+            path: waldiez-vscode-*.vsix
           if: success() && startsWith(github.ref, 'refs/tags/') && matrix.os == 'ubuntu-latest'
         - name: Create Release
           if: success() && startsWith(github.ref, 'refs/tags/') && matrix.os == 'ubuntu-latest'
