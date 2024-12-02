@@ -6,6 +6,11 @@ on:
     release:
         types:
         - created
+
+permissions:
+  contents: write
+  id-token: write
+
 jobs:
     build:
         strategy:
