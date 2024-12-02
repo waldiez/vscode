@@ -21,7 +21,8 @@ async function main() {
             [...args, '--install-extension', 'ms-python.python', '--force'],
             {
                 encoding: 'utf-8',
-                stdio: 'inherit'
+                stdio: 'inherit',
+                shell: true
             }
         );
         const launchArgs = [
