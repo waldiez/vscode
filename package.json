@@ -100,8 +100,8 @@
     },
     "scripts": {
         "vscode:prepublish": "yarn run package",
-        "build": "NODE_NO_WARNINGS=1 vsce package --no-yarn",
-        "deploy": "NODE_NO_WARNINGS=1 vsce publish --no-yarn",
+        "build": "yarn monaco && NODE_NO_WARNINGS=1 vsce package --no-yarn",
+        "deploy": "yarn monaco && NODE_NO_WARNINGS=1 vsce publish --no-yarn",
         "package": "yarn clean && yarn compile:prod",
         "watch": "yarn compile:dev --watch",
         "lint": "yarn eslint:check && yarn stylelint:check && yarn prettier:check",
