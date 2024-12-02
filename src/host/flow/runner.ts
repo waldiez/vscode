@@ -111,7 +111,15 @@ export class FlowRunner extends vscode.Disposable {
                 this._cleanup();
             });
             traceInfo('Running flow:', resource.fsPath);
-            const cmdArgs = ['-m', 'waldiez', `${resource.fsPath}`, '--force'];
+            const outputPy = resource.fsPath.replace(/\.waldiez$/, '.py');
+            const cmdArgs = [
+                '-m',
+                'waldiez',
+                `${resource.fsPath}`,
+                '--output',
+                `${outputPy}`,
+                '--force'
+            ];
             this._proc = spawn(this._wrapper.executable!, cmdArgs, {
                 cwd: getCwd(resource),
                 stdio: ['pipe', 'pipe', 'pipe']

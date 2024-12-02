@@ -11,6 +11,7 @@ public/*
 !public/overview.webp
 dist/
 **/*db
+**/waldiez_out/
 **/*cache
 **/*.vsix
 .nyc_output/
