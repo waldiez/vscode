@@ -23,7 +23,10 @@ jobs:
           uses: actions/setup-python@v5
           with:
             python-version: '3.12'
+            update-environment: true
           if: matrix.os == 'windows-latest'
+        - name: Display Python version
+          run: python --version
         - run: corepack enable
         - run: yarn set version stable
         - run: yarn install
