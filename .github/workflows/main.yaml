@@ -61,6 +61,7 @@ jobs:
             Release ${{ github.ref_name }}
           draft: false
           prerelease: false
+          repository: ${{ github.repository }}
           files: |
             waldiez-vscode-*.vsix
       # - name: Publish
