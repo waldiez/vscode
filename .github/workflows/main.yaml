@@ -61,6 +61,8 @@ jobs:
             Release ${{ github.ref_name }}
           draft: false
           prerelease: false
+          files: |
+            waldiez-vscode-*.vsix
       # - name: Publish
       #   if: success() && startsWith(github.ref, 'refs/tags/') && matrix.os == 'ubuntu-latest'
       #   run: yarn run deploy

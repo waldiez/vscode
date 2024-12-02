@@ -21,7 +21,7 @@ A waldiez extension for Visual Studio Code.
 
 ## Installation
 
-The extension is still a work in progress and is not yet available in the Visual Studio Code marketplace. You can either download the latest release from the [releases page](
+The extension is still a work in progress and is not yet available in the Visual Studio Code marketplace. You can either download the latest `waldiez-vscode-x.y.z.vsix` from the [releases page](
     https://github.com/waldiez/vscode/releases/latest) or build and install the extension locally.
 
  To build the extension locally, follow the instructions below.
