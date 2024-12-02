@@ -26,9 +26,15 @@ The extension is still a work in progress and is not yet available in the Visual
 
  To build the extension locally, follow the instructions below.
 
-1. Clone the repository
-2. Run `yarn install` to install the dependencies
-3. Run `yarn build` to build the extension. It should generate waldiez-vscode-x.y.z.vsix in the root directory
+1. Make sure you have node.js and yarn installed:
+   - Node.js: <https://nodejs.org/en/download/>
+   - Yarn:
+     - (if needed) `npm install -g corepack`
+     - `corepack enable` to use `yarn` without installing it globally
+     - `yarn set version stable` to use the stable version of yarn
+2. Clone the repository
+3. Run `yarn install` to install the dependencies
+4. Run `yarn build` to build the extension. It should generate waldiez-vscode-x.y.z.vsix in the root directory
 
 Install the extension by running `code --install-extension waldiez-vscode-x.y.z.vsix` or:
 
