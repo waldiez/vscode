@@ -56,7 +56,7 @@ export class FlowRunner extends vscode.Disposable {
         this._running = true;
         clearOutput();
         showOutput();
-        vscode.window.withProgress(
+        return vscode.window.withProgress(
             {
                 location: vscode.ProgressLocation.Notification,
                 title: 'Running waldiez flow',

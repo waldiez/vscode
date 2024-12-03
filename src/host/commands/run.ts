@@ -31,7 +31,16 @@ export const runFlow = async (resource: vscode.Uri, runner: FlowRunner) => {
             });
         });
     };
-    await runner.run(resource, waitForInput);
+    return new Promise<void>((resolve, reject) => {
+        runner
+            .run(resource, waitForInput)
+            .then(() => {
+                resolve();
+            })
+            .catch(error => {
+                reject(error);
+            });
+    });
 };
 function getInputWebviewContent(previousMessages: string[], prompt: string) {
     return `

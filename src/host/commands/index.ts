@@ -27,7 +27,7 @@ export const registerCommands = async (
         CONVERT_TO_PYTHON,
         async (resource: vscode.Uri) => {
             traceInfo('Converting flow to Python');
-            await convertFlow(converter, resource, '.py');
+            return await convertFlow(converter, resource, '.py');
         }
     );
 
@@ -36,7 +36,7 @@ export const registerCommands = async (
         CONVERT_TO_IPYNB,
         async (resource: vscode.Uri) => {
             traceInfo('Converting flow to Jupyter Notebook');
-            await convertFlow(converter, resource, '.ipynb');
+            return await convertFlow(converter, resource, '.ipynb');
         }
     );
 
@@ -44,7 +44,11 @@ export const registerCommands = async (
     const runWaldiezFlow = vscode.commands.registerCommand(
         RUN_FLOW,
         async (resource: vscode.Uri) => {
-            await runFlow(resource, runner);
+            try {
+                return await runFlow(resource, runner);
+            } catch (error) {
+                traceInfo('Failed to run flow', error);
+            }
         }
     );
 

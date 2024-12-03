@@ -17,7 +17,7 @@ export const convertFlow = async (
     const to = extension === '.py' ? 'Python' : 'Jupyter Notebook';
 
     // Show progress notification while performing the conversion
-    vscode.window.withProgress(
+    return vscode.window.withProgress(
         {
             location: vscode.ProgressLocation.Notification,
             title: `Converting flow to ${to}`

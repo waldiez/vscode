@@ -36,7 +36,15 @@ suite('Extension Test Suite', () => {
             undefined,
             'Command waldiez.vscode.toPython did not execute correctly'
         );
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        const pythonFile = vscode.Uri.joinPath(
+            workspaceFolder.uri,
+            'simple.py'
+        );
+        assert.ok(
+            await vscode.workspace.fs.stat(pythonFile),
+            'Python file not found'
+        );
+        vscode.workspace.fs.delete(pythonFile);
     });
     test('Command waldiez.vscode.toIpynb should be executable', async () => {
         const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
@@ -50,7 +58,15 @@ suite('Extension Test Suite', () => {
             undefined,
             'Command waldiez.vscode.toIpynb did not execute correctly'
         );
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        const ipynbFile = vscode.Uri.joinPath(
+            workspaceFolder.uri,
+            'simple.ipynb'
+        );
+        assert.ok(
+            await vscode.workspace.fs.stat(ipynbFile),
+            'Jupyter Notebook file not found'
+        );
+        vscode.workspace.fs.delete(ipynbFile);
     });
     test('Command waldiez.vscode.run should be executable', async () => {
         const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
@@ -64,6 +80,33 @@ suite('Extension Test Suite', () => {
             undefined,
             'Command waldiez.vscode.run did not execute correctly'
         );
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        const output_folder = vscode.Uri.joinPath(
+            workspaceFolder.uri,
+            'waldiez_out'
+        );
+        assert.ok(
+            await vscode.workspace.fs.stat(output_folder),
+            'Output folder not found'
+        );
+        vscode.workspace.fs.delete(output_folder, { recursive: true });
+    });
+    test('It should not convert an invalid .waldiez file', async () => {
+        const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
+        assert.ok(workspaceFolder, 'No workspace folder found');
+        await vscode.commands.executeCommand(
+            'waldiez.vscode.toPython',
+            vscode.Uri.joinPath(workspaceFolder.uri, 'invalid.waldiez')
+        );
+        const pythonFile = vscode.Uri.joinPath(
+            workspaceFolder.uri,
+            'invalid.py'
+        );
+        const pythonFileExists = await vscode.workspace.fs
+            .stat(pythonFile)
+            .then(
+                () => true,
+                () => false
+            );
+        assert.strictEqual(pythonFileExists, false, 'Python file found');
     });
 });
