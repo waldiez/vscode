@@ -35,7 +35,8 @@ export async function beforeTests(): Promise<void> {
             executable,
             ['-m', 'pip', 'install', '--upgrade', 'pip'],
             {
-                stdio: 'pipe'
+                stdio: 'pipe',
+                shell: process.platform === 'win32'
             }
         );
         if (output.status !== 0) {
@@ -67,6 +68,8 @@ export async function beforeTests(): Promise<void> {
             console.log(output2.stdout.toString());
             console.log('Waldiez installed successfully');
         }
+    } else {
+        throw new Error('No valid Python environments found');
     }
     console.log(`Discovered ${api.environments.known.length} environments`);
 }
