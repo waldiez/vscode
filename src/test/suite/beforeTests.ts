@@ -9,7 +9,9 @@ export async function beforeTests() {
     let retries = 0;
 
     while (api.environments.known.length === 0 && retries < maxRetries) {
-        await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 1 second
+        console.log(`Attempt ${retries + 1}: Waiting for 2 seconds...`);
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 2 seconds
+        console.log('2 seconds passed');
         retries++;
     }
 
