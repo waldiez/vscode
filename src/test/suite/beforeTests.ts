@@ -4,13 +4,14 @@ import * as vscode from 'vscode';
 
 export async function beforeTests() {
     await vscode.extensions.getExtension('ms-python.python')?.activate();
-    const environmentsFound = await waitForPythonEnvironments();
+    await waitForPythonEnvironments();
+    const api = await PythonExtension.api();
     console.log('Discovered environments:');
-    console.log(environmentsFound);
+    console.log(api.environments.known);
     // also pip install waldiez in the environment
     // get the highest version of the environments (that is >= 3.10 and <= 3.13)
     // and install waldiez in that environment
-    const highestVersion = environmentsFound
+    const highestVersion = api.environments.known
         .filter(
             env =>
                 env.version?.major === 3 &&
@@ -65,8 +66,6 @@ export async function beforeTests() {
             console.log(output2.stdout.toString());
             console.log('Waldiez installed successfully');
         }
-    } else {
-        throw new Error('No valid Python environments found');
     }
 }
 
@@ -80,9 +79,6 @@ const waitForPythonEnvironments = async () => {
         retries++;
         console.log('Discovered environments:');
         console.log(api.environments.known);
-    }
-    if (api.environments.known.length === 0) {
-        throw new Error('No Python environments were discovered');
     }
     return api.environments.known;
 };
