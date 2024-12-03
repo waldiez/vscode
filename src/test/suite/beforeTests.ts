@@ -35,5 +35,4 @@ const waitForPythonEnvironments = async () => {
         retries++;
         await environments.refreshEnvironments();
     }
-    return environments.known;
 };
