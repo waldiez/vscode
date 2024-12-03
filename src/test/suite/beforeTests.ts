@@ -70,15 +70,17 @@ export async function beforeTests() {
 }
 
 const waitForPythonEnvironments = async () => {
-    const api = await PythonExtension.api();
+    const pythonApi: PythonExtension = await PythonExtension.api();
+    const environments = pythonApi.environments;
     const maxRetries = 30; // Maximum retries to wait for environments
     let retries = 0;
-    while (api.environments.known.length === 0 && retries < maxRetries) {
+    while (environments.known.length === 0 && retries < maxRetries) {
         console.log(`Attempt ${retries + 1}: Waiting for 2 seconds...`);
         await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 2 seconds
         retries++;
-        console.log('Discovered environments:');
-        console.log(api.environments.known);
+        await environments.refreshEnvironments();
     }
-    return api.environments.known;
+    console.log('Discovered environments:');
+    console.log(environments.known);
+    return environments.known;
 };
