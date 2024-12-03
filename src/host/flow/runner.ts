@@ -50,7 +50,12 @@ export class FlowRunner extends vscode.Disposable {
         ) => Promise<string | undefined>
     ) {
         if (!(await this._canRun())) {
-            return;
+            vscode.window.showErrorMessage(
+                'Failed to run flow. Waldiez python module not found'
+            );
+            return new Promise<void>((_resolve, reject) => {
+                reject();
+            });
         }
         this._cleanup();
         this._running = true;
