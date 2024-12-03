@@ -31,16 +31,30 @@ export async function beforeTests(): Promise<void> {
         const executable = highestVersion.path;
         const output = spawnSync(
             executable,
-            ['-m', 'pip', 'install', '--upgrade', 'waldiez'],
+            ['-m', 'pip', 'install', '--upgrade', 'pip'],
             {
                 stdio: 'pipe'
             }
         );
         if (output.status !== 0) {
             console.error(output.stderr.toString());
-            throw new Error('Failed to install waldiez');
+            throw new Error('Failed to upgrade pip');
         } else {
             console.log(output.stdout.toString());
+            console.log('Pip upgraded successfully');
+        }
+        const output2 = spawnSync(
+            executable,
+            ['-m', 'pip', 'install', '--upgrade', 'waldiez'],
+            {
+                stdio: 'pipe'
+            }
+        );
+        if (output2.status !== 0) {
+            console.error(output2.stderr.toString());
+            throw new Error('Failed to install waldiez');
+        } else {
+            console.log(output2.stdout.toString());
             console.log('Waldiez installed successfully');
         }
     }
