@@ -2,7 +2,7 @@ import { traceError, traceInfo, traceLog, traceWarn } from '../log/logging';
 import { spawn, spawnSync } from 'child_process';
 import * as vscode from 'vscode';
 
-const MINIMUM_REQUIRED_WALDIEZ_PY_VERSION = '0.1.12';
+const MINIMUM_REQUIRED_WALDIEZ_PY_VERSION = '0.1.13';
 
 /**
  * Ensures that the `waldiez` Python module is available in the current Python environment.
