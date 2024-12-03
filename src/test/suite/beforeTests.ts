@@ -8,10 +8,15 @@ export async function beforeTests() {
     console.log('Discovered environments:');
     console.log(environmentsFound);
     // also pip install waldiez in the environment
-    // get the highest version of the environments (that is not 3.13)
+    // get the highest version of the environments (that is >= 3.10 and <= 3.13)
     // and install waldiez in that environment
     const highestVersion = environmentsFound
-        .filter(env => env.version?.major === 3 && env.version?.minor !== 13)
+        .filter(
+            env =>
+                env.version?.major === 3 &&
+                (env.version?.minor ?? 9) >= 10 &&
+                (env.version?.minor ?? 13) <= 13
+        )
         .sort((a, b) => {
             if (!a.version?.minor || !b.version?.minor) {
                 return 0;
@@ -67,20 +72,17 @@ export async function beforeTests() {
 
 const waitForPythonEnvironments = async () => {
     const api = await PythonExtension.api();
-    let environmentsFound = api.environments.known;
     const maxRetries = 30; // Maximum retries to wait for environments
     let retries = 0;
-    while (environmentsFound.length === 0 && retries < maxRetries) {
+    while (api.environments.known.length === 0 && retries < maxRetries) {
         console.log(`Attempt ${retries + 1}: Waiting for 2 seconds...`);
         await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 2 seconds
-        console.log('2 seconds passed');
         retries++;
-        environmentsFound = api.environments.known;
         console.log('Discovered environments:');
-        console.log(environmentsFound);
+        console.log(api.environments.known);
     }
-    if (environmentsFound.length === 0) {
+    if (api.environments.known.length === 0) {
         throw new Error('No Python environments were discovered');
     }
-    return environmentsFound;
+    return api.environments.known;
 };
