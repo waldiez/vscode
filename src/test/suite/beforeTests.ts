@@ -5,11 +5,11 @@ import * as vscode from 'vscode';
 export async function beforeTests() {
     await vscode.extensions.getExtension('ms-python.python')?.activate();
     const api = await PythonExtension.api();
-    const maxRetries = 10; // Maximum retries to wait for environments
+    const maxRetries = 30; // Maximum retries to wait for environments
     let retries = 0;
 
     while (api.environments.known.length === 0 && retries < maxRetries) {
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for 1 second
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 1 second
         retries++;
     }
 
