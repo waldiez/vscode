@@ -14,7 +14,7 @@ export async function beforeTests() {
             env =>
                 env.version?.major === 3 &&
                 (env.version?.minor ?? 9) >= 10 &&
-                (env.version?.minor ?? 13) <= 13
+                (env.version?.minor ?? 13) < 13
         )
         .sort((a, b) => {
             if (!a.version?.minor || !b.version?.minor) {
