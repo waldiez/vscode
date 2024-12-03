@@ -29,15 +29,20 @@ export async function beforeTests(): Promise<void> {
         })[0];
     if (highestVersion) {
         const executable = highestVersion.path;
-        const isWindows = process.platform === 'win32';
-        spawnSync(
+        const output = spawnSync(
             executable,
             ['-m', 'pip', 'install', '--upgrade', 'waldiez'],
             {
-                stdio: 'pipe',
-                shell: isWindows
+                stdio: 'pipe'
             }
         );
+        if (output.status !== 0) {
+            console.error(output.stderr.toString());
+            throw new Error('Failed to install waldiez');
+        } else {
+            console.log(output.stdout.toString());
+            console.log('Waldiez installed successfully');
+        }
     }
     console.log(`Discovered ${api.environments.known.length} environments`);
 }
