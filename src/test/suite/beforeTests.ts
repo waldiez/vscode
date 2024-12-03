@@ -47,9 +47,17 @@ export async function beforeTests(): Promise<void> {
         }
         const output2 = spawnSync(
             executable,
-            ['-m', 'pip', 'install', '--upgrade', 'waldiez'],
+            [
+                '-m',
+                'pip',
+                'install',
+                '--upgrade',
+                '--break-system-packages',
+                'waldiez'
+            ],
             {
-                stdio: 'pipe'
+                stdio: 'pipe',
+                shell: process.platform === 'win32'
             }
         );
         if (output2.status !== 0) {
