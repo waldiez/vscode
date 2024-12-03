@@ -30,7 +30,8 @@ export async function beforeTests(): Promise<void> {
     if (highestVersion) {
         const executable = highestVersion.path;
         console.log(`Installing waldiez using ${executable}`);
-        spawnSync(executable, ['--version']);
+        const pythonVersion = spawnSync(executable, ['--version']);
+        console.log(pythonVersion.stdout.toString());
         const output = spawnSync(
             executable,
             ['-m', 'pip', 'install', '--upgrade', 'pip'],
