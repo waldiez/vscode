@@ -45,6 +45,7 @@ export async function run(): Promise<void> {
     });
     // Wait for Python environments to be ready
     // and install waldiez python package
+    console.log('Waiting for Python environments to be ready');
     await beforeTests();
 
     const nyc = setupCoverage();

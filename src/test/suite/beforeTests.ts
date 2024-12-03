@@ -2,7 +2,7 @@ import { PythonExtension } from '@vscode/python-extension';
 import { spawnSync } from 'child_process';
 import * as vscode from 'vscode';
 
-export async function beforeTests(): Promise<void> {
+export async function beforeTests() {
     await vscode.extensions.getExtension('ms-python.python')?.activate();
     const api = await PythonExtension.api();
     const maxRetries = 10; // Maximum retries to wait for environments
@@ -16,6 +16,8 @@ export async function beforeTests(): Promise<void> {
     if (api.environments.known.length === 0) {
         throw new Error('No Python environments were discovered');
     }
+    console.log('Discovered environments:');
+    console.log(api.environments.known);
     // also pip install waldiez in the environment
     // get the highest version of the environments (that is not 3.13)
     // and install waldiez in that environment
@@ -72,5 +74,4 @@ export async function beforeTests(): Promise<void> {
     } else {
         throw new Error('No valid Python environments found');
     }
-    console.log(`Discovered ${api.environments.known.length} environments`);
 }
