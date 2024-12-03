@@ -72,11 +72,12 @@ export class FlowConverter extends vscode.Disposable {
         const toRun = [
             '-m',
             'waldiez',
-            '--force',
-            '--export',
+            'convert',
+            '--file',
+            `${resource.fsPath}`,
             '--output',
             `${outputFile}`,
-            `${resource.fsPath}`
+            '--force'
         ];
         traceVerbose(`Converting ${resource.fsPath} to ${outputFile}`);
 

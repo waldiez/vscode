@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  all:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
@@ -23,12 +23,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.x
-      - name: Install python on windows
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
           update-environment: true
-        if: matrix.os == 'windows-latest'
       - name: Display Python version
         run: python --version
       - run: corepack enable

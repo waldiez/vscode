@@ -2,7 +2,7 @@ import { PythonExtension } from '@vscode/python-extension';
 import { spawnSync } from 'child_process';
 import * as vscode from 'vscode';
 
-export async function waitForPythonEnvironments(): Promise<void> {
+export async function beforeTests(): Promise<void> {
     await vscode.extensions.getExtension('ms-python.python')?.activate();
     const api = await PythonExtension.api();
     const maxRetries = 10; // Maximum retries to wait for environments
@@ -29,9 +29,20 @@ export async function waitForPythonEnvironments(): Promise<void> {
         })[0];
     if (highestVersion) {
         const executable = highestVersion.path;
-        spawnSync(executable, ['-m', 'pip', 'install', 'waldiez'], {
-            stdio: 'pipe'
-        });
+        spawnSync(
+            executable,
+            [
+                '-m',
+                'pip',
+                'install',
+                '--upgrade',
+                '--break-system-packages',
+                'waldiez'
+            ],
+            {
+                stdio: 'pipe'
+            }
+        );
     }
     console.log(`Discovered ${api.environments.known.length} environments`);
 }

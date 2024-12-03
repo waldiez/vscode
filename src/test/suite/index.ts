@@ -1,4 +1,4 @@
-import { waitForPythonEnvironments } from '../waitForPythonEnvironments';
+import { beforeTests } from './beforeTests';
 import { glob } from 'glob';
 import Mocha from 'mocha';
 import path from 'path';
@@ -41,10 +41,11 @@ export async function run(): Promise<void> {
         color: true,
         bail: true,
         fullTrace: true,
-        timeout: 60000
+        timeout: 300000
     });
     // Wait for Python environments to be ready
-    await waitForPythonEnvironments();
+    // and install waldiez python package
+    await beforeTests();
 
     const nyc = setupCoverage();
 
@@ -60,7 +61,7 @@ export async function run(): Promise<void> {
     });
 
     files.forEach(f => mocha.addFile(path.resolve(testsRoot, f)));
-
+    let success = true;
     try {
         await new Promise<void>((resolve, reject) => {
             mocha.run(failures =>
@@ -71,7 +72,11 @@ export async function run(): Promise<void> {
         });
     } catch (err) {
         console.error(err);
+        success = false;
     } finally {
+        if (!success) {
+            process.exit(1);
+        }
         if (nyc) {
             nyc.writeCoverageFile();
             await nyc.report();

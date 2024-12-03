@@ -115,6 +115,8 @@ export class FlowRunner extends vscode.Disposable {
             const cmdArgs = [
                 '-m',
                 'waldiez',
+                'run',
+                '--file',
                 `${resource.fsPath}`,
                 '--output',
                 `${outputPy}`,
