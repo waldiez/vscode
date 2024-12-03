@@ -66,6 +66,18 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - name: Install Yarn
+        run: |
+            corepack enable
+            yarn set version stable
+      - name: Install dependencies
+        run: yarn install
       - name: Create VSIX
         id: create_vsix
         run: |
