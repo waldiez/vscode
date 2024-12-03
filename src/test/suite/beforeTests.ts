@@ -7,23 +7,24 @@ export async function beforeTests() {
     const api = await PythonExtension.api();
     const maxRetries = 30; // Maximum retries to wait for environments
     let retries = 0;
+    let environmentsFound = api.environments.known;
 
-    while (api.environments.known.length === 0 && retries < maxRetries) {
+    while (environmentsFound.length === 0 && retries < maxRetries) {
         console.log(`Attempt ${retries + 1}: Waiting for 2 seconds...`);
         await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 2 seconds
         console.log('2 seconds passed');
         retries++;
+        environmentsFound = api.environments.known;
     }
-
-    if (api.environments.known.length === 0) {
+    if (environmentsFound.length === 0) {
         throw new Error('No Python environments were discovered');
     }
     console.log('Discovered environments:');
-    console.log(api.environments.known);
+    console.log(environmentsFound);
     // also pip install waldiez in the environment
     // get the highest version of the environments (that is not 3.13)
     // and install waldiez in that environment
-    const highestVersion = api.environments.known
+    const highestVersion = environmentsFound
         .filter(env => env.version?.major === 3 && env.version?.minor !== 13)
         .sort((a, b) => {
             if (!a.version?.minor || !b.version?.minor) {
