@@ -49,7 +49,9 @@ export class FlowRunner extends vscode.Disposable {
             prompt: string
         ) => Promise<string | undefined>
     ) {
-        if (!(await this._canRun())) {
+        const canRun = await this._canRun();
+        if (!canRun) {
+            this._cleanup();
             vscode.window.showErrorMessage(
                 'Failed to run flow. Waldiez python module not found'
             );
@@ -57,7 +59,6 @@ export class FlowRunner extends vscode.Disposable {
                 reject();
             });
         }
-        this._cleanup();
         this._running = true;
         clearOutput();
         showOutput();

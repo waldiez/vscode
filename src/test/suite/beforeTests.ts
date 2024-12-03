@@ -29,18 +29,13 @@ export async function beforeTests(): Promise<void> {
         })[0];
     if (highestVersion) {
         const executable = highestVersion.path;
+        const isWindows = process.platform === 'win32';
         spawnSync(
             executable,
-            [
-                '-m',
-                'pip',
-                'install',
-                '--upgrade',
-                '--break-system-packages',
-                'waldiez'
-            ],
+            ['-m', 'pip', 'install', '--upgrade', 'waldiez'],
             {
-                stdio: 'pipe'
+                stdio: 'pipe',
+                shell: isWindows
             }
         );
     }

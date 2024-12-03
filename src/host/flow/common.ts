@@ -1,5 +1,5 @@
-import { traceError, traceInfo, traceLog, traceWarn } from '../log/logging';
-import { spawn, spawnSync } from 'child_process';
+import { traceError, traceInfo, traceWarn } from '../log/logging';
+import { spawnSync } from 'child_process';
 import * as vscode from 'vscode';
 
 const MINIMUM_REQUIRED_WALDIEZ_PY_VERSION = '0.1.13';
@@ -20,8 +20,7 @@ export const ensureWaldiezPy = (
         if (!executable) {
             // If no Python executable is provided, log an error and reject the promise
             traceError('Python extension not found');
-            reject();
-            return;
+            return reject();
         }
 
         try {
@@ -36,7 +35,7 @@ export const ensureWaldiezPy = (
                 const version = commandOutput.match(/(\d+\.\d+\.\d+)/)?.[0];
                 if (!version) {
                     traceError('Failed to parse waldiez version');
-                    return installWaldiezPy(executable);
+                    return installWaldiezPy(executable).then(resolve, reject);
                 }
                 if (isVersionOK(version)) {
                     traceInfo(`Found Waldiez Python module version ${version}`);
@@ -46,17 +45,17 @@ export const ensureWaldiezPy = (
                 traceWarn(
                     `Waldiez Python module version ${version} found, but version ${MINIMUM_REQUIRED_WALDIEZ_PY_VERSION} or higher is required. Updating...`
                 );
-                return installWaldiezPy(executable);
+                return installWaldiezPy(executable).then(resolve, reject);
             } else {
                 // If the module is not found, attempt to install it
                 traceWarn(
                     'Waldiez Python module not found in the current Python environment. Installing...'
                 );
-                return installWaldiezPy(executable);
+                return installWaldiezPy(executable).then(resolve, reject);
             }
         } catch (error) {
             traceError('Failed to check waldiez version:', error);
-            return installWaldiezPy(executable);
+            return installWaldiezPy(executable).then(resolve, reject);
         }
     });
 };
@@ -66,53 +65,34 @@ const installWaldiezPy = (executable: string) => {
         vscode.window.showInformationMessage(
             'Waldiez Python module not found in the current Python environment. Installing...'
         );
-        // we might want to update this below
-        // to use --user flag (but we first need to check if we are in a virtual environment)
-        // if so, the --user will raise an error
-        const install = spawn(executable, [
-            '-m',
-            'pip',
-            'install',
-            '--break-system-packages',
-            `waldiez>=${MINIMUM_REQUIRED_WALDIEZ_PY_VERSION}`
-        ]);
-
-        // Log standard output during the installation process
-        install.stdout.on('data', data => {
-            traceLog(data.toString());
-        });
-
-        // Log and categorize standard error during the installation process
-        install.stderr.on('data', data => {
-            const dataString = data.toString();
-            if (dataString.startsWith('WARNING')) {
-                traceWarn(dataString);
-                return;
-            }
-            if (dataString.startsWith('ERROR')) {
-                traceError(dataString);
-                return;
-            }
-            if (dataString.startsWith('INFO')) {
-                traceInfo(dataString);
-                return;
-            }
-            traceError(dataString);
-        });
-
-        // Handle installation completion
-        install.on('exit', code => {
-            if (code === 0) {
-                // Resolve the promise if the installation succeeds
-                resolve();
+        try {
+            const result = spawnSync(executable, [
+                '-m',
+                'pip',
+                'install',
+                '--upgrade',
+                '--break-system-packages',
+                `waldiez>=${MINIMUM_REQUIRED_WALDIEZ_PY_VERSION}`
+            ]);
+            if (result.status === 0) {
+                traceInfo(result.stdout.toString());
+                traceInfo('Waldiez Python module installed successfully');
+                return resolve();
             } else {
-                // Reject the promise if the installation fails
+                traceError('Failed to install Waldiez Python module');
+                traceError(result.stderr.toString());
                 vscode.window.showErrorMessage(
                     'Failed to install Waldiez Python module. Please check your Python environment.'
                 );
-                reject();
+                return reject();
             }
-        });
+        } catch (error) {
+            traceError('Failed to install Waldiez Python module:', error);
+            vscode.window.showErrorMessage(
+                'Failed to install Waldiez Python module. Please check your Python environment.'
+            );
+            return reject();
+        }
     });
 };
 
