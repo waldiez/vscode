@@ -4,21 +4,7 @@ import * as vscode from 'vscode';
 
 export async function beforeTests() {
     await vscode.extensions.getExtension('ms-python.python')?.activate();
-    const api = await PythonExtension.api();
-    const maxRetries = 30; // Maximum retries to wait for environments
-    let retries = 0;
-    let environmentsFound = api.environments.known;
-
-    while (environmentsFound.length === 0 && retries < maxRetries) {
-        console.log(`Attempt ${retries + 1}: Waiting for 2 seconds...`);
-        await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 2 seconds
-        console.log('2 seconds passed');
-        retries++;
-        environmentsFound = api.environments.known;
-    }
-    if (environmentsFound.length === 0) {
-        throw new Error('No Python environments were discovered');
-    }
+    const environmentsFound = await waitForPythonEnvironments();
     console.log('Discovered environments:');
     console.log(environmentsFound);
     // also pip install waldiez in the environment
@@ -78,3 +64,23 @@ export async function beforeTests() {
         throw new Error('No valid Python environments found');
     }
 }
+
+const waitForPythonEnvironments = async () => {
+    const api = await PythonExtension.api();
+    let environmentsFound = api.environments.known;
+    const maxRetries = 30; // Maximum retries to wait for environments
+    let retries = 0;
+    while (environmentsFound.length === 0 && retries < maxRetries) {
+        console.log(`Attempt ${retries + 1}: Waiting for 2 seconds...`);
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 2 seconds
+        console.log('2 seconds passed');
+        retries++;
+        environmentsFound = api.environments.known;
+        console.log('Discovered environments:');
+        console.log(environmentsFound);
+    }
+    if (environmentsFound.length === 0) {
+        throw new Error('No Python environments were discovered');
+    }
+    return environmentsFound;
+};
