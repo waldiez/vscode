@@ -29,6 +29,7 @@ export async function beforeTests(): Promise<void> {
         })[0];
     if (highestVersion) {
         const executable = highestVersion.path;
+        console.log(`Installing waldiez using ${executable}`);
         const output = spawnSync(
             executable,
             ['-m', 'pip', 'install', '--upgrade', 'pip'],
