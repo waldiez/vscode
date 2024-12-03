@@ -6,8 +6,6 @@ export async function beforeTests() {
     await vscode.extensions.getExtension('ms-python.python')?.activate();
     await waitForPythonEnvironments();
     const api = await PythonExtension.api();
-    console.log('Discovered environments:');
-    console.log(api.environments.known);
     // also pip install waldiez in the environment
     // get the highest version of the environments (that is >= 3.10 and <= 3.13)
     // and install waldiez in that environment
@@ -80,7 +78,5 @@ const waitForPythonEnvironments = async () => {
         retries++;
         await environments.refreshEnvironments();
     }
-    console.log('Discovered environments:');
-    console.log(environments.known);
     return environments.known;
 };
