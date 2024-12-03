@@ -23,16 +23,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.x
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-          update-environment: true
+      - name: Install Yarn
+        run: |
+            corepack enable
+            yarn set version stable
+      - name: Install dependencies
+        run: yarn install
       - name: Display Python version
         run: python --version
-      - run: corepack enable
-      - run: yarn set version stable
-      - run: yarn install
       - name: Run tests
         run: |
           apt update && apt install -y xvfb libasound2 libgbm1 libgtk-3-0 libnss3
