@@ -399,9 +399,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-react@npm:^7.25.9":
-  version: 7.25.9
-  resolution: "@babel/preset-react@npm:7.25.9"
+"@babel/preset-react@npm:^7.26.3":
+  version: 7.26.3
+  resolution: "@babel/preset-react@npm:7.26.3"
   dependencies:
     "@babel/helper-plugin-utils": "npm:^7.25.9"
     "@babel/helper-validator-option": "npm:^7.25.9"
@@ -411,7 +411,7 @@ __metadata:
     "@babel/plugin-transform-react-pure-annotations": "npm:^7.25.9"
   peerDependencies:
     "@babel/core": ^7.0.0-0
-  checksum: 10/3c9daf47cf51568d96984d21b9f83992590c0e91f16a333f999100bb3c2c200730cde6806ed37fd2c999e0a63becefc881740b8f765b5a4aff4efc674e3e4197
+  checksum: 10/88cb78c402b79f32389ee06451da51698d5b1da7641d9a47482883f537fe5441a138bd4c077d8533fd6d557406b08911c47b94402cea843db598e020bdd9a373
   languageName: node
   linkType: hard
 
@@ -1909,9 +1909,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.1.16":
-  version: 0.1.16
-  resolution: "@waldiez/react@npm:0.1.16"
+"@waldiez/react@npm:^0.1.17":
+  version: 0.1.17
+  resolution: "@waldiez/react@npm:0.1.17"
   dependencies:
     "@monaco-editor/react": "npm:^4.6.0"
     "@xyflow/react": "npm:^12.3.5"
@@ -1924,8 +1924,8 @@ __metadata:
     react-icons: "npm:^5.4.0"
     react-select: "npm:^5.8.3"
     zundo: "npm:^2.3.0"
-    zustand: "npm:^5.0.1"
-  checksum: 10/c3e71a7583dbba13f18a75c4322a491d5f3b0e42f7944f30dd1ac3e5b4f26a589c94f5b158b0446a8f965970c98e008917a7894182844594a5dcee4b860c9338
+    zustand: "npm:^5.0.2"
+  checksum: 10/d3b530a2f69f27714c5b1dab94fa0089548fd25c3626c4f7be6b79bc77b61b019a3608d0a82a0799fc5344529e04d387e6942adcdfa0741b84bed9078fb69145
   languageName: node
   linkType: hard
 
@@ -6593,12 +6593,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.4.1":
-  version: 3.4.1
-  resolution: "prettier@npm:3.4.1"
+"prettier@npm:^3.4.2":
+  version: 3.4.2
+  resolution: "prettier@npm:3.4.2"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10/1ee4d1b1a9b6761cbb847cd81b9d87e51a0f4b2a4d5fe5755627c24828afe057a7ee9b764c3ee777d84abd46218d173d8a204ee9cb3acdd321ff9a6b25f99c1c
+  checksum: 10/a3e806fb0b635818964d472d35d27e21a4e17150c679047f5501e1f23bd4aa806adf660f0c0d35214a210d5d440da6896c2e86156da55f221a57938278dc326e
   languageName: node
   linkType: hard
 
@@ -8258,7 +8258,7 @@ __metadata:
   resolution: "waldiez-vscode@workspace:."
   dependencies:
     "@babel/core": "npm:^7.26.0"
-    "@babel/preset-react": "npm:^7.25.9"
+    "@babel/preset-react": "npm:^7.26.3"
     "@stylistic/eslint-plugin": "npm:^2.11.0"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@types/babel__core": "npm:^7.20.5"
@@ -8279,7 +8279,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.10"
     "@vscode/test-electron": "npm:^2.4.1"
     "@vscode/vsce": "npm:^3.2.1"
-    "@waldiez/react": "npm:^0.1.16"
+    "@waldiez/react": "npm:^0.1.17"
     babel-loader: "npm:^9.2.1"
     css-loader: "npm:^7.1.2"
     eslint: "npm:^9.16.0"
@@ -8291,7 +8291,7 @@ __metadata:
     nanoid: "npm:^5.0.9"
     nyc: "npm:^17.1.0"
     pre-commit: "npm:^1.2.2"
-    prettier: "npm:^3.4.1"
+    prettier: "npm:^3.4.2"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     rimraf: "npm:^6.0.1"
@@ -8311,7 +8311,7 @@ __metadata:
     typescript-eslint: "npm:^8.17.0"
     vsce: "npm:^2.15.0"
     vscode-test: "npm:^1.6.1"
-    webpack: "npm:^5.97.0"
+    webpack: "npm:^5.97.1"
     webpack-cli: "npm:^5.1.4"
   languageName: unknown
   linkType: soft
@@ -8376,9 +8376,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.97.0":
-  version: 5.97.0
-  resolution: "webpack@npm:5.97.0"
+"webpack@npm:^5.97.1":
+  version: 5.97.1
+  resolution: "webpack@npm:5.97.1"
   dependencies:
     "@types/eslint-scope": "npm:^3.7.7"
     "@types/estree": "npm:^1.0.6"
@@ -8408,7 +8408,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 10/bcdc585d115de4309e7821c1533118f2d27b1f83a5587ca8db8a74651e88fb813505d412b1dc15586ff35efb53b0425453196655580023b45f35755f6c7b922f
+  checksum: 10/665bd3b8c84b20f0b1f250159865e4d3e9b76c682030313d49124d5f8e96357ccdcc799dd9fe0ebf010fdb33dbc59d9863d79676a308e868e360ac98f7c09987
   languageName: node
   linkType: hard
 
@@ -8788,9 +8788,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zustand@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "zustand@npm:5.0.1"
+"zustand@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "zustand@npm:5.0.2"
   peerDependencies:
     "@types/react": ">=18.0.0"
     immer: ">=9.0.6"
@@ -8805,6 +8805,6 @@ __metadata:
       optional: true
     use-sync-external-store:
       optional: true
-  checksum: 10/9ee5b2483213157c519be2647e873fb21962b4e6e521031916e8969552379dd03348057c9dfd030eb1e7ef98a945a1f99f9aa9badda5d9673eb4004e354dc2dc
+  checksum: 10/9fb60796b9770dcc3f78dd794e7f424ff735e5676784cbc9726761037613942b62470b24a9ca9e98534ee4369a3b5429be570ff34281cb3c9d6d4e8df559ec3f
   languageName: node
   linkType: hard

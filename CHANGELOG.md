@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## v0.1.3
+
+- Updated @waldiez/react to v0.1.17
+- Other dependencies update
+
 ## v0.1.2
 
 - Updated @waldiez/react
