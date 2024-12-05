@@ -52,12 +52,12 @@ jobs:
           python-version: '3.12'
       - name: Display Python version
         run: python --version
-      - name: Run tests on Linux
+      - name: Run tests on ${{ matrix.os }}
         run: |
           apt update && apt install -y xvfb libasound2 libgbm1 libgtk-3-0 libnss3
           xvfb-run -a yarn run test
         if: runner.os == 'Linux'
-      - name: Run tests on Windows and MacOS
+      - name: Run tests on ${{ matrix.os }}
         run: yarn run test
         if: runner.os != 'Linux'
 
