@@ -100,7 +100,8 @@ jobs:
           repository: ${{ github.repository }}
           files: |
             waldiez-vscode-*.vsix
-      # - name: Publish
-      #   run: yarn run deploy
-      #   env:
-      #     VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      - name: Publish
+        if: success() && steps.create_vsix.outputs.generated
+        run: yarn run deploy
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}

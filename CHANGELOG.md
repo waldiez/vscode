@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## v0.1.4
+
+- Updated @waldiez/react to v0.1.18
+- Updated waldiez py requirement v0.1.14
+
 ## v0.1.3
 
 - Updated @waldiez/react to v0.1.17
