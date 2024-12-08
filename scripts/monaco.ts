@@ -59,30 +59,20 @@ function extractTarFile(file: string, dest: string): Promise<void> {
     });
 }
 
+function moveDir(src: string, dest: string): void {
+    if (fs.existsSync(src)) {
+        if (fs.existsSync(dest)) {
+            fs.rmSync(dest, { recursive: true, force: true });
+        }
+        fs.renameSync(src, dest);
+    }
+}
 function keepOnlyMinVs(dir: string): Promise<void> {
     const packageDir = path.join(dir, 'package');
     const minVsDir = path.join(packageDir, 'min', 'vs');
     const destDir = path.join(dir, 'vs');
-    if (fs.existsSync(minVsDir)) {
-        if (fs.existsSync(destDir)) {
-            fs.rmSync(destDir, { recursive: true, force: true });
-        }
-        fs.renameSync(minVsDir, destDir);
-        return new Promise((resolve, reject) => {
-            // fs.rmSync gives Error: ENOTEMPTY: directory not empty
-            // fs.rmSync(packageDir, { recursive: true, force: true, maxRetries: 3 });
-            fs.promises
-                .rm(packageDir, { recursive: true })
-                .then(() => {
-                    resolve();
-                })
-                .catch(err => {
-                    reject(err);
-                });
-        });
-    } else {
-        return Promise.resolve();
-    }
+    moveDir(minVsDir, destDir);
+    return fs.promises.rm(packageDir, { recursive: true });
 }
 
 function findLatestVersion(): Promise<[string, string, string]> {
