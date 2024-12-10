@@ -132,19 +132,6 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
                 provideTextDocumentContent: () => document.getText()
             });
 
-        // // Sync document changes across multiple editors
-        // const changeDocumentSubscription =
-        //     vscode.workspace.onDidChangeTextDocument(e => {
-        //         if (
-        //             e.document.uri.toString() === document.uri.toString() &&
-        //             !webviewPanel.active
-        //         ) {
-        //             messageHandler.sendMessage({
-        //                 type: 'update',
-        //                 value: e.document.getText()
-        //             });
-        //         }
-        //     });
         // Show or hide the status bar item based on webview visibility
         const changeViewStateSubscription = webviewPanel.onDidChangeViewState(
             e => {
@@ -190,7 +177,8 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
         const imgSrc = `${webview.cspSource} data:`;
         const workerSrc = `${webview.cspSource} blob:`;
         const fontSrc = `${webview.cspSource}`;
-        const connectSrc = `${webview.cspSource} blob:`;
+        // allow all for connect-src (to be able to search/load remote flows)
+        const connectSrc = '*';
         const cspContent = `default-src 'none'; style-src ${styleSrc}; script-src ${scriptSrc}; img-src ${imgSrc}; worker-src ${workerSrc}; connect-src ${connectSrc}; font-src ${fontSrc}`;
         return `
           <!DOCTYPE html>
