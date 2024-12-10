@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## v0.1.6
+
+- Updated @waldiez/react to v0.1.19
+- Updated `CustomTextEditorProvider` to allow fetching flows from remote urls (relaxed the `connect-src` csp  policy)
+- Updated waldiez py requirement v0.1.16
+- Dev dependencies update
+
 ## v0.1.5
 
 - Updated waldiez py requirement v0.1.15
