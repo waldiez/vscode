@@ -22,7 +22,7 @@ export const useWaldiezWebview = () => {
             previousMessages: string[];
             prompt: string;
         } | null;
-        id: string | undefined;
+        flowId: string | undefined;
         nodes: Node[];
         edges: Edge[];
         viewport: Viewport;
@@ -36,7 +36,7 @@ export const useWaldiezWebview = () => {
     }>({
         vsPath: null,
         inputPrompt: null,
-        id: undefined,
+        flowId: undefined,
         nodes: [],
         edges: [],
         viewport: {
@@ -62,7 +62,16 @@ export const useWaldiezWebview = () => {
         try {
             const parsedData = JSON.parse(flowData);
             const importedData = importFlow(parsedData);
-            setSessionData({ ...importedData, vsPath });
+            setSessionData({
+                ...importedData,
+                vsPath,
+                flowId: importedData.flowId,
+                viewport: importedData.viewport ?? {
+                    zoom: 1,
+                    x: 0,
+                    y: 0
+                }
+            });
         } catch (e) {
             console.error('Error parsing JSON', e);
         }

@@ -5,6 +5,7 @@
  */
 import type { HostMessage, UploadRequest, WebviewMessage } from '../types';
 import { TIME_TO_WAIT_FOR_INPUT } from './flow/runner';
+import { traceError, traceLog } from './log/logging';
 import { getMonacoUri } from './utils';
 import * as vscode from 'vscode';
 
@@ -109,17 +110,22 @@ export class MessageHandler {
             '..',
             file.name
         );
-        if (workspaceFolders) {
+        const fileScheme = this._document.uri.scheme;
+        if (fileScheme !== 'file' && workspaceFolders) {
             destination = vscode.Uri.joinPath(
                 workspaceFolders[0].uri,
                 file.name
             );
         }
+        traceLog('<Waldiez> Saving file to:', destination.fsPath);
         try {
             await vscode.workspace.fs.writeFile(destination, buffer);
+            vscode.commands.executeCommand(
+                'workbench.files.action.refreshFilesExplorer'
+            );
             return destination.fsPath;
         } catch (e) {
-            console.error('<Waldiez> Error saving file:', e);
+            traceError('<Waldiez> Error saving file:', e);
             return null;
         }
     }

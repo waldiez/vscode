@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## v0.1.7
+
+- Updated @waldiez/react to v0.1.21
+- Updated waldiez py requirement v0.1.19
+- Updated previously empty `with_rag.waldiez` example
+- Dev dependencies update
+
 ## v0.1.6
 
 - Updated @waldiez/react to v0.1.19
