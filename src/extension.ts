@@ -1,11 +1,11 @@
-import { registerCommands } from './host/commands';
-import { FlowConverter } from './host/flow/converter';
-import { PythonWrapper } from './host/flow/python';
-import { FlowRunner } from './host/flow/runner';
-import { registerLogger, showOutput, traceError } from './host/log/logging';
-import { WaldiezEditorProvider } from './host/provider';
-import * as vscode from 'vscode';
-import { ExtensionContext } from 'vscode';
+import { registerCommands } from "./host/commands";
+import { FlowConverter } from "./host/flow/converter";
+import { PythonWrapper } from "./host/flow/python";
+import { FlowRunner } from "./host/flow/runner";
+import { registerLogger, showOutput, traceError } from "./host/log/logging";
+import { WaldiezEditorProvider } from "./host/provider";
+import * as vscode from "vscode";
+import { ExtensionContext } from "vscode";
 
 // store disposables for cleanup
 const waldiezExtensionDisposables: vscode.Disposable[] = [];
@@ -18,8 +18,8 @@ const waldiezExtensionDisposables: vscode.Disposable[] = [];
  */
 export async function activate(context: ExtensionContext): Promise<void> {
     // Create and clear an output channel for the extension
-    const outputChannel = vscode.window.createOutputChannel('Waldiez', {
-        log: true
+    const outputChannel = vscode.window.createOutputChannel("Waldiez", {
+        log: true,
     });
     outputChannel.clear();
     waldiezExtensionDisposables.push(registerLogger(outputChannel)); // Register the logger to use the output channel
@@ -27,11 +27,9 @@ export async function activate(context: ExtensionContext): Promise<void> {
     // Ensure a valid Python interpreter (>=3.10, <3.13) is available
     const wrapper = await PythonWrapper.create(waldiezExtensionDisposables);
     if (!wrapper || !wrapper.executable) {
-        traceError('Failed to find a valid Python interpreter (>=3.10, <3.13)');
+        traceError("Failed to find a valid Python interpreter (>=3.10, <3.13)");
         showOutput();
-        vscode.window.showErrorMessage(
-            'Failed to find a valid Python interpreter (>=3.10, <3.13)'
-        );
+        vscode.window.showErrorMessage("Failed to find a valid Python interpreter (>=3.10, <3.13)");
         deactivate();
         return; // Abort activation if no valid Python interpreter is found
     }
@@ -43,11 +41,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     const flowConverter = new FlowConverter(wrapper);
     waldiezExtensionDisposables.push(flowConverter); // Add the FlowConverter to disposables for cleanup
 
-    const provider = new WaldiezEditorProvider(
-        context,
-        flowRunner,
-        waldiezExtensionDisposables
-    );
+    const provider = new WaldiezEditorProvider(context, flowRunner, waldiezExtensionDisposables);
     waldiezExtensionDisposables.push(provider); // Add the custom editor provider to disposables
 
     // Register extension commands

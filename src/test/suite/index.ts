@@ -1,30 +1,28 @@
-import { beforeTests } from './beforeTests';
-import { glob } from 'glob';
-import Mocha from 'mocha';
-import path from 'path';
+import { beforeTests } from "./beforeTests";
+import { glob } from "glob";
+import Mocha from "mocha";
+import path from "path";
 
-const isWIndows = process.platform === 'win32';
+const isWIndows = process.platform === "win32";
 
 function setupCoverage() {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const NYC = require('nyc');
+    const NYC = require("nyc");
     const nyc = new NYC({
-        cwd: path.resolve(__dirname, '..', '..', '..'),
-        include: ['dist'],
-        exclude: ['!**/node_modules/', '!**/test/', '!**/coverage/'],
+        cwd: path.resolve(__dirname, "..", "..", ".."),
+        include: ["dist"],
+        exclude: ["!**/node_modules/", "!**/test/", "!**/coverage/"],
         // on windows we get:
         // Error: Path contains invalid characters:
         // d:\a\vscode\vscode\coverage\lcov-report\dist\webpack:\waldiez-vscode...
-        reporter: isWIndows
-            ? ['text', 'text-summary']
-            : ['text', 'text-summary', 'lcov'],
+        reporter: isWIndows ? ["text", "text-summary"] : ["text", "text-summary", "lcov"],
         all: true,
         // sourceMap: false,
         sourceMap: true,
         instrument: false,
         hookRequire: true,
         hookRunInContext: true,
-        hookRunInThisContext: true
+        hookRunInThisContext: true,
     });
 
     nyc.reset();
@@ -33,26 +31,26 @@ function setupCoverage() {
     return nyc;
 }
 export async function run(): Promise<void> {
-    const testsRoot = path.resolve(__dirname, '..');
+    const testsRoot = path.resolve(__dirname, "..");
 
     // Create the mocha test
     const mocha = new Mocha({
-        ui: 'tdd',
+        ui: "tdd",
         color: true,
         bail: true,
         fullTrace: true,
-        timeout: 300000
+        timeout: 300000,
     });
     // Wait for Python environments to be ready
     // and install waldiez python package
-    console.log('Waiting for Python environments to be ready');
+    console.log("Waiting for Python environments to be ready");
     await beforeTests();
 
     const nyc = setupCoverage();
 
     // Discover and add test files to Mocha
     const files = await new Promise<string[]>((resolve, reject) => {
-        glob('**/**.test.js', { cwd: testsRoot }, (err, files) => {
+        glob("**/**.test.js", { cwd: testsRoot }, (err, files) => {
             if (err) {
                 reject(err);
             } else {
@@ -65,11 +63,7 @@ export async function run(): Promise<void> {
     let success = true;
     try {
         await new Promise<void>((resolve, reject) => {
-            mocha.run(failures =>
-                failures
-                    ? reject(new Error(`${failures} tests failed`))
-                    : resolve()
-            );
+            mocha.run(failures => (failures ? reject(new Error(`${failures} tests failed`)) : resolve()));
         });
     } catch (err) {
         console.error(err);

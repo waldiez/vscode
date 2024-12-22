@@ -1,14 +1,9 @@
-import type {
-    ContentUpdate,
-    HostMessage,
-    Initialization,
-    InputRequest
-} from '../types';
-import { messaging } from './messaging';
-import { transferFiles } from './uploading';
-import { importFlow } from '@waldiez/react';
-import { Edge, Node, Viewport } from '@xyflow/react';
-import { useEffect, useState } from 'react';
+import type { ContentUpdate, HostMessage, Initialization, InputRequest } from "../types";
+import { messaging } from "./messaging";
+import { transferFiles } from "./uploading";
+import { importFlow } from "@waldiez/react";
+import { Edge, Node, Viewport } from "@xyflow/react";
+import { useEffect, useState } from "react";
 
 export const useWaldiezWebview = () => {
     const [initialized, setInitialized] = useState(false);
@@ -42,23 +37,18 @@ export const useWaldiezWebview = () => {
         viewport: {
             zoom: 1,
             x: 0,
-            y: 0
+            y: 0,
         },
-        name: '',
-        description: '',
+        name: "",
+        description: "",
         tags: [],
-        requirements: []
+        requirements: [],
     });
     const _initialize = (hostMsg: Initialization | ContentUpdate) => {
         setInitialized(true);
-        const flowData =
-            typeof hostMsg.value === 'string'
-                ? hostMsg.value
-                : hostMsg.value.flow;
+        const flowData = typeof hostMsg.value === "string" ? hostMsg.value : hostMsg.value.flow;
         const vsPath =
-            typeof hostMsg.value === 'string'
-                ? null
-                : (hostMsg.value.monaco ?? sessionData.vsPath);
+            typeof hostMsg.value === "string" ? null : (hostMsg.value.monaco ?? sessionData.vsPath);
         try {
             const parsedData = JSON.parse(flowData);
             const importedData = importFlow(parsedData);
@@ -69,17 +59,17 @@ export const useWaldiezWebview = () => {
                 viewport: importedData.viewport ?? {
                     zoom: 1,
                     x: 0,
-                    y: 0
-                }
+                    y: 0,
+                },
             });
         } catch (e) {
-            console.error('Error parsing JSON', e);
+            console.error("Error parsing JSON", e);
         }
     };
     const onRun = (flowJson: string) => {
         messaging.send({
-            action: 'run',
-            value: flowJson
+            action: "run",
+            value: flowJson,
         });
     };
     const onInputRequest = (msg: InputRequest) => {
@@ -87,15 +77,15 @@ export const useWaldiezWebview = () => {
     };
     const onUserInput = (value: string) => {
         messaging.send({
-            action: 'input',
-            value
+            action: "input",
+            value,
         });
         setInputPrompt(null);
     };
     const onChange = (flowJson: string) => {
         messaging.send({
-            action: 'change',
-            value: flowJson
+            action: "change",
+            value: flowJson,
         });
     };
     const onUpload = (files: File[]) => {
@@ -107,26 +97,24 @@ export const useWaldiezWebview = () => {
         const target = event.target;
         if (
             target instanceof Element &&
-            (target.tagName === 'TEXTAREA' ||
-                (target.tagName === 'INPUT' &&
-                    ['text', 'number'].includes(
-                        target.getAttribute('type') ?? ''
-                    )))
+            (target.tagName === "TEXTAREA" ||
+                (target.tagName === "INPUT" &&
+                    ["text", "number"].includes(target.getAttribute("type") ?? "")))
         ) {
             target.setAttribute(
-                'data-vscode-context',
-                JSON.stringify({ preventDefaultContextMenuItems: false })
+                "data-vscode-context",
+                JSON.stringify({ preventDefaultContextMenuItems: false }),
             );
         }
     };
     const messageHandler = (msg: HostMessage) => {
         switch (msg.type) {
-            case 'init':
+            case "init":
                 if (!initialized) {
                     _initialize(msg);
                 }
                 break;
-            case 'input':
+            case "input":
                 onInputRequest(msg);
                 break;
             default:
@@ -135,14 +123,14 @@ export const useWaldiezWebview = () => {
     };
     useEffect(() => {
         messaging.send({
-            action: 'ready'
+            action: "ready",
         });
         messaging.setMessageHandler(messageHandler);
         messaging.listen();
-        document.addEventListener('focusin', checkFocus);
+        document.addEventListener("focusin", checkFocus);
         return () => {
             messaging.stopListening();
-            document.removeEventListener('focusin', checkFocus);
+            document.removeEventListener("focusin", checkFocus);
         };
     }, []);
     return {
@@ -152,6 +140,6 @@ export const useWaldiezWebview = () => {
         onRun,
         onUserInput,
         onChange,
-        onUpload
+        onUpload,
     };
 };

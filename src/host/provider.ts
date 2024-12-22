@@ -1,14 +1,14 @@
-import { FlowRunner } from './flow/runner';
-import { MessageHandler } from './messaging';
-import { getNonce, getUri } from './utils';
-import * as vscode from 'vscode';
+import { FlowRunner } from "./flow/runner";
+import { MessageHandler } from "./messaging";
+import { getNonce, getUri } from "./utils";
+import * as vscode from "vscode";
 
 /**
  * Provides a custom editor for Waldiez Flow files.
  */
 export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
     // View type identifier for the custom editor
-    private static readonly viewType = 'waldiez.flow';
+    private static readonly viewType = "waldiez.flow";
     private _runner: FlowRunner;
     private _statusBarItem: vscode.StatusBarItem;
 
@@ -22,14 +22,12 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
     constructor(
         private readonly context: vscode.ExtensionContext,
         runner: FlowRunner,
-        disposables: vscode.Disposable[]
+        disposables: vscode.Disposable[],
     ) {
         this._runner = runner;
 
         // Set a callback to handle Python interpreter changes
-        this._runner.wrapper.setOnChangePythonInterpreter(
-            this._onChangedPythonInterpreter.bind(this)
-        );
+        this._runner.wrapper.setOnChangePythonInterpreter(this._onChangedPythonInterpreter.bind(this));
 
         // Initialize and store the status bar item
         this._statusBarItem = this._initializeStatusBarItem();
@@ -38,7 +36,7 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
         // check if already registered
         const providerRegistration = vscode.window.registerCustomEditorProvider(
             WaldiezEditorProvider.viewType,
-            this
+            this,
         );
 
         disposables.push(providerRegistration);
@@ -57,11 +55,8 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
      * @returns A configured StatusBarItem.
      */
     private _initializeStatusBarItem() {
-        const statusBarItem = vscode.window.createStatusBarItem(
-            vscode.StatusBarAlignment.Right,
-            100
-        );
-        statusBarItem.command = 'python.setInterpreter';
+        const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+        statusBarItem.command = "python.setInterpreter";
         return statusBarItem;
     }
 
@@ -75,21 +70,19 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
     public async resolveCustomTextEditor(
         document: vscode.TextDocument,
         webviewPanel: vscode.WebviewPanel,
-        _token: vscode.CancellationToken
+        _token: vscode.CancellationToken,
     ): Promise<void> {
         // Configure webview options
         webviewPanel.webview.options = {
             enableScripts: true,
             localResourceRoots: [
-                vscode.Uri.joinPath(this.context.extensionUri, 'dist'),
-                vscode.Uri.joinPath(this.context.extensionUri, 'public')
-            ]
+                vscode.Uri.joinPath(this.context.extensionUri, "dist"),
+                vscode.Uri.joinPath(this.context.extensionUri, "public"),
+            ],
         };
 
         // Set the HTML content of the webview
-        webviewPanel.webview.html = this._getWebviewContent(
-            webviewPanel.webview
-        );
+        webviewPanel.webview.html = this._getWebviewContent(webviewPanel.webview);
 
         // Define the callback to run a flow file
         const onRun = (path: vscode.Uri) => {
@@ -102,7 +95,7 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
                 messageHandler
                     .askForInput({
                         previousMessages,
-                        prompt
+                        prompt,
                     })
                     .then(resolve)
                     .catch(reject);
@@ -115,33 +108,26 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
             webviewPanel,
             document,
             onRun,
-            this._showStatusBarItem.bind(this)
+            this._showStatusBarItem.bind(this),
         );
 
         // Set webview panel icon and title
-        webviewPanel.iconPath = vscode.Uri.joinPath(
-            this.context.extensionUri,
-            'public',
-            'icon.png'
-        );
-        webviewPanel.title = 'Waldiez';
+        webviewPanel.iconPath = vscode.Uri.joinPath(this.context.extensionUri, "public", "icon.png");
+        webviewPanel.title = "Waldiez";
 
         // Register a content provider for the text document
-        const contentProviderSubscription =
-            vscode.workspace.registerTextDocumentContentProvider('waldiez', {
-                provideTextDocumentContent: () => document.getText()
-            });
+        const contentProviderSubscription = vscode.workspace.registerTextDocumentContentProvider("waldiez", {
+            provideTextDocumentContent: () => document.getText(),
+        });
 
         // Show or hide the status bar item based on webview visibility
-        const changeViewStateSubscription = webviewPanel.onDidChangeViewState(
-            e => {
-                if (e.webviewPanel.visible) {
-                    this._statusBarItem.show();
-                } else {
-                    this._statusBarItem.hide();
-                }
+        const changeViewStateSubscription = webviewPanel.onDidChangeViewState(e => {
+            if (e.webviewPanel.visible) {
+                this._statusBarItem.show();
+            } else {
+                this._statusBarItem.hide();
             }
-        );
+        });
 
         // Clean up resources when the webview is closed
         webviewPanel.onDidDispose(() => {
@@ -165,8 +151,8 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
      */
     private _getWebviewContent(webview: vscode.Webview) {
         const extensionUri = this.context.extensionUri;
-        const scriptUri = getUri(webview, extensionUri, ['dist', 'main.js']);
-        const stylesUri = getUri(webview, extensionUri, ['dist', 'main.css']);
+        const scriptUri = getUri(webview, extensionUri, ["dist", "main.js"]);
+        const stylesUri = getUri(webview, extensionUri, ["dist", "main.css"]);
         const nonce = getNonce();
 
         // Set content security policy sources
@@ -178,7 +164,7 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
         const workerSrc = `${webview.cspSource} blob:`;
         const fontSrc = `${webview.cspSource}`;
         // allow all for connect-src (to be able to search/load remote flows)
-        const connectSrc = '*';
+        const connectSrc = "*";
         const cspContent = `default-src 'none'; style-src ${styleSrc}; script-src ${scriptSrc}; img-src ${imgSrc}; worker-src ${workerSrc}; connect-src ${connectSrc}; font-src ${fontSrc}`;
         return `
           <!DOCTYPE html>
@@ -206,10 +192,8 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
      */
     private _onChangedPythonInterpreter(_isValid: boolean) {
         if (!_isValid) {
-            vscode.window.showWarningMessage(
-                'Please select a valid Python interpreter (>=3.10, <3.13)'
-            );
-            vscode.commands.executeCommand('python.setInterpreter');
+            vscode.window.showWarningMessage("Please select a valid Python interpreter (>=3.10, <3.13)");
+            vscode.commands.executeCommand("python.setInterpreter");
         } else {
             this._updateStatusBarItem();
         }

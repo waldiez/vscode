@@ -1,11 +1,7 @@
 // Flow runner using a Python interpreter
-import { showOutput, traceError, traceVerbose } from '../log/logging';
-import {
-    Environment,
-    PythonExtension,
-    ResolvedEnvironment
-} from '@vscode/python-extension';
-import { Disposable } from 'vscode';
+import { showOutput, traceError, traceVerbose } from "../log/logging";
+import { Environment, PythonExtension, ResolvedEnvironment } from "@vscode/python-extension";
+import { Disposable } from "vscode";
 
 let _api: PythonExtension | undefined;
 
@@ -26,7 +22,7 @@ export class PythonWrapper {
     constructor(
         environment: ResolvedEnvironment | undefined,
         disposables: Disposable[],
-        onChangePythonInterpreter?: (allowed: boolean) => void
+        onChangePythonInterpreter?: (allowed: boolean) => void,
     ) {
         this._environment = environment;
         this._onChangePythonInterpreter = onChangePythonInterpreter;
@@ -35,8 +31,7 @@ export class PythonWrapper {
         if (_api) {
             disposables.push(
                 _api?.environments.onDidChangeActiveEnvironmentPath(async e => {
-                    const resolved =
-                        await _api?.environments.resolveEnvironment(e.path);
+                    const resolved = await _api?.environments.resolveEnvironment(e.path);
                     let allowed = false;
                     if (resolved && PythonWrapper.isVersionAllowed(resolved)) {
                         this._environment = resolved;
@@ -45,7 +40,7 @@ export class PythonWrapper {
                     if (this._onChangePythonInterpreter) {
                         this._onChangePythonInterpreter(allowed);
                     }
-                })
+                }),
             );
         }
     }
@@ -73,9 +68,9 @@ export class PythonWrapper {
     public pythonVersionString() {
         const pythonVersion = this._environment?.version;
         if (!pythonVersion) {
-            return 'Unknown';
+            return "Unknown";
         }
-        return `${pythonVersion.major}.${pythonVersion.minor}.${pythonVersion.micro} ${this._environment?.executable.bitness ?? ''}`;
+        return `${pythonVersion.major}.${pythonVersion.minor}.${pythonVersion.micro} ${this._environment?.executable.bitness ?? ""}`;
     }
 
     /**
@@ -110,23 +105,23 @@ export class PythonWrapper {
      */
     static create: (
         disposables: Disposable[],
-        onChangePythonInterpreter?: (allowed: boolean) => void
+        onChangePythonInterpreter?: (allowed: boolean) => void,
     ) => Promise<PythonWrapper | undefined> = async (
         disposables: Disposable[],
-        onChangePythonInterpreter
+        onChangePythonInterpreter,
     ) => {
         try {
             // Fetch the Python extension API
             _api = await PythonExtension.api();
         } catch (e) {
             showOutput();
-            traceError('Failed to initialize Python extension:', e);
+            traceError("Failed to initialize Python extension:", e);
             return undefined;
         }
 
         if (!_api) {
             showOutput();
-            traceError('No valid python interpreter found');
+            traceError("No valid python interpreter found");
             return undefined;
         }
 
@@ -134,17 +129,12 @@ export class PythonWrapper {
         const sorted = [..._api.environments.known]
             .filter(env => env.version?.major === 3)
             .sort(orderedByMinorReverse);
-        traceVerbose('Python environments:', sorted);
+        traceVerbose("Python environments:", sorted);
         // Find the first valid Python environment
         for (const environment of sorted) {
-            const resolved =
-                await _api.environments.resolveEnvironment(environment);
+            const resolved = await _api.environments.resolveEnvironment(environment);
             if (resolved && PythonWrapper.isVersionAllowed(resolved)) {
-                return new PythonWrapper(
-                    resolved,
-                    disposables,
-                    onChangePythonInterpreter
-                );
+                return new PythonWrapper(resolved, disposables, onChangePythonInterpreter);
             }
         }
 

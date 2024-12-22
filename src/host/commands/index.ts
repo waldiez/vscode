@@ -1,14 +1,14 @@
-import { FlowConverter } from '../flow/converter';
-import { FlowRunner } from '../flow/runner';
-import { traceInfo } from '../log/logging';
-import { convertFlow } from './convert';
-import { runFlow } from './run';
-import * as vscode from 'vscode';
+import { FlowConverter } from "../flow/converter";
+import { FlowRunner } from "../flow/runner";
+import { traceInfo } from "../log/logging";
+import { convertFlow } from "./convert";
+import { runFlow } from "./run";
+import * as vscode from "vscode";
 
 // Command IDs to register
-export const CONVERT_TO_PYTHON = 'waldiez.vscode.toPython';
-export const CONVERT_TO_IPYNB = 'waldiez.vscode.toIpynb';
-export const RUN_FLOW = 'waldiez.vscode.run';
+export const CONVERT_TO_PYTHON = "waldiez.vscode.toPython";
+export const CONVERT_TO_IPYNB = "waldiez.vscode.toIpynb";
+export const RUN_FLOW = "waldiez.vscode.run";
 
 /**
  * Registers the extension commands.
@@ -20,37 +20,28 @@ export const RUN_FLOW = 'waldiez.vscode.run';
 export const registerCommands = async (
     converter: FlowConverter,
     runner: FlowRunner,
-    disposables: vscode.Disposable[]
+    disposables: vscode.Disposable[],
 ): Promise<void> => {
     // Register command to convert flow to Python
-    const toPython = vscode.commands.registerCommand(
-        CONVERT_TO_PYTHON,
-        async (resource: vscode.Uri) => {
-            traceInfo('Converting flow to Python');
-            return await convertFlow(converter, resource, '.py');
-        }
-    );
+    const toPython = vscode.commands.registerCommand(CONVERT_TO_PYTHON, async (resource: vscode.Uri) => {
+        traceInfo("Converting flow to Python");
+        return await convertFlow(converter, resource, ".py");
+    });
 
     // Register command to convert flow to Jupyter Notebook
-    const toIpynb = vscode.commands.registerCommand(
-        CONVERT_TO_IPYNB,
-        async (resource: vscode.Uri) => {
-            traceInfo('Converting flow to Jupyter Notebook');
-            return await convertFlow(converter, resource, '.ipynb');
-        }
-    );
+    const toIpynb = vscode.commands.registerCommand(CONVERT_TO_IPYNB, async (resource: vscode.Uri) => {
+        traceInfo("Converting flow to Jupyter Notebook");
+        return await convertFlow(converter, resource, ".ipynb");
+    });
 
     // Register command to run a flow
-    const runWaldiezFlow = vscode.commands.registerCommand(
-        RUN_FLOW,
-        async (resource: vscode.Uri) => {
-            try {
-                return await runFlow(resource, runner);
-            } catch (error) {
-                traceInfo('Failed to run flow', error);
-            }
+    const runWaldiezFlow = vscode.commands.registerCommand(RUN_FLOW, async (resource: vscode.Uri) => {
+        try {
+            return await runFlow(resource, runner);
+        } catch (error) {
+            traceInfo("Failed to run flow", error);
         }
-    );
+    });
 
     // Add commands to disposables for cleanup
     disposables.push(toPython);

@@ -1,12 +1,12 @@
-import type { HostMessage, WebviewMessage } from '../types';
-import type { WebviewApi } from 'vscode-webview';
+import type { HostMessage, WebviewMessage } from "../types";
+import type { WebviewApi } from "vscode-webview";
 
 export class Messaging {
     private readonly vscode: WebviewApi<unknown> | null;
     private _addedListener: boolean = false;
     private _onMessageCallback?: (msg: HostMessage) => void;
     constructor() {
-        if (typeof acquireVsCodeApi === 'function') {
+        if (typeof acquireVsCodeApi === "function") {
             this.vscode = acquireVsCodeApi();
         } else {
             this.vscode = null;
@@ -21,25 +21,19 @@ export class Messaging {
     private handleMessageEvent(msg: MessageEvent) {
         const hostMsg = msg.data as HostMessage;
         if (!this._onMessageCallback) {
-            console.error('No message callback set');
+            console.error("No message callback set");
             return;
         }
         this._onMessageCallback(hostMsg);
     }
     public listen() {
         if (!this._addedListener) {
-            window.addEventListener(
-                'message',
-                this.handleMessageEvent.bind(this)
-            );
+            window.addEventListener("message", this.handleMessageEvent.bind(this));
             this._addedListener = true;
         }
     }
     public stopListening() {
-        window.removeEventListener(
-            'message',
-            this.handleMessageEvent.bind(this)
-        );
+        window.removeEventListener("message", this.handleMessageEvent.bind(this));
         this._addedListener = false;
     }
     public setState(state: Record<string, unknown>) {

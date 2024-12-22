@@ -1,8 +1,8 @@
-import { PythonExtension } from '@vscode/python-extension';
-import * as vscode from 'vscode';
+import { PythonExtension } from "@vscode/python-extension";
+import * as vscode from "vscode";
 
 export async function beforeTests() {
-    await vscode.extensions.getExtension('ms-python.python')?.activate();
+    await vscode.extensions.getExtension("ms-python.python")?.activate();
     await waitForPythonEnvironments();
     const api = await PythonExtension.api();
     const highestVersion = api.environments.known
@@ -10,7 +10,7 @@ export async function beforeTests() {
             env =>
                 env.version?.major === 3 &&
                 (env.version?.minor ?? 9) >= 10 &&
-                (env.version?.minor ?? 13) < 13
+                (env.version?.minor ?? 13) < 13,
         )
         .sort((a, b) => {
             if (!a.version?.minor || !b.version?.minor) {
@@ -19,7 +19,7 @@ export async function beforeTests() {
             return b.version.minor - a.version.minor;
         })[0];
     if (!highestVersion) {
-        throw new Error('No suitable Python environment found');
+        throw new Error("No suitable Python environment found");
     }
     console.log(`Using Python environment: ${highestVersion.path}`);
 }

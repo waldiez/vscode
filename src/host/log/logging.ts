@@ -1,5 +1,5 @@
-import * as util from 'util';
-import { Disposable, LogOutputChannel } from 'vscode';
+import * as util from "util";
+import { Disposable, LogOutputChannel } from "vscode";
 
 type Arguments = unknown[];
 
@@ -110,7 +110,7 @@ export function registerLogger(logChannel: LogOutputChannel): Disposable {
     return {
         dispose: () => {
             channel = undefined; // Clear the logger instance on disposal
-        }
+        },
     };
 }
 

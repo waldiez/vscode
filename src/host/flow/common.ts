@@ -1,8 +1,8 @@
-import { traceError, traceInfo, traceWarn } from '../log/logging';
-import { spawnSync } from 'child_process';
-import * as vscode from 'vscode';
+import { traceError, traceInfo, traceWarn } from "../log/logging";
+import { spawnSync } from "child_process";
+import * as vscode from "vscode";
 
-const MINIMUM_REQUIRED_WALDIEZ_PY_VERSION = '0.1.20';
+const MINIMUM_REQUIRED_WALDIEZ_PY_VERSION = "0.1.20";
 
 /**
  * Ensures that the `waldiez` Python module is available in the current Python environment.
@@ -13,28 +13,22 @@ const MINIMUM_REQUIRED_WALDIEZ_PY_VERSION = '0.1.20';
  * @returns A Promise that resolves if the `waldiez` module is available or successfully installed,
  *          and rejects if an error occurs during the process.
  */
-export const ensureWaldiezPy = (
-    executable: string | undefined
-): Promise<void> => {
+export const ensureWaldiezPy = (executable: string | undefined): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
         if (!executable) {
             // If no Python executable is provided, log an error and reject the promise
-            traceError('Python extension not found');
+            traceError("Python extension not found");
             return reject();
         }
 
         try {
-            const result = spawnSync(executable, [
-                '-m',
-                'waldiez',
-                '--version'
-            ]);
+            const result = spawnSync(executable, ["-m", "waldiez", "--version"]);
             // check if the waldiez module is installed and the version is at least the minimum required
             if (result.status === 0) {
                 const commandOutput = result.stdout.toString().trim();
                 const version = commandOutput.match(/(\d+\.\d+\.\d+)/)?.[0];
                 if (!version) {
-                    traceError('Failed to parse waldiez version');
+                    traceError("Failed to parse waldiez version");
                     return installWaldiezPy(executable).then(resolve, reject);
                 }
                 if (isVersionOK(version)) {
@@ -43,18 +37,16 @@ export const ensureWaldiezPy = (
                     return;
                 }
                 traceWarn(
-                    `Waldiez Python module version ${version} found, but version ${MINIMUM_REQUIRED_WALDIEZ_PY_VERSION} or higher is required. Updating...`
+                    `Waldiez Python module version ${version} found, but version ${MINIMUM_REQUIRED_WALDIEZ_PY_VERSION} or higher is required. Updating...`,
                 );
                 return installWaldiezPy(executable).then(resolve, reject);
             } else {
                 // If the module is not found, attempt to install it
-                traceWarn(
-                    'Waldiez Python module not found in the current Python environment. Installing...'
-                );
+                traceWarn("Waldiez Python module not found in the current Python environment. Installing...");
                 return installWaldiezPy(executable).then(resolve, reject);
             }
         } catch (error) {
-            traceError('Failed to check waldiez version:', error);
+            traceError("Failed to check waldiez version:", error);
             return installWaldiezPy(executable).then(resolve, reject);
         }
     });
@@ -63,33 +55,33 @@ export const ensureWaldiezPy = (
 const installWaldiezPy = (executable: string) => {
     return new Promise<void>((resolve, reject) => {
         vscode.window.showInformationMessage(
-            'Waldiez Python module not found in the current Python environment. Installing...'
+            "Waldiez Python module not found in the current Python environment. Installing...",
         );
         try {
             const result = spawnSync(executable, [
-                '-m',
-                'pip',
-                'install',
-                '--upgrade',
-                '--break-system-packages',
-                `waldiez>=${MINIMUM_REQUIRED_WALDIEZ_PY_VERSION}`
+                "-m",
+                "pip",
+                "install",
+                "--upgrade",
+                "--break-system-packages",
+                `waldiez>=${MINIMUM_REQUIRED_WALDIEZ_PY_VERSION}`,
             ]);
             if (result.status === 0) {
                 traceInfo(result.stdout.toString());
-                traceInfo('Waldiez Python module installed successfully');
+                traceInfo("Waldiez Python module installed successfully");
                 return resolve();
             } else {
-                traceError('Failed to install Waldiez Python module');
+                traceError("Failed to install Waldiez Python module");
                 traceError(result.stderr.toString());
                 vscode.window.showErrorMessage(
-                    'Failed to install Waldiez Python module. Please check your Python environment.'
+                    "Failed to install Waldiez Python module. Please check your Python environment.",
                 );
                 return reject();
             }
         } catch (error) {
-            traceError('Failed to install Waldiez Python module:', error);
+            traceError("Failed to install Waldiez Python module:", error);
             vscode.window.showErrorMessage(
-                'Failed to install Waldiez Python module. Please check your Python environment.'
+                "Failed to install Waldiez Python module. Please check your Python environment.",
             );
             return reject();
         }
@@ -98,18 +90,16 @@ const installWaldiezPy = (executable: string) => {
 
 const isVersionOK = (version: string): boolean => {
     try {
-        const [major, minor, patch] = version.split('.').map(Number);
+        const [major, minor, patch] = version.split(".").map(Number);
         const [requiredMajor, requiredMinor, requiredPatch] =
-            MINIMUM_REQUIRED_WALDIEZ_PY_VERSION.split('.').map(Number);
+            MINIMUM_REQUIRED_WALDIEZ_PY_VERSION.split(".").map(Number);
         return (
             major > requiredMajor ||
             (major === requiredMajor && minor > requiredMinor) ||
-            (major === requiredMajor &&
-                minor === requiredMinor &&
-                patch >= requiredPatch)
+            (major === requiredMajor && minor === requiredMinor && patch >= requiredPatch)
         );
     } catch (error) {
-        traceError('Failed to parse waldiez version:', error);
+        traceError("Failed to parse waldiez version:", error);
         return false;
     }
 };

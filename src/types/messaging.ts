@@ -1,31 +1,31 @@
 export type Initialization = {
-    type: 'init';
+    type: "init";
     value: {
         monaco: string;
         flow: string;
     };
 };
 export type ContentUpdate = {
-    type: 'update';
+    type: "update";
     value: string;
 };
 export type FlowOutput = {
-    type: 'output';
+    type: "output";
     value: any;
 };
 export type InputRequest = {
-    type: 'input';
+    type: "input";
     value: {
         previousMessages: string[];
         prompt: string;
     };
 };
 export type UploadResponse = {
-    type: 'upload';
+    type: "upload";
     value: any;
 };
 export type ExportResponse = {
-    type: 'export';
+    type: "export";
     value: any;
 };
 export type HostMessage =
@@ -37,30 +37,25 @@ export type HostMessage =
     | ExportResponse;
 
 export type ViewReady = {
-    action: 'ready';
+    action: "ready";
 };
 export type ContentChange = {
-    action: 'change';
+    action: "change";
     value: string;
 };
 
 export type UploadRequest = {
-    action: 'upload';
+    action: "upload";
     value: any;
 };
 
 export type RunRequest = {
-    action: 'run';
+    action: "run";
     value: any;
 };
 export type InputResponse = {
-    action: 'input';
+    action: "input";
     value: string;
 };
 
-export type WebviewMessage =
-    | ViewReady
-    | ContentChange
-    | UploadRequest
-    | RunRequest
-    | InputResponse;
+export type WebviewMessage = ViewReady | ContentChange | UploadRequest | RunRequest | InputResponse;

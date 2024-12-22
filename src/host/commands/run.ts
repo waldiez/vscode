@@ -1,31 +1,28 @@
-import { FlowRunner, TIME_TO_WAIT_FOR_INPUT } from '../flow/runner';
-import * as vscode from 'vscode';
+import { FlowRunner, TIME_TO_WAIT_FOR_INPUT } from "../flow/runner";
+import * as vscode from "vscode";
 
 export const runFlow = async (resource: vscode.Uri, runner: FlowRunner) => {
     const waitForInput = async (previousMessages: string[], prompt: string) => {
         return new Promise<string | undefined>(resolve => {
             const panel = vscode.window.createWebviewPanel(
-                'waldiezFlowInput',
-                'Waldiez Flow Input',
+                "waldiezFlowInput",
+                "Waldiez Flow Input",
                 vscode.ViewColumn.One,
                 {
-                    enableScripts: true
-                }
+                    enableScripts: true,
+                },
             );
             setTimeout(() => {
-                resolve('\n');
+                resolve("\n");
                 panel.dispose();
             }, TIME_TO_WAIT_FOR_INPUT);
-            panel.webview.html = getInputWebviewContent(
-                previousMessages,
-                prompt
-            );
+            panel.webview.html = getInputWebviewContent(previousMessages, prompt);
             panel.webview.onDidReceiveMessage(message => {
-                if (message.command === 'submit') {
+                if (message.command === "submit") {
                     resolve(message.text);
                     panel.dispose();
-                } else if (message.command === 'close') {
-                    resolve('\n');
+                } else if (message.command === "close") {
+                    resolve("\n");
                     panel.dispose();
                 }
             });
@@ -164,7 +161,7 @@ function getInputWebviewContent(previousMessages: string[], prompt: string) {
                 <button id="close-button">✖</button>
             </div>
             <div id="previous-messages">
-                ${previousMessages.map(message => `<div>${message}</div>`).join('')}
+                ${previousMessages.map(message => `<div>${message}</div>`).join("")}
             </div>
             <div id="input-container">
                 <input type="text" id="input-box" placeholder="${prompt}" />

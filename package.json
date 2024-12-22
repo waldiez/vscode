@@ -2,7 +2,7 @@
     "name": "waldiez-vscode",
     "displayName": "Waldiez",
     "description": "A Waldiez vscode extension",
-    "version": "0.1.8",
+    "version": "0.2.0",
     "engines": {
         "vscode": "^1.95.0"
     },
@@ -121,6 +121,8 @@
         "clean:all": "yarn clean && yarn clean:webpack_cache",
         "monaco": "node --import=tsx scripts/monaco.ts",
         "test": "yarn compile:tests && rimraf .nyc_output && node ./dist/test/runTest.js",
+        "version:get": "node --import=tsx scripts/version.ts --get",
+        "version:set": "node --import=tsx scripts/version.ts --set",
         "all": "yarn clean:all && yarn forlint && yarn test && yarn build"
     },
     "dependencies": {
@@ -197,11 +199,13 @@
         "plugins": [
             "@trivago/prettier-plugin-sort-imports"
         ],
-        "trailingComma": "none",
-        "arrowParens": "avoid",
-        "singleQuote": true,
-        "endOfLine": "auto",
         "tabWidth": 4,
+        "printWidth": 110,
+        "arrowParens": "avoid",
+        "bracketSpacing": true,
+        "singleQuote": false,
+        "trailingComma": "all",
+        "endOfLine": "lf",
         "importOrderSeparation": true,
         "importOrderSortSpecifiers": true
     },

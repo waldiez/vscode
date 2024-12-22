@@ -3,11 +3,11 @@
  *  `webviewPanel.webview.onDidReceiveMessage`,
  *  `webviewPanel.webview.postMessage`
  */
-import type { HostMessage, UploadRequest, WebviewMessage } from '../types';
-import { TIME_TO_WAIT_FOR_INPUT } from './flow/runner';
-import { traceError, traceLog } from './log/logging';
-import { getMonacoUri } from './utils';
-import * as vscode from 'vscode';
+import type { HostMessage, UploadRequest, WebviewMessage } from "../types";
+import { TIME_TO_WAIT_FOR_INPUT } from "./flow/runner";
+import { traceError, traceLog } from "./log/logging";
+import { getMonacoUri } from "./utils";
+import * as vscode from "vscode";
 
 export class MessageHandler {
     private _webviewPanel: vscode.WebviewPanel;
@@ -23,13 +23,11 @@ export class MessageHandler {
         webviewPanel: vscode.WebviewPanel,
         document: vscode.TextDocument,
         onRun: (path: vscode.Uri) => void,
-        onInit: () => void
+        onInit: () => void,
     ) {
         this._webviewPanel = webviewPanel;
         this._document = document;
-        this._disposable = this._webview.onDidReceiveMessage(
-            this._handleMessage.bind(this)
-        );
+        this._disposable = this._webview.onDidReceiveMessage(this._handleMessage.bind(this));
         this._onRun = onRun;
         this._onInit = onInit;
     }
@@ -52,32 +50,26 @@ export class MessageHandler {
         prompt: string;
     }) => Promise<string | undefined> = ({ previousMessages, prompt }) => {
         this.sendMessage({
-            type: 'input',
+            type: "input",
             value: {
                 previousMessages,
-                prompt
-            }
+                prompt,
+            },
         });
-        this._inputPromise = new Promise<string | undefined>(
-            (resolve, _reject) => {
-                setTimeout(() => {
-                    resolve(undefined);
-                    this._inputPromise = null;
-                    this._inputResolve = null;
-                }, TIME_TO_WAIT_FOR_INPUT);
-                this._inputResolve = resolve;
-            }
-        );
+        this._inputPromise = new Promise<string | undefined>((resolve, _reject) => {
+            setTimeout(() => {
+                resolve(undefined);
+                this._inputPromise = null;
+                this._inputResolve = null;
+            }, TIME_TO_WAIT_FOR_INPUT);
+            this._inputResolve = resolve;
+        });
         return this._inputPromise;
     };
 
     private _updateDocument(value: any) {
         const edit = new vscode.WorkspaceEdit();
-        edit.replace(
-            this._document.uri,
-            new vscode.Range(0, 0, this._document.lineCount, 0),
-            value
-        );
+        edit.replace(this._document.uri, new vscode.Range(0, 0, this._document.lineCount, 0), value);
         vscode.workspace.applyEdit(edit);
     }
 
@@ -96,36 +88,27 @@ export class MessageHandler {
             savedPaths.push(path);
         }
         this.sendMessage({
-            type: 'upload',
-            value: savedPaths
+            type: "upload",
+            value: savedPaths,
         });
     }
 
     private async _saveFileToWorkspace(file: any) {
-        const buffer = Buffer.from(file.content, 'base64');
+        const buffer = Buffer.from(file.content, "base64");
         const workspaceFolders = vscode.workspace.workspaceFolders;
         // let destination = // relative to this._document.uri
-        let destination = vscode.Uri.joinPath(
-            this._document.uri,
-            '..',
-            file.name
-        );
+        let destination = vscode.Uri.joinPath(this._document.uri, "..", file.name);
         const fileScheme = this._document.uri.scheme;
-        if (fileScheme !== 'file' && workspaceFolders) {
-            destination = vscode.Uri.joinPath(
-                workspaceFolders[0].uri,
-                file.name
-            );
+        if (fileScheme !== "file" && workspaceFolders) {
+            destination = vscode.Uri.joinPath(workspaceFolders[0].uri, file.name);
         }
-        traceLog('<Waldiez> Saving file to:', destination.fsPath);
+        traceLog("<Waldiez> Saving file to:", destination.fsPath);
         try {
             await vscode.workspace.fs.writeFile(destination, buffer);
-            vscode.commands.executeCommand(
-                'workbench.files.action.refreshFilesExplorer'
-            );
+            vscode.commands.executeCommand("workbench.files.action.refreshFilesExplorer");
             return destination.fsPath;
         } catch (e) {
-            traceError('<Waldiez> Error saving file:', e);
+            traceError("<Waldiez> Error saving file:", e);
             return null;
         }
     }
@@ -140,7 +123,7 @@ export class MessageHandler {
 
     private _getInitialText() {
         const text = this._document.getText();
-        if (text === '') {
+        if (text === "") {
             return '{"type": "flow", "data": {}}';
         }
         return text;
@@ -150,26 +133,26 @@ export class MessageHandler {
             return;
         }
         switch (message.action) {
-            case 'ready':
+            case "ready":
                 this.sendMessage({
-                    type: 'init',
+                    type: "init",
                     value: {
                         monaco: `${getMonacoUri(this._webview, this.context.extensionUri)}`,
-                        flow: this._getInitialText()
-                    }
+                        flow: this._getInitialText(),
+                    },
                 });
                 this._onInit();
                 break;
-            case 'change':
+            case "change":
                 this._updateDocument(message.value);
                 break;
-            case 'run':
+            case "run":
                 this._handleRun(message.value);
                 break;
-            case 'upload':
+            case "upload":
                 this._handleUpload(message);
                 break;
-            case 'input':
+            case "input":
                 this._handleUserInput(message.value);
                 break;
             default:

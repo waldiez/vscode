@@ -1,4 +1,4 @@
-import { messaging } from './messaging';
+import { messaging } from "./messaging";
 
 export async function transferFiles(files: File[]) {
     const promises = [...files].map(file => {
@@ -6,13 +6,13 @@ export async function transferFiles(files: File[]) {
             const reader = new FileReader();
 
             reader.onload = () => {
-                if (typeof reader.result !== 'string') {
+                if (typeof reader.result !== "string") {
                     return;
                 }
                 const fileData = {
                     name: file.name,
                     type: file.type,
-                    content: reader.result.split(',')[1] // Base64 encoded
+                    content: reader.result.split(",")[1], // Base64 encoded
                 };
 
                 resolve(fileData);
@@ -24,7 +24,7 @@ export async function transferFiles(files: File[]) {
 
     const fileDataArray = await Promise.all(promises);
 
-    messaging.send({ action: 'upload', value: fileDataArray });
+    messaging.send({ action: "upload", value: fileDataArray });
 
     // Wait for paths from the extension
     const filePaths = await waitForFilePaths(fileDataArray.length);
@@ -39,7 +39,7 @@ function waitForFilePaths(expectedCount: number) {
         const receivedPaths: string[] = [];
         const timeout = 5000 * expectedCount; // 5 seconds per file
         const listener = (event: MessageEvent) => {
-            if (event.data.type === 'upload') {
+            if (event.data.type === "upload") {
                 receivedPaths.push(...event.data.value);
 
                 if (receivedPaths.length >= expectedCount) {
@@ -51,7 +51,7 @@ function waitForFilePaths(expectedCount: number) {
 
         const cleanup = () => {
             clearTimeout(timeoutId);
-            window.removeEventListener('message', listener);
+            window.removeEventListener("message", listener);
         };
 
         // Set a timeout to ensure the listener only listens for the specified duration
@@ -60,6 +60,6 @@ function waitForFilePaths(expectedCount: number) {
             resolve(receivedPaths); // Resolve with whatever paths were received, even if incomplete
         }, timeout);
 
-        window.addEventListener('message', listener);
+        window.addEventListener("message", listener);
     });
 }
