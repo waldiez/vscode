@@ -4,6 +4,7 @@ if `--get` is passed, return the current version (x.y.z format)
 if `--set` is passed, set the version to the value of the next argument
 if `--set` validate that it is a valid version(x.y.z format)
 */
+import { execSync } from "child_process";
 import { readFileSync, writeFileSync } from "fs";
 import path from "path";
 import url from "url";
@@ -48,11 +49,25 @@ function getVersion(): string {
     return packageJson.version;
 }
 
-function setVersion(version: string): void {
+function updateWaldiezDependencyVersion(version: string): void {
     const packageJsonPath = path.join(__dirname, "..", "package.json");
     const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8"));
-    packageJson.version = version;
-    writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 4));
+    let gotWaldiez = false;
+    Object.keys(packageJson.dependencies).forEach(dependency => {
+        if (dependency.startsWith("@waldiez/react")) {
+            gotWaldiez = true;
+            packageJson.dependencies[dependency] = `^${version}`;
+        }
+    });
+    if (!gotWaldiez) {
+        console.error("Error: @waldiez/react not found in dependencies");
+        process.exit(1);
+    }
+    writeFileSync(packageJsonPath, `${JSON.stringify(packageJson, null, 4)}\n`, { encoding: "utf8" });
+    execSync("yarn install", { stdio: "inherit", cwd: path.join(__dirname, "..") });
+}
+
+function updateWaldiezPyRequirement(version: string) {
     // .. also update the version in ../src/host/flow/common.ts:
     //it has sth like: `const MINIMUM_REQUIRED_WALDIEZ_PY_VERSION = "0.1.20";`
     //update the version in the string
@@ -65,13 +80,23 @@ function setVersion(version: string): void {
     writeFileSync(commonTsPath, updatedCommonTs);
 }
 
+function setVersion(version: string): void {
+    const packageJsonPath = path.join(__dirname, "..", "package.json");
+    const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8"));
+    packageJson.version = version;
+    writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 4));
+}
+
 function main(): void {
     validateArgs();
     const action = process.argv[2];
     if (action === "--get") {
         console.log(getVersion());
     } else if (action === "--set") {
-        setVersion(process.argv[3]);
+        const version = process.argv[3];
+        setVersion(version);
+        updateWaldiezDependencyVersion(version);
+        updateWaldiezPyRequirement(version);
     }
 }
 
