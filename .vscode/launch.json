@@ -3,39 +3,34 @@
 // Hover to view descriptions of existing attributes.
 // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 {
-	"version": "0.2.0",
-	"configurations": [
-		{
-			"name": "Run Extension",
-			"type": "extensionHost",
-			"request": "launch",
-			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}",
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Extension",
+            "type": "extensionHost",
+            "request": "launch",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}",
                 "--sync",
                 "off",
-				"${workspaceFolder}/examples"
-			],
-			"outFiles": [
-				"${workspaceFolder}/dist/**/*.js",
-				"${workspaceFolder}/public/**/*"
-			],
-			"preLaunchTask": "npm: compile:dev",
-			"debugWebviews": true,
-			"trace": true,
-		},
-		{
-			"name": "Extension Tests",
-			"type": "extensionHost",
-			"request": "launch",
-			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensionTestsPath=${workspaceFolder}/dist/test",
                 "${workspaceFolder}/examples"
-			],
-			"outFiles": [
-				"${workspaceFolder}/dist/test/**/*.js"
-			],
-			"preLaunchTask": "npm: compile:tests"
-		}
-	]
+            ],
+            "outFiles": ["${workspaceFolder}/dist/**/*.js", "${workspaceFolder}/public/**/*"],
+            "preLaunchTask": "npm: compile:dev",
+            "debugWebviews": true,
+            "trace": true
+        },
+        {
+            "name": "Extension Tests",
+            "type": "extensionHost",
+            "request": "launch",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}",
+                "--extensionTestsPath=${workspaceFolder}/dist/test",
+                "${workspaceFolder}/examples"
+            ],
+            "outFiles": ["${workspaceFolder}/dist/test/**/*.js"],
+            "preLaunchTask": "npm: compile:tests"
+        }
+    ]
 }

@@ -1,19 +1,19 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "ES2022",
-    "outDir": "dist",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "jsx": "react-jsx",
-    "sourceMap": true,
-    "rootDir": "src",
-    "strict": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "strictBuiltinIteratorReturn": false,
-    "forceConsistentCasingInFileNames": true
-  },
-  "exclude": ["webpack.config.ts", "scripts/*.ts"],
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ES2022",
+        "outDir": "dist",
+        "lib": ["ES2022", "DOM", "DOM.Iterable"],
+        "jsx": "react-jsx",
+        "sourceMap": true,
+        "rootDir": "src",
+        "strict": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "strictBuiltinIteratorReturn": false,
+        "forceConsistentCasingInFileNames": true
+    },
+    "exclude": ["webpack.config.ts", "scripts/*.ts"]
 }
