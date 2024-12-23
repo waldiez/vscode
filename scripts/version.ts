@@ -62,7 +62,7 @@ function updateWaldiezDependencyVersion(version: string): void {
         Object.keys(packageJson.devDependencies).forEach(dependency => {
             if (dependency.startsWith("@waldiez/react")) {
                 gotWaldiez = true;
-                packageJson.dependencies[dependency] = `^${version}`;
+                packageJson.devDependencies[dependency] = `^${version}`;
             }
         });
     }
