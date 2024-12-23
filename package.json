@@ -100,7 +100,8 @@
     },
     "scripts": {
         "vscode:prepublish": "yarn run package",
-        "build": "yarn monaco && NODE_NO_WARNINGS=1 vsce package --no-yarn",
+        "build": "yarn monaco && NODE_NO_WARNINGS=1 vsce package --no-yarn && yarn after:build",
+        "after:build": "node --import=tsx scripts/afterBuild.ts",
         "deploy": "yarn monaco && NODE_NO_WARNINGS=1 vsce publish --no-yarn",
         "package": "yarn clean && yarn compile:prod",
         "watch": "yarn compile:dev --watch",
