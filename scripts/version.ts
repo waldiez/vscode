@@ -4,7 +4,6 @@ if `--get` is passed, return the current version (x.y.z format)
 if `--set` is passed, set the version to the value of the next argument
 if `--set` validate that it is a valid version(x.y.z format)
 */
-import { execSync } from "child_process";
 import { readFileSync, writeFileSync } from "fs";
 import path from "path";
 import url from "url";
@@ -64,7 +63,8 @@ function updateWaldiezDependencyVersion(version: string): void {
         process.exit(1);
     }
     writeFileSync(packageJsonPath, `${JSON.stringify(packageJson, null, 4)}\n`, { encoding: "utf8" });
-    execSync("yarn install", { stdio: "inherit", cwd: path.join(__dirname, "..") });
+    // the new version might not be available in the registry yet
+    // execSync("yarn install", { stdio: "inherit", cwd: path.join(__dirname, "..") });
 }
 
 function updateWaldiezPyRequirement(version: string) {
