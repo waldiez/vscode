@@ -14,6 +14,7 @@ const defaultConfig = eslintTs.config({
         "prettier/prettier": [
             "error",
             {
+                plugins: ["@trivago/prettier-plugin-sort-imports"],
                 tabWidth: 4,
                 printWidth: 110,
                 arrowParens: "avoid",
@@ -21,6 +22,15 @@ const defaultConfig = eslintTs.config({
                 singleQuote: false,
                 trailingComma: "all",
                 endOfLine: "lf",
+                overrides: [
+                    {
+                        files: ["*.md", "*.yml", "*.yaml"],
+                        options: {
+                            tabWidth: 2,
+                        },
+                    },
+                ],
+                importOrder: ["^react", "^react-dom", "^@waldiez/react"],
             },
         ],
         "@typescript-eslint/naming-convention": [

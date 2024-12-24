@@ -1,9 +1,11 @@
 import type { ContentUpdate, HostMessage, Initialization, InputRequest } from "../types";
 import { messaging } from "./messaging";
 import { transferFiles } from "./uploading";
-import { importFlow } from "@waldiez/react";
 import { Edge, Node, Viewport } from "@xyflow/react";
+
 import { useEffect, useState } from "react";
+
+import { importFlow } from "@waldiez/react";
 
 export const useWaldiezWebview = () => {
     const [initialized, setInitialized] = useState(false);
