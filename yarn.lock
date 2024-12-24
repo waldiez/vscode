@@ -1830,16 +1830,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.1.21":
-  version: 0.1.21
-  resolution: "@waldiez/react@npm:0.1.21"
+"@waldiez/react@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@waldiez/react@npm:0.2.1"
   dependencies:
     "@monaco-editor/react": "npm:^4.6.0"
     "@xyflow/react": "npm:^12.3.6"
     microdiff: "npm:^1.4.0"
     nanoid: "npm:^5.0.9"
     rc-slider: "npm:^11.1.7"
-    react-error-boundary: "npm:^4.1.2"
+    react-error-boundary: "npm:^5.0.0"
     react-hotkeys-hook: "npm:^4.6.1"
     react-icons: "npm:^5.4.0"
     react-select: "npm:^5.9.0"
@@ -1848,7 +1848,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.0.0
     react-dom: ^18.3.1 || ^19.0.0
-  checksum: 10/22276d1391391d7443c328e4e6f1c04851d52c60a980f0fa394731315439a9075c151d829733ff74236fa67512c865d412fea6e1a7bfbaa61b44503f070d5574
+  checksum: 10/7917ba8d4623863449d41b111ac1daed91bc1dbaff7f84cda62a2f0b6e8502e106fcb877c6341bcc3018c81988dbbb9ae0f461d1ed9cc704fee90bf04da84ece
   languageName: node
   linkType: hard
 
@@ -6655,14 +6655,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-error-boundary@npm:^4.1.2":
-  version: 4.1.2
-  resolution: "react-error-boundary@npm:4.1.2"
+"react-error-boundary@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "react-error-boundary@npm:5.0.0"
   dependencies:
     "@babel/runtime": "npm:^7.12.5"
   peerDependencies:
     react: ">=16.13.1"
-  checksum: 10/a8b59e5ef891bb6c48874d12c72bbd1a9292a56751adeee5666e228bd3a4913084329a9c21f7baafa0df68dc6d25e18883edb25946ce5763981885cbb93786eb
+  checksum: 10/8b68de3441bd3d50a2c8433f9c921ff02c691e920e268972ae002087b5080e38435c6f9b2198241683b7f4c6a6ed2f53bf593b83c42946f14daa00322b3c2909
   languageName: node
   linkType: hard
 
@@ -8205,7 +8205,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.10"
     "@vscode/test-electron": "npm:^2.4.1"
     "@vscode/vsce": "npm:^3.2.1"
-    "@waldiez/react": "npm:^0.1.21"
+    "@waldiez/react": "npm:^0.2.1"
     babel-loader: "npm:^9.2.1"
     css-loader: "npm:^7.1.2"
     eslint: "npm:^9.17.0"
