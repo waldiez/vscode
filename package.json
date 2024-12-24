@@ -100,9 +100,10 @@
     },
     "scripts": {
         "vscode:prepublish": "yarn run package",
-        "build": "yarn monaco && NODE_NO_WARNINGS=1 vsce package --no-yarn && yarn after:build",
+        "before:build": "yarn clean:all && yarn monaco",
+        "build": "yarn before:build && NODE_NO_WARNINGS=1 vsce package --no-yarn && yarn after:build",
         "after:build": "node --import=tsx scripts/afterBuild.ts",
-        "deploy": "yarn monaco && NODE_NO_WARNINGS=1 vsce publish --no-yarn",
+        "deploy": "yarn before:build && NODE_NO_WARNINGS=1 vsce publish --no-yarn",
         "package": "yarn clean && yarn compile:prod",
         "watch": "yarn compile:dev --watch",
         "lint": "yarn eslint:check && yarn stylelint:check && yarn prettier:check",
@@ -124,7 +125,7 @@
         "test": "yarn compile:tests && rimraf .nyc_output && node ./dist/test/runTest.js",
         "version:get": "node --import=tsx scripts/version.ts --get",
         "version:set": "node --import=tsx scripts/version.ts --set",
-        "all": "yarn clean:all && yarn forlint && yarn test && yarn build"
+        "all": "yarn clean:all && yarn forlint && yarn test && yarn build && yarn version:get"
     },
     "dependencies": {
         "@vscode/python-extension": "^1.0.5",
@@ -152,8 +153,8 @@
         "@types/vscode": ">=1.95.0",
         "@types/vscode-webview": "^1.57.5",
         "@types/webpack-env": "^1.18.5",
-        "@typescript-eslint/eslint-plugin": "^8.18.1",
-        "@typescript-eslint/parser": "^8.18.1",
+        "@typescript-eslint/eslint-plugin": "^8.18.2",
+        "@typescript-eslint/parser": "^8.18.2",
         "@vscode/test-cli": "^0.0.10",
         "@vscode/test-electron": "^2.4.1",
         "@vscode/vsce": "^3.2.1",
@@ -185,31 +186,17 @@
         "ts-node": "^10.9.2",
         "tsx": "^4.19.2",
         "typescript": "^5.7.2",
-        "typescript-eslint": "^8.18.1",
+        "typescript-eslint": "^8.18.2",
         "vsce": "^2.15.0",
         "vscode-test": "^1.6.1",
         "webpack": "^5.97.1",
-        "webpack-cli": "^5.1.4"
+        "webpack-cli": "^6.0.1"
     },
     "pre-commit": [
         "format",
         "lint"
     ],
     "packageManager": "yarn@4.5.3",
-    "prettier": {
-        "plugins": [
-            "@trivago/prettier-plugin-sort-imports"
-        ],
-        "tabWidth": 4,
-        "printWidth": 110,
-        "arrowParens": "avoid",
-        "bracketSpacing": true,
-        "singleQuote": false,
-        "trailingComma": "all",
-        "endOfLine": "lf",
-        "importOrderSeparation": true,
-        "importOrderSortSpecifiers": true
-    },
     "stylelint": {
         "extends": [
             "stylelint-config-recommended",

@@ -7,5 +7,13 @@
     "endOfLine": "lf",
     "importOrderSeparation": true,
     "importOrderSortSpecifiers": true,
-    "importOrder": ["^react", "^react-dom", "^@waldiez/react", "^@waldiez/jupyter"]
+    "importOrder": ["^react", "^react-dom", "^@waldiez/react"],
+    "overrides": [
+        {
+            "files": ["*.md", "*.yml", "*.yaml"],
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
 }
