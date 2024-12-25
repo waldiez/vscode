@@ -1830,13 +1830,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@waldiez/react@npm:0.2.1"
+"@waldiez/react@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@waldiez/react@npm:0.2.2"
   dependencies:
     "@monaco-editor/react": "npm:^4.6.0"
     "@xyflow/react": "npm:^12.3.6"
-    microdiff: "npm:^1.4.0"
+    microdiff: "npm:^1.5.0"
     nanoid: "npm:^5.0.9"
     rc-slider: "npm:^11.1.7"
     react-error-boundary: "npm:^5.0.0"
@@ -1848,7 +1848,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.0.0
     react-dom: ^18.3.1 || ^19.0.0
-  checksum: 10/7917ba8d4623863449d41b111ac1daed91bc1dbaff7f84cda62a2f0b6e8502e106fcb877c6341bcc3018c81988dbbb9ae0f461d1ed9cc704fee90bf04da84ece
+  checksum: 10/3e955aa4c81127a949b0899014f6666502150164de29975b9351a4264dfeebfb2dac31c65cc0ca4f85eefde66b49e25ec51efd1d1314daabbcbdc17114e0fe5e
   languageName: node
   linkType: hard
 
@@ -5525,10 +5525,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"microdiff@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "microdiff@npm:1.4.0"
-  checksum: 10/4cae2ec4d0540b65656837a7c47a17d6428a1be2909d268a579921183c9c21a86e0dfa0c8ade8c60f9127887783a17d54ce7be16d5556708a0e58312bca8803d
+"microdiff@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "microdiff@npm:1.5.0"
+  checksum: 10/ec1ee39b744e0f5140c9d1bcc05e25d2b2c6f6777bda2cbe59627af8aa0da5d8c98cfa5bbd610571b72b6db9e6cf3d120e24782a9870be611ea4fed69ca7bfbf
   languageName: node
   linkType: hard
 
@@ -8205,7 +8205,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.10"
     "@vscode/test-electron": "npm:^2.4.1"
     "@vscode/vsce": "npm:^3.2.1"
-    "@waldiez/react": "npm:^0.2.1"
+    "@waldiez/react": "npm:^0.2.2"
     babel-loader: "npm:^9.2.1"
     css-loader: "npm:^7.1.2"
     eslint: "npm:^9.17.0"
