@@ -62,4 +62,4 @@ python3 -m venv .venv
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://raw.githubusercontent.com/waldiez/vscode/refs/heads/main/LICENSE) file for details.
+This project is licensed under the [Apache License, Version 2.0 (Apache-2.0)](https://github.com/waldiez/vscode/blob/main/LICENSE).
