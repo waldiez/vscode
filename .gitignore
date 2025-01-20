@@ -16,3 +16,4 @@ dist/
 **/*cache
 **/*.vsix
 .nyc_output/
+**/*.mmd

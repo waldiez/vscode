@@ -1961,25 +1961,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.2.2":
-  version: 0.2.2
-  resolution: "@waldiez/react@npm:0.2.2"
+"@waldiez/react@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@waldiez/react@npm:0.3.0"
   dependencies:
     "@monaco-editor/react": "npm:^4.6.0"
-    "@xyflow/react": "npm:^12.3.6"
+    "@xyflow/react": "npm:^12.4.1"
     microdiff: "npm:^1.5.0"
     nanoid: "npm:^5.0.9"
-    rc-slider: "npm:^11.1.7"
+    rc-slider: "npm:^11.1.8"
     react-error-boundary: "npm:^5.0.0"
+    react-fast-compare: "npm:^3.2.2"
     react-hotkeys-hook: "npm:^4.6.1"
     react-icons: "npm:^5.4.0"
     react-select: "npm:^5.9.0"
     zundo: "npm:^2.3.0"
-    zustand: "npm:^5.0.2"
+    zustand: "npm:^5.0.3"
   peerDependencies:
     react: ^18.3.1 || ^19.0.0
     react-dom: ^18.3.1 || ^19.0.0
-  checksum: 10/3e955aa4c81127a949b0899014f6666502150164de29975b9351a4264dfeebfb2dac31c65cc0ca4f85eefde66b49e25ec51efd1d1314daabbcbdc17114e0fe5e
+  checksum: 10/f1a98cd343166c7c84d4f395e0c7bbb4886bf12e0b2a5a35c51f3297376503b8a5d284674575e838021b263a69973bdc5376157fce4b4b415f2cb6c5fc3bf316
   languageName: node
   linkType: hard
 
@@ -2181,23 +2182,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xyflow/react@npm:^12.3.6":
-  version: 12.3.6
-  resolution: "@xyflow/react@npm:12.3.6"
+"@xyflow/react@npm:^12.4.1":
+  version: 12.4.1
+  resolution: "@xyflow/react@npm:12.4.1"
   dependencies:
-    "@xyflow/system": "npm:0.0.47"
+    "@xyflow/system": "npm:0.0.49"
     classcat: "npm:^5.0.3"
     zustand: "npm:^4.4.0"
   peerDependencies:
     react: ">=17"
     react-dom: ">=17"
-  checksum: 10/72daa0455791e81b7593755cc8d0a67a9f9a374d1c6069ca3514463c741c1453497d3da684eab2a617852d4931e4757888c81e8eeddb603e78505a601d677586
+  checksum: 10/2686f991c27cacca2e178b01e778ceb0d89448910c6914a95f0bc554327f868b815f5fe6888cfb3284ee11cebf1a072e7ad65b22bf91830844aea5959d369f93
   languageName: node
   linkType: hard
 
-"@xyflow/system@npm:0.0.47":
-  version: 0.0.47
-  resolution: "@xyflow/system@npm:0.0.47"
+"@xyflow/system@npm:0.0.49":
+  version: 0.0.49
+  resolution: "@xyflow/system@npm:0.0.49"
   dependencies:
     "@types/d3-drag": "npm:^3.0.7"
     "@types/d3-selection": "npm:^3.0.10"
@@ -2206,7 +2207,7 @@ __metadata:
     d3-drag: "npm:^3.0.0"
     d3-selection: "npm:^3.0.0"
     d3-zoom: "npm:^3.0.0"
-  checksum: 10/8e9d3299cb7261046fa57dfdace090317b5f25464978b1829b6b90398ec9336ff5e49f12d4fb9c608769041af2c43e70e597a936358bca93d0e3e9cfc06d9370
+  checksum: 10/f46cc469c6e09725d02d7303fe0f7595f56b2fee1318523e790e486447d217cc565762c717cea002173a2b11ebecd04eeda6681ead22b924d95c160d1bd7fefe
   languageName: node
   linkType: hard
 
@@ -6774,9 +6775,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-slider@npm:^11.1.7":
-  version: 11.1.7
-  resolution: "rc-slider@npm:11.1.7"
+"rc-slider@npm:^11.1.8":
+  version: 11.1.8
+  resolution: "rc-slider@npm:11.1.8"
   dependencies:
     "@babel/runtime": "npm:^7.10.1"
     classnames: "npm:^2.2.5"
@@ -6784,7 +6785,7 @@ __metadata:
   peerDependencies:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
-  checksum: 10/3b484d7ba4e4b6fc695666c27b767622c64b5819d0386cc0afb6d186c08f8ed4f93dd72f55377af9a957c77ee77db4d7fa73f85ccdaab0f39d9670daf42a17c5
+  checksum: 10/3efaefebd1699f9fcdb7008f03f9ecc73eb0c9db69b8a4009fbec1107950ec84b241275503505fa7e77d85fcef62d93934b8a94efb2be44d70d3e889db1070b4
   languageName: node
   linkType: hard
 
@@ -6834,6 +6835,13 @@ __metadata:
   peerDependencies:
     react: ">=16.13.1"
   checksum: 10/8b68de3441bd3d50a2c8433f9c921ff02c691e920e268972ae002087b5080e38435c6f9b2198241683b7f4c6a6ed2f53bf593b83c42946f14daa00322b3c2909
+  languageName: node
+  linkType: hard
+
+"react-fast-compare@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "react-fast-compare@npm:3.2.2"
+  checksum: 10/a6826180ba75cefba1c8d3ac539735f9b627ca05d3d307fe155487f5d0228d376dac6c9708d04a283a7b9f9aee599b637446635b79c8c8753d0b4eece56c125c
   languageName: node
   linkType: hard
 
@@ -8385,7 +8393,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.10"
     "@vscode/test-electron": "npm:^2.4.1"
     "@vscode/vsce": "npm:^3.2.1"
-    "@waldiez/react": "npm:^0.2.2"
+    "@waldiez/react": "npm:^0.3.0"
     babel-loader: "npm:^9.2.1"
     css-loader: "npm:^7.1.2"
     eslint: "npm:^9.18.0"
@@ -8899,9 +8907,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zustand@npm:^5.0.2":
-  version: 5.0.2
-  resolution: "zustand@npm:5.0.2"
+"zustand@npm:^5.0.3":
+  version: 5.0.3
+  resolution: "zustand@npm:5.0.3"
   peerDependencies:
     "@types/react": ">=18.0.0"
     immer: ">=9.0.6"
@@ -8916,6 +8924,6 @@ __metadata:
       optional: true
     use-sync-external-store:
       optional: true
-  checksum: 10/9fb60796b9770dcc3f78dd794e7f424ff735e5676784cbc9726761037613942b62470b24a9ca9e98534ee4369a3b5429be570ff34281cb3c9d6d4e8df559ec3f
+  checksum: 10/35728fdaa68291ea3e469524316dda4fe1d8cc22d8be3df309ca99bda0dbc7e66a1c502f66c26f76abfb4bd49a6e1368160353eb3cb173c24042a5f252075462
   languageName: node
   linkType: hard
