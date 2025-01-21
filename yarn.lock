@@ -1849,9 +1849,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "@waldiez/react@npm:0.3.0"
+"@waldiez/react@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "@waldiez/react@npm:0.3.1"
   dependencies:
     "@monaco-editor/react": "npm:^4.6.0"
     "@xyflow/react": "npm:^12.4.1"
@@ -1868,7 +1868,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.0.0
     react-dom: ^18.3.1 || ^19.0.0
-  checksum: 10/f1a98cd343166c7c84d4f395e0c7bbb4886bf12e0b2a5a35c51f3297376503b8a5d284674575e838021b263a69973bdc5376157fce4b4b415f2cb6c5fc3bf316
+  checksum: 10/6f2510d0669e7cba14ec984a026bded12d6cb601a7d4ebdc1b08c11133a6ff1c5b4a36efa053666395dec5789d2f5223d87cabac7ef4675741a1a2c0fcfb2a4b
   languageName: node
   linkType: hard
 
@@ -8281,7 +8281,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.10"
     "@vscode/test-electron": "npm:^2.4.1"
     "@vscode/vsce": "npm:^3.2.1"
-    "@waldiez/react": "npm:^0.3.0"
+    "@waldiez/react": "npm:^0.3.1"
     babel-loader: "npm:^9.2.1"
     css-loader: "npm:^7.1.2"
     eslint: "npm:^9.18.0"
