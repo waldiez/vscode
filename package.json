@@ -2,7 +2,7 @@
     "name": "waldiez-vscode",
     "displayName": "Waldiez",
     "description": "A Waldiez vscode extension",
-    "version": "0.3.4",
+    "version": "0.3.5",
     "engines": {
         "vscode": "^1.95.0"
     },
@@ -158,7 +158,7 @@
         "@vscode/test-cli": "^0.0.10",
         "@vscode/test-electron": "^2.4.1",
         "@vscode/vsce": "^3.2.1",
-        "@waldiez/react": "^0.3.3",
+        "@waldiez/react": "^0.3.4",
         "babel-loader": "^9.2.1",
         "css-loader": "^7.1.2",
         "eslint": "^9.18.0",
