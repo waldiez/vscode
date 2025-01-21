@@ -2,7 +2,7 @@
     "name": "waldiez-vscode",
     "displayName": "Waldiez",
     "description": "A Waldiez vscode extension",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "engines": {
         "vscode": "^1.95.0"
     },
@@ -153,8 +153,8 @@
         "@types/vscode": ">=1.95.0",
         "@types/vscode-webview": "^1.57.5",
         "@types/webpack-env": "^1.18.5",
-        "@typescript-eslint/eslint-plugin": "^8.20.0",
-        "@typescript-eslint/parser": "^8.20.0",
+        "@typescript-eslint/eslint-plugin": "^8.21.0",
+        "@typescript-eslint/parser": "^8.21.0",
         "@vscode/test-cli": "^0.0.10",
         "@vscode/test-electron": "^2.4.1",
         "@vscode/vsce": "^3.2.1",
