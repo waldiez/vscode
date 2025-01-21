@@ -34,6 +34,7 @@ export class PythonWrapper {
                     const resolved = await _api?.environments.resolveEnvironment(e.path);
                     let allowed = false;
                     if (resolved && PythonWrapper.isVersionAllowed(resolved)) {
+                        PythonWrapper.setActiveEnvironmentPath(resolved);
                         this._environment = resolved;
                         allowed = true;
                     }
@@ -80,6 +81,20 @@ export class PythonWrapper {
      */
     public setOnChangePythonInterpreter(value: (allowed: boolean) => void) {
         this._onChangePythonInterpreter = value;
+    }
+
+    /**
+     * If the given Python environment is different from the active environment, updates the active environment.
+     *
+     * @param environment - The resolved Python environment to set as active.
+     */
+    static setActiveEnvironmentPath(environment: ResolvedEnvironment) {
+        if (_api) {
+            const currentActiveEnvironment = _api.environments.getActiveEnvironmentPath();
+            if (currentActiveEnvironment.path !== environment.path) {
+                _api.environments.updateActiveEnvironmentPath(environment.path);
+            }
+        }
     }
 
     /**
