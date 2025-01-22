@@ -2,7 +2,7 @@
     "name": "waldiez-vscode",
     "displayName": "Waldiez",
     "description": "A Waldiez vscode extension",
-    "version": "0.3.5",
+    "version": "0.3.6",
     "engines": {
         "vscode": "^1.95.0"
     },
