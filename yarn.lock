@@ -1951,9 +1951,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.3.6":
-  version: 0.3.6
-  resolution: "@waldiez/react@npm:0.3.6"
+"@waldiez/react@npm:^0.3.7":
+  version: 0.3.7
+  resolution: "@waldiez/react@npm:0.3.7"
   dependencies:
     "@monaco-editor/react": "npm:^4.6.0"
     "@xyflow/react": "npm:^12.4.2"
@@ -1964,13 +1964,13 @@ __metadata:
     react-fast-compare: "npm:^3.2.2"
     react-hotkeys-hook: "npm:^4.6.1"
     react-icons: "npm:^5.4.0"
-    react-select: "npm:^5.9.0"
+    react-select: "npm:^5.10.0"
     zundo: "npm:^2.3.0"
     zustand: "npm:^5.0.3"
   peerDependencies:
     react: ^18.3.1 || ^19.0.0
     react-dom: ^18.3.1 || ^19.0.0
-  checksum: 10/3ecff62c700aafd836f81471bf637d2c9ad6c3ba0b5628d8c6b1169e34fd248d4ff2c03e0adc41a2c17eba59f9f1f5225ffa682810d90081d40be02ed6ebedf8
+  checksum: 10/a1d8e9af4d44f9fc910f22a240e700e36f2a09b5c6ecc12d0fae00917fdc2eadcc85f6bab2265ce24527b430a23e685cf4d4742327cba32ee284871013304f04
   languageName: node
   linkType: hard
 
@@ -6879,9 +6879,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-select@npm:^5.9.0":
-  version: 5.9.0
-  resolution: "react-select@npm:5.9.0"
+"react-select@npm:^5.10.0":
+  version: 5.10.0
+  resolution: "react-select@npm:5.10.0"
   dependencies:
     "@babel/runtime": "npm:^7.12.0"
     "@emotion/cache": "npm:^11.4.0"
@@ -6895,7 +6895,7 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/2206b6687d6584ff1426056a779d8014ef4d8c4d1d5253dea4f03b01569fdedab8ae6b683ef475ead7da5a824934008b682838d734841d9734e2a8a63b9959fd
+  checksum: 10/70ccb74ef31a1fe24c3f7cb94459dd33289999ceda104b1b75256758b7f25ead5dcb4a1877d513f9e22d9ac62d2656414c51dd57b9436d49bd6834a7c8b1c727
   languageName: node
   linkType: hard
 
@@ -8394,7 +8394,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.10"
     "@vscode/test-electron": "npm:^2.4.1"
     "@vscode/vsce": "npm:^3.2.1"
-    "@waldiez/react": "npm:^0.3.6"
+    "@waldiez/react": "npm:^0.3.7"
     babel-loader: "npm:^9.2.1"
     css-loader: "npm:^7.1.2"
     eslint: "npm:^9.19.0"
