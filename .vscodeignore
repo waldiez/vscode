@@ -2,6 +2,7 @@
 !icons/
 !dist/
 !LICENSE
+!NOTICE.md
 !README.md
 !package.json
 !public/
