@@ -159,7 +159,7 @@
         "@vscode/test-cli": "^0.0.10",
         "@vscode/test-electron": "^2.4.1",
         "@vscode/vsce": "^3.2.2",
-        "@waldiez/react": "^0.3.10",
+        "@waldiez/react": "^0.3.11",
         "babel-loader": "^9.2.1",
         "css-loader": "^7.1.2",
         "eslint": "^9.19.0",
