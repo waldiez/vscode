@@ -29,8 +29,10 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
         // Set a callback to handle Python interpreter changes
         this._runner.wrapper.setOnChangePythonInterpreter(this._onChangedPythonInterpreter.bind(this));
 
-        // Initialize and store the status bar item
+        // Initialize the status bar item
         this._statusBarItem = this._initializeStatusBarItem();
+        this._updateStatusBarItem();
+        this._statusBarItem.show();
 
         // Register the custom editor provider
         // check if already registered
