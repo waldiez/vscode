@@ -100,6 +100,7 @@
         }
     },
     "scripts": {
+        "prepare": "node .husky/install.mjs",
         "vscode:prepublish": "yarn run package",
         "before:build": "yarn clean:all && yarn monaco",
         "build": "yarn before:build && NODE_NO_WARNINGS=1 vsce package --no-yarn && yarn after:build",
@@ -114,7 +115,7 @@
         "stylelint:check": "stylelint --cache \"src/**/*.css\"",
         "prettier:check": "prettier --check src",
         "prettier:fix": "prettier --write --list-different src",
-        "eslint:check": "eslint --report-unused-disable-directives --max-warnings 0 --cache src",
+        "eslint:check": "eslint --config ./eslint.config.mjs --report-unused-disable-directives --no-warn-ignored --max-warnings 0 --cache",
         "eslint:fix": "yarn eslint:check --fix",
         "compile:dev": "webpack --config webpack.config.ts --mode development",
         "compile:prod": "webpack --config webpack.config.ts --mode production",
@@ -165,12 +166,13 @@
         "eslint": "^9.20.0",
         "eslint-config-prettier": "^10.0.1",
         "eslint-plugin-prettier": "^5.2.3",
+        "husky": "^9.1.7",
+        "lint-staged": "^15.4.3",
         "mini-css-extract-plugin": "^2.9.2",
         "mocha": "^11.1.0",
         "nanoid": "^5.0.9",
         "nyc": "^17.1.0",
-        "pre-commit": "^1.2.2",
-        "prettier": "^3.4.2",
+        "prettier": "^3.5.0",
         "react": "^18.3.1 || 19.0.0",
         "react-dom": "^18.3.1 || 19.0.0",
         "rimraf": "^6.0.1",
@@ -193,22 +195,11 @@
         "webpack": "^5.97.1",
         "webpack-cli": "^6.0.1"
     },
-    "pre-commit": [
-        "format",
-        "lint"
-    ],
-    "packageManager": "yarn@4.6.0",
-    "stylelint": {
-        "extends": [
-            "stylelint-config-recommended",
-            "stylelint-config-standard",
-            "stylelint-prettier/recommended"
-        ],
-        "rules": {
-            "property-no-vendor-prefix": null,
-            "selector-class-pattern": "^([a-z][A-z\\d]*)(-[A-z\\d]+)*$",
-            "selector-no-vendor-prefix": null,
-            "value-no-vendor-prefix": null
-        }
-    }
+    "lint-staged": {
+        "*": [
+            "yarn run format",
+            "yarn run lint"
+        ]
+    },
+    "packageManager": "yarn@4.6.0"
 }

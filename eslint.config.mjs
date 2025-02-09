@@ -6,7 +6,6 @@ import eslintTs from "typescript-eslint";
 // export default eslintTs.config({
 const defaultConfig = eslintTs.config({
     extends: [eslint.configs.recommended, ...eslintTs.configs.recommended, eslintPluginPrettierRecommended],
-    ignores: ["node_modules", "dist", "public", ".local", "**/assets/**"],
     plugins: {
         "@stylistic": stylistic,
     },
@@ -78,7 +77,25 @@ const defaultConfig = eslintTs.config({
 });
 
 export default [
-    ...defaultConfig,
+    {
+        ignores: [
+            "node_modules",
+            "dist",
+            "public",
+            ".local",
+            ".yarn",
+            "**/assets/**",
+            ".git",
+            ".github",
+            ".husky",
+            ".vscode",
+            ".vscode-test",
+        ],
+    },
+    ...defaultConfig.map(config => ({
+        ...config,
+        files: ["**/*.{ts,tsx,cjs,mjs}"],
+    })),
     // overrides
     ...defaultConfig.map(config => ({
         ...config,
