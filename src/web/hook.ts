@@ -1,39 +1,29 @@
 import type { ContentUpdate, HostMessage, Initialization, InputRequest } from "../types";
 import { messaging } from "./messaging";
 import { transferFiles } from "./uploading";
-import { Edge, Node, Viewport } from "@xyflow/react";
 
 import { useEffect, useState } from "react";
 
-import { importFlow } from "@waldiez/react";
+import { WaldiezProps, importFlow } from "@waldiez/react";
+
+const getRandomId = () => {
+    return Math.random().toString(36).substring(2, 15);
+};
 
 export const useWaldiezWebview = () => {
+    const randomId = getRandomId();
     const [initialized, setInitialized] = useState(false);
     const [inputPrompt, setInputPrompt] = useState<{
         previousMessages: string[];
         prompt: string;
     } | null>(null);
-    const [sessionData, setSessionData] = useState<{
-        vsPath: string | null;
-        inputPrompt?: {
-            previousMessages: string[];
-            prompt: string;
-        } | null;
-        flowId: string | undefined;
-        nodes: Node[];
-        edges: Edge[];
-        viewport: Viewport;
-        name: string;
-        description: string;
-        tags: string[];
-        requirements: string[];
-        storageId?: string;
-        createdAt?: string;
-        updatedAt?: string;
-    }>({
-        vsPath: null,
+    const [sessionData, setSessionData] = useState<WaldiezProps>({
+        monacoVsPath: null,
         inputPrompt: null,
-        flowId: undefined,
+        flowId: randomId,
+        storageId: randomId,
+        cacheSeed: 41,
+        isAsync: false,
         nodes: [],
         edges: [],
         viewport: {
@@ -49,15 +39,16 @@ export const useWaldiezWebview = () => {
     const _initialize = (hostMsg: Initialization | ContentUpdate) => {
         setInitialized(true);
         const flowData = typeof hostMsg.value === "string" ? hostMsg.value : hostMsg.value.flow;
-        const vsPath =
-            typeof hostMsg.value === "string" ? null : (hostMsg.value.monaco ?? sessionData.vsPath);
+        const monacoVsPath =
+            typeof hostMsg.value === "string" ? null : (hostMsg.value.monaco ?? sessionData.monacoVsPath);
         try {
             const parsedData = JSON.parse(flowData);
             const importedData = importFlow(parsedData);
             setSessionData({
                 ...importedData,
-                vsPath,
+                monacoVsPath,
                 flowId: importedData.flowId,
+                storageId: importedData.storageId,
                 viewport: importedData.viewport ?? {
                     zoom: 1,
                     x: 0,

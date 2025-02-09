@@ -6,9 +6,9 @@ export const App = (props: { flowId: string }) => {
     const { flowId } = props;
     const { initialized, sessionData, inputPrompt, onRun, onChange, onUpload, onUserInput } =
         useWaldiezWebview();
-    const vsPath = sessionData.vsPath;
+    const vsPath = sessionData.monacoVsPath;
     const storageId = sessionData.storageId ?? flowId;
-    const { nodes, edges, viewport, name, description, tags, requirements } = sessionData;
+    const { nodes, edges, viewport, name, description, tags, requirements, isAsync, cacheSeed } = sessionData;
     return initialized ? (
         <Waldiez
             monacoVsPath={vsPath}
@@ -23,6 +23,8 @@ export const App = (props: { flowId: string }) => {
             description={description}
             tags={tags}
             requirements={requirements}
+            isAsync={isAsync}
+            cacheSeed={cacheSeed}
             onRun={onRun}
             onChange={onChange}
             onUpload={onUpload}
