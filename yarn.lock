@@ -2028,12 +2028,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.3.12":
-  version: 0.3.12
-  resolution: "@waldiez/react@npm:0.3.12"
+"@waldiez/react@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@waldiez/react@npm:0.4.0"
   dependencies:
     "@monaco-editor/react": "npm:^4.6.0"
-    "@xyflow/react": "npm:^12.4.2"
+    "@xyflow/react": "npm:^12.4.3"
     microdiff: "npm:^1.5.0"
     nanoid: "npm:^5.0.9"
     rc-slider: "npm:^11.1.8"
@@ -2047,7 +2047,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.0.0
     react-dom: ^18.3.1 || ^19.0.0
-  checksum: 10/98f66b5751b43c51dc2de479197a4af90bb30ee42748273d026963a6e1a8c198f14cfe3f1790bf263093ee5dcf7395ebcca2fda0b1407a3da01f0e9b78dadf1c
+  checksum: 10/cf97483dd2e83c1acd9486d28db22ba4e9e50080cee2ca692ccd250312f3b16b887e133f8a4b5a4860c533824d8a4d6977b35a17b63ccafa50643a67ec44e210
   languageName: node
   linkType: hard
 
@@ -2249,23 +2249,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xyflow/react@npm:^12.4.2":
-  version: 12.4.2
-  resolution: "@xyflow/react@npm:12.4.2"
+"@xyflow/react@npm:^12.4.3":
+  version: 12.4.3
+  resolution: "@xyflow/react@npm:12.4.3"
   dependencies:
-    "@xyflow/system": "npm:0.0.50"
+    "@xyflow/system": "npm:0.0.51"
     classcat: "npm:^5.0.3"
     zustand: "npm:^4.4.0"
   peerDependencies:
     react: ">=17"
     react-dom: ">=17"
-  checksum: 10/7137228d1fa29dc77dd9798c646638ff16c1c4f983c6d6b0f5898118f3c519eecbf1e6c6b2f6b4e4516409d921e6aed676b0ba7e7b000d029b0fca2a0193c712
+  checksum: 10/ecef62bed1f2b7ee5dc88207a5ec3e418be22b7da5a3d83c92af8cd9b3b85f748173f49919d56f2bf619ff532646b3d34a3b5ab17407b07866f8a1242e9aa14d
   languageName: node
   linkType: hard
 
-"@xyflow/system@npm:0.0.50":
-  version: 0.0.50
-  resolution: "@xyflow/system@npm:0.0.50"
+"@xyflow/system@npm:0.0.51":
+  version: 0.0.51
+  resolution: "@xyflow/system@npm:0.0.51"
   dependencies:
     "@types/d3-drag": "npm:^3.0.7"
     "@types/d3-selection": "npm:^3.0.10"
@@ -2274,7 +2274,7 @@ __metadata:
     d3-drag: "npm:^3.0.0"
     d3-selection: "npm:^3.0.0"
     d3-zoom: "npm:^3.0.0"
-  checksum: 10/ac81cdb5e40b0ba2871d084395e885438fa038ed99421a60a166e6323588adbd09f57a1fe86f3e06c63c4c2d244fc2cfe609e4cc0177f32ac1d8bb2c45970d29
+  checksum: 10/7b85ec7b596fe306b482477dbe93cdedf2a22881ac53e03e95e67de10a5e5b95209f3bfe24598e23a7e2478c4ab44c4788f76dfc97ee9b16b8a8cbb44d8868ea
   languageName: node
   linkType: hard
 
@@ -8672,7 +8672,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.10"
     "@vscode/test-electron": "npm:^2.4.1"
     "@vscode/vsce": "npm:^3.2.2"
-    "@waldiez/react": "npm:^0.3.12"
+    "@waldiez/react": "npm:^0.4.0"
     babel-loader: "npm:^9.2.1"
     css-loader: "npm:^7.1.2"
     eslint: "npm:^9.20.1"
