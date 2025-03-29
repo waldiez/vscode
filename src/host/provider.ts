@@ -194,7 +194,7 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
      */
     private _onChangedPythonInterpreter(_isValid: boolean) {
         if (!_isValid) {
-            vscode.window.showWarningMessage("Please select a valid Python interpreter (>=3.10, <3.13)");
+            vscode.window.showWarningMessage("Please select a valid Python interpreter (>=3.10, <3.14)");
             vscode.commands.executeCommand("python.setInterpreter");
         } else {
             this._updateStatusBarItem();

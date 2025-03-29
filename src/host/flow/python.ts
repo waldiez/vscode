@@ -3,6 +3,9 @@ import { showOutput, traceError, traceVerbose } from "../log/logging";
 import { Environment, PythonExtension, ResolvedEnvironment } from "@vscode/python-extension";
 import { Disposable } from "vscode";
 
+const MIN_PY_MINOR_VERSION = 10;
+const MAX_PY_MINOR_VERSION = 13; // until waldiez for 3.13 goes on pypi
+
 let _api: PythonExtension | undefined;
 
 /**
@@ -108,7 +111,11 @@ export class PythonWrapper {
         if (!version || !version.major || !version.minor) {
             return false;
         }
-        return version.major === 3 && version.minor >= 10 && version.minor < 13;
+        return (
+            version.major === 3 &&
+            version.minor >= MIN_PY_MINOR_VERSION &&
+            version.minor < MAX_PY_MINOR_VERSION
+        );
     }
 
     /**
@@ -144,6 +151,15 @@ export class PythonWrapper {
         const sorted = [..._api.environments.known]
             .filter(env => env.version?.major === 3)
             .sort(orderedByMinorReverse);
+        // if the first is 3.13, let's prefer 3.12 instead (more extras can be used on ag2)
+        if (sorted[0].version?.minor === 13) {
+            const index = sorted.findIndex(env => env.version?.minor === 12);
+            if (index > -1) {
+                const [env] = sorted.splice(index, 1);
+                sorted.unshift(env);
+            }
+        }
+        // Log the sorted Python environments
         traceVerbose("Python environments:", sorted);
         // Find the first valid Python environment
         for (const environment of sorted) {
