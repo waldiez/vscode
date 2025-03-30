@@ -4,7 +4,7 @@ import { Environment, PythonExtension, ResolvedEnvironment } from "@vscode/pytho
 import { Disposable } from "vscode";
 
 const MIN_PY_MINOR_VERSION = 10;
-const MAX_PY_MINOR_VERSION = 13; // until waldiez for 3.13 goes on pypi
+const MAX_PY_MINOR_VERSION = 13;
 
 let _api: PythonExtension | undefined;
 
@@ -114,7 +114,7 @@ export class PythonWrapper {
         return (
             version.major === 3 &&
             version.minor >= MIN_PY_MINOR_VERSION &&
-            version.minor < MAX_PY_MINOR_VERSION
+            version.minor <= MAX_PY_MINOR_VERSION
         );
     }
 
