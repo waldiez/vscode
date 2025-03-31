@@ -7,10 +7,11 @@
         "vscode": "^1.95.0"
     },
     "categories": [
-        "Other"
+        "AI"
     ],
     "keywords": [
         "ag2",
+        "agents",
         "waldiez",
         "vscode"
     ],
