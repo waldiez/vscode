@@ -139,6 +139,9 @@
         "markdown-it": "^14.1.0",
         "xml2js": "^0.6.2"
     },
+    "resolutions": {
+        "xml2js": "^0.6.2"
+    },
     "devDependencies": {
         "@babel/core": "^7.26.10",
         "@babel/preset-react": "^7.26.3",
