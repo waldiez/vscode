@@ -2,7 +2,7 @@
     "name": "waldiez-vscode",
     "displayName": "Waldiez",
     "description": "A Waldiez vscode extension",
-    "version": "0.4.2",
+    "version": "0.4.3",
     "engines": {
         "vscode": "^1.95.0"
     },
@@ -174,7 +174,7 @@
         "eslint-config-prettier": "^10.1.2",
         "eslint-plugin-prettier": "^5.2.6",
         "husky": "^9.1.7",
-        "lint-staged": "^15.5.0",
+        "lint-staged": "^15.5.1",
         "markdown-it": "^14.1.0",
         "mini-css-extract-plugin": "^2.9.2",
         "mocha": "^11.2.2",
