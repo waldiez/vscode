@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased]
+## v0.2+
+
+- You can find the changes for each release in the integrated [CHANGELOG.md](https://github.com/waldiez/waldiez/blob/main/CHANGELOG.md) file.
 
 ## v0.1.8
 
