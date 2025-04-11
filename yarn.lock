@@ -1794,27 +1794,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.4.2":
-  version: 0.4.2
-  resolution: "@waldiez/react@npm:0.4.2"
+"@waldiez/react@npm:^0.4.3":
+  version: 0.4.3
+  resolution: "@waldiez/react@npm:0.4.3"
   dependencies:
     "@monaco-editor/react": "npm:^4.7.0"
-    "@xyflow/react": "npm:^12.5.1"
+    "@xyflow/react": "npm:^12.5.5"
     jszip: "npm:^3.10.1"
     microdiff: "npm:^1.5.0"
     nanoid: "npm:^5.1.5"
     rc-slider: "npm:^11.1.8"
     react-error-boundary: "npm:^5.0.0"
     react-fast-compare: "npm:^3.2.2"
-    react-hotkeys-hook: "npm:^4.6.1"
+    react-hotkeys-hook: "npm:^5.0.1"
     react-icons: "npm:^5.5.0"
     react-select: "npm:^5.10.1"
     zundo: "npm:^2.3.0"
     zustand: "npm:^5.0.3"
   peerDependencies:
-    react: ^18.3.1 || ^19.0.0
-    react-dom: ^18.3.1 || ^19.0.0
-  checksum: 10/57fff1aa0fa3cd93165028ef1a22357cd5e9f72f00494f585270356c8ea22786013c7b6f62ed51f37002a4e5b9fbd063c3333800b612b0b93fe01a06412f69c2
+    react: ^18.3.1 || ^19.1.0
+    react-dom: ^18.3.1 || ^19.1.0
+  checksum: 10/2e422d5393fe872859fb57108cb6c4f9005dc8376741831317603996a181e6dd23b6c75874614e026569bac57aced312a04ab1490135f00477fc00ac2a289080
   languageName: node
   linkType: hard
 
@@ -2016,7 +2016,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xyflow/react@npm:^12.5.1":
+"@xyflow/react@npm:^12.5.5":
   version: 12.5.5
   resolution: "@xyflow/react@npm:12.5.5"
   dependencies:
@@ -6982,13 +6982,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hotkeys-hook@npm:^4.6.1":
-  version: 4.6.2
-  resolution: "react-hotkeys-hook@npm:4.6.2"
+"react-hotkeys-hook@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "react-hotkeys-hook@npm:5.0.1"
   peerDependencies:
-    react: ">=16.8.1"
-    react-dom: ">=16.8.1"
-  checksum: 10/23fc4673b1ec07fb3c2990ccf092eaf76f434ed11b48bb6dbaba16cff4c5a38fc6769af1f9381e931ba1fe9ea8832db3451b0b2060813eed531be77d6268114f
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 10/396e324971bfc19853cf99df1fef02fdd5b41bdad5802fceceda73fcb040f36c2c057852c65647dbadcb0ebe85614f774cac1a1ff5c4e0fd69bc969cf5b3a663
   languageName: node
   linkType: hard
 
@@ -8590,7 +8590,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.10"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.3.2"
-    "@waldiez/react": "npm:^0.4.2"
+    "@waldiez/react": "npm:^0.4.3"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
