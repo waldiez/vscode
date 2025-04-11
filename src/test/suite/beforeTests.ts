@@ -1,7 +1,7 @@
 import { PythonExtension } from "@vscode/python-extension";
 import * as vscode from "vscode";
 
-export async function beforeTests() {
+export const beforeTests = async (): Promise<void> => {
     await vscode.extensions.getExtension("ms-python.python")?.activate();
     await waitForPythonEnvironments();
     const api = await PythonExtension.api();
@@ -22,7 +22,7 @@ export async function beforeTests() {
         throw new Error("No suitable Python environment found");
     }
     console.log(`Using Python environment: ${highestVersion.path}`);
-}
+};
 
 const waitForPythonEnvironments = async () => {
     const pythonApi: PythonExtension = await PythonExtension.api();

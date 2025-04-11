@@ -1,6 +1,6 @@
 import { messaging } from "./messaging";
 
-export async function transferFiles(files: File[]) {
+export const transferFiles = async (files: File[]): Promise<string[]> => {
     const promises = [...files].map(file => {
         return new Promise(resolve => {
             const reader = new FileReader();
@@ -31,10 +31,10 @@ export async function transferFiles(files: File[]) {
     return new Promise<string[]>(resolve => {
         resolve(filePaths);
     });
-}
+};
 
-// Helper function to wait for paths from the extension
-function waitForFilePaths(expectedCount: number) {
+// Helper to wait for paths from the extension
+const waitForFilePaths = (expectedCount: number): Promise<string[]> => {
     return new Promise<string[]>(resolve => {
         const receivedPaths: string[] = [];
         const timeout = 5000 * expectedCount; // 5 seconds per file
@@ -62,4 +62,4 @@ function waitForFilePaths(expectedCount: number) {
 
         window.addEventListener("message", listener);
     });
-}
+};

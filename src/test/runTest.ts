@@ -10,7 +10,7 @@ import path from "path";
 
 const isWIndows = process.platform === "win32";
 
-async function main() {
+const main = async (): Promise<void> => {
     try {
         const extensionDevelopmentPath = path.resolve(__dirname, "../../");
         const extensionTestsPath = path.resolve(__dirname, "./suite/index");
@@ -49,7 +49,7 @@ async function main() {
         console.error("Failed to run tests");
         process.exit(1);
     }
-}
+};
 
 const cleanUp = async () => {
     // remove any .py or .ipynb files in the examples directory
@@ -61,4 +61,5 @@ const cleanUp = async () => {
         await fs.remove(path.resolve(examplesDir, file));
     }
 };
+
 main();

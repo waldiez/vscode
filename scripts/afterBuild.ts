@@ -13,7 +13,7 @@ const distFolder = path.join(rootDir, "dist");
 const vsixSrc = path.join(rootDir, vsixName);
 const vsixDest = path.join(distFolder, vsixName);
 
-function cleanupFolder(folder: string) {
+const cleanupFolder = (folder: string) => {
     const folderItems = fs.readdirSync(folder);
     for (const item of folderItems) {
         const entryPath = path.join(folder, item);
@@ -34,9 +34,9 @@ function cleanupFolder(folder: string) {
             }
         }
     }
-}
+};
 
-function main() {
+const main = (): void => {
     if (!fs.existsSync(vsixSrc)) {
         console.error(`Error: ${vsixSrc} not found`);
         process.exit(1);
@@ -47,6 +47,6 @@ function main() {
         console.warn(`Error cleaning up dist folder: ${error.message}`);
     }
     fs.copyFileSync(vsixSrc, vsixDest);
-}
+};
 
 main();

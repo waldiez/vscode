@@ -16,7 +16,7 @@ const waldiezExtensionDisposables: vscode.Disposable[] = [];
  * @param context - The extension context provided by VS Code.
  * @returns A Promise that resolves once the activation process is complete.
  */
-export async function activate(context: ExtensionContext): Promise<void> {
+export const activate = async (context: ExtensionContext): Promise<void> => {
     // Create and clear an output channel for the extension
     const outputChannel = vscode.window.createOutputChannel("Waldiez", {
         log: true,
@@ -46,11 +46,11 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
     // Register extension commands
     registerCommands(flowConverter, flowRunner, waldiezExtensionDisposables);
-}
+};
 
 /**
  * Deactivates the extension and disposes of all registered disposables.
  */
-export function deactivate(): void {
+export const deactivate = (): void => {
     waldiezExtensionDisposables.forEach(d => d.dispose()); // Dispose of all resources
-}
+};

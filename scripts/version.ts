@@ -10,12 +10,13 @@ import url from "url";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-function showHelp(status: number = 1): void {
+
+const showHelp = (status: number = 1): void => {
     console.log("Usage: node --import=tsx|bun version.ts [--get | --set <version>]");
     process.exit(status);
-}
+};
 
-function validateArgs(): void {
+const validateArgs = (): void => {
     if (process.argv.length < 3) {
         console.error("Error: No arguments provided");
         showHelp();
@@ -40,15 +41,15 @@ function validateArgs(): void {
             showHelp();
         }
     }
-}
+};
 
-function getVersion(): string {
+const getVersion = (): string => {
     const packageJsonPath = path.join(__dirname, "..", "package.json");
     const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8"));
     return packageJson.version;
-}
+};
 
-function updateWaldiezDependencyVersion(version: string): void {
+const updateWaldiezDependencyVersion = (version: string): void => {
     const packageJsonPath = path.join(__dirname, "..", "package.json");
     const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8"));
     let gotWaldiez = false;
@@ -73,9 +74,9 @@ function updateWaldiezDependencyVersion(version: string): void {
     writeFileSync(packageJsonPath, `${JSON.stringify(packageJson, null, 4)}\n`, { encoding: "utf8" });
     // the new version might not be available in the registry yet
     // execSync("yarn install", { stdio: "inherit", cwd: path.join(__dirname, "..") });
-}
+};
 
-function updateWaldiezPyRequirement(version: string) {
+const updateWaldiezPyRequirement = (version: string) => {
     // .. also update the version in ../src/host/flow/common.ts:
     //it has sth like: `const MINIMUM_REQUIRED_WALDIEZ_PY_VERSION = "0.1.20";`
     //update the version in the string
@@ -86,16 +87,16 @@ function updateWaldiezPyRequirement(version: string) {
         `const MINIMUM_REQUIRED_WALDIEZ_PY_VERSION = "${version}";`,
     );
     writeFileSync(commonTsPath, updatedCommonTs);
-}
+};
 
-function setVersion(version: string): void {
+const setVersion = (version: string): void => {
     const packageJsonPath = path.join(__dirname, "..", "package.json");
     const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8"));
     packageJson.version = version;
     writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 4));
-}
+};
 
-function main(): void {
+const main = (): void => {
     validateArgs();
     const action = process.argv[2];
     if (action === "--get") {
@@ -106,6 +107,6 @@ function main(): void {
         updateWaldiezDependencyVersion(version);
         updateWaldiezPyRequirement(version);
     }
-}
+};
 
 main();

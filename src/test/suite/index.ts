@@ -5,7 +5,7 @@ import path from "path";
 
 const isWIndows = process.platform === "win32";
 
-function setupCoverage() {
+const setupCoverage = () => {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const NYC = require("nyc");
     const nyc = new NYC({
@@ -29,8 +29,9 @@ function setupCoverage() {
     nyc.wrap();
 
     return nyc;
-}
-export async function run(): Promise<void> {
+};
+
+export const run = async (): Promise<void> => {
     const testsRoot = path.resolve(__dirname, "..");
 
     // Create the mocha test
@@ -77,4 +78,4 @@ export async function run(): Promise<void> {
             await nyc.report();
         }
     }
-}
+};

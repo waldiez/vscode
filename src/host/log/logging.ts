@@ -105,86 +105,86 @@ let channel: OutputChannelLogger | undefined;
  * @param logChannel - The LogOutputChannel to wrap with the logger.
  * @returns A Disposable that cleans up the logger instance when disposed.
  */
-export function registerLogger(logChannel: LogOutputChannel): Disposable {
+export const registerLogger = (logChannel: LogOutputChannel): Disposable => {
     channel = new OutputChannelLogger(logChannel);
     return {
         dispose: () => {
             channel = undefined; // Clear the logger instance on disposal
         },
     };
-}
+};
 
 /**
  * Checks if the log output channel is currently visible.
  *
  * @returns True if the log channel is visible, false otherwise.
  */
-export function isOutputVisible(): boolean {
+export const isOutputVisible = (): boolean => {
     return channel?.isVisible() ?? false;
-}
+};
 
 /**
  * Shows the log output channel.
  */
-export function showOutput(): void {
+export const showOutput = (): void => {
     channel?.show();
-}
+};
 
 /**
  * Hides the log output channel.
  */
-export function hideOutput(): void {
+export const hideOutput = (): void => {
     channel?.hide();
-}
+};
 
 /**
  * Clears the content of the log output channel.
  */
-export function clearOutput(): void {
+export const clearOutput = (): void => {
     channel?.clear();
-}
+};
 
 /**
  * Logs general information messages.
  *
  * @param args - Arguments to be logged.
  */
-export function traceLog(...args: Arguments): void {
+export const traceLog = (...args: Arguments): void => {
     channel?.traceLog(...args);
-}
+};
 
 /**
  * Logs error messages.
  *
  * @param args - Arguments to be logged.
  */
-export function traceError(...args: Arguments): void {
+export const traceError = (...args: Arguments): void => {
     channel?.traceError(...args);
-}
+};
 
 /**
  * Logs warning messages.
  *
  * @param args - Arguments to be logged.
  */
-export function traceWarn(...args: Arguments): void {
+export const traceWarn = (...args: Arguments): void => {
     channel?.traceWarn(...args);
-}
+};
 
 /**
  * Logs informational messages.
  *
  * @param args - Arguments to be logged.
  */
-export function traceInfo(...args: Arguments): void {
+export const traceInfo = (...args: Arguments): void => {
     channel?.traceInfo(...args);
-}
+};
 
 /**
  * Logs verbose/debug messages.
  *
  * @param args - Arguments to be logged.
  */
-export function traceVerbose(...args: Arguments): void {
+export const traceVerbose = (...args: Arguments): void => {
     channel?.traceVerbose(...args);
-}
+};

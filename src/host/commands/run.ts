@@ -39,7 +39,7 @@ export const runFlow = async (resource: vscode.Uri, runner: FlowRunner) => {
             });
     });
 };
-function getInputWebviewContent(previousMessages: string[], prompt: string) {
+const getInputWebviewContent = (previousMessages: string[], prompt: string) => {
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -207,4 +207,4 @@ function getInputWebviewContent(previousMessages: string[], prompt: string) {
     </body>
     </html>
 `;
-}
+};
