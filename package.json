@@ -136,7 +136,8 @@
     },
     "overrides": {
         "ajv": "^8.17.1",
-        "markdown-it": "^14.1.0"
+        "markdown-it": "^14.1.0",
+        "xml2js": "^0.6.2"
     },
     "devDependencies": {
         "@babel/core": "^7.26.10",
@@ -197,7 +198,8 @@
         "vsce": "^2.15.0",
         "vscode-test": "^1.6.1",
         "webpack": "^5.99.5",
-        "webpack-cli": "^6.0.1"
+        "webpack-cli": "^6.0.1",
+        "xml2js": "^0.6.2"
     },
     "lint-staged": {
         "*.{js,json,mjs,ts,jsx,tsx,css,md,yaml,yml}": [
