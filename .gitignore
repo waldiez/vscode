@@ -15,5 +15,6 @@ dist/
 **/waldiez_out/
 **/*cache
 **/*.vsix
+**/*.DS_Store
 .nyc_output/
 **/*.mmd
