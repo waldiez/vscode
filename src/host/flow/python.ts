@@ -1,6 +1,7 @@
 // Flow runner using a Python interpreter
 import { showOutput, traceError, traceVerbose } from "../log/logging";
 import { Environment, PythonExtension, ResolvedEnvironment } from "@vscode/python-extension";
+import { spawnSync } from "child_process";
 import { Disposable } from "vscode";
 
 const MIN_PY_MINOR_VERSION = 10;
@@ -146,31 +147,89 @@ export class PythonWrapper {
             traceError("No valid python interpreter found");
             return undefined;
         }
+        const resolved = await PythonWrapper.getResolvedEnvironment();
+        if (resolved && PythonWrapper.isVersionAllowed(resolved)) {
+            PythonWrapper.setActiveEnvironmentPath(resolved);
+            return new PythonWrapper(resolved, disposables, onChangePythonInterpreter);
+        }
+        showOutput();
+        traceError("No valid python interpreter found");
+        return undefined;
+    };
+    /**
+     * Checks if the given Python environment is in a virtual environment.
+     *
+     * @param env - The Python environment to check.
+     * @returns True if the environment is in a virtual environment, false otherwise.
+     */
+    static isInVirtualEnv: (env: Environment) => boolean = (env: Environment) => {
+        if (!env.executable.uri) {
+            return false;
+        }
+        // import os,sys; print(hasattr(sys, "base_prefix") and os.path.realpath(sys.base_prefix) != os.path.realpath(sys.prefix))
+        const toRun =
+            "import os,sys; print(hasattr(sys, 'base_prefix') and os.path.realpath(sys.base_prefix) != os.path.realpath(sys.prefix))";
+        try {
+            //
+            const output = spawnSync(env.executable.uri.fsPath, ["-c", toRun], {
+                encoding: "utf-8",
+                shell: true,
+            });
+            if (output.error) {
+                traceError("Error checking if in virtual environment:", output.error);
+                return false;
+            }
+            const result = output.stdout.trim();
+            if (result === "True") {
+                traceVerbose("Python executable is in a virtual environment");
+                return true;
+            }
+            traceVerbose("Python executable is not in a virtual environment");
+            return false;
+        } catch (e) {
+            traceError("Error checking if in virtual environment:", e);
+            return false;
+        }
+    };
 
+    static getResolvedEnvironment: () => Promise<ResolvedEnvironment | undefined> = async () => {
         // only use python3.x, and sort environments by minor version in descending order
-        const sorted = [..._api.environments.known]
+        const sorted = [..._api!.environments.known]
             .filter(env => env.version?.major === 3)
             .sort(orderedByMinorReverse);
+        if (sorted.length === 0) {
+            traceError("No valid python interpreter found");
+            showOutput();
+            return undefined;
+        }
+        // if any of the ones found are in a virtual environment, let's prefer those
+        const index = sorted.findIndex(env => PythonWrapper.isInVirtualEnv(env));
+        if (index > -1) {
+            const resolved = await _api!.environments.resolveEnvironment(sorted[index]);
+            if (resolved && PythonWrapper.isVersionAllowed(resolved)) {
+                return resolved;
+            }
+        }
         // if the first is 3.13, let's prefer 3.12 instead (more extras can be used on ag2)
         if (sorted[0].version?.minor === 13) {
             const index = sorted.findIndex(env => env.version?.minor === 12);
             if (index > -1) {
-                const [env] = sorted.splice(index, 1);
-                sorted.unshift(env);
+                const resolved = await _api!.environments.resolveEnvironment(sorted[index]);
+                if (resolved && PythonWrapper.isVersionAllowed(resolved)) {
+                    return resolved;
+                }
             }
         }
         // Log the sorted Python environments
         traceVerbose("Python environments:", sorted);
         // Find the first valid Python environment
         for (const environment of sorted) {
-            const resolved = await _api.environments.resolveEnvironment(environment);
+            const resolved = await _api!.environments.resolveEnvironment(environment);
             if (resolved && PythonWrapper.isVersionAllowed(resolved)) {
-                return new PythonWrapper(resolved, disposables, onChangePythonInterpreter);
+                return resolved;
             }
         }
-
-        // Return a wrapper without a valid environment if none is found
-        return new PythonWrapper(undefined, disposables);
+        return undefined;
     };
 }
 
