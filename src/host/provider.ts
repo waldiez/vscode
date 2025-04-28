@@ -9,7 +9,7 @@ import * as vscode from "vscode";
 export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
     // View type identifier for the custom editor
     private static readonly viewType = "waldiez.flow";
-    private _runner: FlowRunner;
+    private _runner?: FlowRunner;
     private _statusBarItem: vscode.StatusBarItem;
 
     /**
@@ -21,18 +21,20 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
      */
     constructor(
         private readonly context: vscode.ExtensionContext,
-        runner: FlowRunner,
-        disposables: vscode.Disposable[],
+        //runner: FlowRunner,
+        //disposables: vscode.Disposable[],
     ) {
-        this._runner = runner;
+        //this._runner = runner;
 
         // Set a callback to handle Python interpreter changes
-        this._runner.wrapper.setOnChangePythonInterpreter(this._onChangedPythonInterpreter.bind(this));
+        //this._runner.wrapper.setOnChangePythonInterpreter(this._onChangedPythonInterpreter.bind(this));
 
         // Initialize the status bar item
         this._statusBarItem = this._initializeStatusBarItem();
-        this._updateStatusBarItem();
-        this._statusBarItem.show();
+        this._statusBarItem.hide(); // Hide until Python is ready
+
+        //this._updateStatusBarItem();
+        //this._statusBarItem.show();
 
         // Register the custom editor provider
         // check if already registered
@@ -41,7 +43,22 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
             this,
         );
 
-        disposables.push(providerRegistration);
+        context.subscriptions.push(providerRegistration);
+
+        //disposables.push(providerRegistration);
+    }
+
+    /**
+     * Injects the FlowRunner after Python is ready
+     */
+    public initialize(runner: FlowRunner): void {
+        this._runner = runner;
+
+        // Set the intepreter change handler
+        this._runner.wrapper.setOnChangePythonInterpreter(this._onChangedPythonInterpreter.bind(this));
+
+        this._updateStatusBarItem();
+        this._statusBarItem.show();
     }
 
     /**
@@ -88,7 +105,11 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
 
         // Define the callback to run a flow file
         const onRun = (path: vscode.Uri) => {
-            this._runner.run(path, askForInput);
+            if (this._runner) {
+                this._runner.run(path, askForInput);
+            } else {
+                vscode.window.showWarningMessage("Flow runner not yet initialized. Try again shortly.");
+            }
         };
 
         // Set the callback to ask for input
@@ -205,8 +226,10 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
      * Updates the status bar item with the current Python interpreter details.
      */
     private _updateStatusBarItem() {
-        this._statusBarItem.text = `Python: ${this._runner.wrapper.pythonVersionString()}`;
-        this._statusBarItem.tooltip = this._runner.wrapper.executable;
+        if (this._runner) {
+            this._statusBarItem.text = `Python: ${this._runner.wrapper.pythonVersionString()}`;
+            this._statusBarItem.tooltip = this._runner.wrapper.executable;
+        }
     }
 
     /**
