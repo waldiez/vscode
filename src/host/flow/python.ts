@@ -133,29 +133,29 @@ export class PythonWrapper {
         disposables: Disposable[],
         onChangePythonInterpreter,
     ) => {
-        try {
-            // Fetch the Python extension API
-            _api = await PythonExtension.api();
-        } catch (e) {
-            showOutput();
-            traceError("Failed to initialize Python extension:", e);
-            return undefined;
-        }
+            try {
+                // Fetch the Python extension API
+                _api = await PythonExtension.api();
+            } catch (e) {
+                showOutput();
+                traceError("Failed to initialize Python extension:", e);
+                return undefined;
+            }
 
-        if (!_api) {
+            if (!_api) {
+                showOutput();
+                traceError("No valid python interpreter found");
+                return undefined;
+            }
+            const resolved = await PythonWrapper.getResolvedEnvironment();
+            if (resolved && PythonWrapper.isVersionAllowed(resolved)) {
+                PythonWrapper.setActiveEnvironmentPath(resolved);
+                return new PythonWrapper(resolved, disposables, onChangePythonInterpreter);
+            }
             showOutput();
             traceError("No valid python interpreter found");
             return undefined;
-        }
-        const resolved = await PythonWrapper.getResolvedEnvironment();
-        if (resolved && PythonWrapper.isVersionAllowed(resolved)) {
-            PythonWrapper.setActiveEnvironmentPath(resolved);
-            return new PythonWrapper(resolved, disposables, onChangePythonInterpreter);
-        }
-        showOutput();
-        traceError("No valid python interpreter found");
-        return undefined;
-    };
+        };
     /**
      * Checks if the given Python environment is in a virtual environment.
      *

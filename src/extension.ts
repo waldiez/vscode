@@ -25,26 +25,36 @@ export const activate = async (context: ExtensionContext): Promise<void> => {
     waldiezExtensionDisposables.push(registerLogger(outputChannel)); // Register the logger to use the output channel
 
     // Register the new custom editor immediately so .waldiez files open (even if Python not ready yet)
-    const provider = new WaldiezEditorProvider(context);
-    waldiezExtensionDisposables.push(provider);
+    //const provider = new WaldiezEditorProvider(context);
+    //waldiezExtensionDisposables.push(provider);
     // Begin Python setup asynchronously (don't block editor registration)
     //initializeAfterPythonReady(context, provider, outputChannel);
-    initializeAfterPythonReady(provider, outputChannel);
+    initializeAfterPythonReady(context, outputChannel);
 };
 
 async function initializeAfterPythonReady(
-    //context: ExtensionContext,
-    provider: WaldiezEditorProvider,
+    context: ExtensionContext,
+    //provider: WaldiezEditorProvider,
     outputChannel: vscode.OutputChannel,
 ) {
     try {
         const pythonExt = vscode.extensions.getExtension("ms-python.python");
+        if (!pythonExt?.isActive) {
+            traceError("Error! Python Extension not active!");
+            showOutput();
+        }
         if (!pythonExt) {
-            vscode.window.showErrorMessage("Error:: Python extension not found.");
+            traceError("Error:: Python extension not found.");
+            showOutput();
             return;
         }
 
         await pythonExt.activate();
+
+        if (pythonExt?.isActive) {
+            outputChannel.appendLine("Python Extension Active");
+            showOutput();
+        }
 
         // wait till Python API interpreter is available
 
@@ -61,16 +71,17 @@ async function initializeAfterPythonReady(
         };
         await waitForInterpreterReady();
 
+        // make sure the discovery/refresh cycle is finished
+        const api = pythonExt.exports.environments; // kicks off a scan *and* waits for it to finish
+        await api.refreshEnvironments();
+
         // Ensure a valid Python interpreter (>=3.10, <3=.13) is available
         const wrapper = await PythonWrapper.create(waldiezExtensionDisposables);
         if (!wrapper || !wrapper.executable) {
             traceError("Failed to find a valid Python interpreter (>=3.10, <=3.13)");
-            // showOutput();
-            //vscode.window.showErrorMessage("Failed to find a valid Python interpreter (>=3.10, <=3.13)");
-
-            outputChannel.appendLine("Failed to find a valid Python interpreter (>=3.10, <=3.13)");
             showOutput();
-            //deactivate();
+
+            deactivate();
             return; // Abort activation if no valid Python interpreter is found
         }
 
@@ -81,8 +92,8 @@ async function initializeAfterPythonReady(
         const flowConverter = new FlowConverter(wrapper);
         waldiezExtensionDisposables.push(flowConverter); // Add the FlowConverter to disposables for cleanup
 
-        //const provider = new WaldiezEditorProvider(context, flowRunner, waldiezExtensionDisposables);
-        //waldiezExtensionDisposables.push(provider); // Add the custom editor provider to disposables
+        const provider = new WaldiezEditorProvider(context); //, flowRunner, waldiezExtensionDisposables);
+        waldiezExtensionDisposables.push(provider); // Add the custom editor provider to disposables
         provider.initialize(flowRunner);
 
         // Register extension commands
