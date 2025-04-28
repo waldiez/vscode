@@ -28,22 +28,23 @@ export const activate = async (context: ExtensionContext): Promise<void> => {
     const provider = new WaldiezEditorProvider(context);
     waldiezExtensionDisposables.push(provider);
     // Begin Python setup asynchronously (don't block editor registration)
-    initializeAfterPythonReady(context, provider, outputChannel);
+    //initializeAfterPythonReady(context, provider, outputChannel);
+    initializeAfterPythonReady(provider, outputChannel);
 };
 
 async function initializeAfterPythonReady(
-    context: ExtensionContext,
+    //context: ExtensionContext,
     provider: WaldiezEditorProvider,
-    outputChannel: vscode.OutputChannel
+    outputChannel: vscode.OutputChannel,
 ) {
     try {
         const pythonExt = vscode.extensions.getExtension("ms-python.python");
         if (!pythonExt) {
-            vscode.window.showErrorMessage("Error:: Python extension not found.")
+            vscode.window.showErrorMessage("Error:: Python extension not found.");
             return;
         }
 
-        await pythonExt.activate()
+        await pythonExt.activate();
 
         // wait till Python API intrepeter is available
 
@@ -52,10 +53,11 @@ async function initializeAfterPythonReady(
             const start = Date.now();
             while (Date.now() - start < timeoutMs) {
                 const details = await api.environments?.getActiveEnvironmentPath?.();
-                if (details?.path) return;
+                if (details?.path) {
+                    return;
+                }
                 await new Promise(res => setTimeout(res, 250)); // wait 250ms and try again
             }
-
         };
         await waitForIntepreterReady();
 
@@ -89,11 +91,7 @@ async function initializeAfterPythonReady(
         traceError("Unexpected error during Python setup: " + (err as Error).message);
         showOutput();
     }
-
-};
-
-
-
+}
 /**
  * Deactivates the extension and disposes of all registered disposables.
  */
