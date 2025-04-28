@@ -46,9 +46,9 @@ async function initializeAfterPythonReady(
 
         await pythonExt.activate();
 
-        // wait till Python API intrepeter is available
+        // wait till Python API interpreter is available
 
-        const waitForIntepreterReady = async (timeoutMs = 30000) => {
+        const waitForInterpreterReady = async (timeoutMs = 30000) => {
             const api = pythonExt.exports;
             const start = Date.now();
             while (Date.now() - start < timeoutMs) {
@@ -59,16 +59,16 @@ async function initializeAfterPythonReady(
                 await new Promise(res => setTimeout(res, 250)); // wait 250ms and try again
             }
         };
-        await waitForIntepreterReady();
+        await waitForInterpreterReady();
 
-        // Ensure a valid Python interpreter (>=3.10, <3.13) is available
+        // Ensure a valid Python interpreter (>=3.10, <3=.13) is available
         const wrapper = await PythonWrapper.create(waldiezExtensionDisposables);
         if (!wrapper || !wrapper.executable) {
-            traceError("Failed to find a valid Python interpreter (>=3.10, <3.13)");
+            traceError("Failed to find a valid Python interpreter (>=3.10, <=3.13)");
             // showOutput();
-            //vscode.window.showErrorMessage("Failed to find a valid Python interpreter (>=3.10, <3.13)");
+            //vscode.window.showErrorMessage("Failed to find a valid Python interpreter (>=3.10, <=3.13)");
 
-            outputChannel.appendLine("Failed to find a valid Python interpreter (>=3.10, <3.13)");
+            outputChannel.appendLine("Failed to find a valid Python interpreter (>=3.10, <=3.13)");
             showOutput();
             //deactivate();
             return; // Abort activation if no valid Python interpreter is found
