@@ -85,6 +85,7 @@ export default [
             "public",
             ".local",
             ".yarn",
+            ".venv",
             "**/assets/**",
             ".git",
             ".github",
