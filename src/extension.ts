@@ -37,14 +37,14 @@ async function initializeAfterPythonReady(
 ) {
     try {
         const pythonExt = vscode.extensions.getExtension("ms-python.python");
-        if (!pythonExt?.isActive) {
-            traceError("Error! Python Extension not active!");
-            showOutput();
-        }
         if (!pythonExt) {
             traceError("Error:: Python extension not found.");
             showOutput();
             return;
+        }
+        if (!pythonExt?.isActive) {
+            traceError("Error! Python Extension not active!");
+            showOutput();
         }
 
         await pythonExt.activate();
