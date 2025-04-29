@@ -24,11 +24,10 @@ export const activate = async (context: ExtensionContext): Promise<void> => {
     outputChannel.clear();
     waldiezExtensionDisposables.push(registerLogger(outputChannel)); // Register the logger to use the output channel
 
-    // Register the new custom editor immediately so .waldiez files open (even if Python not ready yet)
-    //const provider = new WaldiezEditorProvider(context);
-    //waldiezExtensionDisposables.push(provider);
-    // Begin Python setup asynchronously (don't block editor registration)
-    //initializeAfterPythonReady(context, provider, outputChannel);
+    outputChannel.appendLine("Initializing Waldiez...");
+    showOutput();
+
+
     initializeAfterPythonReady(context, outputChannel);
 };
 
@@ -50,11 +49,6 @@ async function initializeAfterPythonReady(
         }
 
         await pythonExt.activate();
-
-        if (pythonExt?.isActive) {
-            outputChannel.appendLine("Python Extension Active");
-            showOutput();
-        }
 
         // wait till Python API interpreter is available
 
@@ -83,6 +77,12 @@ async function initializeAfterPythonReady(
 
             deactivate();
             return; // Abort activation if no valid Python interpreter is found
+        }
+
+
+        if (pythonExt?.isActive) {
+            outputChannel.appendLine("Python ready. Starting Waldiez...");
+            showOutput();
         }
 
         // Initialize the FlowRunner, FlowConverter, and custom editor provider
