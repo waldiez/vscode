@@ -27,7 +27,6 @@ export const activate = async (context: ExtensionContext): Promise<void> => {
     outputChannel.appendLine("Initializing Waldiez...");
     showOutput();
 
-
     initializeAfterPythonReady(context, outputChannel);
 };
 
@@ -78,7 +77,6 @@ async function initializeAfterPythonReady(
             deactivate();
             return; // Abort activation if no valid Python interpreter is found
         }
-
 
         if (pythonExt?.isActive) {
             outputChannel.appendLine("Python ready. Starting Waldiez...");
