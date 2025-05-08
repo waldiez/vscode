@@ -1810,9 +1810,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.4.6":
-  version: 0.4.6
-  resolution: "@waldiez/react@npm:0.4.6"
+"@waldiez/react@npm:^0.4.7":
+  version: 0.4.7
+  resolution: "@waldiez/react@npm:0.4.7"
   dependencies:
     "@monaco-editor/react": "npm:^4.7.0"
     "@xyflow/react": "npm:^12.6.0"
@@ -1830,7 +1830,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.1.0
     react-dom: ^18.3.1 || ^19.1.0
-  checksum: 10/5177e6c74dd7a128bac5e71325a056ac1ee42e821261b3c9144bbe4f7f176f17b652831d5f1bd4a88fbaa6ffba0a20990b3a1d73e1bb56445948f43ea5df9626
+  checksum: 10/93b275f446e85311c8a6abde723245fece6b0c9200e95038023955fce7474f24a82a64ae5ca215b50a5f6848e67f31839a75fb911d6b96db1852d71e242a95f0
   languageName: node
   linkType: hard
 
@@ -8983,7 +8983,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.10"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.3.2"
-    "@waldiez/react": "npm:^0.4.6"
+    "@waldiez/react": "npm:^0.4.7"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
