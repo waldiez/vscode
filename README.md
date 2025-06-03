@@ -1,6 +1,6 @@
 # @waldiez/vscode
 
-A waldiez extension for Visual Studio Code.
+A [waldiez extension](https://marketplace.visualstudio.com/items?itemName=Waldiez.waldiez-vscode) for Visual Studio Code.
 
 <!--markdownlint-disable MD033-->
 <img src="https://raw.githubusercontent.com/waldiez/vscode/refs/heads/main/public/overview.webp" alt="Waldiez Overview" width="100%">
