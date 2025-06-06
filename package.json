@@ -18,7 +18,7 @@
     "license": "Apache-2.0",
     "publisher": "Waldiez",
     "pricing": "Free",
-    "icon": "icons/waldiez.png",
+    "icon": "icons/logo.png",
     "activationEvents": [
         "workspaceContains: **/*.waldiez"
     ],
@@ -46,8 +46,8 @@
                     ".waldiez"
                 ],
                 "icon": {
-                    "light": "./icons/waldiez.svg",
-                    "dark": "./icons/waldiez.svg"
+                    "light": "./icons/icon.svg",
+                    "dark": "./icons/icon.svg"
                 }
             }
         ],

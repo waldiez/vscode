@@ -16,7 +16,7 @@ A [waldiez extension](https://marketplace.visualstudio.com/items?itemName=Waldie
 ## Requirements
 
 - Visual Studio Code v1.95.0 or later
-- Python >= 3.10, < 3.13 (for converting and/or running .waldiez flows)
+- Python >= 3.10, <= 3.13 (for converting and/or running .waldiez flows)
 - Vscode Python [Extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 
 ## Known Conflicts
