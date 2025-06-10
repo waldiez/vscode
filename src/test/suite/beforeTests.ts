@@ -11,9 +11,7 @@ const MAX_PY_MINOR_VERSION = 13;
 
 export const beforeTests = async (): Promise<void> => {
     await vscode.extensions.getExtension("ms-python.python")?.activate();
-    const api = await PythonExtension.api();
-
-    const resolved = await resolveEnvironment(api);
+    const resolved = await resolveEnvironment();
     if (!resolved) {
         throw new Error("No suitable Python environment found");
     }
@@ -21,12 +19,17 @@ export const beforeTests = async (): Promise<void> => {
     console.log(`Using Python environment: ${resolved.path}`);
 };
 
-const resolveEnvironment = async (api: PythonExtension): Promise<ResolvedEnvironment | undefined> => {
+// eslint-disable-next-line max-statements
+const resolveEnvironment = async (): Promise<ResolvedEnvironment | undefined> => {
+    const api = await PythonExtension.api();
+    api.environments.refreshEnvironments();
     const sorted = [...api.environments.known]
         .filter(env => env.version?.major === 3)
         .sort((a, b) => (b.version?.minor ?? 0) - (a.version?.minor ?? 0));
 
+    console.log(`Found ${sorted.length} Python 3 environments`);
     if (sorted.length === 0) {
+        console.warn("No Python 3 environments found");
         return undefined;
     }
 
