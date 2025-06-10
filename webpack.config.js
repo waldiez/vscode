@@ -1,7 +1,7 @@
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import * as path from "path";
-import TerserPlugin from "terser-webpack-plugin";
-import * as webpack from "webpack";
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path");
+const TerserPlugin = require("terser-webpack-plugin");
+const webpack = require("webpack");
 
 let mode = "development";
 if (process.argv.includes("--mode")) {
@@ -12,10 +12,12 @@ if (!["development", "production"].includes(mode)) {
     mode = "production";
 }
 console.log(`Building in ${mode} mode`);
+
 const cacheDirectory = path.resolve(__dirname, ".webpack");
 const isDev = mode === "development";
 
-const extensionConfig: webpack.Configuration = {
+/** @type {webpack.Configuration} */
+const extensionConfig = {
     target: "node",
     entry: "./src/extension.ts",
     cache: isDev ? { type: "filesystem", cacheDirectory } : false,
@@ -33,10 +35,12 @@ const extensionConfig: webpack.Configuration = {
     },
     externals: { vscode: "commonjs vscode" },
     infrastructureLogging: {
-        level: "log", // enables logging required for problem matchers
+        level: "log",
     },
 };
-const webviewConfig: webpack.Configuration = {
+
+/** @type {webpack.Configuration} */
+const webviewConfig = {
     target: "web",
     entry: "./src/web/index.tsx",
     cache: isDev ? { type: "filesystem", cacheDirectory } : false,
@@ -71,7 +75,8 @@ const webviewConfig: webpack.Configuration = {
         maxAssetSize: 512000,
     },
     infrastructureLogging: {
-        level: "log", // enables logging required for problem matchers
+        level: "log",
     },
 };
-export default [webviewConfig, extensionConfig];
+
+module.exports = [webviewConfig, extensionConfig];

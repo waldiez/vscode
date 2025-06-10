@@ -1,4 +1,7 @@
-/* Place the generated .vsix file in the dist folder */
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import fs from "fs-extra";
 import path from "path";
 import url from "url";

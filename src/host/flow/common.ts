@@ -1,8 +1,12 @@
-import { traceError, traceInfo, traceWarn } from "../log/logging";
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { spawnSync } from "child_process";
 import * as vscode from "vscode";
 
-const MINIMUM_REQUIRED_WALDIEZ_PY_VERSION = "0.4.7";
+import { MINIMUM_REQUIRED_WALDIEZ_PY_VERSION } from "../constants";
+import { traceError, traceInfo, traceWarn } from "../log/logging";
 
 /**
  * Ensures that the `waldiez` Python module is available in the current Python environment.
@@ -14,6 +18,7 @@ const MINIMUM_REQUIRED_WALDIEZ_PY_VERSION = "0.4.7";
  *          and rejects if an error occurs during the process.
  */
 export const ensureWaldiezPy = (executable: string | undefined): Promise<void> => {
+    // eslint-disable-next-line max-statements
     return new Promise<void>((resolve, reject) => {
         if (!executable) {
             // If no Python executable is provided, log an error and reject the promise

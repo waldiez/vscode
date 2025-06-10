@@ -1,6 +1,9 @@
 ---
 name: Lint and test
 
+env:
+  HUSKY: 0
+
 # yamllint disable rule:truthy
 on:
   pull_request:
@@ -17,6 +20,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -29,6 +33,7 @@ jobs:
         run: yarn install
       - name: Lint
         run: yarn run lint
+
   test:
     strategy:
       matrix:
@@ -37,6 +42,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -51,13 +57,16 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
       - name: Display Python version
         run: python --version
+
       - name: Run tests on ubuntu-latest
         run: |
           sudo apt update && sudo apt install -y xvfb libasound2t64 libgbm1 libgtk-3-0t64 libnss3 > /dev/null 2>&1 || true
           xvfb-run -a yarn run test
         if: runner.os == 'Linux'
+
       - name: Run tests on windows-latest and macos-latest
         run: yarn run test
         if: runner.os != 'Linux'

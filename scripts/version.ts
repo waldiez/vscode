@@ -1,9 +1,7 @@
-/* handle version updates
-
-if `--get` is passed, return the current version (x.y.z format)
-if `--set` is passed, set the version to the value of the next argument
-if `--set` validate that it is a valid version(x.y.z format)
-*/
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { readFileSync, writeFileSync } from "fs";
 import path from "path";
 import url from "url";

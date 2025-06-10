@@ -1,6 +1,13 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import eslint from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
+import headers from "eslint-plugin-headers";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import reactHooks from "eslint-plugin-react-hooks";
+import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import eslintTs from "typescript-eslint";
 
 // export default eslintTs.config({
@@ -8,6 +15,9 @@ const defaultConfig = eslintTs.config({
     extends: [eslint.configs.recommended, ...eslintTs.configs.recommended, eslintPluginPrettierRecommended],
     plugins: {
         "@stylistic": stylistic,
+        "react-hooks": reactHooks,
+        "react-refresh": eslintPluginReactRefresh,
+        headers,
     },
     rules: {
         "prettier/prettier": [
@@ -21,15 +31,29 @@ const defaultConfig = eslintTs.config({
                 singleQuote: false,
                 trailingComma: "all",
                 endOfLine: "lf",
+                importOrder: [
+                    "^@fortawesome/",
+                    "^@xyflow/",
+                    "^react",
+                    "^react-dom",
+                    "^react-select",
+                    "^zustand",
+                    "^nanoid",
+                    "^rc-slider",
+                    "^@monaco-editor/react",
+                    "^@waldiez/",
+                    "^[./]",
+                ],
+                importOrderSeparation: true,
+                importOrderSortSpecifiers: true,
                 overrides: [
                     {
-                        files: ["*.md", "*.yml", "*.yaml"],
+                        files: ["*.md", "*.yml", "*.yaml", "*.css"],
                         options: {
                             tabWidth: 2,
                         },
                     },
                 ],
-                importOrder: ["^react", "^react-dom", "^@waldiez/react"],
             },
         ],
         "@typescript-eslint/naming-convention": [
@@ -43,6 +67,9 @@ const defaultConfig = eslintTs.config({
                 },
             },
         ],
+        "react-hooks/exhaustive-deps": "warn",
+        "react-hooks/rules-of-hooks": "error",
+        "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": [
             "error",
@@ -70,9 +97,29 @@ const defaultConfig = eslintTs.config({
                 allowTemplateLiterals: false,
             },
         ],
+        "headers/header-format": [
+            "error",
+            {
+                source: "string",
+                content:
+                    "SPDX-License-Identifier: {spdxIdentifier}\nCopyright {startYear} - {currentYear} {owner}",
+                variables: {
+                    spdxIdentifier: "Apache-2.0",
+                    startYear: "2024",
+                    currentYear: `${new Date().getFullYear()}`,
+                    owner: "Waldiez & contributors",
+                },
+            },
+        ],
         curly: ["error", "all"],
         eqeqeq: "error",
         "prefer-arrow-callback": "error",
+        complexity: ["error", 20],
+        "max-depth": ["error", 4],
+        "max-nested-callbacks": ["error", 4],
+        "max-statements": ["error", 20, { ignoreTopLevelFunctions: true }],
+        "max-lines": ["error", { max: 400, skipBlankLines: true, skipComments: true }],
+        "max-lines-per-function": ["error", { max: 300, skipBlankLines: true, skipComments: true }],
     },
 });
 

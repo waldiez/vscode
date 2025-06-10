@@ -1,7 +1,12 @@
-import { beforeTests } from "./beforeTests";
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { glob } from "glob";
 import Mocha from "mocha";
 import path from "path";
+
+import { beforeTests } from "./beforeTests";
 
 const isWIndows = process.platform === "win32";
 
@@ -31,9 +36,11 @@ const setupCoverage = () => {
     return nyc;
 };
 
-export const run = async (): Promise<void> => {
+export async function run(): Promise<void> {
     const testsRoot = path.resolve(__dirname, "..");
 
+    console.log("Waiting for Python environments to be ready");
+    await beforeTests();
     // Create the mocha test
     const mocha = new Mocha({
         ui: "tdd",
@@ -42,10 +49,6 @@ export const run = async (): Promise<void> => {
         fullTrace: true,
         timeout: 300000,
     });
-    // Wait for Python environments to be ready
-    // and install waldiez python package
-    console.log("Waiting for Python environments to be ready");
-    await beforeTests();
 
     const nyc = setupCoverage();
 
@@ -78,4 +81,4 @@ export const run = async (): Promise<void> => {
             await nyc.report();
         }
     }
-};
+}

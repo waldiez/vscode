@@ -1,6 +1,11 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
+import * as vscode from "vscode";
+
 import { FlowConverter } from "../flow/converter";
 import { traceError } from "../log/logging";
-import * as vscode from "vscode";
 
 /**
  * Converts a flow to the specified format and handles progress and errors.

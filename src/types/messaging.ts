@@ -1,3 +1,18 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
+import { WaldiezActiveRequest, WaldiezChatMessage, WaldiezChatUserInput } from "@waldiez/react";
+
+// Host messages
+// These messages are sent from the host (VS Code extension) to the webview
+export type Resolved = {
+    type: "resolved";
+    value: {
+        path: string;
+    };
+};
+
 export type Initialization = {
     type: "init";
     value: {
@@ -9,16 +24,20 @@ export type ContentUpdate = {
     type: "update";
     value: string;
 };
+export type SaveResult = {
+    type: "save_result";
+    value: {
+        success: boolean;
+        message?: string;
+    };
+};
 export type FlowOutput = {
     type: "output";
     value: any;
 };
 export type InputRequest = {
-    type: "input";
-    value: {
-        previousMessages: string[];
-        prompt: string;
-    };
+    type: "input_request";
+    value: WaldiezActiveRequest;
 };
 export type UploadResponse = {
     type: "upload";
@@ -26,18 +45,54 @@ export type UploadResponse = {
 };
 export type ExportResponse = {
     type: "export";
-    value: any;
+    value: {
+        success: boolean;
+        message?: string;
+        path?: string;
+    };
 };
+export type ParticipantsUpdate = {
+    type: "participants_update";
+    value: string[];
+};
+export type MessagesUpdate = {
+    type: "messages_update";
+    value: WaldiezChatMessage[];
+};
+
+export type WorkflowEnd = {
+    type: "workflow_end";
+    value: {
+        success: boolean;
+        message?: string;
+    };
+};
+
+export type Dispose = {
+    type: "dispose";
+};
+
 export type HostMessage =
     | Initialization
+    | Resolved
     | ContentUpdate
     | FlowOutput
     | UploadResponse
     | InputRequest
-    | ExportResponse;
+    | ExportResponse
+    | ParticipantsUpdate
+    | MessagesUpdate
+    | WorkflowEnd
+    | SaveResult
+    | Dispose;
 
+// Webview messages
+// These messages are sent from the webview to the host (VS Code extension)
 export type ViewReady = {
     action: "ready";
+};
+export type Initialized = {
+    action: "initialized";
 };
 export type ContentChange = {
     action: "change";
@@ -53,9 +108,36 @@ export type RunRequest = {
     action: "run";
     value: any;
 };
+
 export type InputResponse = {
-    action: "input";
+    action: "input_response";
+    value: WaldiezChatUserInput;
+};
+
+export type StopRequest = {
+    action: "stop_request";
+};
+
+export type SaveRequest = {
+    action: "save";
     value: string;
 };
 
-export type WebviewMessage = ViewReady | ContentChange | UploadRequest | RunRequest | InputResponse;
+export type ConvertRequest = {
+    action: "convert";
+    value: {
+        flow: string;
+        to: "py" | "ipynb";
+    };
+};
+
+export type WebviewMessage =
+    | ViewReady
+    | Initialized
+    | ContentChange
+    | UploadRequest
+    | RunRequest
+    | InputResponse
+    | StopRequest
+    | SaveRequest
+    | ConvertRequest;

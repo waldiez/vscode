@@ -1,7 +1,12 @@
-import packageJSON from "../../../package.json";
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import * as assert from "assert";
 import { before, suite, test } from "mocha";
 import * as vscode from "vscode";
+
+import packageJSON from "../../../package.json";
 
 const extensionId = `${packageJSON.publisher}.${packageJSON.name}`;
 

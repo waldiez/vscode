@@ -1,5 +1,10 @@
-import type { HostMessage, WebviewMessage } from "../types";
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import type { WebviewApi } from "vscode-webview";
+
+import type { HostMessage, WebviewMessage } from "../types";
 
 export class Messaging {
     private readonly vscode: WebviewApi<unknown> | null;

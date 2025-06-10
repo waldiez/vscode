@@ -1,8 +1,13 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
+import { ChildProcess, spawn } from "child_process";
+import * as vscode from "vscode";
+
 import { traceError, traceInfo, traceLog, traceVerbose, traceWarn } from "../log/logging";
 import { ensureWaldiezPy } from "./common";
 import { PythonWrapper } from "./python";
-import { ChildProcess, spawn } from "child_process";
-import * as vscode from "vscode";
 
 /**
  * Handles conversion of Waldiez flow files to other formats such as `.py` or `.ipynb`.

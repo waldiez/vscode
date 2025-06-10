@@ -1,11 +1,16 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
+import * as vscode from "vscode";
+import { ExtensionContext } from "vscode";
+
 import { registerCommands } from "./host/commands";
 import { FlowConverter } from "./host/flow/converter";
 import { PythonWrapper } from "./host/flow/python";
 import { FlowRunner } from "./host/flow/runner";
 import { registerLogger, showOutput, traceError } from "./host/log/logging";
 import { WaldiezEditorProvider } from "./host/provider";
-import * as vscode from "vscode";
-import { ExtensionContext } from "vscode";
 
 // store disposables for cleanup
 const waldiezExtensionDisposables: vscode.Disposable[] = [];
@@ -30,6 +35,7 @@ export const activate = async (context: ExtensionContext): Promise<void> => {
     initializeAfterPythonReady(context, outputChannel);
 };
 
+// eslint-disable-next-line max-statements
 async function initializeAfterPythonReady(
     context: ExtensionContext,
     //provider: WaldiezEditorProvider,
@@ -85,17 +91,18 @@ async function initializeAfterPythonReady(
 
         // Initialize the FlowRunner, FlowConverter, and custom editor provider
         const flowRunner = new FlowRunner(wrapper);
-        waldiezExtensionDisposables.push(flowRunner); // Add the FlowRunner to disposables for cleanup
+        waldiezExtensionDisposables.push(flowRunner);
 
         const flowConverter = new FlowConverter(wrapper);
-        waldiezExtensionDisposables.push(flowConverter); // Add the FlowConverter to disposables for cleanup
+        waldiezExtensionDisposables.push(flowConverter);
 
-        const provider = new WaldiezEditorProvider(context); //, flowRunner, waldiezExtensionDisposables);
-        waldiezExtensionDisposables.push(provider); // Add the custom editor provider to disposables
+        // custom editor provider to display and edit flows
+        const provider = new WaldiezEditorProvider(context, flowRunner);
+        waldiezExtensionDisposables.push(provider);
         provider.initialize(flowRunner);
 
         // Register extension commands
-        registerCommands(flowConverter, flowRunner, waldiezExtensionDisposables);
+        registerCommands(flowConverter, waldiezExtensionDisposables);
     } catch (err) {
         traceError("Unexpected error during Python setup: " + (err as Error).message);
         showOutput();

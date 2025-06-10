@@ -1,4 +1,7 @@
-// ensure monaco loader files are present in the public folder (public/vs)
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import crypto from "crypto";
 import fs from "fs-extra";
 import https from "https";
@@ -103,8 +106,7 @@ const removeUnneededFiles = (dir: string): void => {
     // only keep python for language, remove
     const rootDir = path.join(dir, "vs");
     const basicLanguagesDir = path.join(rootDir, "basic-languages");
-    const basicLanguages = fs.readdirSync(basicLanguagesDir);
-    for (const language of basicLanguages) {
+    for (const language of fs.readdirSync(basicLanguagesDir)) {
         if (language !== "python") {
             fs.rmSync(path.join(basicLanguagesDir, language), {
                 recursive: true,

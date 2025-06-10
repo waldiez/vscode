@@ -1,8 +1,12 @@
-// Flow runner using a Python interpreter
-import { showOutput, traceError, traceVerbose } from "../log/logging";
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Environment, PythonExtension, ResolvedEnvironment } from "@vscode/python-extension";
 import { spawnSync } from "child_process";
 import { Disposable } from "vscode";
+
+import { showOutput, traceError, traceVerbose } from "../log/logging";
 
 const MIN_PY_MINOR_VERSION = 10;
 const MAX_PY_MINOR_VERSION = 13;
@@ -75,7 +79,14 @@ export class PythonWrapper {
         if (!pythonVersion) {
             return "Unknown";
         }
-        return `${pythonVersion.major}.${pythonVersion.minor}.${pythonVersion.micro} ${this._environment?.executable.bitness ?? ""}`;
+        let pyString = `${pythonVersion.major}.${pythonVersion.minor}.${pythonVersion.micro} ${this._environment?.executable.bitness ?? ""}`;
+        // KnownEnvironmentTypes = 'VirtualEnvironment' | 'Conda' | 'Unknown'
+        if (this._environment?.environment?.type === "VirtualEnvironment") {
+            pyString += " (Virtual Environment)";
+        } else if (this._environment?.environment?.type === "Conda") {
+            pyString += " (Conda)";
+        }
+        return pyString;
     }
 
     /**
@@ -166,14 +177,14 @@ export class PythonWrapper {
         if (!env.executable.uri) {
             return false;
         }
-        // import os,sys; print(hasattr(sys, "base_prefix") and os.path.realpath(sys.base_prefix) != os.path.realpath(sys.prefix))
         const toRun =
             "import os,sys; print(hasattr(sys, 'base_prefix') and os.path.realpath(sys.base_prefix) != os.path.realpath(sys.prefix))";
         try {
             //
-            const output = spawnSync(env.executable.uri.fsPath, ["-c", toRun], {
+            const output = spawnSync(`${env.executable.uri.fsPath} -c "${toRun}"`, {
                 encoding: "utf-8",
                 shell: true,
+                stdio: "pipe",
             });
             if (output.error) {
                 traceError("Error checking if in virtual environment:", output.error);
@@ -192,6 +203,32 @@ export class PythonWrapper {
         }
     };
 
+    /**
+     * Waits for the Python environments to be loaded.
+     *
+     * @param maxRetries - Maximum number of retries to check for environments.
+     * @param delayMs - Delay in milliseconds between retries.
+     * @returns A Promise that resolves when environments are available or after max retries.
+     */
+    static async waitForEnvironments(maxRetries = 30, delayMs = 2000): Promise<void> {
+        if (!_api) {
+            _api = await PythonExtension.api();
+        }
+        const environments = _api.environments;
+        let retries = 0;
+        while (environments.known.length === 0 && retries < maxRetries) {
+            await new Promise(resolve => setTimeout(resolve, delayMs));
+            retries++;
+            await environments.refreshEnvironments();
+        }
+    }
+
+    /**
+     * Resolves the best available Python environment.
+     *
+     * @returns A Promise resolving to a ResolvedEnvironment or undefined if no valid interpreter is found.
+     */
+    // eslint-disable-next-line max-statements
     static getResolvedEnvironment: () => Promise<ResolvedEnvironment | undefined> = async () => {
         // only use python3.x, and sort environments by minor version in descending order
         const sorted = [..._api!.environments.known]
@@ -202,11 +239,14 @@ export class PythonWrapper {
             showOutput();
             return undefined;
         }
+        // Log the sorted Python environments
+        traceVerbose("Python environments:", sorted);
         // if any of the ones found are in a virtual environment, let's prefer those
         const index = sorted.findIndex(env => PythonWrapper.isInVirtualEnv(env));
         if (index > -1) {
             const resolved = await _api!.environments.resolveEnvironment(sorted[index]);
             if (resolved && PythonWrapper.isVersionAllowed(resolved)) {
+                traceVerbose("Using virtual environment:", resolved);
                 return resolved;
             }
         }
@@ -220,8 +260,6 @@ export class PythonWrapper {
                 }
             }
         }
-        // Log the sorted Python environments
-        traceVerbose("Python environments:", sorted);
         // Find the first valid Python environment
         for (const environment of sorted) {
             const resolved = await _api!.environments.resolveEnvironment(environment);

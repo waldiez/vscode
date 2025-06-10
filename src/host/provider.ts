@@ -1,7 +1,13 @@
-import { FlowRunner } from "./flow/runner";
-import { MessageHandler } from "./messaging";
-import { getNonce, getUri } from "./utils";
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import * as vscode from "vscode";
+
+import { FlowRunner } from "./flow/runner";
+import { MessageTransport } from "./messaging";
+import { getNonce, getUri } from "./utils";
+import { ViewStateHandler } from "./viewStateHandler";
 
 /**
  * Provides a custom editor for Waldiez Flow files.
@@ -21,20 +27,16 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
      */
     constructor(
         private readonly context: vscode.ExtensionContext,
-        //runner: FlowRunner,
-        //disposables: vscode.Disposable[],
+        runner: FlowRunner,
     ) {
-        //this._runner = runner;
+        this._runner = runner;
 
         // Set a callback to handle Python interpreter changes
-        //this._runner.wrapper.setOnChangePythonInterpreter(this._onChangedPythonInterpreter.bind(this));
+        this._runner.wrapper.setOnChangePythonInterpreter(this._onChangedPythonInterpreter.bind(this));
 
         // Initialize the status bar item
         this._statusBarItem = this._initializeStatusBarItem();
         this._statusBarItem.hide(); // Hide until Python is ready
-
-        //this._updateStatusBarItem();
-        //this._statusBarItem.show();
 
         // Register the custom editor provider
         // check if already registered
@@ -42,10 +44,7 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
             WaldiezEditorProvider.viewType,
             this,
         );
-
         context.subscriptions.push(providerRegistration);
-
-        //disposables.push(providerRegistration);
     }
 
     /**
@@ -106,31 +105,24 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
         // Define the callback to run a flow file
         const onRun = (path: vscode.Uri) => {
             if (this._runner) {
-                this._runner.run(path, askForInput);
+                this._runner.run(path, messageTransport);
+            }
+        };
+        const onStop = () => {
+            if (this._runner) {
+                this._runner.stop();
             } else {
                 vscode.window.showWarningMessage("Flow runner not yet initialized. Try again shortly.");
             }
         };
-
-        // Set the callback to ask for input
-        const askForInput = (previousMessages: string[], prompt: string) => {
-            return new Promise<string | undefined>((resolve, reject) => {
-                messageHandler
-                    .askForInput({
-                        previousMessages,
-                        prompt,
-                    })
-                    .then(resolve)
-                    .catch(reject);
-            });
-        };
-
-        // Initialize the message handler
-        const messageHandler = new MessageHandler(
+        // Initialize the message transporter
+        // for communication between the webview and the extension
+        const messageTransport = new MessageTransport(
             this.context,
             webviewPanel,
             document,
             onRun,
+            onStop,
             this._showStatusBarItem.bind(this),
         );
 
@@ -143,21 +135,46 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
             provideTextDocumentContent: () => document.getText(),
         });
 
-        // Show or hide the status bar item based on webview visibility
-        const changeViewStateSubscription = webviewPanel.onDidChangeViewState(e => {
-            if (e.webviewPanel.visible) {
+        const savedDocumentSubscription = vscode.workspace.onDidSaveTextDocument(e => {
+            const filePath = e.uri.fsPath;
+            messageTransport.sendMessage({
+                type: "save_result",
+                value: {
+                    success: true,
+                    message: `File saved successfully at ${filePath}`,
+                },
+            });
+        });
+
+        const viewStateHandler = new ViewStateHandler(
+            () => {
+                // On visible
+                // console.log(`Webview became visible: ${document.uri.toString()}`);
                 this._statusBarItem.show();
-            } else {
+                messageTransport.onReady();
+            },
+            () => {
+                // On hidden
+                // console.log(`Webview became hidden: ${document.uri.toString()}`);
+                webviewPanel.webview.postMessage({ action: "dispose" });
                 this._statusBarItem.hide();
-            }
+            },
+        );
+        // Handle the initial state
+        viewStateHandler.handleStateChange(webviewPanel.visible);
+
+        // Listen for view state changes
+        const changeViewStateSubscription = webviewPanel.onDidChangeViewState(e => {
+            viewStateHandler.handleStateChange(e.webviewPanel.visible);
         });
 
         // Clean up resources when the webview is closed
         webviewPanel.onDidDispose(() => {
             this._statusBarItem.hide();
-            messageHandler.dispose();
+            messageTransport.dispose();
+            viewStateHandler.dispose();
+            savedDocumentSubscription.dispose();
             changeViewStateSubscription.dispose();
-            // changeDocumentSubscription.dispose();
             contentProviderSubscription.dispose();
         });
 

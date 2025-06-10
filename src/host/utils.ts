@@ -1,7 +1,19 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import * as fs from "fs-extra";
 import * as path from "path";
-import { Uri, Webview } from "vscode";
+import { Uri, Webview, workspace } from "vscode";
 
+/**
+ * Utility functions for Waldiez VS Code extension
+ */
+
+/** Get a unique nonce
+ * This nonce is used for security purposes, such as Content Security Policy (CSP) in webviews.
+ * @returns A random string of 32 characters
+ */
 export const getNonce = () => {
     let text = "";
     const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -11,14 +23,43 @@ export const getNonce = () => {
     return text;
 };
 
+/**
+ * Get a URI for the webview
+ * This function converts a local file path to a webview URI, which is used to load resources in the webview.
+ * @param webview - The Webview instance
+ * @param extensionUri - The base URI of the extension
+ * @param pathList - An array of path segments to join with the extension URI
+ * @returns A webview URI
+ */
 export const getUri = (webview: Webview, extensionUri: Uri, pathList: string[]) => {
     return webview.asWebviewUri(Uri.joinPath(extensionUri, ...pathList));
 };
 
+/**
+ * Get the URI for the Monaco editor
+ * This function checks if the Monaco editor files exist in the local path and returns a webview URI for them.
+ * @param webview - The Webview instance
+ * @param extensionUri - The base URI of the extension
+ * @returns A webview URI for the Monaco editor, or null if not found
+ */
 export const getMonacoUri = (webview: Webview, extensionUri: Uri) => {
     const localPath = path.join(__dirname, "..", "public", "vs");
     if (fs.existsSync(localPath)) {
         return getUri(webview, extensionUri, ["public", "vs"]);
     }
     return null;
+};
+
+/**
+ * Get the current working directory for a given resource
+ * This function determines the workspace folder for a given resource URI, or falls back to the parent directory if not found.
+ * @param resource - The resource URI
+ * @returns The file system path of the current working directory
+ */
+export const getCwd = (resource: Uri): string => {
+    return (
+        workspace.getWorkspaceFolder(resource)?.uri.fsPath ??
+        workspace.workspaceFolders?.[0]?.uri.fsPath ??
+        Uri.joinPath(resource, "..").fsPath
+    );
 };

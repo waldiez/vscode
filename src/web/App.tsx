@@ -1,10 +1,14 @@
-import { useWaldiezWebview } from "./hook";
-
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
 import { Waldiez } from "@waldiez/react";
+
+import { useWaldiezWebview } from "./hooks";
 
 export const App = (props: { flowId: string }) => {
     const { flowId } = props;
-    const { initialized, sessionData, inputPrompt, onRun, onChange, onUpload, onUserInput } =
+    const { initialized, sessionData, chat, onRun, onChange, onSave, onUpload, onConvert } =
         useWaldiezWebview();
     const vsPath = sessionData.monacoVsPath;
     const storageId = sessionData.storageId ?? flowId;
@@ -12,10 +16,8 @@ export const App = (props: { flowId: string }) => {
     return initialized ? (
         <Waldiez
             monacoVsPath={vsPath}
-            onUserInput={onUserInput}
             flowId={flowId}
             storageId={storageId}
-            inputPrompt={inputPrompt}
             nodes={nodes}
             edges={edges}
             viewport={viewport}
@@ -28,6 +30,9 @@ export const App = (props: { flowId: string }) => {
             onRun={onRun}
             onChange={onChange}
             onUpload={onUpload}
+            onSave={onSave}
+            onConvert={onConvert}
+            chat={chat}
         />
     ) : (
         <div className="loading">Loading...</div>

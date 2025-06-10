@@ -20,7 +20,7 @@ const __me = path.relative(__rootDir, __filename);
 const isWindows = process.platform === "win32";
 const possibleVenvNames = [".venv", "venv"];
 // we might want to set the order to our preferred python version
-const possiblePys = ["python", "python3", "python3.12", "python3.10", "python3.11", "python3.13"];
+const possiblePys = ["python3.12", "python3.10", "python3.11", "python3.13", "python3", "python"];
 
 /**
  * Check if the python version is greater than or equal to 3.10 and less than 3.14
@@ -30,7 +30,9 @@ const possiblePys = ["python", "python3", "python3.12", "python3.10", "python3.1
 const isPyGte310lte314 = (pyCmd: string) => {
     let pythonVersion: string;
     try {
-        pythonVersion = execSync(`${pyCmd} --version`).toString();
+        pythonVersion = execSync(`${pyCmd} --version`, {
+            stdio: ["pipe", "pipe", "ignore"],
+        }).toString();
     } catch (_) {
         return false;
     }
@@ -50,8 +52,11 @@ const isPyGte310lte314 = (pyCmd: string) => {
 const inVenv = (pythonExecutable: string): boolean => {
     try {
         const toRun =
-            "import sys; print((hasattr(sys, 'real_prefix') or (hasattr(sys, 'base_prefix') and sys.base_prefix != sys.prefix)))";
-        const output = execSync(`${pythonExecutable} -c "${toRun}"`).toString();
+            "import os,sys; print(hasattr(sys, 'base_prefix') and os.path.realpath(sys.base_prefix) != os.path.realpath(sys.prefix))";
+        const output = execSync(`${pythonExecutable} -c "${toRun}"`, {
+            encoding: "utf-8",
+            stdio: ["pipe", "pipe", "ignore"],
+        }).toString();
         return output.trim() === "True";
     } catch (_) {
         console.error("Error checking if in virtual environment");
@@ -66,22 +71,22 @@ const inVenv = (pythonExecutable: string): boolean => {
  * if no compatible python is found
  */
 const getCompatiblePythonExecutable = (): { path: string | null; virtualEnv: boolean } => {
-    let pyThonExec: string | null = null;
+    let pythonExec: string | null = null;
     for (const pyCmd of possiblePys) {
         try {
             execSync(`${pyCmd} --version`);
             if (isPyGte310lte314(pyCmd)) {
-                pyThonExec = pyCmd;
+                pythonExec = pyCmd;
                 break;
             }
         } catch (_) {
             continue;
         }
     }
-    if (!pyThonExec) {
+    if (!pythonExec) {
         return { path: null, virtualEnv: false };
     }
-    return { path: pyThonExec, virtualEnv: inVenv(pyThonExec) };
+    return { path: pythonExec, virtualEnv: inVenv(pythonExec) };
 };
 /**
  * Get the python executable from the virtual environment directory
@@ -108,8 +113,16 @@ const getNewPythonExecutable = () => {
     const resolvedDir = path.resolve(__rootDir, possibleVenvNames[0]);
     execSync(`${pyThonExec} -m venv ${resolvedDir}`);
     const pythonPath = getVenvPythonExecutable(resolvedDir);
-    execSync(`${pythonPath} -m pip install --upgrade pip uv`);
+    execSync(`${pythonPath} -m pip install --upgrade pip jupyter`);
     return pythonPath;
+};
+
+/**
+ * Check if we are in a CI environment
+ * @returns true if we are in a CI environment, false otherwise
+ */
+const inCIEnv = (): boolean => {
+    return process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
 };
 
 /**
@@ -118,19 +131,35 @@ const getNewPythonExecutable = () => {
  */
 const tryGetPythonExecutable = (): string | null => {
     let { path: pythonPath, virtualEnv: found } = getCompatiblePythonExecutable();
-    if (found) {
+    // if in CI, we don't need a new virtual environment
+    const inCi = inCIEnv();
+    if (inCi && pythonPath) {
+        // if we are in CI and we found a compatible python, return it
         return pythonPath;
     }
-    for (const venvName of possibleVenvNames) {
-        const venvDir = path.join(__rootDir, venvName);
-        const venvPythonPath = getVenvPythonExecutable(venvDir);
-        if (fs.existsSync(venvPythonPath)) {
-            pythonPath = venvPythonPath;
-            found = true;
-            break;
+    if (found) {
+        // found: in venv already
+        // if we are not in CI and we found a compatible python, return it
+        return pythonPath;
+    }
+    if (!inCi) {
+        const dirsToCheck: string[] = [];
+        for (const venvName of possibleVenvNames) {
+            const inExamples = path.join(__rootDir, "examples", venvName);
+            dirsToCheck.push(inExamples);
+            dirsToCheck.push(path.join(__rootDir, venvName));
+        }
+        // check if any of the possible venv directories exist
+        for (const venvDir of dirsToCheck) {
+            const venvPythonPath = getVenvPythonExecutable(venvDir);
+            if (fs.existsSync(venvPythonPath)) {
+                pythonPath = venvPythonPath;
+                found = true;
+                break;
+            }
         }
     }
-    return found === true ? pythonPath : getNewPythonExecutable();
+    return pythonPath || getNewPythonExecutable();
 };
 
 /**
@@ -170,6 +199,22 @@ const showHelp = () => {
 };
 
 /**
+ * Get the actual path of the python executable
+ * @param pythonExecutable the python executable
+ * @returns the actual path of the python executable
+ */
+const getActualPath = (pythonExecutable: string): string => {
+    const cmd = "import sys; print(sys.executable)";
+    try {
+        const output = execSync(`${pythonExecutable} -c "${cmd}"`).toString();
+        return output.trim();
+    } catch (err) {
+        console.error("Error getting actual path of python executable:", (err as Error).message);
+        process.exit(1);
+    }
+};
+
+/**
  * Main function
  */
 const main = () => {
@@ -178,9 +223,12 @@ const main = () => {
         if (cmd_args.length === 0 || cmd_args[0] === "-h" || cmd_args[0] === "--help") {
             showHelp();
         }
-        const pythonExec = getPythonExecutable();
+        const pythonExec = getActualPath(getPythonExecutable());
         const cmd_args_str = cmd_args.join(" ");
-        execSync(`${pythonExec} ${cmd_args_str}`, { stdio: "inherit" });
+        console.log(`\x1b[36mRunning command: ${pythonExec} ${cmd_args_str}`);
+        execSync(`${pythonExec} ${cmd_args_str}`, {
+            stdio: "inherit",
+        });
     } catch (err) {
         console.error("Error:", (err as Error).message);
         process.exit(1);

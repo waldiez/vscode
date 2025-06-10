@@ -1,38 +1,38 @@
 :root {
-    --app-height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
-    --app-width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
+  --app-height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
+  --app-width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
 
-    color-scheme: light dark;
-    font-synthesis: none;
-    text-rendering: optimizelegibility;
-    -webkit-font-smoothing: antialiased;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* stylelint-disable csstree/validator */
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-    height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
-    height: -webkit-fill-available;
-    height: var(--app-height);
-    min-height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
-    min-height: -webkit-fill-available;
-    width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
-    width: -webkit-fill-available;
-    width: var(--app-width);
-    min-width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
-    min-width: -webkit-fill-available;
-    min-width: var(--app-width);
-    -ms-overflow-style: -ms-autohiding-scrollbar;
+  margin: 0;
+  padding: 0;
+  height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
+  height: -webkit-fill-available;
+  height: var(--app-height);
+  min-height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
+  min-height: -webkit-fill-available;
+  width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
+  width: -webkit-fill-available;
+  width: var(--app-width);
+  min-width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
+  min-width: -webkit-fill-available;
+  min-width: var(--app-width);
+  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 .loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: var(--app-height);
-    width: var(--app-width);
-    overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--app-height);
+  width: var(--app-width);
+  overflow: hidden;
 }
