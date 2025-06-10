@@ -83,10 +83,17 @@ jobs:
           name: waldiez-react
           path: .local
 
-      - name: Move artifact to correct location
+      - name: Move artifact to correct location (Unix)
+        if: runner.os != 'Windows'
         run: |
           mv .local/waldiez-react.tgz .local/waldiez-react.tgz || echo "File already in place"
           ls -la .local/
+
+      - name: Move artifact to correct location (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          move .local\waldiez-react.tgz .local\waldiez-react.tgz || echo "File already in place"
+          dir .local
 
       - name: Install Yarn and dependencies
         run: |
