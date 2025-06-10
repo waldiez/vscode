@@ -11,12 +11,26 @@ const MAX_PY_MINOR_VERSION = 13;
 
 export const beforeTests = async (): Promise<void> => {
     await vscode.extensions.getExtension("ms-python.python")?.activate();
+    await waitForPythonEnvironments();
     const resolved = await resolveEnvironment();
     if (!resolved) {
         throw new Error("No suitable Python environment found");
     }
 
     console.log(`Using Python environment: ${resolved.path}`);
+};
+
+const waitForPythonEnvironments = async () => {
+    const pythonApi: PythonExtension = await PythonExtension.api();
+    const environments = pythonApi.environments;
+    const maxRetries = 30; // Maximum retries to wait for environments
+    let retries = 0;
+    while (environments.known.length === 0 && retries < maxRetries) {
+        console.log(`Attempt ${retries + 1}: Waiting for 2 seconds...`);
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        retries++;
+        await environments.refreshEnvironments();
+    }
 };
 
 // eslint-disable-next-line max-statements
