@@ -2365,9 +2365,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@file:./.local/waldiez-react.tgz::locator=waldiez-vscode%40workspace%3A.":
+"@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
   version: 0.4.7
-  resolution: "@waldiez/react@file:./.local/waldiez-react.tgz#./.local/waldiez-react.tgz::hash=04495b&locator=waldiez-vscode%40workspace%3A."
+  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=a10bb4b8f05430c8e3a29e26b22e76b947ba306e"
   dependencies:
     "@monaco-editor/react": "npm:^4.7.0"
     "@radix-ui/react-checkbox": "npm:^1.3.2"
@@ -2389,7 +2389,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.1.0
     react-dom: ^18.3.1 || ^19.1.0
-  checksum: 10/ead372f85eade0c7cc48ca846af8d6156d4f4230c10887e72ea3c21914881e0e5d05bb31e8348bf38261dd8bb2ee14fffcf18335a30f2c9132acdf0836edf4c4
+  checksum: 10/27dd107a11ac2690fd1f80b8257d064d041d92aea415aad4a2feb1ac4108f76451cdccf01aa2d5b6e0eab93415e035fd2869b729401867a9113b2781025415ed
   languageName: node
   linkType: hard
 
@@ -10315,7 +10315,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.11"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.5.0"
-    "@waldiez/react": "file:./.local/waldiez-react.tgz"
+    "@waldiez/react": "git+https://github.com/waldiez/waldiez.git#dev"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
