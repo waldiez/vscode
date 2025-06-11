@@ -91,12 +91,16 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
         _token: vscode.CancellationToken,
     ): Promise<void> {
         // Configure webview options
+        const localResourceRoots = [
+            vscode.Uri.joinPath(this.context.extensionUri, "dist"),
+            vscode.Uri.joinPath(this.context.extensionUri, "public"),
+        ];
+        if (vscode.workspace.workspaceFolders?.[0]?.uri) {
+            localResourceRoots.push(vscode.workspace.workspaceFolders[0].uri);
+        }
         webviewPanel.webview.options = {
             enableScripts: true,
-            localResourceRoots: [
-                vscode.Uri.joinPath(this.context.extensionUri, "dist"),
-                vscode.Uri.joinPath(this.context.extensionUri, "public"),
-            ],
+            localResourceRoots,
         };
 
         // Set the HTML content of the webview

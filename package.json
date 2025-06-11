@@ -134,7 +134,6 @@
     },
     "dependencies": {
         "@vscode/python-extension": "^1.0.5",
-        "@waldiez/react": "file:./.local/waldiez-react-0.4.7.tgz",
         "fs-extra": "^11.3.0"
     },
     "overrides": {
@@ -168,6 +167,7 @@
         "@vscode/test-cli": "^0.0.11",
         "@vscode/test-electron": "^2.5.2",
         "@vscode/vsce": "^3.5.0",
+        "@waldiez/react": "file:./.local/waldiez-react.tgz",
         "ajv": "^8.17.1",
         "all-contributors-cli": "^6.26.1",
         "babel-loader": "^10.0.0",

@@ -131,11 +131,11 @@ __metadata:
   linkType: hard
 
 "@azure/msal-browser@npm:^4.2.0":
-  version: 4.13.0
-  resolution: "@azure/msal-browser@npm:4.13.0"
+  version: 4.13.1
+  resolution: "@azure/msal-browser@npm:4.13.1"
   dependencies:
     "@azure/msal-common": "npm:15.7.0"
-  checksum: 10/6f8006043cc6751a98ca289729c5769f56edd0f90e09a871251e1b96eb2bb226b91362aecb6116c1ad9ae0ccbd59c281f30e0afee9c85c3c771b5d2d6986ca27
+  checksum: 10/82822803a6ff7caf7c8776b0999f9aaa4a70c356f3c2fbd68be5b9e344987246bc8b8afe1e45a185a6fcede346e19bf5eb301c5f418507427667376ae80da0bb
   languageName: node
   linkType: hard
 
@@ -2365,9 +2365,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@file:./.local/waldiez-react-0.4.7.tgz::locator=waldiez-vscode%40workspace%3A.":
+"@waldiez/react@file:./.local/waldiez-react.tgz::locator=waldiez-vscode%40workspace%3A.":
   version: 0.4.7
-  resolution: "@waldiez/react@file:./.local/waldiez-react-0.4.7.tgz#./.local/waldiez-react-0.4.7.tgz::hash=6f4c96&locator=waldiez-vscode%40workspace%3A."
+  resolution: "@waldiez/react@file:./.local/waldiez-react.tgz#./.local/waldiez-react.tgz::hash=04495b&locator=waldiez-vscode%40workspace%3A."
   dependencies:
     "@monaco-editor/react": "npm:^4.7.0"
     "@radix-ui/react-checkbox": "npm:^1.3.2"
@@ -2389,7 +2389,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.1.0
     react-dom: ^18.3.1 || ^19.1.0
-  checksum: 10/a88933ee989e5caff1c4364abedcf7ffc42b3ef8890957c48aa0933f385c68fed93e638d79fb99dc40e31bda9a4961b8f3ae12418db40bb531d20470102f03c6
+  checksum: 10/ead372f85eade0c7cc48ca846af8d6156d4f4230c10887e72ea3c21914881e0e5d05bb31e8348bf38261dd8bb2ee14fffcf18335a30f2c9132acdf0836edf4c4
   languageName: node
   linkType: hard
 
@@ -3038,21 +3038,21 @@ __metadata:
   linkType: hard
 
 "brace-expansion@npm:^1.1.7":
-  version: 1.1.11
-  resolution: "brace-expansion@npm:1.1.11"
+  version: 1.1.12
+  resolution: "brace-expansion@npm:1.1.12"
   dependencies:
     balanced-match: "npm:^1.0.0"
     concat-map: "npm:0.0.1"
-  checksum: 10/faf34a7bb0c3fcf4b59c7808bc5d2a96a40988addf2e7e09dfbb67a2251800e0d14cd2bfc1aa79174f2f5095c54ff27f46fb1289fe2d77dac755b5eb3434cc07
+  checksum: 10/12cb6d6310629e3048cadb003e1aca4d8c9bb5c67c3c321bafdd7e7a50155de081f78ea3e0ed92ecc75a9015e784f301efc8132383132f4f7904ad1ac529c562
   languageName: node
   linkType: hard
 
 "brace-expansion@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "brace-expansion@npm:2.0.1"
+  version: 2.0.2
+  resolution: "brace-expansion@npm:2.0.2"
   dependencies:
     balanced-match: "npm:^1.0.0"
-  checksum: 10/a61e7cd2e8a8505e9f0036b3b6108ba5e926b4b55089eeb5550cd04a471fe216c96d4fe7e4c7f995c728c554ae20ddfc4244cad10aef255e72b62930afd233d1
+  checksum: 10/01dff195e3646bc4b0d27b63d9bab84d2ebc06121ff5013ad6e5356daa5a9d6b60fa26cf73c74797f2dc3fbec112af13578d51f75228c1112b26c790a87b0488
   languageName: node
   linkType: hard
 
@@ -3255,9 +3255,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001718":
-  version: 1.0.30001721
-  resolution: "caniuse-lite@npm:1.0.30001721"
-  checksum: 10/88fa7ecb5b9a4c1393d7793fc6d35552340beba9a898b4f7b05f9ae266b230ffa35aef5da0d33d1872fb1fcb32d860dfd00298d7b4da8eeea5e6eb3cfa029a18
+  version: 1.0.30001722
+  resolution: "caniuse-lite@npm:1.0.30001722"
+  checksum: 10/60ad52c891221c894085d450c7308f94768702bed4f0b4b99199e3c3c5926b22d7c7c05f474fcdb484befbd43d1975f8529c8ad8f66770f5c32c5342716ecd0b
   languageName: node
   linkType: hard
 
@@ -9823,8 +9823,8 @@ __metadata:
   linkType: hard
 
 "tsx@npm:^4.19.4":
-  version: 4.19.4
-  resolution: "tsx@npm:4.19.4"
+  version: 4.20.1
+  resolution: "tsx@npm:4.20.1"
   dependencies:
     esbuild: "npm:~0.25.0"
     fsevents: "npm:~2.3.3"
@@ -9834,7 +9834,7 @@ __metadata:
       optional: true
   bin:
     tsx: dist/cli.mjs
-  checksum: 10/4dde315aeda70b9cadfecbc8d05b1625f5831018b9cb2db25cbbd03c5f5ee9c59cdc6652a0fd8492176b50944a5af1d5af352b944d024f4a719f58d6f2ac3a7f
+  checksum: 10/fc6f3861f70975f0008d4ac28058e23fea0e9c033fed93234e7d72c65148e9368b4c6d5cd31b1cce3461a3aa50a34a87e1ba787e991d571e1c0e9d4b272909cd
   languageName: node
   linkType: hard
 
@@ -10315,7 +10315,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.11"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.5.0"
-    "@waldiez/react": "file:./.local/waldiez-react-0.4.7.tgz"
+    "@waldiez/react": "file:./.local/waldiez-react.tgz"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"

@@ -96,7 +96,7 @@ export class FlowRunner extends vscode.Disposable {
                 cancelled = true;
                 this._cleanup();
             });
-
+            const parentDir = vscode.Uri.joinPath(resource, "..");
             const args = [
                 "-m",
                 "waldiez",
@@ -106,10 +106,12 @@ export class FlowRunner extends vscode.Disposable {
                 resource.fsPath,
                 "--output",
                 resource.fsPath.replace(/\.waldiez$/, ".py"),
+                "--uploads-root",
+                parentDir.fsPath,
                 "--force",
             ];
 
-            const processor = new MessageProcessor(transport);
+            const processor = new MessageProcessor(transport, parentDir);
 
             this._proc = spawn(this.wrapper.executable!, args, {
                 cwd: getCwd(resource),

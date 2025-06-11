@@ -46,6 +46,10 @@ export class MessageTransport {
         // traceVerbose(`<Waldiez> MessageTransport ${this._instanceId} created for ${document.uri.toString()}`);
     }
 
+    public asWebviewUri(uri: vscode.Uri): vscode.Uri {
+        return this.panel.webview.asWebviewUri(uri);
+    }
+
     public dispose() {
         this._disposable.dispose();
         // Clear all timeouts
