@@ -6,12 +6,17 @@ import { glob } from "glob";
 import Mocha from "mocha";
 import path from "path";
 
+import { beforeTests } from "./beforeTests";
+
 export async function run(): Promise<void> {
+    // make sure the python extension is activated and ready
+    await beforeTests();
+
     // Create the mocha test
     const mocha = new Mocha({
         ui: "tdd",
         color: true,
-        timeout: 300000, // Keep your longer timeout for VSCode tests
+        timeout: 300000,
     });
 
     const testsRoot = path.resolve(__dirname, "..");
