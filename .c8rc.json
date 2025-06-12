@@ -1,0 +1,9 @@
+{
+    "include": ["dist/**/*.js"],
+    "exclude": ["**/node_modules/**", "**/test/**", "**/tests/**"],
+    "all": false,
+    "reporter": ["text", "text-summary", "html", "lcov"],
+    "reports-dir": "./coverage",
+    "clean": true,
+    "source-map": false
+}

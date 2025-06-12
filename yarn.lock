@@ -431,6 +431,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@bcoe/v8-coverage@npm:^1.0.1":
+  version: 1.0.2
+  resolution: "@bcoe/v8-coverage@npm:1.0.2"
+  checksum: 10/46600b2dde460269b07a8e4f12b72e418eae1337b85c979f43af3336c9a1c65b04e42508ab6b245f1e0e3c64328e1c38d8cd733e4a7cebc4fbf9cf65c6e59937
+  languageName: node
+  linkType: hard
+
 "@cspotcode/source-map-support@npm:^0.8.0":
   version: 0.8.1
   resolution: "@cspotcode/source-map-support@npm:0.8.1"
@@ -964,6 +971,17 @@ __metadata:
     js-yaml: "npm:^3.13.1"
     resolve-from: "npm:^5.0.0"
   checksum: 10/b000a5acd8d4fe6e34e25c399c8bdbb5d3a202b4e10416e17bfc25e12bab90bb56d33db6089ae30569b52686f4b35ff28ef26e88e21e69821d2b85884bd055b8
+  languageName: node
+  linkType: hard
+
+"@istanbuljs/nyc-config-typescript@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@istanbuljs/nyc-config-typescript@npm:1.0.2"
+  dependencies:
+    "@istanbuljs/schema": "npm:^0.1.2"
+  peerDependencies:
+    nyc: ">=15"
+  checksum: 10/f2bfb2b0da3f43012508063c536b9b9b42e47a0be37a70f0c5a37dca0ba74baa6f4bbd059483c596cacaa6486f0e658b7fb89055eb882088e0f521b3fb578e65
   languageName: node
   linkType: hard
 
@@ -1733,7 +1751,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/d3-interpolate@npm:*":
+"@types/d3-interpolate@npm:*, @types/d3-interpolate@npm:^3.0.4":
   version: 3.0.4
   resolution: "@types/d3-interpolate@npm:3.0.4"
   dependencies:
@@ -2367,12 +2385,13 @@ __metadata:
 
 "@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
   version: 0.4.7
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=a10bb4b8f05430c8e3a29e26b22e76b947ba306e"
+  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=d05cd4225cb4633d35a53778f7f665bdb5636c41"
   dependencies:
     "@monaco-editor/react": "npm:^4.7.0"
     "@radix-ui/react-checkbox": "npm:^1.3.2"
     "@radix-ui/react-slider": "npm:^1.3.5"
     "@xyflow/react": "npm:^12.6.4"
+    framer-motion: "npm:^12.17.0"
     jszip: "npm:^3.10.1"
     microdiff: "npm:^1.5.0"
     nanoid: "npm:^5.1.5"
@@ -2389,7 +2408,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.1.0
     react-dom: ^18.3.1 || ^19.1.0
-  checksum: 10/27dd107a11ac2690fd1f80b8257d064d041d92aea415aad4a2feb1ac4108f76451cdccf01aa2d5b6e0eab93415e035fd2869b729401867a9113b2781025415ed
+  checksum: 10/1e34f490ec458d1b0acb9b4a3692c533416448bffd27e0854aa96cf580f28301b8221c44a377c8ede070c3a1e10e92c1c16025c011e18742eabefb83854e2dac
   languageName: node
   linkType: hard
 
@@ -2592,31 +2611,33 @@ __metadata:
   linkType: hard
 
 "@xyflow/react@npm:^12.6.4":
-  version: 12.6.4
-  resolution: "@xyflow/react@npm:12.6.4"
+  version: 12.7.0
+  resolution: "@xyflow/react@npm:12.7.0"
   dependencies:
-    "@xyflow/system": "npm:0.0.61"
+    "@xyflow/system": "npm:0.0.62"
     classcat: "npm:^5.0.3"
     zustand: "npm:^4.4.0"
   peerDependencies:
     react: ">=17"
     react-dom: ">=17"
-  checksum: 10/538ef45a4513c5e91ff24a615bfe0ac050eb9bd72626ba81351895a4bd7cc781c71189f6241b9b688abfd53b901acd64c8ee7abb19cf65737976f3b9e962523e
+  checksum: 10/a2549ae2ba83e1ed0095945e0169f2d29b258158818357f51574795e1d3a86960970a51071c1afe5ab9f358e3f2071735c94c1f4cf2664d495d0643428e63add
   languageName: node
   linkType: hard
 
-"@xyflow/system@npm:0.0.61":
-  version: 0.0.61
-  resolution: "@xyflow/system@npm:0.0.61"
+"@xyflow/system@npm:0.0.62":
+  version: 0.0.62
+  resolution: "@xyflow/system@npm:0.0.62"
   dependencies:
     "@types/d3-drag": "npm:^3.0.7"
+    "@types/d3-interpolate": "npm:^3.0.4"
     "@types/d3-selection": "npm:^3.0.10"
     "@types/d3-transition": "npm:^3.0.8"
     "@types/d3-zoom": "npm:^3.0.8"
     d3-drag: "npm:^3.0.0"
+    d3-interpolate: "npm:^3.0.1"
     d3-selection: "npm:^3.0.0"
     d3-zoom: "npm:^3.0.0"
-  checksum: 10/e14dd2ca75aef661c74ba16fe37d1a55927ad145492835321b1f6a471483ce8d044acd36eaf09c2d775df2040341efde0c05c520b5f044add11dd0e8ca1d1bf7
+  checksum: 10/091646831288f2d1234abc523b00efd71a306f9a7a039e3453f0e598abc01b7405191c1160f5f948a98f9bf4ceb6eafef994a6008516dc7117d1996bb40c6dff
   languageName: node
   linkType: hard
 
@@ -3147,6 +3168,32 @@ __metadata:
   dependencies:
     run-applescript: "npm:^7.0.0"
   checksum: 10/1d966c8d2dbf4d9d394e53b724ac756c2414c45c01340b37743621f59cc565a435024b394ddcb62b9b335d1c9a31f4640eb648c3fec7f97ee74dc0694c9beb6c
+  languageName: node
+  linkType: hard
+
+"c8@npm:^10.1.3":
+  version: 10.1.3
+  resolution: "c8@npm:10.1.3"
+  dependencies:
+    "@bcoe/v8-coverage": "npm:^1.0.1"
+    "@istanbuljs/schema": "npm:^0.1.3"
+    find-up: "npm:^5.0.0"
+    foreground-child: "npm:^3.1.1"
+    istanbul-lib-coverage: "npm:^3.2.0"
+    istanbul-lib-report: "npm:^3.0.1"
+    istanbul-reports: "npm:^3.1.6"
+    test-exclude: "npm:^7.0.1"
+    v8-to-istanbul: "npm:^9.0.0"
+    yargs: "npm:^17.7.2"
+    yargs-parser: "npm:^21.1.1"
+  peerDependencies:
+    monocart-coverage-reports: ^2
+  peerDependenciesMeta:
+    monocart-coverage-reports:
+      optional: true
+  bin:
+    c8: bin/c8.js
+  checksum: 10/6fdc2097fec28a14089fb6e450a5d7532b39391de5c1fd04803430c7a27be4fff6311388ab9ca8cc570c42062bf0c0fa1d7f23558957f7ab35b781f33a5f0906
   languageName: node
   linkType: hard
 
@@ -3799,7 +3846,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"d3-interpolate@npm:1 - 3":
+"d3-interpolate@npm:1 - 3, d3-interpolate@npm:^3.0.1":
   version: 3.0.1
   resolution: "d3-interpolate@npm:3.0.1"
   dependencies:
@@ -4874,6 +4921,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"framer-motion@npm:^12.17.0":
+  version: 12.17.3
+  resolution: "framer-motion@npm:12.17.3"
+  dependencies:
+    motion-dom: "npm:^12.17.3"
+    motion-utils: "npm:^12.12.1"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10/028fbaa7b189e77a8b3240d85965025c15aa7ed0e17593424b8c3b06c2de727d61138c4d7def960987c6df69a62750816e07f6d8682e2089406bbd0941b6a665
+  languageName: node
+  linkType: hard
+
 "fromentries@npm:^1.2.0":
   version: 1.3.2
   resolution: "fromentries@npm:1.3.2"
@@ -5061,7 +5130,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.4.5":
+"glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.4.1, glob@npm:^10.4.5":
   version: 10.4.5
   resolution: "glob@npm:10.4.5"
   dependencies:
@@ -7421,6 +7490,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"motion-dom@npm:^12.17.3":
+  version: 12.17.3
+  resolution: "motion-dom@npm:12.17.3"
+  dependencies:
+    motion-utils: "npm:^12.12.1"
+  checksum: 10/9c6a1f21033f330eb38a4ba2f95e92e28118ed95811f5f170317455df836ddb9c7f1f10bfa0237bd130e7a695c0dad3d89fd84f76df2d88a3f9c7c1a293ad918
+  languageName: node
+  linkType: hard
+
+"motion-utils@npm:^12.12.1":
+  version: 12.12.1
+  resolution: "motion-utils@npm:12.12.1"
+  checksum: 10/679503df10a1cd7ad58f9ed2f864acb5ecbadf380a668874f0cc6bdc1155278bac0cce73e3f703df19532f2bd922e3500fde179e8f76386e9651f8b1bd0cfe6d
+  languageName: node
+  linkType: hard
+
 "ms@npm:^2.1.1, ms@npm:^2.1.3":
   version: 2.1.3
   resolution: "ms@npm:2.1.3"
@@ -9650,6 +9735,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"test-exclude@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "test-exclude@npm:7.0.1"
+  dependencies:
+    "@istanbuljs/schema": "npm:^0.1.2"
+    glob: "npm:^10.4.1"
+    minimatch: "npm:^9.0.4"
+  checksum: 10/e6f6f4e1df2e7810e082e8d7dfc53be51a931e6e87925f5e1c2ef92cc1165246ba3bf2dae6b5d86251c16925683dba906bd41e40169ebc77120a2d1b5a0dbbe0
+  languageName: node
+  linkType: hard
+
 "text-decoder@npm:^1.1.0":
   version: 1.2.3
   resolution: "text-decoder@npm:1.2.3"
@@ -9815,7 +9911,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.2.0, tslib@npm:^2.6.2":
+"tslib@npm:^2.2.0, tslib@npm:^2.4.0, tslib@npm:^2.6.2":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10/3e2e043d5c2316461cb54e5c7fe02c30ef6dccb3384717ca22ae5c6b5bc95232a6241df19c622d9c73b809bea33b187f6dbc73030963e29950c2141bc32a79f7
@@ -10294,6 +10390,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.27.4"
     "@babel/preset-react": "npm:^7.27.1"
+    "@istanbuljs/nyc-config-typescript": "npm:^1.0.2"
     "@stylistic/eslint-plugin": "npm:^4.4.1"
     "@trivago/prettier-plugin-sort-imports": "npm:^5.2.2"
     "@types/babel__core": "npm:^7.20.5"
@@ -10319,6 +10416,7 @@ __metadata:
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
+    c8: "npm:^10.1.3"
     css-loader: "npm:^7.1.2"
     eslint: "npm:^9.28.0"
     eslint-config-prettier: "npm:^10.1.5"

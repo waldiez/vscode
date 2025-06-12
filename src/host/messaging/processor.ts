@@ -8,7 +8,6 @@ import * as vscode from "vscode";
 import { WaldiezChatMessage, WaldiezChatMessageProcessor, WaldiezChatUserInput } from "@waldiez/react";
 
 import { traceError, traceVerbose, traceWarn } from "../log/logging";
-import { extractUserResponseContent } from "./shared";
 import { MessageTransport } from "./transport";
 
 /**
@@ -22,19 +21,39 @@ export class MessageProcessor {
     private _transport: MessageTransport;
     private _uploadsRoot: vscode.Uri;
 
+    /**
+     * Creates an instance of MessageProcessor.
+     * @param transport - The MessageTransport instance used for communication.
+     * @param uploadsRoot - The root URI for uploads, used to construct image URLs.
+     */
     constructor(transport: MessageTransport, uploadsRoot: vscode.Uri) {
         this._transport = transport;
         this._uploadsRoot = uploadsRoot;
     }
 
+    /**
+     * Sets the stdin stream.
+     * This method allows the processor to write messages to the stdin stream.
+     * @param stream - The writable stream to use as stdin.
+     */
     public set stdin(stream: Writable | undefined | null) {
         this._stdin = stream;
     }
 
+    /**
+     * Gets the transporter instance.
+     * This method returns the MessageTransport instance used by this processor.
+     * @returns The MessageTransport instance.
+     */
     public get transporter(): MessageTransport {
         return this._transport;
     }
 
+    /**
+     * Handles raw data input.
+     * This method processes the raw data received, splits it into lines, and handles each line individually.
+     * @param data - The raw data string to handle.
+     */
     public handleRawData(data: string) {
         const lines = data.split("\n").filter(line => line.trim());
         if (lines.length === 0) {
@@ -47,13 +66,17 @@ export class MessageProcessor {
         }
     }
 
+    /**
+     * Handles user input responses.
+     * This method processes the response from the user input request and writes it to the stdin stream.
+     * @param response - The user input response to handle.
+     */
     public _handleInputResponse(response: WaldiezChatUserInput | undefined) {
         if (!response || response.request_id !== this.requestId) {
             traceWarn("Mismatched or missing input response");
             return;
         }
-
-        const data = extractUserResponseContent(response.data);
+        const data = this._extractUserResponseContent(response.data);
         const obj = {
             type: "input_response",
             request_id: response.request_id,
@@ -62,6 +85,11 @@ export class MessageProcessor {
         this._stdin?.write(JSON.stringify(obj) + "\n");
     }
 
+    /**
+     * Handles a single line of input data.
+     * This method processes the line, extracts messages, and handles user input requests.
+     * @param line - The line of data to process.
+     */
     private _handleLine(line: string) {
         traceVerbose("Processing line:\n", line);
         // {uploads_route: "file://path/to/uploads", ...}
@@ -109,7 +137,46 @@ export class MessageProcessor {
         }
     }
 
+    /**
+     * Updates the transport with the current messages.
+     * This method is called whenever the messages array is updated.
+     */
     private _onMessagesUpdate(): void {
         this._transport.updateMessages(this.messages);
     }
+
+    private _extractUserResponseContent = (data: any): any => {
+        if (typeof data === "string") {
+            try {
+                return this._extractUserResponseContent(JSON.parse(data));
+            } catch {
+                return data;
+            }
+        }
+
+        if (Array.isArray(data)) {
+            if (data.length === 1 && data[0]?.content) {
+                return data[0].content;
+            }
+            return data.map(item => {
+                if (typeof item === "string") {
+                    try {
+                        return JSON.parse(item);
+                    } catch {
+                        return item;
+                    }
+                }
+                return item;
+            });
+        }
+
+        if (typeof data === "object" && data !== null) {
+            if ("content" in data) {
+                return data.content;
+            }
+            return data;
+        }
+
+        return data;
+    };
 }
