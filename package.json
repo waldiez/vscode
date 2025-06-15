@@ -171,7 +171,7 @@
         "eslint-plugin-react-hooks": "^5.2.0",
         "eslint-plugin-react-refresh": "^0.4.20",
         "husky": "^9.1.7",
-        "lint-staged": "^16.1.0",
+        "lint-staged": "^16.1.2",
         "markdown-it": "^14.1.0",
         "mini-css-extract-plugin": "^2.9.2",
         "mocha": "^11.6.0",
