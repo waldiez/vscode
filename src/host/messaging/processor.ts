@@ -7,7 +7,7 @@ import * as vscode from "vscode";
 
 import { WaldiezChatMessage, WaldiezChatMessageProcessor, WaldiezChatUserInput } from "@waldiez/react";
 
-import { traceError, traceVerbose, traceWarn } from "../log/logging";
+import { traceError, traceInfo, traceVerbose, traceWarn } from "../log/logging";
 import { MessageTransport } from "./transport";
 
 /**
@@ -55,6 +55,12 @@ export class MessageProcessor {
      * @param data - The raw data string to handle.
      */
     public handleRawData(data: string) {
+        if (data.includes("<Waldiez> - Workflow finished")) {
+            traceInfo("Workflow finished, running post-processing tasks ...");
+            this._transport.onWorkflowEnd(0, "Workflow finished");
+            vscode.window.showInformationMessage("Workflow finished, running post-processing tasks ...");
+            return;
+        }
         const lines = data.split("\n").filter(line => line.trim());
         if (lines.length === 0) {
             return;

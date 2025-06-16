@@ -14,7 +14,6 @@ export class MessageTransport {
     private _disposable: vscode.Disposable;
     private _inputPromise: Promise<WaldiezChatUserInput | undefined> | null = null;
     private _inputResolve: ((value: WaldiezChatUserInput | undefined) => void) | null = null;
-    private _hasSentInit = false;
     private _messages: any[] = [];
 
     private _webview: vscode.Webview;
