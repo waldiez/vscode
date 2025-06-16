@@ -9,7 +9,6 @@ import { WaldiezChatUserInput } from "@waldiez/react";
 import type { HostMessage, UploadRequest, WebviewMessage } from "../../types";
 import { TIME_TO_WAIT_FOR_INPUT } from "../constants";
 import { traceError, traceVerbose } from "../log/logging";
-import { getMonacoUri } from "../utils";
 
 export class MessageTransport {
     private _disposable: vscode.Disposable;
@@ -412,12 +411,11 @@ export class MessageTransport {
         // traceVerbose(
         //     `<Waldiez> Instance ${this._instanceId}: onReady() called for ${this.document.uri.toString()}`,
         // );
-        const monacoUri = getMonacoUri(this._webview, this.context.extensionUri);
         this.sendMessage(
             {
                 type: "init",
                 value: {
-                    monaco: monacoUri?.path || "",
+                    monaco: "",
                     flow: this._getInitialText(),
                 },
             },

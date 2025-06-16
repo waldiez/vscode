@@ -2,8 +2,6 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
-import * as fs from "fs-extra";
-import * as path from "path";
 import { Uri, Webview, workspace } from "vscode";
 
 /**
@@ -33,21 +31,6 @@ export const getNonce = () => {
  */
 export const getUri = (webview: Webview, extensionUri: Uri, pathList: string[]) => {
     return webview.asWebviewUri(Uri.joinPath(extensionUri, ...pathList));
-};
-
-/**
- * Get the URI for the Monaco editor
- * This function checks if the Monaco editor files exist in the local path and returns a webview URI for them.
- * @param webview - The Webview instance
- * @param extensionUri - The base URI of the extension
- * @returns A webview URI for the Monaco editor, or null if not found
- */
-export const getMonacoUri = (webview: Webview, extensionUri: Uri) => {
-    const localPath = path.join(__dirname, "..", "public", "vs");
-    if (fs.existsSync(localPath)) {
-        return getUri(webview, extensionUri, ["public", "vs"]);
-    }
-    return null;
 };
 
 /**

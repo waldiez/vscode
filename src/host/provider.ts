@@ -200,13 +200,13 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
         const nonce = getNonce();
 
         // Set content security policy sources
-        const scriptSrc = `'nonce-${nonce}' ${webview.cspSource}`;
+        const scriptSrc = `'nonce-${nonce}' ${webview.cspSource} https://cdn.jsdelivr.net/npm/ https://drag-drop-touch-js.github.io/`;
         // style-src: add 'unsafe-inline' to avoid issue with react-select:
         // https://github.com/JedWatson/react-select/issues/2030
-        const styleSrc = `${webview.cspSource} 'unsafe-inline'`;
+        const styleSrc = `${webview.cspSource} https://cdn.jsdelivr.net/npm/ 'unsafe-inline'`;
         const imgSrc = `${webview.cspSource} data:`;
         const workerSrc = `${webview.cspSource} blob:`;
-        const fontSrc = `${webview.cspSource}`;
+        const fontSrc = `${webview.cspSource} data:`;
         // allow all for connect-src (to be able to search/load remote flows)
         const connectSrc = "*";
         const cspContent = `default-src 'none'; style-src ${styleSrc}; script-src ${scriptSrc}; img-src ${imgSrc}; worker-src ${workerSrc}; connect-src ${connectSrc}; font-src ${fontSrc}`;

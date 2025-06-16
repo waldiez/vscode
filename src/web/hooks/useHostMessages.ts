@@ -27,10 +27,7 @@ export const useHostMessages = (
         (hostMsg: Initialization | ContentUpdate) => {
             setInitialized(true);
             const flowData = typeof hostMsg.value === "string" ? hostMsg.value : hostMsg.value.flow;
-            const monacoVsPath =
-                typeof hostMsg.value === "string"
-                    ? undefined
-                    : (hostMsg.value.monaco ?? sessionData.monacoVsPath);
+            const monacoVsPath = undefined;
 
             try {
                 const parsed = JSON.parse(flowData);
@@ -46,7 +43,7 @@ export const useHostMessages = (
                 console.error("Error parsing JSON", e);
             }
         },
-        [sessionData.monacoVsPath, setInitialized, setSessionData],
+        [setInitialized, setSessionData],
     );
 
     const onInputRequest = useCallback(
