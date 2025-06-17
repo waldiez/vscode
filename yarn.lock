@@ -2406,9 +2406,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
-  version: 0.4.9
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=c1e616081645d7d028ad4f555e42fb1707526ce5"
+"@waldiez/react@npm:^0.4.11":
+  version: 0.4.11
+  resolution: "@waldiez/react@npm:0.4.11"
   dependencies:
     "@fontsource/fredoka": "npm:^5.2.8"
     "@monaco-editor/react": "npm:^4.7.0"
@@ -2432,7 +2432,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.1.0
     react-dom: ^18.3.1 || ^19.1.0
-  checksum: 10/00dfb55b87cdded308880486a417efea93e83d6bb226f0db5db5328a8581624cad8aa1041b6fb62e992fb4ba3100714462c28315cc38d9c60dd3dbab4e29c21f
+  checksum: 10/d6ffeaa75a816f10277b004ebf3035d28945dc839ff5d7a2aec105bd860c888f2b8c0e8ffb799e335ac2b37d7901e5a2b219cc12b1dd7e8b01384d865a9a94c2
   languageName: node
   linkType: hard
 
@@ -4475,8 +4475,8 @@ __metadata:
   linkType: hard
 
 "eslint-plugin-prettier@npm:^5.4.1":
-  version: 5.4.1
-  resolution: "eslint-plugin-prettier@npm:5.4.1"
+  version: 5.5.0
+  resolution: "eslint-plugin-prettier@npm:5.5.0"
   dependencies:
     prettier-linter-helpers: "npm:^1.0.0"
     synckit: "npm:^0.11.7"
@@ -4490,7 +4490,7 @@ __metadata:
       optional: true
     eslint-config-prettier:
       optional: true
-  checksum: 10/ad7b1efa996cbd419cbb881182c58bce1c6c35d1cf30186c0e330437c4e551da4599b8c8aa7464b27d43fb57990837698ebaa9d238ba084dc1410f6caf31c000
+  checksum: 10/83210819211ad98f305b719352c151794c8c6403d3888c0f8cca76429bf91235753c15d060eb8097d3872e85e9224b8a46280105e468d8c578e2ca9f253bfa57
   languageName: node
   linkType: hard
 
@@ -10429,7 +10429,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.11"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.5.0"
-    "@waldiez/react": "git+https://github.com/waldiez/waldiez.git#dev"
+    "@waldiez/react": "npm:^0.4.11"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
