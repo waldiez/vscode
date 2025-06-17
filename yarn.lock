@@ -2408,7 +2408,7 @@ __metadata:
 
 "@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
   version: 0.4.9
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=45d30408fef370145c3277f7155a411282e3a618"
+  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=c1e616081645d7d028ad4f555e42fb1707526ce5"
   dependencies:
     "@fontsource/fredoka": "npm:^5.2.8"
     "@monaco-editor/react": "npm:^4.7.0"
@@ -2432,7 +2432,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.1.0
     react-dom: ^18.3.1 || ^19.1.0
-  checksum: 10/767c96c338729dac3d522d2921b4cfb42ed191f1a45a8f42884db3a5917fe3ff3a4afe48e211fd6db959d0b111005b17bc1e325983a11f8baccfe69fd5a41571
+  checksum: 10/00dfb55b87cdded308880486a417efea93e83d6bb226f0db5db5328a8581624cad8aa1041b6fb62e992fb4ba3100714462c28315cc38d9c60dd3dbab4e29c21f
   languageName: node
   linkType: hard
 
