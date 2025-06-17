@@ -438,9 +438,6 @@ export class MessageTransport {
         vscode.workspace.applyEdit(edit);
 
         // Use debounced sending for update messages
-        this.sendMessage(
-            { type: "update", value: content },
-            { debounceMs: 150 }, // Slightly longer delay for document updates
-        );
+        this.sendMessage({ type: "update", value: content }, { debounceMs: 50, skipDuplicates: true });
     }
 }

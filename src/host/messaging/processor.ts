@@ -56,9 +56,7 @@ export class MessageProcessor {
      */
     public handleRawData(data: string) {
         if (data.includes("<Waldiez> - Workflow finished")) {
-            traceInfo("Workflow finished, running post-processing tasks ...");
-            this._transport.onWorkflowEnd(0, "Workflow finished");
-            vscode.window.showInformationMessage("Workflow finished, running post-processing tasks ...");
+            traceInfo("Workflow finished");
             return;
         }
         const lines = data.split("\n").filter(line => line.trim());
