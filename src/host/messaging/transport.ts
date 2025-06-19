@@ -7,7 +7,7 @@ import * as vscode from "vscode";
 import { WaldiezChatUserInput } from "@waldiez/react";
 
 import type { HostMessage, UploadRequest, WebviewMessage } from "../../types";
-import { TIME_TO_WAIT_FOR_INPUT } from "../constants";
+import { CONVERT_TO_IPYNB, CONVERT_TO_PYTHON, TIME_TO_WAIT_FOR_INPUT } from "../constants";
 import { traceError, traceVerbose } from "../log/logging";
 
 export class MessageTransport {
@@ -400,6 +400,9 @@ export class MessageTransport {
             case "save":
                 this.updateDocument(message.value);
                 break;
+            case "convert":
+                this.onConvert(message.value);
+                break;
             default:
                 traceVerbose("<Waldiez> Unknown webview message:", message);
                 break;
@@ -439,5 +442,11 @@ export class MessageTransport {
 
         // Use debounced sending for update messages
         this.sendMessage({ type: "update", value: content }, { debounceMs: 50, skipDuplicates: true });
+    }
+
+    public onConvert(value: { flow: string; to: "py" | "ipynb" }) {
+        // call the registered command to convert the flow
+        const command = value.to === "py" ? CONVERT_TO_PYTHON : CONVERT_TO_IPYNB;
+        vscode.commands.executeCommand(command, this.document.uri, value.flow);
     }
 }
