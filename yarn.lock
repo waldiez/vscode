@@ -131,29 +131,29 @@ __metadata:
   linkType: hard
 
 "@azure/msal-browser@npm:^4.2.0":
-  version: 4.13.1
-  resolution: "@azure/msal-browser@npm:4.13.1"
+  version: 4.13.2
+  resolution: "@azure/msal-browser@npm:4.13.2"
   dependencies:
-    "@azure/msal-common": "npm:15.7.0"
-  checksum: 10/82822803a6ff7caf7c8776b0999f9aaa4a70c356f3c2fbd68be5b9e344987246bc8b8afe1e45a185a6fcede346e19bf5eb301c5f418507427667376ae80da0bb
+    "@azure/msal-common": "npm:15.7.1"
+  checksum: 10/095df6fb1e48889d0590bb71bd9b32b40a2f1b59b204a0e2e96929fd3038b49622a744c77c28ff443123cb69ff78b499bbdbe5a2446dddd12d93113662f9649b
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:15.7.0":
-  version: 15.7.0
-  resolution: "@azure/msal-common@npm:15.7.0"
-  checksum: 10/641fcf94f18136afc5e9ae8b8de95267236de9cab082a2828c53da16f6372a620c1c581ed1d625765f526c2313dd8f84070fd8d5ab3077a436f8f85b284fbd86
+"@azure/msal-common@npm:15.7.1":
+  version: 15.7.1
+  resolution: "@azure/msal-common@npm:15.7.1"
+  checksum: 10/e8fea7395bf331a74c67f2818e7a35c5aa4c38f2feb918c1640fd2218d775124847b7305dd56253a93e39cacaccb4cecfc5ca4d54629eadd6f02678833c5ddd9
   languageName: node
   linkType: hard
 
 "@azure/msal-node@npm:^3.5.0":
-  version: 3.6.0
-  resolution: "@azure/msal-node@npm:3.6.0"
+  version: 3.6.1
+  resolution: "@azure/msal-node@npm:3.6.1"
   dependencies:
-    "@azure/msal-common": "npm:15.7.0"
+    "@azure/msal-common": "npm:15.7.1"
     jsonwebtoken: "npm:^9.0.0"
     uuid: "npm:^8.3.0"
-  checksum: 10/e0da2dae7fea610533da60f06a37288cf4cc7c8a15acaddbf9d4a3f1dd8c25cb132e26fa7ee3d0e700055e8599831614c9762243f93efadea62dd10f1abbc919
+  checksum: 10/de7dcf032d2e50404bf9ba139ea8c49d26d650b220f33ac701cdebb234425ba627a19a83c2aa38f212fc97dfef051abc4221bf63a45ea34fc3ab0445f8bda828
   languageName: node
   linkType: hard
 
@@ -447,7 +447,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@csstools/css-parser-algorithms@npm:^3.0.4":
+"@csstools/css-parser-algorithms@npm:^3.0.5":
   version: 3.0.5
   resolution: "@csstools/css-parser-algorithms@npm:3.0.5"
   peerDependencies:
@@ -456,14 +456,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@csstools/css-tokenizer@npm:^3.0.3":
+"@csstools/css-tokenizer@npm:^3.0.4":
   version: 3.0.4
   resolution: "@csstools/css-tokenizer@npm:3.0.4"
   checksum: 10/eb6c84c086312f6bb8758dfe2c85addd7475b0927333c5e39a4d59fb210b9810f8c346972046f95e60a721329cffe98895abe451e51de753ad1ca7a8c24ec65f
   languageName: node
   linkType: hard
 
-"@csstools/media-query-list-parser@npm:^4.0.2":
+"@csstools/media-query-list-parser@npm:^4.0.3":
   version: 4.0.3
   resolution: "@csstools/media-query-list-parser@npm:4.0.3"
   peerDependencies:
@@ -2406,9 +2406,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.4.11":
-  version: 0.4.11
-  resolution: "@waldiez/react@npm:0.4.11"
+"@waldiez/react@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "@waldiez/react@npm:0.5.0"
   dependencies:
     "@fontsource/fredoka": "npm:^5.2.8"
     "@monaco-editor/react": "npm:^4.7.0"
@@ -2432,7 +2432,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.1.0
     react-dom: ^18.3.1 || ^19.1.0
-  checksum: 10/d6ffeaa75a816f10277b004ebf3035d28945dc839ff5d7a2aec105bd860c888f2b8c0e8ffb799e335ac2b37d7901e5a2b219cc12b1dd7e8b01384d865a9a94c2
+  checksum: 10/98401e628c6edf5803161c02c273e4aa8e155e34942a04babac58cfcef9951c98ee4d6fb879c255dd975173ad61d14b848f5ebc4443d1d3fd8aed4cdeb0f2135
   languageName: node
   linkType: hard
 
@@ -3326,9 +3326,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001718":
-  version: 1.0.30001723
-  resolution: "caniuse-lite@npm:1.0.30001723"
-  checksum: 10/edab89e84a2b257cf640f0bac1f25f92c699ade86143b2affc73403468f894023416a9f4a99e5345c933956990b005a2facfb87ac4517c8ccb588819bb62453b
+  version: 1.0.30001724
+  resolution: "caniuse-lite@npm:1.0.30001724"
+  checksum: 10/0e95811e7c33410ec458784726b97f50f07fb0f6f17b2b17789bb2d5ba1ff126daa24549d698c0a8729f5236d98fde04bb44a3def22eb4667ac15bd80f20a4f2
   languageName: node
   linkType: hard
 
@@ -4166,9 +4166,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.160":
-  version: 1.5.168
-  resolution: "electron-to-chromium@npm:1.5.168"
-  checksum: 10/a98d4905dbbed1a801be5c43f6f77a5d44ea9bc317a79cf61e6c963b4179b67232dbdb2b9e708ab9f4d8f5fbc17c303192270c91d0e092470dcfc6d0706d5eb8
+  version: 1.5.171
+  resolution: "electron-to-chromium@npm:1.5.171"
+  checksum: 10/6d58ff50407107d7e86e7beb8d0361358f90dbc10c7d92a2ff9cdfbaf27a65165c00ae05a345ab32fa6e371ff9c7d1fef1441d57adfa8f59701c56734745c0a1
   languageName: node
   linkType: hard
 
@@ -4810,7 +4810,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-entry-cache@npm:^10.1.0":
+"file-entry-cache@npm:^10.1.1":
   version: 10.1.1
   resolution: "file-entry-cache@npm:10.1.1"
   dependencies:
@@ -5573,7 +5573,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore@npm:^7.0.0, ignore@npm:^7.0.3, ignore@npm:^7.0.4":
+"ignore@npm:^7.0.0, ignore@npm:^7.0.3, ignore@npm:^7.0.5":
   version: 7.0.5
   resolution: "ignore@npm:7.0.5"
   checksum: 10/f134b96a4de0af419196f52c529d5c6120c4456ff8a6b5a14ceaaa399f883e15d58d2ce651c9b69b9388491d4669dda47285d307e827de9304a53a1824801bc6
@@ -6271,10 +6271,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"known-css-properties@npm:^0.36.0":
-  version: 0.36.0
-  resolution: "known-css-properties@npm:0.36.0"
-  checksum: 10/7d82779fe895ffd11851de7244bb23fb4f60f3e8f432843ad1fa78b6901037d2889d7035b789d220fecb3adf5c86e114411b96017ff6e40979affed1fb93429e
+"known-css-properties@npm:^0.37.0":
+  version: 0.37.0
+  resolution: "known-css-properties@npm:0.37.0"
+  checksum: 10/9bddf2eb980f707567e3fbf8f2daaca27f5d544f4a49eab26d696ae33f54410f82f0a3032097b083d9e889e285586696c7b4324e6393103e7d71a46ca4438bfd
   languageName: node
   linkType: hard
 
@@ -7484,8 +7484,8 @@ __metadata:
   linkType: hard
 
 "mocha@npm:^11.1.0, mocha@npm:^11.6.0":
-  version: 11.6.0
-  resolution: "mocha@npm:11.6.0"
+  version: 11.7.0
+  resolution: "mocha@npm:11.7.0"
   dependencies:
     browser-stdout: "npm:^1.3.1"
     chokidar: "npm:^4.0.1"
@@ -7510,7 +7510,7 @@ __metadata:
   bin:
     _mocha: bin/_mocha
     mocha: bin/mocha.js
-  checksum: 10/1bbf367e92f32b15cdd52b4e7b05700877f004f8c92ea63310aa6e7983a66c345d20a54779b3312a9c6ab682d36b1caae880fe5df5e836758526090a7777bd68
+  checksum: 10/00c6dd8f6cdd3b4f8c4000193057d5500bd4117d0ce441a1193bca59187f69708a64c68adfcb2b49e2fc61f36099f3c2082a93c0a062ce49d9846a85a602de15
   languageName: node
   linkType: hard
 
@@ -8236,7 +8236,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.33, postcss@npm:^8.5.3":
+"postcss@npm:^8.4.33, postcss@npm:^8.5.5":
   version: 8.5.6
   resolution: "postcss@npm:8.5.6"
   dependencies:
@@ -9501,12 +9501,12 @@ __metadata:
   linkType: hard
 
 "stylelint@npm:^16.20.0":
-  version: 16.20.0
-  resolution: "stylelint@npm:16.20.0"
+  version: 16.21.0
+  resolution: "stylelint@npm:16.21.0"
   dependencies:
-    "@csstools/css-parser-algorithms": "npm:^3.0.4"
-    "@csstools/css-tokenizer": "npm:^3.0.3"
-    "@csstools/media-query-list-parser": "npm:^4.0.2"
+    "@csstools/css-parser-algorithms": "npm:^3.0.5"
+    "@csstools/css-tokenizer": "npm:^3.0.4"
+    "@csstools/media-query-list-parser": "npm:^4.0.3"
     "@csstools/selector-specificity": "npm:^5.0.0"
     "@dual-bundle/import-meta-resolve": "npm:^4.1.0"
     balanced-match: "npm:^2.0.0"
@@ -9517,21 +9517,21 @@ __metadata:
     debug: "npm:^4.4.1"
     fast-glob: "npm:^3.3.3"
     fastest-levenshtein: "npm:^1.0.16"
-    file-entry-cache: "npm:^10.1.0"
+    file-entry-cache: "npm:^10.1.1"
     global-modules: "npm:^2.0.0"
     globby: "npm:^11.1.0"
     globjoin: "npm:^0.1.4"
     html-tags: "npm:^3.3.1"
-    ignore: "npm:^7.0.4"
+    ignore: "npm:^7.0.5"
     imurmurhash: "npm:^0.1.4"
     is-plain-object: "npm:^5.0.0"
-    known-css-properties: "npm:^0.36.0"
+    known-css-properties: "npm:^0.37.0"
     mathml-tag-names: "npm:^2.1.3"
     meow: "npm:^13.2.0"
     micromatch: "npm:^4.0.8"
     normalize-path: "npm:^3.0.0"
     picocolors: "npm:^1.1.1"
-    postcss: "npm:^8.5.3"
+    postcss: "npm:^8.5.5"
     postcss-resolve-nested-selector: "npm:^0.1.6"
     postcss-safe-parser: "npm:^7.0.1"
     postcss-selector-parser: "npm:^7.1.0"
@@ -9544,7 +9544,7 @@ __metadata:
     write-file-atomic: "npm:^5.0.1"
   bin:
     stylelint: bin/stylelint.mjs
-  checksum: 10/5d7db1fed332bbaed6b24ec8bd2ef523968d9f7c2f481acbe7dd240cbb20fe9f9dd084ae629c14dea8441653b155670fb16bd413a4f80aaef1fe574e9630fafc
+  checksum: 10/0bb3dbd0bf0c3f932d3c1200b996c7625f8936fef99cf51457faf53fbfb1c6a81601ccc72f6b6a21b68858dee0f1e10175aae2dbf130b3fb33251eccb3791d04
   languageName: node
   linkType: hard
 
@@ -9735,8 +9735,8 @@ __metadata:
   linkType: hard
 
 "terser@npm:^5.31.1":
-  version: 5.42.0
-  resolution: "terser@npm:5.42.0"
+  version: 5.43.1
+  resolution: "terser@npm:5.43.1"
   dependencies:
     "@jridgewell/source-map": "npm:^0.3.3"
     acorn: "npm:^8.14.0"
@@ -9744,7 +9744,7 @@ __metadata:
     source-map-support: "npm:~0.5.20"
   bin:
     terser: bin/terser
-  checksum: 10/c2375f84c36dd908699c0c46ed38b47efc0eaaf824dbd579f55f776b7d65168a162c10adbb0638bd0d4517e05a578af038a5d3d25a5acd033c6652fa6d100be9
+  checksum: 10/c0a0fd62319e0ce66e800f57ae12ef4ca45f12e9422dac160b866f0d890d01f8b547c96de2557b8443d96953db36be5d900e8006436ef9f628dbd38082e8fe5d
   languageName: node
   linkType: hard
 
@@ -10429,7 +10429,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.11"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.5.0"
-    "@waldiez/react": "npm:^0.4.11"
+    "@waldiez/react": "npm:^0.5.0"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
@@ -10534,9 +10534,9 @@ __metadata:
   linkType: hard
 
 "webpack-sources@npm:^3.2.3":
-  version: 3.3.2
-  resolution: "webpack-sources@npm:3.3.2"
-  checksum: 10/c3e7f8c387cacad619e80e75c1dfc74bd458a6c744f9fee53220da317d13acb4d8cd56c85666039edb7085761d482c35795a94f2c97d192950c08d054e758714
+  version: 3.3.3
+  resolution: "webpack-sources@npm:3.3.3"
+  checksum: 10/ec5d72607e8068467370abccbfff855c596c098baedbe9d198a557ccf198e8546a322836a6f74241492576adba06100286592993a62b63196832cdb53c8bae91
   languageName: node
   linkType: hard
 
