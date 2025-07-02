@@ -53,7 +53,7 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
     public initialize(runner: FlowRunner): void {
         this._runner = runner;
 
-        // Set the intepreter change handler
+        // Set the interpreter change handler
         this._runner.wrapper.setOnChangePythonInterpreter(this._onChangedPythonInterpreter.bind(this));
 
         this._updateStatusBarItem();
