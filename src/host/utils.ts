@@ -57,7 +57,7 @@ export const getCwd = (resource: Uri): string => {
  */
 export const notifyError = async (message: string): Promise<void> => {
     if (process.env.VSCODE_TEST === "true") {
-        await window.showErrorMessage(message);
+        window.showErrorMessage(message);
     } else {
         const selection = await window.showErrorMessage(message, "Show Output");
         if (selection === "Show Output") {
