@@ -57,12 +57,11 @@ export const getCwd = (resource: Uri): string => {
  */
 export const notifyError = async (message: string): Promise<void> => {
     if (process.env.VSCODE_TEST === "true") {
-        console.error(`[Test-mode error] ${message}`);
-        return;
-    }
-
-    const selection = await window.showErrorMessage(message, "Show Output");
-    if (selection === "Show Output") {
-        showOutput();
+        await window.showErrorMessage(message);
+    } else {
+        const selection = await window.showErrorMessage(message, "Show Output");
+        if (selection === "Show Output") {
+            showOutput();
+        }
     }
 };
