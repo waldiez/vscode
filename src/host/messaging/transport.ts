@@ -4,7 +4,7 @@
  */
 import * as vscode from "vscode";
 
-import { WaldiezChatUserInput } from "@waldiez/react";
+import { WaldiezChatUserInput, WaldiezTimelineData } from "@waldiez/react";
 
 import type { HostMessage, UploadRequest, WebviewMessage } from "../../types";
 import { CONVERT_TO_IPYNB, CONVERT_TO_PYTHON, TIME_TO_WAIT_FOR_INPUT } from "../constants";
@@ -239,6 +239,16 @@ export class MessageTransport {
                 value: this._messages,
             },
             { debounceMs: 100 }, // Override default for longer debounce
+        );
+    }
+
+    public updateTimeline(timeline: WaldiezTimelineData | undefined) {
+        this.sendMessage(
+            {
+                type: "timeline_update",
+                value: timeline,
+            },
+            { skipDuplicates: false }, // Override default for longer debounce
         );
     }
 

@@ -2,7 +2,9 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
-import { Uri, Webview, workspace } from "vscode";
+import { Uri, Webview, window, workspace } from "vscode";
+
+import { showOutput } from "./log/logging";
 
 /**
  * Utility functions for Waldiez VS Code extension
@@ -45,4 +47,22 @@ export const getCwd = (resource: Uri): string => {
         workspace.workspaceFolders?.[0]?.uri.fsPath ??
         Uri.joinPath(resource, "..").fsPath
     );
+};
+
+/**
+ * Notify the user of an error
+ * This function displays an error message to the user and offers to show the output panel.
+ * @param message - The error message to display
+ * @returns A promise that resolves when the user has made a selection
+ */
+export const notifyError = async (message: string): Promise<void> => {
+    if (process.env.VSCODE_TEST === "true") {
+        console.error(`[Test-mode error] ${message}`);
+        return;
+    }
+
+    const selection = await window.showErrorMessage(message, "Show Output");
+    if (selection === "Show Output") {
+        showOutput();
+    }
 };

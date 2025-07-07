@@ -2,7 +2,12 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
-import { WaldiezActiveRequest, WaldiezChatMessage, WaldiezChatUserInput } from "@waldiez/react";
+import {
+    WaldiezActiveRequest,
+    WaldiezChatMessage,
+    WaldiezChatUserInput,
+    WaldiezTimelineData,
+} from "@waldiez/react";
 
 // Host messages
 // These messages are sent from the host (VS Code extension) to the webview
@@ -55,6 +60,10 @@ export type ParticipantsUpdate = {
     type: "participants_update";
     value: string[];
 };
+export type TimelineUpdate = {
+    type: "timeline_update";
+    value: WaldiezTimelineData | undefined;
+};
 export type MessagesUpdate = {
     type: "messages_update";
     value: WaldiezChatMessage[];
@@ -81,6 +90,7 @@ export type HostMessage =
     | InputRequest
     | ExportResponse
     | ParticipantsUpdate
+    | TimelineUpdate
     | MessagesUpdate
     | WorkflowEnd
     | SaveResult

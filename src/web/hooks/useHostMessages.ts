@@ -9,6 +9,7 @@ import {
     WaldiezChatConfig,
     WaldiezChatMessage,
     WaldiezProps,
+    WaldiezTimelineData,
     importFlow,
     showSnackbar,
 } from "@waldiez/react";
@@ -97,6 +98,16 @@ export const useHostMessages = (
         [chatConfig.userParticipants, setChatConfig],
     );
 
+    const handleTimelineUpdate = useCallback(
+        (timeline: WaldiezTimelineData | undefined) => {
+            setChatConfig(prev => ({
+                ...prev,
+                timeline,
+            }));
+        },
+        [setChatConfig],
+    );
+
     const handleWorkflowEnd = useCallback(() => {
         setChatConfig(prev => ({
             ...prev,
@@ -178,6 +189,9 @@ export const useHostMessages = (
                 case "participants_update":
                     handleParticipantsUpdate(msg.value);
                     break;
+                case "timeline_update":
+                    handleTimelineUpdate(msg.value);
+                    break;
                 case "dispose":
                     setInitialized(false);
                     break;
@@ -202,6 +216,7 @@ export const useHostMessages = (
             onInputRequest,
             handleMessagesUpdate,
             handleParticipantsUpdate,
+            handleTimelineUpdate,
             handleWorkflowEnd,
             handleResolved,
             handleSaveResult,

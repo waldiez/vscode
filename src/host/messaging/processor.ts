@@ -5,7 +5,12 @@
 import { Writable } from "stream";
 import * as vscode from "vscode";
 
-import { WaldiezChatMessage, WaldiezChatMessageProcessor, WaldiezChatUserInput } from "@waldiez/react";
+import {
+    WaldiezChatMessage,
+    WaldiezChatMessageProcessor,
+    WaldiezChatUserInput,
+    WaldiezTimelineData,
+} from "@waldiez/react";
 
 import { traceError, traceInfo, traceVerbose, traceWarn } from "../log/logging";
 import { MessageTransport } from "./transport";
@@ -51,23 +56,29 @@ export class MessageProcessor {
 
     /**
      * Handles raw data input.
-     * This method processes the raw data received, splits it into lines, and handles each line individually.
-     * @param data - The raw data string to handle.
+     * This method processes raw data and extracts messages or user input requests.
+     * @param data - The raw data to process.
      */
-    public handleRawData(data: string) {
-        if (data.includes("<Waldiez> - Workflow finished")) {
+
+    /**
+     * Handles JSON output.
+     * @param obj - The JSON object to handle.
+     */
+    public handleJson(obj: any) {
+        // Process the JSON object
+        this._handleLine(JSON.stringify(obj));
+    }
+
+    /**
+     * Handles fallback output.
+     * @param line - The raw line of data to handle.
+     */
+    public handleText(text: string) {
+        if (text.includes("<Waldiez> - Workflow finished")) {
             traceInfo("Workflow finished");
             return;
         }
-        const lines = data.split("\n").filter(line => line.trim());
-        if (lines.length === 0) {
-            return;
-        }
-
-        traceVerbose("Received data:", data);
-        for (const line of lines) {
-            this._handleLine(line);
-        }
+        this._handleLine(text);
     }
 
     /**
@@ -107,6 +118,10 @@ export class MessageProcessor {
         // const imageUrlReplacement = this._getImageUrlReplacement(line);
         const result = WaldiezChatMessageProcessor.process(line, this.requestId, imageUrlReplacement);
         if (result) {
+            if (result.timeline) {
+                this._onTimelineUpdate(result.timeline);
+                return;
+            }
             if (result.message) {
                 this.messages.push(result.message);
                 this._onMessagesUpdate();
@@ -147,6 +162,15 @@ export class MessageProcessor {
      */
     private _onMessagesUpdate(): void {
         this._transport.updateMessages(this.messages);
+    }
+
+    /**
+     * Updates the transport with the current timeline.
+     * This method is called whenever the timeline is updated.
+     * @param timeline - The updated timeline data.
+     */
+    private _onTimelineUpdate(timeline: WaldiezTimelineData): void {
+        this._transport.updateTimeline(timeline);
     }
 
     private _extractUserResponseContent = (data: any): any => {

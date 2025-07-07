@@ -7,6 +7,7 @@ import * as vscode from "vscode";
 
 import { clearOutput, isOutputVisible, showOutput, traceInfo, traceVerbose } from "../log/logging";
 import { MessageProcessor, MessageTransport } from "../messaging";
+import { JsonChunkBuffer } from "../messaging/chunks";
 import { getCwd } from "../utils";
 import { ensureWaldiezPy } from "./common";
 import { PythonWrapper } from "./python";
@@ -114,18 +115,24 @@ export class FlowRunner extends vscode.Disposable {
 
             const processor = new MessageProcessor(transport, parentDir);
 
+            const jsonParser = new JsonChunkBuffer(
+                obj => processor.handleJson(obj),
+                text => processor.handleText(text),
+            );
+
             this._proc = spawn(this.wrapper.executable!, args, {
                 cwd: getCwd(resource),
                 stdio: ["pipe", "pipe", "pipe"],
             });
+            this._proc.stdout?.on("data", chunk => jsonParser.handleChunk(chunk));
+            this._proc.stderr?.on("data", chunk => jsonParser.handleChunk(chunk));
+            // this._proc.stdout?.on("data", data => {
+            //     processor.handleRawData(data.toString());
+            // });
 
-            this._proc.stdout?.on("data", data => {
-                processor.handleRawData(data.toString());
-            });
-
-            this._proc.stderr?.on("data", data => {
-                processor.handleRawData(data.toString());
-            });
+            // this._proc.stderr?.on("data", data => {
+            //     processor.handleRawData(data.toString());
+            // });
 
             this._proc.on("exit", this._onExit.bind(this, resolve, cancelled, processor));
             processor.stdin = this._proc?.stdin;

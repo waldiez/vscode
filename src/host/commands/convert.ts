@@ -6,6 +6,7 @@ import * as vscode from "vscode";
 
 import { FlowConverter } from "../flow/converter";
 import { traceError } from "../log/logging";
+import { notifyError } from "../utils";
 
 /**
  * Converts a flow to the specified format and handles progress and errors.
@@ -44,8 +45,7 @@ export const convertFlow = async (
                 vscode.commands.executeCommand("workbench.files.action.refreshFilesExplorer");
             } catch (error) {
                 traceError("Failed to convert flow", error);
-                // Notify the user of failure
-                vscode.window.showErrorMessage("Failed to convert flow");
+                await notifyError("Failed to convert flow");
             }
         },
     );

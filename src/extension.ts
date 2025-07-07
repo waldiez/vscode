@@ -2,14 +2,17 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
+import * as os from "os";
+import * as path from "path";
 import * as vscode from "vscode";
 import { ExtensionContext } from "vscode";
 
 import { registerCommands } from "./host/commands";
+import { NEW_WALDIEZ_FILE } from "./host/constants";
 import { FlowConverter } from "./host/flow/converter";
 import { PythonWrapper } from "./host/flow/python";
 import { FlowRunner } from "./host/flow/runner";
-import { registerLogger, showOutput, traceError } from "./host/log/logging";
+import { registerLogger, showOutput, traceError, traceVerbose } from "./host/log/logging";
 import { WaldiezEditorProvider } from "./host/provider";
 
 // store disposables for cleanup
@@ -27,11 +30,35 @@ export const activate = async (context: ExtensionContext): Promise<void> => {
         log: true,
     });
     outputChannel.clear();
+    outputChannel.appendLine("Initializing Waldiez...");
     waldiezExtensionDisposables.push(registerLogger(outputChannel)); // Register the logger to use the output channel
 
-    outputChannel.appendLine("Initializing Waldiez...");
-    showOutput();
+    const newFileCmd = vscode.commands.registerCommand(NEW_WALDIEZ_FILE, async () => {
+        const workspaceFolders = vscode.workspace.workspaceFolders;
+        const activeDoc = vscode.window.activeTextEditor?.document;
+        const defaultDir =
+            activeDoc?.uri?.scheme === "file"
+                ? vscode.Uri.file(path.dirname(activeDoc.uri.fsPath))
+                : (workspaceFolders?.[0]?.uri ?? vscode.Uri.file(os.homedir()));
+        const targetUri = await vscode.window.showSaveDialog({
+            defaultUri: vscode.Uri.joinPath(defaultDir, "Untitled.waldiez"),
+            filters: {
+                "Waldiez Flows": ["waldiez"],
+            },
+        });
+        traceVerbose(`Saving to: ${targetUri}`);
 
+        if (!targetUri) {
+            return; // user cancelled
+        }
+        const defaultContent = JSON.stringify({});
+        await vscode.workspace.fs.writeFile(targetUri, Buffer.from(defaultContent, "utf8"));
+
+        await vscode.commands.executeCommand("vscode.openWith", targetUri, WaldiezEditorProvider.viewType, {
+            preview: false,
+        });
+    });
+    waldiezExtensionDisposables.push(newFileCmd);
     initializeAfterPythonReady(context, outputChannel);
 };
 
@@ -86,7 +113,6 @@ async function initializeAfterPythonReady(
 
         if (pythonExt?.isActive) {
             outputChannel.appendLine("Python ready. Starting Waldiez...");
-            showOutput();
         }
 
         // Initialize the FlowRunner, FlowConverter, and custom editor provider

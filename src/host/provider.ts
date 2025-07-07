@@ -14,7 +14,7 @@ import { ViewStateHandler } from "./viewStateHandler";
  */
 export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
     // View type identifier for the custom editor
-    private static readonly viewType = "waldiez.flow";
+    static readonly viewType = "waldiez.flow";
     private _runner?: FlowRunner;
     private _statusBarItem: vscode.StatusBarItem;
 

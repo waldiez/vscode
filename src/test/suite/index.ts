@@ -8,6 +8,8 @@ import path from "path";
 
 import { beforeTests } from "./beforeTests";
 
+process.env.VSCODE_TEST = "true";
+
 export async function run(): Promise<void> {
     // make sure the python extension is activated and ready
     await beforeTests();
