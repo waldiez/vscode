@@ -21,7 +21,7 @@ A [waldiez extension](https://marketplace.visualstudio.com/items?itemName=Waldie
 
 ## Known Conflicts
 
-- **autogen-agentchat**: This package conflicts with `ag2` / `pyautogen`. Ensure that `autogen-agentchat` is not installed before installing `waldiez`. If you have already installed `autogen-agentchat`, you can uninstall it with:
+- **autogen-agentchat**: This package conflicts with `ag2` / `ag2`. Ensure that `autogen-agentchat` is not installed before installing `waldiez`. If you have already installed `autogen-agentchat`, you can uninstall it with:
 
     ```shell
     python3 -m pip uninstall -y autogen-agentchat
@@ -37,14 +37,14 @@ A [waldiez extension](https://marketplace.visualstudio.com/items?itemName=Waldie
     If already installed waldiez, you might need to reinstall it after uninstalling `autogen-agentchat`:
 
     ```shell
-    python3 -m pip install --force --no-cache waldiez pyautogen
+    python3 -m pip install --force --no-cache waldiez ag2
     # if you are sure which pip is being used:
     # pip install --force --no-cache waldiez
     # to find the path of the current python interpreter:
     # python3 -c "import sys; print(sys.executable)"
     # in a jupyter notebook this would be:
     # import sys
-    # !{sys.executable} -m pip install --force --no-cache waldiez pyautogen
+    # !{sys.executable} -m pip install --force --no-cache waldiez ag2
     ```
 
 Generally, a new virtual environment is recommended to avoid conflicts:
