@@ -103,7 +103,6 @@ export class FlowRunner extends vscode.Disposable {
                 "waldiez",
                 "run",
                 "--structured",
-                "--threaded",
                 "--file",
                 resource.fsPath,
                 "--output",
