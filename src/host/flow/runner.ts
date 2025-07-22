@@ -125,13 +125,6 @@ export class FlowRunner extends vscode.Disposable {
             });
             this._proc.stdout?.on("data", chunk => jsonParser.handleChunk(chunk));
             this._proc.stderr?.on("data", chunk => jsonParser.handleChunk(chunk));
-            // this._proc.stdout?.on("data", data => {
-            //     processor.handleRawData(data.toString());
-            // });
-
-            // this._proc.stderr?.on("data", data => {
-            //     processor.handleRawData(data.toString());
-            // });
 
             this._proc.on("exit", this._onExit.bind(this, resolve, cancelled, processor));
             processor.stdin = this._proc?.stdin;
