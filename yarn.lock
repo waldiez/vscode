@@ -2482,16 +2482,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
+"@waldiez/react@npm:^0.5.3":
   version: 0.5.3
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=4aaec0a7f414f52feaa22630a502270c73c38423"
+  resolution: "@waldiez/react@npm:0.5.3"
   dependencies:
     "@fontsource/fredoka": "npm:^5.2.8"
     "@monaco-editor/react": "npm:^4.7.0"
     "@radix-ui/react-checkbox": "npm:^1.3.2"
     "@radix-ui/react-slider": "npm:^1.3.5"
-    "@xyflow/react": "npm:^12.8.2"
-    framer-motion: "npm:^12.23.6"
+    "@xyflow/react": "npm:^12.8.1"
+    framer-motion: "npm:^12.23.0"
     jszip: "npm:^3.10.1"
     microdiff: "npm:^1.5.0"
     nanoid: "npm:^5.1.5"
@@ -2500,8 +2500,8 @@ __metadata:
     react-hotkeys-hook: "npm:^5.1.0"
     react-icons: "npm:^5.5.0"
     react-markdown: "npm:^10.1.0"
-    react-select: "npm:^5.10.2"
-    recharts: "npm:^3.1.0"
+    react-select: "npm:^5.10.1"
+    recharts: "npm:^3.0.2"
     rehype-highlight: "npm:^7.0.2"
     remark-gfm: "npm:^4.0.1"
     zundo: "npm:^2.3.0"
@@ -2509,7 +2509,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.1.0
     react-dom: ^18.3.1 || ^19.1.0
-  checksum: 10/4a508028fadc67d6d4d67ae3e04d4eed0a959f7e318274c55622988072828c1423560c397c89f9b5f2dada7e70e3a9fa484b7e37a02356f6303d984c64d479ca
+  checksum: 10/070b47fd6ba4b4e488e2aace589c2f77413acb5c158fd5cd0a5bd0ece96566d5e7cff5797394d379c5758527d74df029fac8bdfaa347d27da7633c6d5ee4b551
   languageName: node
   linkType: hard
 
@@ -2711,7 +2711,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xyflow/react@npm:^12.8.2":
+"@xyflow/react@npm:^12.8.1":
   version: 12.8.2
   resolution: "@xyflow/react@npm:12.8.2"
   dependencies:
@@ -5113,7 +5113,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^12.23.6":
+"framer-motion@npm:^12.23.0":
   version: 12.23.6
   resolution: "framer-motion@npm:12.23.6"
   dependencies:
@@ -8671,7 +8671,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-select@npm:^5.10.2":
+"react-select@npm:^5.10.1":
   version: 5.10.2
   resolution: "react-select@npm:5.10.2"
   dependencies:
@@ -8777,7 +8777,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recharts@npm:^3.1.0":
+"recharts@npm:^3.0.2":
   version: 3.1.0
   resolution: "recharts@npm:3.1.0"
   dependencies:
@@ -10660,7 +10660,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.11"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.6.0"
-    "@waldiez/react": "git+https://github.com/waldiez/waldiez.git#dev"
+    "@waldiez/react": "npm:^0.5.3"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
