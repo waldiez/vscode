@@ -94,7 +94,7 @@ const defaultConfig = eslintTs.config({
             "double",
             {
                 avoidEscape: true,
-                allowTemplateLiterals: false,
+                allowTemplateLiterals: "never",
             },
         ],
         "headers/header-format": [
@@ -139,6 +139,7 @@ export default [
             ".husky",
             ".vscode",
             ".vscode-test",
+            "examples",
         ],
     },
     ...defaultConfig.map(config => ({
