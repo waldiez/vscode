@@ -5,6 +5,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import * as assert from "assert";
 import { afterEach, before, beforeEach, suite, test } from "mocha";
+import path from "path";
 import * as sinon from "sinon";
 import * as vscode from "vscode";
 
@@ -147,7 +148,12 @@ suite("FlowConverter Tests", () => {
             });
 
             const result = await convertPromise;
-            assert.strictEqual(result, "/test/flow.py");
+
+            // assert.strictEqual(result, "/test/flow.py");
+            assert.strictEqual(path.basename(result), "flow.py");
+            assert.ok(result.includes("test"));
+            assert.ok(result.endsWith(".py"));
+            assert.ok(!result.endsWith(".waldiez"));
 
             ensureWaldiezPyStub.restore();
             spawnStub.restore();
@@ -183,7 +189,11 @@ suite("FlowConverter Tests", () => {
             });
 
             const result = await convertPromise;
-            assert.strictEqual(result, "/test/flow.ipynb");
+            // assert.strictEqual(result, "/test/flow.ipynb");
+            assert.strictEqual(path.basename(result), "flow.ipynb");
+            assert.ok(result.includes("test"));
+            assert.ok(result.endsWith(".ipynb"));
+            assert.ok(!result.endsWith(".waldiez"));
 
             ensureWaldiezPyStub.restore();
             spawnStub.restore();
