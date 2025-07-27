@@ -54,6 +54,7 @@ export class PythonWrapper {
         }
     }
 
+    // noinspection JSUnusedGlobalSymbols
     /**
      * Gets the current resolved Python environment.
      */
@@ -107,6 +108,7 @@ export class PythonWrapper {
         if (_api) {
             const currentActiveEnvironment = _api.environments.getActiveEnvironmentPath();
             if (currentActiveEnvironment.path !== environment.path) {
+                // noinspection JSIgnoredPromiseFromCall
                 _api.environments.updateActiveEnvironmentPath(environment.path);
             }
         }
@@ -203,6 +205,7 @@ export class PythonWrapper {
         }
     };
 
+    // noinspection JSUnusedGlobalSymbols
     /**
      * Waits for the Python environments to be loaded.
      *
@@ -217,6 +220,7 @@ export class PythonWrapper {
         const environments = _api.environments;
         let retries = 0;
         while (environments.known.length === 0 && retries < maxRetries) {
+            // noinspection TypeScriptUMDGlobal
             await new Promise(resolve => setTimeout(resolve, delayMs));
             retries++;
             await environments.refreshEnvironments();

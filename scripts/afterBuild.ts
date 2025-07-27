@@ -6,6 +6,7 @@ import fs from "fs-extra";
 import path from "path";
 import url from "url";
 
+// @ts-expect-error import.meta meta-property
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.join(__dirname, "..");
@@ -25,14 +26,14 @@ const cleanupFolder = (folder: string) => {
             try {
                 fs.rmSync(entryPath, { force: true });
             } catch (error) {
-                console.warn(`Error deleting file: ${error.message}`);
+                console.warn(`Error deleting file: ${(error as Error).message}`);
             }
         }
         if (stat.isDirectory()) {
             try {
                 fs.rmSync(entryPath, { recursive: true, force: true });
             } catch (error) {
-                console.warn(`Error deleting folder: ${error.message}`);
+                console.warn(`Error deleting folder: ${(error as Error).message}`);
                 cleanupFolder(entryPath);
             }
         }
@@ -47,7 +48,7 @@ const main = (): void => {
     try {
         cleanupFolder(distFolder);
     } catch (error) {
-        console.warn(`Error cleaning up dist folder: ${error.message}`);
+        console.warn(`Error cleaning up dist folder: ${(error as Error).message}`);
     }
     fs.copyFileSync(vsixSrc, vsixDest);
 };

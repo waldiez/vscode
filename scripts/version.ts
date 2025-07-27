@@ -6,6 +6,7 @@ import { readFileSync, writeFileSync } from "fs";
 import path from "path";
 import url from "url";
 
+// @ts-expect-error import.meta meta-property
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 

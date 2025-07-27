@@ -41,9 +41,11 @@ export class Messaging {
         window.removeEventListener("message", this.handleMessageEvent.bind(this));
         this._addedListener = false;
     }
+    // noinspection JSUnusedGlobalSymbols
     public setState(state: Record<string, unknown>) {
         this.vscode?.setState(state);
     }
+    // noinspection JSUnusedGlobalSymbols
     public getState() {
         return this.vscode?.getState();
     }

@@ -11,6 +11,7 @@ import fs from "fs-extra";
 import path from "path";
 import url from "url";
 
+// @ts-expect-error import.meta meta-property
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const __rootDir = path.join(__dirname, "..");
@@ -38,10 +39,7 @@ const isPyGte310lte314 = (pyCmd: string) => {
     }
     const version = pythonVersion.split(" ")[1];
     const [major, minor] = version.split(".").map(x => parseInt(x, 10));
-    if (major !== 3 || minor < 10 || minor >= 14) {
-        return false;
-    }
-    return true;
+    return !(major !== 3 || minor < 10 || minor >= 14);
 };
 
 /**
@@ -80,7 +78,7 @@ const getCompatiblePythonExecutable = (): { path: string | null; virtualEnv: boo
                 break;
             }
         } catch (_) {
-            continue;
+            //
         }
     }
     if (!pythonExec) {
@@ -94,10 +92,7 @@ const getCompatiblePythonExecutable = (): { path: string | null; virtualEnv: boo
  * @returns the python executable
  */
 const getVenvPythonExecutable = (venvDir: string) => {
-    const venvPythonPath = isWindows
-        ? path.join(venvDir, "Scripts", "python.exe")
-        : path.join(venvDir, "bin", "python");
-    return venvPythonPath;
+    return isWindows ? path.join(venvDir, "Scripts", "python.exe") : path.join(venvDir, "bin", "python");
 };
 /**
  * Get a new python executable

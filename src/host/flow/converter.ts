@@ -78,6 +78,7 @@ export class FlowConverter extends vscode.Disposable {
         traceVerbose(`Converting ${resource.fsPath} to ${outputFile}`);
 
         // Perform the conversion using a child process
+        // noinspection TypeScriptUMDGlobal
         return new Promise<string>((resolve, reject) => {
             if (!this._wrapper.executable) {
                 traceError("Python extension not found");

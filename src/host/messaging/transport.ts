@@ -30,7 +30,6 @@ export class MessageTransport {
     private _debounceTimeouts = new Map<string, NodeJS.Timeout>();
 
     constructor(
-        private readonly context: vscode.ExtensionContext,
         private readonly panel: vscode.WebviewPanel,
         private readonly document: vscode.TextDocument,
         private readonly onRun: (uri: vscode.Uri) => void,
@@ -128,6 +127,7 @@ export class MessageTransport {
         this._messageLocks.add(lockKey);
 
         try {
+            // noinspection JSIgnoredPromiseFromCall
             this._webview.postMessage(message);
             // traceVerbose(`<Waldiez> Sent message: ${lockKey}`);
         } finally {
@@ -154,6 +154,7 @@ export class MessageTransport {
 
         // Set new timeout
         const timeout = setTimeout(() => {
+            // noinspection JSIgnoredPromiseFromCall
             this._webview.postMessage(message);
             this._debounceTimeouts.delete(messageKey);
             // traceVerbose(`<Waldiez> Sent debounced message: ${messageKey}`);
@@ -199,6 +200,7 @@ export class MessageTransport {
 
     private _operationPromises = new Map<string, Promise<void>>();
 
+    // noinspection JSUnusedGlobalSymbols
     public async sendMessageSafe(message: HostMessage, operationKey?: string): Promise<void> {
         const key = operationKey || this._getMessageKey(message);
 
@@ -220,6 +222,7 @@ export class MessageTransport {
     }
 
     private async _performMessageSend(message: HostMessage, _key: string): Promise<void> {
+        // noinspection TypeScriptUMDGlobal
         return new Promise(resolve => {
             if (this.panel.active) {
                 this._webview.postMessage(message);
@@ -296,6 +299,7 @@ export class MessageTransport {
             { lockKey: `input_request_${request_id}`, debounceMs: 0 }, // No delay for input requests
         );
 
+        // noinspection TypeScriptUMDGlobal
         this._inputPromise = new Promise(resolve => {
             const timeout = setTimeout(() => {
                 resolve(undefined);
@@ -448,6 +452,7 @@ export class MessageTransport {
         const edit = new vscode.WorkspaceEdit();
         const fullRange = new vscode.Range(0, 0, this.document.lineCount, 0);
         edit.replace(this.document.uri, fullRange, content);
+        // noinspection JSIgnoredPromiseFromCall
         vscode.workspace.applyEdit(edit);
 
         // Use debounced sending for update messages
@@ -457,6 +462,7 @@ export class MessageTransport {
     public onConvert(value: { flow: string; to: "py" | "ipynb" }) {
         // call the registered command to convert the flow
         const command = value.to === "py" ? CONVERT_TO_PYTHON : CONVERT_TO_IPYNB;
+        // noinspection JSIgnoredPromiseFromCall
         vscode.commands.executeCommand(command, this.document.uri, value.flow);
     }
 }

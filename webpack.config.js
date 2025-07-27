@@ -1,3 +1,8 @@
+/**
+ * SPDX-License-Identifier: Apache-2.0
+ * Copyright 2024 - 2025 Waldiez & contributors
+ */
+
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
@@ -16,7 +21,8 @@ console.log(`Building in ${mode} mode`);
 const cacheDirectory = path.resolve(__dirname, ".webpack");
 const isDev = mode === "development";
 
-/** @type {webpack.Configuration} */
+// noinspection JSValidateJSDoc
+/** @type webpack.Configuration */
 const extensionConfig = {
     target: "node",
     entry: "./src/extension.ts",
@@ -39,7 +45,8 @@ const extensionConfig = {
     },
 };
 
-/** @type {webpack.Configuration} */
+// noinspection JSValidateJSDoc
+/** @type webpack.Configuration */
 const webviewConfig = {
     target: "web",
     entry: "./src/web/index.tsx",

@@ -18,6 +18,7 @@ import { WaldiezEditorProvider } from "./host/provider";
 // store disposables for cleanup
 const waldiezExtensionDisposables: vscode.Disposable[] = [];
 
+// noinspection JSUnusedGlobalSymbols
 /**
  * Activates the extension and initializes required components.
  *
@@ -59,6 +60,7 @@ export const activate = async (context: ExtensionContext): Promise<void> => {
         });
     });
     waldiezExtensionDisposables.push(newFileCmd);
+    // noinspection ES6MissingAwait
     initializeAfterPythonReady(context, outputChannel);
 };
 
@@ -92,6 +94,7 @@ async function initializeAfterPythonReady(
                 if (details?.path) {
                     return;
                 }
+                // noinspection TypeScriptUMDGlobal
                 await new Promise(res => setTimeout(res, 250)); // wait 250ms and try again
             }
         };
@@ -128,6 +131,7 @@ async function initializeAfterPythonReady(
         provider.initialize(flowRunner);
 
         // Register extension commands
+        // noinspection ES6MissingAwait
         registerCommands(flowConverter, waldiezExtensionDisposables);
     } catch (err) {
         traceError("Unexpected error during Python setup: " + (err as Error).message);

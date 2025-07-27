@@ -134,6 +134,7 @@ export const showOutput = (): void => {
     channel?.show();
 };
 
+// noinspection JSUnusedGlobalSymbols
 /**
  * Hides the log output channel.
  */

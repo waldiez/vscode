@@ -4,5 +4,6 @@
  */
 declare module "*.svg" {
     const value: string;
+    // noinspection JSUnusedGlobalSymbols
     export default value;
 }

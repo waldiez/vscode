@@ -15,11 +15,11 @@ import { PythonWrapper } from "./python";
 export class FlowRunner extends vscode.Disposable {
     private _proc: ChildProcess | undefined;
     private _running = false;
-    private _wrapper: PythonWrapper;
+    private readonly _wrapper: PythonWrapper;
     private _stopRequested = false;
 
     constructor(wrapper: PythonWrapper) {
-        super(() => this.dispose());
+        super(() => this._cleanup());
         this._wrapper = wrapper;
     }
 
@@ -27,6 +27,7 @@ export class FlowRunner extends vscode.Disposable {
         return this._wrapper;
     }
 
+    // noinspection JSUnusedGlobalSymbols
     public get running() {
         return this._running;
     }
@@ -37,6 +38,7 @@ export class FlowRunner extends vscode.Disposable {
         this._cleanup();
         if (wasRunning) {
             traceInfo("Flow stopped");
+            // noinspection JSIgnoredPromiseFromCall
             vscode.window.showInformationMessage("Flow stopped");
         }
     }
@@ -91,6 +93,7 @@ export class FlowRunner extends vscode.Disposable {
         token: vscode.CancellationToken,
         transport: MessageTransport,
     ): Promise<void> {
+        // noinspection TypeScriptUMDGlobal
         return new Promise(resolve => {
             let cancelled = false;
             token.onCancellationRequested(() => {

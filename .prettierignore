@@ -11,5 +11,4 @@ coverage
 !/package.json
 **/vs/
 **/min-maps/
-**/*cache/
 **/static/**/assets/

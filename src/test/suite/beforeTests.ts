@@ -36,7 +36,7 @@ const waitForPythonEnvironments = async () => {
 // eslint-disable-next-line max-statements
 const resolveEnvironment = async (): Promise<ResolvedEnvironment | undefined> => {
     const api = await PythonExtension.api();
-    api.environments.refreshEnvironments();
+    await api.environments.refreshEnvironments();
     const sorted = [...api.environments.known]
         .filter(env => env.version?.major === 3)
         .sort((a, b) => (b.version?.minor ?? 0) - (a.version?.minor ?? 0));

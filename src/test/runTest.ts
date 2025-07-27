@@ -83,4 +83,5 @@ const cleanUp = async () => {
     }
 };
 
+// noinspection JSIgnoredPromiseFromCall
 main();

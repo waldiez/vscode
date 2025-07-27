@@ -23,7 +23,6 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
      *
      * @param context - The extension context.
      * @param runner - The FlowRunner instance.
-     * @param disposables - Array to store disposables for cleanup.
      */
     constructor(
         private readonly context: vscode.ExtensionContext,
@@ -122,7 +121,6 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
         // Initialize the message transporter
         // for communication between the webview and the extension
         const messageTransport = new MessageTransport(
-            this.context,
             webviewPanel,
             document,
             onRun,
@@ -236,7 +234,9 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
      */
     private _onChangedPythonInterpreter(_isValid: boolean) {
         if (!_isValid) {
+            // noinspection JSIgnoredPromiseFromCall
             vscode.window.showWarningMessage("Please select a valid Python interpreter (>=3.10, <3.14)");
+            // noinspection JSIgnoredPromiseFromCall
             vscode.commands.executeCommand("python.setInterpreter");
         } else {
             this._updateStatusBarItem();

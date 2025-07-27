@@ -7,7 +7,6 @@ export class ViewStateHandler {
     private debounceTimeout: NodeJS.Timeout | null = null;
     private lastChangeTime: number = 0;
     private readonly STABILITY_PERIOD = 1000; // Must be stable for 1 second
-    private readonly CHECK_INTERVAL = 100; // Check every 100ms
 
     constructor(
         private onVisible: () => void,

@@ -6,6 +6,7 @@ import { messaging } from "./messaging";
 
 export const transferFiles = async (files: File[]): Promise<string[]> => {
     const promises = [...files].map(file => {
+        // noinspection TypeScriptUMDGlobal
         return new Promise(resolve => {
             const reader = new FileReader();
 
@@ -32,6 +33,7 @@ export const transferFiles = async (files: File[]): Promise<string[]> => {
 
     // Wait for paths from the extension
     const filePaths = await waitForFilePaths(fileDataArray.length);
+    // noinspection TypeScriptUMDGlobal
     return new Promise<string[]>(resolve => {
         resolve(filePaths);
     });
@@ -39,6 +41,7 @@ export const transferFiles = async (files: File[]): Promise<string[]> => {
 
 // Helper to wait for paths from the extension
 const waitForFilePaths = (expectedCount: number): Promise<string[]> => {
+    // noinspection TypeScriptUMDGlobal
     return new Promise<string[]>(resolve => {
         const receivedPaths: string[] = [];
         const timeout = 5000 * expectedCount; // 5 seconds per file

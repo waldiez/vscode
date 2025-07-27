@@ -13,7 +13,6 @@ import { convertFlow } from "./convert";
  * Registers the extension commands.
  *
  * @param converter - The FlowConverter instance for converting flows.
- * @param runner - The FlowRunner instance for running flows.
  * @param disposables - Array to store disposable resources for cleanup.
  */
 export const registerCommands = async (

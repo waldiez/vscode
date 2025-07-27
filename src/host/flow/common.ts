@@ -17,8 +17,9 @@ import { traceError, traceInfo, traceWarn } from "../log/logging";
  * @returns A Promise that resolves if the `waldiez` module is available or successfully installed,
  *          and rejects if an error occurs during the process.
  */
+/* eslint-disable max-statements */
 export const ensureWaldiezPy = (executable: string | undefined): Promise<void> => {
-    // eslint-disable-next-line max-statements
+    // noinspection TypeScriptUMDGlobal
     return new Promise<void>((resolve, reject) => {
         if (!executable) {
             // If no Python executable is provided, log an error and reject the promise
@@ -58,7 +59,9 @@ export const ensureWaldiezPy = (executable: string | undefined): Promise<void> =
 };
 
 const installWaldiezPy = (executable: string) => {
+    // noinspection TypeScriptUMDGlobal
     return new Promise<void>((resolve, reject) => {
+        // noinspection JSIgnoredPromiseFromCall
         vscode.window.showInformationMessage(
             "Waldiez Python module not found in the current Python environment. Installing...",
         );
@@ -78,6 +81,7 @@ const installWaldiezPy = (executable: string) => {
             } else {
                 traceError("Failed to install Waldiez Python module");
                 traceError(result.stderr.toString());
+                // noinspection JSIgnoredPromiseFromCall
                 vscode.window.showErrorMessage(
                     "Failed to install Waldiez Python module. Please check your Python environment.",
                 );
@@ -85,6 +89,7 @@ const installWaldiezPy = (executable: string) => {
             }
         } catch (error) {
             traceError("Failed to install Waldiez Python module:", error);
+            // noinspection JSIgnoredPromiseFromCall
             vscode.window.showErrorMessage(
                 "Failed to install Waldiez Python module. Please check your Python environment.",
             );

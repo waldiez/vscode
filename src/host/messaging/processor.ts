@@ -23,7 +23,7 @@ export class MessageProcessor {
     private messages: WaldiezChatMessage[] = [];
     private requestId?: string;
     private _stdin: Writable | undefined | null;
-    private _transport: MessageTransport;
+    private readonly _transport: MessageTransport;
     private _uploadsRoot: vscode.Uri;
 
     /**
@@ -71,7 +71,7 @@ export class MessageProcessor {
 
     /**
      * Handles fallback output.
-     * @param line - The raw line of data to handle.
+     * @param text - The raw line of data to handle.
      */
     public handleText(text: string) {
         if (text.includes("<Waldiez> - Workflow finished")) {
