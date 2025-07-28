@@ -2481,16 +2481,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.5.6":
-  version: 0.5.6
-  resolution: "@waldiez/react@npm:0.5.6"
+"@waldiez/react@npm:^0.5.7":
+  version: 0.5.7
+  resolution: "@waldiez/react@npm:0.5.7"
   dependencies:
     "@fontsource/fredoka": "npm:^5.2.8"
     "@monaco-editor/react": "npm:^4.7.0"
     "@radix-ui/react-checkbox": "npm:^1.3.2"
     "@radix-ui/react-slider": "npm:^1.3.5"
     "@xyflow/react": "npm:^12.8.2"
-    framer-motion: "npm:^12.23.6"
+    framer-motion: "npm:^12.23.9"
     jszip: "npm:^3.10.1"
     microdiff: "npm:^1.5.0"
     nanoid: "npm:^5.1.5"
@@ -2508,7 +2508,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.1.0
     react-dom: ^18.3.1 || ^19.1.0
-  checksum: 10/1a65a43f0910bde9b1e3cfde66f092327436c1d46ddb7146f44b968ec710429053537bcc2746433aacc6b87cd83ea1d6cdaaa03febba4ff65c3b5793e1d2b3f0
+  checksum: 10/25a0348efd3926823695fcc250a6646a3c15abd69fbc20335e04411bee47cd4cd678be5324d079b499566ba91a4640fcc2105f40eb1da297588e77bd66f754f9
   languageName: node
   linkType: hard
 
@@ -5112,7 +5112,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^12.23.6":
+"framer-motion@npm:^12.23.9":
   version: 12.23.9
   resolution: "framer-motion@npm:12.23.9"
   dependencies:
@@ -10652,7 +10652,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.11"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.6.0"
-    "@waldiez/react": "npm:^0.5.6"
+    "@waldiez/react": "npm:^0.5.7"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
