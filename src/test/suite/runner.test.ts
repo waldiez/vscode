@@ -451,7 +451,11 @@ suite("FlowRunner Tests", () => {
             assert.strictEqual(expectedArgs[10], "--force");
 
             // Test output file transformation
-            assert.strictEqual(resource.fsPath.replace(/\.waldiez$/, ".py"), "/test/my-flow.py");
+            if (process.platform !== "win32") {
+                assert.strictEqual(resource.fsPath.replace(/\.waldiez$/, ".py"), "/test/my-flow.py");
+            } else {
+                assert.strictEqual(resource.fsPath.replace(/\.waldiez$/, ".py"), "\\test\\my-flow.py");
+            }
         });
 
         test("should handle _onExit with different scenarios", async function () {
