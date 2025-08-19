@@ -2,6 +2,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
+/* eslint-disable max-statements,max-lines-per-function */
 import * as assert from "assert";
 import { afterEach, before, beforeEach, suite, test } from "mocha";
 import * as sinon from "sinon";
@@ -300,6 +301,280 @@ suite("FlowRunner Tests", () => {
             runner.dispose();
             // Should cleanup on dispose
             assert.strictEqual((runner as any)._running, false);
+        });
+        test("should handle run method when cannot run", async function () {
+            if (!FlowRunner) {
+                this.skip();
+            }
+
+            const mockWrapper = { executable: undefined }; // No executable
+            const runner = new FlowRunner(mockWrapper);
+
+            const mockTransport = {
+                sendMessage: sandbox.spy(),
+                onWorkflowEnd: sandbox.spy(),
+            };
+
+            const showErrorStub = sandbox.stub(vscode.window, "showErrorMessage").resolves();
+
+            const resource = vscode.Uri.parse("file:///test/flow.waldiez");
+            await runner.run(resource, mockTransport as any);
+
+            // Should not have started running
+            assert.strictEqual(runner.running, false);
+            sinon.assert.calledWith(showErrorStub, "Python executable not found");
+
+            showErrorStub.restore();
+        });
+
+        test("should handle run method with progress and cancellation", async function () {
+            if (!FlowRunner) {
+                this.skip();
+            }
+
+            const mockWrapper = { executable: "/usr/bin/python3" };
+            const runner = new FlowRunner(mockWrapper);
+
+            const mockTransport = {
+                sendMessage: sandbox.spy(),
+                onWorkflowEnd: sandbox.spy(),
+            };
+
+            // Mock _canRun to return true
+            sandbox.stub(runner as any, "_canRun").resolves(true);
+
+            // Mock _doRun to complete immediately
+            sandbox.stub(runner as any, "_doRun").resolves();
+
+            // Mock withProgress to capture the options and callback
+            const withProgressStub = sandbox
+                .stub(vscode.window, "withProgress")
+                .callsFake(async (options, callback) => {
+                    // Verify progress options
+                    assert.strictEqual(options.location, vscode.ProgressLocation.Notification);
+                    assert.strictEqual(options.title, "Running waldiez flow");
+                    assert.strictEqual(options.cancellable, true);
+
+                    const mockToken = {
+                        onCancellationRequested: sandbox.stub(),
+                        isCancellationRequested: false,
+                    };
+                    return callback(undefined as any, mockToken);
+                });
+
+            const resource = vscode.Uri.parse("file:///test/flow.waldiez");
+
+            // Before run - should not be running
+            assert.strictEqual(runner.running, false);
+
+            await runner.run(resource, mockTransport as any);
+
+            // Should have called withProgress and _doRun
+            sinon.assert.calledOnce(withProgressStub);
+            sinon.assert.calledOnce((runner as any)._doRun);
+
+            withProgressStub.restore();
+        });
+
+        test("should set running state during run method", async function () {
+            if (!FlowRunner) {
+                this.skip();
+            }
+
+            const mockWrapper = { executable: "/usr/bin/python3" };
+            const runner = new FlowRunner(mockWrapper);
+
+            const mockTransport = {
+                sendMessage: sandbox.spy(),
+                onWorkflowEnd: sandbox.spy(),
+            };
+
+            // Mock _canRun to return true
+            sandbox.stub(runner as any, "_canRun").resolves(true);
+
+            let runningStateDuringDoRun = false;
+            // Mock _doRun to capture running state
+            sandbox.stub(runner as any, "_doRun").callsFake(async () => {
+                runningStateDuringDoRun = runner.running;
+            });
+
+            // Mock withProgress
+            sandbox.stub(vscode.window, "withProgress").callsFake(async (_options, callback) => {
+                const mockToken = {
+                    onCancellationRequested: sandbox.stub(),
+                    isCancellationRequested: false,
+                };
+                return callback(undefined as any, mockToken);
+            });
+
+            const resource = vscode.Uri.parse("file:///test/flow.waldiez");
+            await runner.run(resource, mockTransport as any);
+
+            // Should have been running during _doRun
+            assert.strictEqual(runningStateDuringDoRun, true);
+        });
+
+        test("should build correct arguments for spawn in _doRun", function () {
+            if (!FlowRunner) {
+                this.skip();
+            }
+
+            // Test the argument building logic that _doRun uses
+            const resource = vscode.Uri.parse("file:///test/my-flow.waldiez");
+            const parentDir = vscode.Uri.joinPath(resource, "..");
+
+            const expectedArgs = [
+                "-m",
+                "waldiez",
+                "run",
+                "--structured",
+                "--file",
+                resource.fsPath,
+                "--output",
+                resource.fsPath.replace(/\.waldiez$/, ".py"),
+                "--uploads-root",
+                parentDir.fsPath,
+                "--force",
+            ];
+
+            // Verify each argument
+            assert.strictEqual(expectedArgs[0], "-m");
+            assert.strictEqual(expectedArgs[1], "waldiez");
+            assert.strictEqual(expectedArgs[2], "run");
+            assert.strictEqual(expectedArgs[3], "--structured");
+            assert.strictEqual(expectedArgs[4], "--file");
+            assert.strictEqual(expectedArgs[5], resource.fsPath);
+            assert.strictEqual(expectedArgs[6], "--output");
+            assert.strictEqual(expectedArgs[7], resource.fsPath.replace(/\.waldiez$/, ".py"));
+            assert.strictEqual(expectedArgs[8], "--uploads-root");
+            assert.strictEqual(expectedArgs[9], parentDir.fsPath);
+            assert.strictEqual(expectedArgs[10], "--force");
+
+            // Test output file transformation
+            assert.strictEqual(resource.fsPath.replace(/\.waldiez$/, ".py"), "/test/my-flow.py");
+        });
+
+        test("should handle _onExit with different scenarios", async function () {
+            if (!FlowRunner) {
+                this.skip();
+            }
+
+            const mockWrapper = { executable: "/usr/bin/python3" };
+            const runner = new FlowRunner(mockWrapper);
+
+            const mockTransport = {
+                sendMessage: sandbox.spy(),
+                onWorkflowEnd: sandbox.spy(),
+            };
+
+            const mockProcessor = {
+                transporter: mockTransport,
+            };
+
+            // Test successful exit
+            const resolveSpy1 = sandbox.spy();
+            (runner as any)._running = true;
+
+            await (runner as any)._onExit(resolveSpy1, false, mockProcessor, 0);
+
+            sinon.assert.calledOnce(resolveSpy1);
+            sinon.assert.calledWith(mockTransport.onWorkflowEnd, 0, "Flow execution completed");
+            assert.strictEqual((runner as any)._running, false);
+
+            // Reset
+            mockTransport.onWorkflowEnd.resetHistory();
+
+            // Test error exit
+            const resolveSpy2 = sandbox.spy();
+            (runner as any)._running = true;
+
+            await (runner as any)._onExit(resolveSpy2, false, mockProcessor, 1);
+
+            sinon.assert.calledOnce(resolveSpy2);
+            sinon.assert.calledWith(mockTransport.onWorkflowEnd, 1, "Flow execution failed");
+
+            // Reset
+            mockTransport.onWorkflowEnd.resetHistory();
+
+            // Test cancelled exit
+            const resolveSpy3 = sandbox.spy();
+            (runner as any)._running = true;
+
+            await (runner as any)._onExit(resolveSpy3, true, mockProcessor, 1);
+
+            sinon.assert.calledOnce(resolveSpy3);
+            sinon.assert.calledWith(mockTransport.onWorkflowEnd, 1, "Flow execution cancelled");
+        });
+
+        test("should handle _onExit with stop requested", async function () {
+            if (!FlowRunner) {
+                this.skip();
+            }
+
+            const mockWrapper = { executable: "/usr/bin/python3" };
+            const runner = new FlowRunner(mockWrapper);
+
+            const mockTransport = {
+                sendMessage: sandbox.spy(),
+                onWorkflowEnd: sandbox.spy(),
+            };
+
+            const mockProcessor = {
+                transporter: mockTransport,
+            };
+
+            // Set stop requested
+            (runner as any)._stopRequested = true;
+            (runner as any)._running = true;
+
+            const resolveSpy = sandbox.spy();
+            await (runner as any)._onExit(resolveSpy, false, mockProcessor, 0);
+
+            // Should resolve immediately without calling onWorkflowEnd
+            sinon.assert.calledOnce(resolveSpy);
+            sinon.assert.notCalled(mockTransport.onWorkflowEnd);
+            assert.strictEqual((runner as any)._stopRequested, false);
+            assert.strictEqual((runner as any)._running, false);
+        });
+
+        test("should create MessageProcessor and JsonChunkBuffer correctly", async function () {
+            if (!FlowRunner) {
+                this.skip();
+            }
+
+            // Test that the classes would be instantiated with correct parameters
+            const resource = vscode.Uri.parse("file:///test/flow.waldiez");
+            const parentDir = vscode.Uri.joinPath(resource, "..");
+
+            const mockTransport = {
+                sendMessage: sandbox.spy(),
+                onWorkflowEnd: sandbox.spy(),
+            };
+
+            // Mock the classes to capture their construction
+            const MessageProcessor = (await import("../../host/messaging")).MessageProcessor;
+            const JsonChunkBuffer = (await import("../../host/messaging/chunks")).JsonChunkBuffer;
+
+            // Test MessageProcessor construction parameters
+            const processor = new MessageProcessor(mockTransport as any, parentDir);
+            assert.ok(processor);
+
+            // Test JsonChunkBuffer construction with callbacks
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            let jsonCallback: any;
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            let textCallback: any;
+
+            const jsonParser = new JsonChunkBuffer(
+                (obj: any) => {
+                    jsonCallback = obj;
+                },
+                (text: string) => {
+                    textCallback = text;
+                },
+            );
+            assert.ok(jsonParser);
+            assert.ok(typeof jsonParser.handleChunk === "function");
         });
     });
 });

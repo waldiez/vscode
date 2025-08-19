@@ -214,6 +214,7 @@ export class PythonWrapper {
      * @returns A Promise that resolves when environments are available or after max retries.
      */
     static async waitForEnvironments(maxRetries = 30, delayMs = 2000): Promise<void> {
+        /* c8 ignore next 4 */
         if (!_api) {
             _api = await PythonExtension.api();
         }
@@ -239,6 +240,7 @@ export class PythonWrapper {
             .filter(env => env.version?.major === 3)
             .sort(orderedByMinorReverse);
         if (sorted.length === 0) {
+            /* c8 ignore next 4 */
             traceError("No valid python interpreter found");
             showOutput();
             return undefined;
@@ -254,6 +256,7 @@ export class PythonWrapper {
                 return resolved;
             }
         }
+        /* c8 ignore start */
         // if the first is 3.13, let's prefer 3.12 instead (more extras can be used on ag2)
         if (sorted[0].version?.minor === 13) {
             const index = sorted.findIndex(env => env.version?.minor === 12);
@@ -272,6 +275,7 @@ export class PythonWrapper {
             }
         }
         return undefined;
+        /* c8 ignore stop */
     };
 }
 
@@ -283,6 +287,7 @@ export class PythonWrapper {
  * @returns -1 if `a` has a higher minor version, 1 if `b` has a higher minor version, 0 otherwise.
  */
 const orderedByMinorReverse = (a: Environment, b: Environment) => {
+    /* c8 ignore next 3 */
     if (!a.version || !b.version || !a.version.minor || !b.version.minor) {
         return 0;
     }

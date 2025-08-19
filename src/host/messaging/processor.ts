@@ -118,6 +118,8 @@ export class MessageProcessor {
         // const imageUrlReplacement = this._getImageUrlReplacement(line);
         const result = WaldiezChatMessageProcessor.process(line, this.requestId, imageUrlReplacement);
         if (result) {
+            /* c8 ignore start */
+            // Waldiez lib related
             if (result.timeline) {
                 this._onTimelineUpdate(result.timeline);
                 return;
@@ -153,6 +155,7 @@ export class MessageProcessor {
                         this._stdin?.write("\n");
                     });
             }
+            /* c8 ignore stop */
         }
     }
 

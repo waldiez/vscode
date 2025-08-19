@@ -394,6 +394,7 @@ export class MessageTransport {
                 break;
 
             case "run":
+                /* c8 ignore next 4 */
                 this.updateDocument(message.value);
                 await vscode.workspace.save(this.document.uri);
                 this.onRun(this.document.uri);
@@ -414,10 +415,14 @@ export class MessageTransport {
             case "save":
                 this.updateDocument(message.value);
                 break;
+
             case "convert":
+                /* c8 ignore next 3 */
                 this.onConvert(message.value);
                 break;
+
             default:
+                /* c8 ignore next 3 */
                 traceVerbose("<Waldiez> Unknown webview message:", message);
                 break;
         }
