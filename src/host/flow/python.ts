@@ -188,17 +188,19 @@ export class PythonWrapper {
                 shell: true,
                 stdio: "pipe",
             });
+            /* c8 ignore next 4 */
             if (output.error) {
                 traceError("Error checking if in virtual environment:", output.error);
                 return false;
             }
-            const result = output.stdout.trim();
-            if (result === "True") {
+            const result = output.stdout.trim().toLowerCase();
+            if (result === "true") {
                 traceVerbose("Python executable is in a virtual environment");
                 return true;
             }
             traceVerbose("Python executable is not in a virtual environment");
             return false;
+            /* c8 ignore next 4 */
         } catch (e) {
             traceError("Error checking if in virtual environment:", e);
             return false;
