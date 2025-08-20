@@ -131,29 +131,29 @@ __metadata:
   linkType: hard
 
 "@azure/msal-browser@npm:^4.2.0":
-  version: 4.20.0
-  resolution: "@azure/msal-browser@npm:4.20.0"
+  version: 4.21.0
+  resolution: "@azure/msal-browser@npm:4.21.0"
   dependencies:
-    "@azure/msal-common": "npm:15.11.0"
-  checksum: 10/3049448c1fb56d9360ee49ddd791bdcdda6d1d99163928efa291e5cbe7a70155b2901684d4028c1912c96cb6f8d35487b3acf7da71d931160d4bd23f26715431
+    "@azure/msal-common": "npm:15.12.0"
+  checksum: 10/c440bdd0a2b9d4849d8982d420005c5d24d53d74dfe8d13a0cd4122ef543a22b8482947c1368bb055cad0dbbd6489896fee556a0a18d1cd9b3497de3a267e96b
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:15.11.0":
-  version: 15.11.0
-  resolution: "@azure/msal-common@npm:15.11.0"
-  checksum: 10/6a23d8b4155a2da7100e0ef8f8fa116a7432fa3927c8324f1d70d8f94b9cd2a481c1e07c39d4519049826012572b0254ee273350abbd88bc58d53be2620efdea
+"@azure/msal-common@npm:15.12.0":
+  version: 15.12.0
+  resolution: "@azure/msal-common@npm:15.12.0"
+  checksum: 10/0105b1ba5b751c713545000abd1cf3d9300bdd9d803d3f9795876fb1a1aebde9050d7a9378dcef15ec04080550389edea360a7a717d43788dc7650ea03879456
   languageName: node
   linkType: hard
 
 "@azure/msal-node@npm:^3.5.0":
-  version: 3.7.1
-  resolution: "@azure/msal-node@npm:3.7.1"
+  version: 3.7.2
+  resolution: "@azure/msal-node@npm:3.7.2"
   dependencies:
-    "@azure/msal-common": "npm:15.11.0"
+    "@azure/msal-common": "npm:15.12.0"
     jsonwebtoken: "npm:^9.0.0"
     uuid: "npm:^8.3.0"
-  checksum: 10/a4508f6634797aadc54c6d0226312486ba6c82b15bc864ef5eb5b38bb8443d2f0868ff541fcb1a1594207de4912f6d880ed3ac0bedf8d57511a3ce0f9adaf50d
+  checksum: 10/ec39cee1561678d81938ef6a4e557aadd62520655128995c82396caa4d74b1693060674026b803de44e9fc81c0df284c7bad9f8de33a794eb37c0e3e69987460
   languageName: node
   linkType: hard
 
@@ -539,6 +539,15 @@ __metadata:
   version: 0.9.2
   resolution: "@emotion/hash@npm:0.9.2"
   checksum: 10/379bde2830ccb0328c2617ec009642321c0e009a46aa383dfbe75b679c6aea977ca698c832d225a893901f29d7b3eef0e38cf341f560f6b2b56f1ff23c172387
+  languageName: node
+  linkType: hard
+
+"@emotion/is-prop-valid@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "@emotion/is-prop-valid@npm:1.3.1"
+  dependencies:
+    "@emotion/memoize": "npm:^0.9.0"
+  checksum: 10/abbc5c7bf4017415da5b06067fc0b4771d1f22cf94ec37fd54c07b3bd1bcffbda2405ca686e7ee64a9cfc51461262b712f724850e838775347a949f72949ad03
   languageName: node
   linkType: hard
 
@@ -1189,7 +1198,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-checkbox@npm:^1.3.2":
+"@radix-ui/react-checkbox@npm:^1.3.3":
   version: 1.3.3
   resolution: "@radix-ui/react-checkbox@npm:1.3.3"
   dependencies:
@@ -1315,7 +1324,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-slider@npm:^1.3.5":
+"@radix-ui/react-slider@npm:^1.3.6":
   version: 1.3.6
   resolution: "@radix-ui/react-slider@npm:1.3.6"
   dependencies:
@@ -1644,22 +1653,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@textlint/ast-node-types@npm:15.2.1":
-  version: 15.2.1
-  resolution: "@textlint/ast-node-types@npm:15.2.1"
-  checksum: 10/54a278043534abe60b3b5eadb75dbcf0eeee38804621187407b1d6333c269fd2143930cbc6f8d1d42b35061e0fe32c4547e87d6983cc18c89e5108c529c33120
+"@textlint/ast-node-types@npm:15.2.2":
+  version: 15.2.2
+  resolution: "@textlint/ast-node-types@npm:15.2.2"
+  checksum: 10/6250659efc20513e189a04711f4ccbc0adfb149f67b51781d7d652f936449c869ceda7b97bd58a5ff9af8e3e80b8e5e9d9103bc8b1b86dfd07e1fd9087df621e
   languageName: node
   linkType: hard
 
 "@textlint/linter-formatter@npm:^15.2.0":
-  version: 15.2.1
-  resolution: "@textlint/linter-formatter@npm:15.2.1"
+  version: 15.2.2
+  resolution: "@textlint/linter-formatter@npm:15.2.2"
   dependencies:
     "@azu/format-text": "npm:^1.0.2"
     "@azu/style-format": "npm:^1.0.1"
-    "@textlint/module-interop": "npm:15.2.1"
-    "@textlint/resolver": "npm:15.2.1"
-    "@textlint/types": "npm:15.2.1"
+    "@textlint/module-interop": "npm:15.2.2"
+    "@textlint/resolver": "npm:15.2.2"
+    "@textlint/types": "npm:15.2.2"
     chalk: "npm:^4.1.2"
     debug: "npm:^4.4.1"
     js-yaml: "npm:^3.14.1"
@@ -1669,30 +1678,30 @@ __metadata:
     strip-ansi: "npm:^6.0.1"
     table: "npm:^6.9.0"
     text-table: "npm:^0.2.0"
-  checksum: 10/bc2ea76277f797802ea0a1393e278a15f0ace23d5b2299cbf50c55a69a60c7dfc575c97977aa33e88f86274f23c081695b3dc2ead8a55134a792e91a9507defe
+  checksum: 10/46bc9cfaeef81e034f0172a917009248f45fd1d410225c0f1c770b406abdb4c2330cb72fb390de54631e397aacac62cc27d68bad83c170047192522d6b9cfa67
   languageName: node
   linkType: hard
 
-"@textlint/module-interop@npm:15.2.1, @textlint/module-interop@npm:^15.2.0":
-  version: 15.2.1
-  resolution: "@textlint/module-interop@npm:15.2.1"
-  checksum: 10/225f72d5af857b647332c5cd62a947f2a33a9797d3f45624ace412b61d9204dc179668a7da081e81d0ccaf25754cc8f54aa6e832460f6d08922a9429da1b83cf
+"@textlint/module-interop@npm:15.2.2, @textlint/module-interop@npm:^15.2.0":
+  version: 15.2.2
+  resolution: "@textlint/module-interop@npm:15.2.2"
+  checksum: 10/b1a3c64cff29884f54cc19bb4c011d44274f85083dbbe650105397a9364f7c66f24a83aaec1285a0d543975391d8b78a9a811a01fcde6bd93ed695dc464e0c59
   languageName: node
   linkType: hard
 
-"@textlint/resolver@npm:15.2.1":
-  version: 15.2.1
-  resolution: "@textlint/resolver@npm:15.2.1"
-  checksum: 10/495728f46de25759e4e28188bf24b66ffc8de32fa71cfea638504a1877de3cc91c20bb381fa6bb1e1bf8d0859837b386efe85e7da1a7e9cce0fbf9aba903a108
+"@textlint/resolver@npm:15.2.2":
+  version: 15.2.2
+  resolution: "@textlint/resolver@npm:15.2.2"
+  checksum: 10/265d39dc6d6176f5a22e6f7c0fed5ba26da9ca5f774613f330a94c1be9fdfdf69a42f3601f82a0e24e5a894b336eca8469ec53f3add7146602fb888189b89da6
   languageName: node
   linkType: hard
 
-"@textlint/types@npm:15.2.1, @textlint/types@npm:^15.2.0":
-  version: 15.2.1
-  resolution: "@textlint/types@npm:15.2.1"
+"@textlint/types@npm:15.2.2, @textlint/types@npm:^15.2.0":
+  version: 15.2.2
+  resolution: "@textlint/types@npm:15.2.2"
   dependencies:
-    "@textlint/ast-node-types": "npm:15.2.1"
-  checksum: 10/dec98d05914b8569a4581d352fab67a302278990822e9d1592eabd589363e7557ea4c0ad34426b2e0b631038d2cf2546e3005499cbc6a6a18cc147ef18b12984
+    "@textlint/ast-node-types": "npm:15.2.2"
+  checksum: 10/96a1b3711eb5f12d6381a442c1c6c1680e6eca5ec9796121b2b47a423da8351cfbdad535e0b743880719906be8431245d25b10d0b579f1a34d24f39997b8cde5
   languageName: node
   linkType: hard
 
@@ -2481,15 +2490,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.5.9":
-  version: 0.5.9
-  resolution: "@waldiez/react@npm:0.5.9"
+"@waldiez/react@npm:^0.5.10":
+  version: 0.5.10
+  resolution: "@waldiez/react@npm:0.5.10"
   dependencies:
+    "@emotion/is-prop-valid": "npm:^1.3.1"
     "@fontsource/fredoka": "npm:^5.2.8"
     "@monaco-editor/react": "npm:^4.7.0"
-    "@radix-ui/react-checkbox": "npm:^1.3.2"
-    "@radix-ui/react-slider": "npm:^1.3.5"
-    "@xyflow/react": "npm:^12.8.2"
+    "@radix-ui/react-checkbox": "npm:^1.3.3"
+    "@radix-ui/react-slider": "npm:^1.3.6"
+    "@xyflow/react": "npm:^12.8.4"
     framer-motion: "npm:^12.23.12"
     jszip: "npm:^3.10.1"
     microdiff: "npm:^1.5.0"
@@ -2500,16 +2510,16 @@ __metadata:
     react-icons: "npm:^5.5.0"
     react-markdown: "npm:^10.1.0"
     react-select: "npm:^5.10.2"
-    recharts: "npm:^3.1.0"
+    recharts: "npm:^3.1.2"
     rehype-highlight: "npm:^7.0.2"
     remark-gfm: "npm:^4.0.1"
     strip-ansi: "npm:^7.1.0"
     zundo: "npm:^2.3.0"
-    zustand: "npm:^5.0.7"
+    zustand: "npm:^5.0.8"
   peerDependencies:
-    react: ^18.3.1 || ^19.1.0
-    react-dom: ^18.3.1 || ^19.1.0
-  checksum: 10/e40d7fc329dfc34b255dbf6617d2f0ac04b5c3cd842481c38ae02e36a0f4497b4dff4377c8a9bf4795093f4726cff44b2783ff2a78f2f59d34597b6061c19fb9
+    react: ^18.3.1 || ^19.1.1
+    react-dom: ^18.3.1 || ^19.1.1
+  checksum: 10/c6c8a05a638e56d349a0220a41bb9872a2b2f86a4507b6300e797395c1221c0d4014a2c85656fb0704e0778753876390104e23d4ecbd9f34556af712c3a1a70f
   languageName: node
   linkType: hard
 
@@ -2711,23 +2721,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xyflow/react@npm:^12.8.2":
-  version: 12.8.3
-  resolution: "@xyflow/react@npm:12.8.3"
+"@xyflow/react@npm:^12.8.4":
+  version: 12.8.4
+  resolution: "@xyflow/react@npm:12.8.4"
   dependencies:
-    "@xyflow/system": "npm:0.0.67"
+    "@xyflow/system": "npm:0.0.68"
     classcat: "npm:^5.0.3"
     zustand: "npm:^4.4.0"
   peerDependencies:
     react: ">=17"
     react-dom: ">=17"
-  checksum: 10/dbd92650b76eae139e7487c08a9882612db1c6188da6c0e636c18a15e58c56b9b21c717f79fad5a43e71ac2693e484e7781c17b7636709d1b75c80d4467121ac
+  checksum: 10/1944e480c360b114449db4e9d1ca08a9c2578bbe68c2603225d04fd07babe52d9de6cf2b2b32cc0ae787da0425f7fbb4355e97f3d7d20a231a9004b7e746b2c5
   languageName: node
   linkType: hard
 
-"@xyflow/system@npm:0.0.67":
-  version: 0.0.67
-  resolution: "@xyflow/system@npm:0.0.67"
+"@xyflow/system@npm:0.0.68":
+  version: 0.0.68
+  resolution: "@xyflow/system@npm:0.0.68"
   dependencies:
     "@types/d3-drag": "npm:^3.0.7"
     "@types/d3-interpolate": "npm:^3.0.4"
@@ -2738,7 +2748,7 @@ __metadata:
     d3-interpolate: "npm:^3.0.1"
     d3-selection: "npm:^3.0.0"
     d3-zoom: "npm:^3.0.0"
-  checksum: 10/ff2927f0be098efcfbea625064ca3a98d54cfdc72f7ea9f2a37b91b0e95aa16bcfbaa3ad0d5db48ab47b8e8a38d7bbf469043a50cd1a0781f1a3240481749b1a
+  checksum: 10/64d8b24aac9f6861d520f0406ea1d3b40bdc712c887923405953eeba021b02fc292fbffc3ed1ddc6cff10f6bea75629d3a5c59bafd1a0e3ef94ceaf8d6204c84
   languageName: node
   linkType: hard
 
@@ -8760,7 +8770,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recharts@npm:^3.1.0":
+"recharts@npm:^3.1.2":
   version: 3.1.2
   resolution: "recharts@npm:3.1.2"
   dependencies:
@@ -10636,7 +10646,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.11"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.6.0"
-    "@waldiez/react": "npm:^0.5.9"
+    "@waldiez/react": "npm:^0.5.10"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
@@ -11151,9 +11161,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zustand@npm:^5.0.7":
-  version: 5.0.7
-  resolution: "zustand@npm:5.0.7"
+"zustand@npm:^5.0.8":
+  version: 5.0.8
+  resolution: "zustand@npm:5.0.8"
   peerDependencies:
     "@types/react": ">=18.0.0"
     immer: ">=9.0.6"
@@ -11168,7 +11178,7 @@ __metadata:
       optional: true
     use-sync-external-store:
       optional: true
-  checksum: 10/77854f93c2d4d781c11153e447a05edc6072f22ee98a710bec84693777d89cdd0e80004715a7591d985d3f7e591c3b8e731d1f3e5c9444a9ecbfc5517d1c13b4
+  checksum: 10/f824fbd0120bbb58c71e74599c7090fa81e9e94334b55a8bfc8964c57e6f1e1187d4be4771a93674755e798874eeb7612d6bde4c8c02a4fe47415fcd9f7407fc
   languageName: node
   linkType: hard
 
