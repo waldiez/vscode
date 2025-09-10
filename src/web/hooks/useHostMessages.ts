@@ -8,6 +8,7 @@ import {
     WaldiezActiveRequest,
     WaldiezChatConfig,
     WaldiezChatMessage,
+    WaldiezChatParticipant,
     WaldiezProps,
     WaldiezTimelineData,
     importFlow,
@@ -85,7 +86,7 @@ export const useHostMessages = (
     );
 
     const handleParticipantsUpdate = useCallback(
-        (participants: string[]) => {
+        (participants: WaldiezChatParticipant[]) => {
             console.debug("Updating participants in chat config", participants);
             const current = chatConfig.userParticipants;
             if (JSON.stringify(current) !== JSON.stringify(participants)) {
@@ -150,7 +151,7 @@ export const useHostMessages = (
         [sessionData.flowId],
     );
 
-    const onConverResponse = useCallback(
+    const onConvertResponse = useCallback(
         (response: { success: boolean; message?: string; content?: string }) => {
             if (!response.success) {
                 showSnackbar({
@@ -205,7 +206,7 @@ export const useHostMessages = (
                     handleSaveResult(msg.value);
                     break;
                 case "export":
-                    onConverResponse(msg.value);
+                    onConvertResponse(msg.value);
                     break;
                 default:
                     break;
@@ -220,7 +221,7 @@ export const useHostMessages = (
             handleWorkflowEnd,
             handleResolved,
             handleSaveResult,
-            onConverResponse,
+            onConvertResponse,
             setInitialized,
         ],
     );

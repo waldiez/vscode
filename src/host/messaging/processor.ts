@@ -128,9 +128,11 @@ export class MessageProcessor {
                 this.messages.push(result.message);
                 this._onMessagesUpdate();
             }
-            if (result.participants && result.participants.users) {
+            if (result.participants && result.participants) {
                 // this.userParticipants = result.participants.users;
-                this._transport.updateParticipants(result.participants.users);
+                this._transport.updateParticipants(
+                    result.participants.filter(participant => participant.isUser),
+                );
             }
             if (result.message && result.message.type === "input_request" && result.requestId) {
                 this.requestId = result.requestId;

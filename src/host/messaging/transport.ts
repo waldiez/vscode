@@ -4,7 +4,7 @@
  */
 import * as vscode from "vscode";
 
-import { WaldiezChatUserInput, WaldiezTimelineData } from "@waldiez/react";
+import { WaldiezChatParticipant, WaldiezChatUserInput, WaldiezTimelineData } from "@waldiez/react";
 
 import type { HostMessage, UploadRequest, WebviewMessage } from "../../types";
 import { CONVERT_TO_IPYNB, CONVERT_TO_PYTHON, TIME_TO_WAIT_FOR_INPUT } from "../constants";
@@ -255,7 +255,7 @@ export class MessageTransport {
         );
     }
 
-    public updateParticipants(participants: string[]) {
+    public updateParticipants(participants: WaldiezChatParticipant[]) {
         this.sendMessage(
             {
                 type: "participants_update",

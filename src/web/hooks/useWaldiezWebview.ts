@@ -29,17 +29,23 @@ export const useWaldiezWebview = () => {
     const onClose = useCallback(() => {
         setChatConfig(prev => ({
             ...prev,
-            showUI: false,
+            show: false,
+            active: false,
             messages: [],
             activeRequest: undefined,
+            timeline: undefined,
             userParticipants: [],
+            error: undefined,
         }));
     }, []);
 
     const [chatConfig, setChatConfig] = useState<WaldiezChatConfig>({
-        showUI: false,
+        show: false,
+        active: false,
         messages: [],
         userParticipants: [],
+        error: undefined,
+        timeline: undefined,
         activeRequest: undefined,
         handlers: {
             onUserInput: value => {
@@ -60,6 +66,7 @@ export const useWaldiezWebview = () => {
         nodes: [],
         edges: [],
         chat: chatConfig,
+        stepByStep: undefined,
         viewport: { zoom: 1, x: 0, y: 0 },
         name: "",
         description: "",

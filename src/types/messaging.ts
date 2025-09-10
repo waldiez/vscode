@@ -5,6 +5,7 @@
 import {
     WaldiezActiveRequest,
     WaldiezChatMessage,
+    WaldiezChatParticipant,
     WaldiezChatUserInput,
     WaldiezTimelineData,
 } from "@waldiez/react";
@@ -58,7 +59,7 @@ export type ExportResponse = {
 };
 export type ParticipantsUpdate = {
     type: "participants_update";
-    value: string[];
+    value: WaldiezChatParticipant[];
 };
 export type TimelineUpdate = {
     type: "timeline_update";
