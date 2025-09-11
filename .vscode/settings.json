@@ -1,6 +1,6 @@
 {
     "files.exclude": {
-        "out": false, // set this to true to hide the "out" folder with the compiled JS files
+        "out": false // set this to true to hide the "out" folder with the compiled JS files
         // "node_modules": true
     },
     "search.exclude": {
@@ -50,23 +50,36 @@
     "typescript.tsc.autoDetect": "off",
     "cSpell.words": [
         "agentchat",
+        "amaliacontiero",
         "autogen",
         "autohiding",
         "bitness",
+        "Chatzigeorgiou",
+        "Christos",
+        "Contiero",
         "csstree",
         "eslintcache",
         "forlint",
+        "hchris",
+        "Ioannidou",
         "ipynb",
         "istanbuljs",
+        "Kasnesis",
+        "Lazaros",
         "lconv",
         "libasound",
         "libgbm",
         "libnss",
         "nosources",
+        "ounospanas",
+        "Panagiotis",
         "PVSC",
         "pyautogen",
+        "siioannidou",
         "softprops",
         "stylelintcache",
+        "Toum",
+        "Toumanidis",
         "trivago",
         "USERPROFILE",
         "venv",
