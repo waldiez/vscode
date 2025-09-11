@@ -35,9 +35,15 @@
             "avatar_url": "https://avatars.githubusercontent.com/u/29499343?v=4",
             "profile": "https://github.com/amaliacontiero",
             "contributions": ["code", "bug"]
+        },
+        {
+            "login": "hchris0",
+            "name": "Christos Chatzigeorgiou",
+            "avatar_url": "https://avatars.githubusercontent.com/u/23460824?v=4",
+            "profile": "https://github.com/hchris0",
+            "contributions": ["code"]
         }
     ],
     "contributorsPerLine": 7,
     "linkToUsage": false
 }
-

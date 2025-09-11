@@ -19,6 +19,20 @@
     "publisher": "Waldiez",
     "pricing": "Free",
     "icon": "icons/logo.png",
+    "contributors": [
+        {
+            "name": "Panagiotis Kasnesis",
+            "email": "pkasnesis@waldiez.io"
+        },
+        {
+            "name": "Lazaros Toumanidis",
+            "email": "laztoum@waldiez.io"
+        },
+        {
+            "name": "Christos Chatzigeorgiou",
+            "email": "chrihatz@waldiez.io"
+        }
+    ],
     "activationEvents": [
         "workspaceContains: **/*.waldiez"
     ],
@@ -264,5 +278,5 @@
             }
         ]
     },
-    "packageManager": "yarn@4.9.3"
+    "packageManager": "yarn@4.9.4"
 }
