@@ -8,7 +8,7 @@ import { afterEach, before, beforeEach, suite, test } from "mocha";
 import * as sinon from "sinon";
 import * as vscode from "vscode";
 
-import packageJSON from "../../../package.json";
+import packageJSON from "../../../../package.json";
 
 const extensionId = `${packageJSON.publisher}.${packageJSON.name}`;
 
@@ -38,7 +38,7 @@ suite("WaldiezEditorProvider Tests", () => {
 
         before(async () => {
             try {
-                const module = await import("../../host/provider");
+                const module = await import("../../../host/provider");
                 WaldiezEditorProvider = module.WaldiezEditorProvider;
             } catch (error) {
                 console.warn("Could not import WaldiezEditorProvider:", error);
@@ -48,6 +48,7 @@ suite("WaldiezEditorProvider Tests", () => {
         test("should create provider instance", function () {
             // noinspection DuplicatedCode
             if (!WaldiezEditorProvider) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -91,6 +92,7 @@ suite("WaldiezEditorProvider Tests", () => {
         test("should initialize with new runner", function () {
             // noinspection DuplicatedCode
             if (!WaldiezEditorProvider) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -145,6 +147,7 @@ suite("WaldiezEditorProvider Tests", () => {
 
         test("should handle Python interpreter changes - invalid", function () {
             if (!WaldiezEditorProvider) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -196,6 +199,7 @@ suite("WaldiezEditorProvider Tests", () => {
         test("should handle Python interpreter changes - valid", function () {
             // noinspection DuplicatedCode
             if (!WaldiezEditorProvider) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -242,6 +246,7 @@ suite("WaldiezEditorProvider Tests", () => {
         test("should update status bar item", function () {
             // noinspection DuplicatedCode
             if (!WaldiezEditorProvider) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -288,6 +293,7 @@ suite("WaldiezEditorProvider Tests", () => {
         test("should show status bar item", function () {
             // noinspection DuplicatedCode
             if (!WaldiezEditorProvider) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -333,6 +339,7 @@ suite("WaldiezEditorProvider Tests", () => {
         test("should generate webview content", function () {
             // noinspection DuplicatedCode
             if (!WaldiezEditorProvider) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -384,6 +391,7 @@ suite("WaldiezEditorProvider Tests", () => {
         test("should dispose properly", function () {
             // noinspection DuplicatedCode
             if (!WaldiezEditorProvider) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -428,6 +436,7 @@ suite("WaldiezEditorProvider Tests", () => {
 
         test("should have correct view type", function () {
             if (!WaldiezEditorProvider) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 

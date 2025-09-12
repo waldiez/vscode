@@ -4,6 +4,7 @@
  */
 import * as vscode from "vscode";
 
+import { RunMode } from "../types";
 import { FlowRunner } from "./flow/runner";
 import { MessageTransport } from "./messaging";
 import { getNonce, getUri } from "./utils";
@@ -106,9 +107,9 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
         webviewPanel.webview.html = this._getWebviewContent(webviewPanel.webview);
 
         // Define the callback to run a flow file
-        const onRun = (path: vscode.Uri) => {
+        const onRun = (path: vscode.Uri, runMode: RunMode) => {
             if (this._runner) {
-                this._runner.run(path, messageTransport);
+                this._runner.run(path, messageTransport, runMode);
             }
         };
         const onStop = () => {
@@ -221,6 +222,7 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
             </head>
             <body>
               <div id="root"></div>
+              <div id="modal-root"></div>
               <script nonce="${nonce}" src="${scriptUri}"></script>
             </body>
           </html>

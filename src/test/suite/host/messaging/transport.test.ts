@@ -8,7 +8,7 @@ import { afterEach, before, beforeEach, suite, test } from "mocha";
 import * as sinon from "sinon";
 import * as vscode from "vscode";
 
-import packageJSON from "../../../package.json";
+import packageJSON from "../../../../../package.json";
 
 const extensionId = `${packageJSON.publisher}.${packageJSON.name}`;
 
@@ -32,13 +32,12 @@ suite("MessageTransport Tests", () => {
     afterEach(() => {
         sandbox.restore();
     });
-
     suite("MessageTransport", () => {
         let MessageTransport: any;
 
         before(async () => {
             try {
-                const module = await import("../../host/messaging/transport");
+                const module = await import("../../../../host/messaging/transport");
                 MessageTransport = module.MessageTransport;
             } catch (error) {
                 console.warn("Could not import MessageTransport:", error);
@@ -47,6 +46,7 @@ suite("MessageTransport Tests", () => {
 
         test("should create transport instance", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -76,6 +76,7 @@ suite("MessageTransport Tests", () => {
 
         test("should return webview URI", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -109,6 +110,7 @@ suite("MessageTransport Tests", () => {
 
         test("should send message when panel is active", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -148,6 +150,7 @@ suite("MessageTransport Tests", () => {
 
         test("should not send message when panel inactive", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -180,6 +183,7 @@ suite("MessageTransport Tests", () => {
 
         test("should skip document update if content is same", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -217,6 +221,7 @@ suite("MessageTransport Tests", () => {
 
         test("should update document with different content", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -255,6 +260,7 @@ suite("MessageTransport Tests", () => {
         test("should handle convert to python", function () {
             // noinspection DuplicatedCode
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -294,6 +300,7 @@ suite("MessageTransport Tests", () => {
         test("should handle convert to ipynb", function () {
             // noinspection DuplicatedCode
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -332,6 +339,7 @@ suite("MessageTransport Tests", () => {
 
         test("should ask for input", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -377,6 +385,7 @@ suite("MessageTransport Tests", () => {
 
         test("should dispose properly", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -410,6 +419,7 @@ suite("MessageTransport Tests", () => {
 
         test("should get initial text from document", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -449,6 +459,7 @@ suite("MessageTransport Tests", () => {
 
         test("should get default text for empty document", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
             const clock = sinon.useFakeTimers();
@@ -488,6 +499,7 @@ suite("MessageTransport Tests", () => {
         });
         test("should handle sendMessageSafe with concurrent operations", async function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -537,6 +549,7 @@ suite("MessageTransport Tests", () => {
 
         test("should handle sendMessageSafe with inactive panel", async function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -573,6 +586,7 @@ suite("MessageTransport Tests", () => {
 
         test("should handle sendMessageSafe without operation key", async function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -609,6 +623,7 @@ suite("MessageTransport Tests", () => {
         });
         test("should handle 'ready' message", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -654,6 +669,7 @@ suite("MessageTransport Tests", () => {
 
         test("should handle 'initialized' message", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -693,6 +709,7 @@ suite("MessageTransport Tests", () => {
 
         test("should handle 'change' message", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -736,6 +753,7 @@ suite("MessageTransport Tests", () => {
 
         test("should handle 'run' message", async function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -784,6 +802,7 @@ suite("MessageTransport Tests", () => {
 
         test("should handle 'stop_request' message", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -823,6 +842,7 @@ suite("MessageTransport Tests", () => {
 
         test("should handle 'save' message", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -866,6 +886,7 @@ suite("MessageTransport Tests", () => {
 
         test("should handle 'input_response' message", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -913,6 +934,7 @@ suite("MessageTransport Tests", () => {
 
         test("should ignore messages without action", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -951,6 +973,7 @@ suite("MessageTransport Tests", () => {
 
         test("should ignore messages when panel inactive", function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -990,6 +1013,7 @@ suite("MessageTransport Tests", () => {
 
         test("should save file with workspace folder when not file scheme", async function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -1055,6 +1079,7 @@ suite("MessageTransport Tests", () => {
 
         test("should handle file save error", async function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -1104,6 +1129,7 @@ suite("MessageTransport Tests", () => {
 
         test("should handle upload message with files", async function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -1166,6 +1192,7 @@ suite("MessageTransport Tests", () => {
 
         test("should handle upload with file save error", async function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -1221,6 +1248,7 @@ suite("MessageTransport Tests", () => {
 
         test("should use correct file destination based on scheme", async function () {
             if (!MessageTransport) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 

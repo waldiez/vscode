@@ -8,7 +8,7 @@ import { afterEach, before, beforeEach, suite, test } from "mocha";
 import * as sinon from "sinon";
 import * as vscode from "vscode";
 
-import packageJSON from "../../../package.json";
+import packageJSON from "../../../../../package.json";
 
 const extensionId = `${packageJSON.publisher}.${packageJSON.name}`;
 
@@ -39,7 +39,7 @@ suite("Flow Common Tests", () => {
 
         before(async () => {
             try {
-                flowCommon = await import("../../host/flow/common");
+                flowCommon = await import("../../../../host/flow/common");
             } catch (error) {
                 console.warn("Could not import flow common:", error);
             }
@@ -47,6 +47,7 @@ suite("Flow Common Tests", () => {
 
         test("should reject if no executable provided", async function () {
             if (!flowCommon?.ensureWaldiezPy) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -61,6 +62,7 @@ suite("Flow Common Tests", () => {
 
         test("should succeed if waldiez is already installed with correct version", async function () {
             if (!flowCommon?.ensureWaldiezPy) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -75,6 +77,7 @@ suite("Flow Common Tests", () => {
 
         test("should install waldiez if not found", async function () {
             if (!flowCommon?.ensureWaldiezPy) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -97,6 +100,7 @@ suite("Flow Common Tests", () => {
 
         test("should update waldiez if version is too old", async function () {
             if (!flowCommon?.ensureWaldiezPy) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -119,6 +123,7 @@ suite("Flow Common Tests", () => {
 
         test("should handle installation failure", async function () {
             if (!flowCommon?.ensureWaldiezPy) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -147,6 +152,7 @@ suite("Flow Common Tests", () => {
 
         test("should handle version parsing failure", async function () {
             if (!flowCommon?.ensureWaldiezPy) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -169,6 +175,7 @@ suite("Flow Common Tests", () => {
 
         test("should handle exception during version check", async function () {
             if (!flowCommon?.ensureWaldiezPy) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -191,6 +198,7 @@ suite("Flow Common Tests", () => {
 
         test("should handle exception during installation", async function () {
             if (!flowCommon?.ensureWaldiezPy) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 

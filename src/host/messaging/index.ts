@@ -5,3 +5,4 @@
 
 export { MessageTransport } from "./transport";
 export { MessageProcessor } from "./processor";
+export { ChatMessageProcessor } from "./chatProcessor";

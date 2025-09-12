@@ -5,8 +5,9 @@
 import { ChildProcess, spawn } from "child_process";
 import * as vscode from "vscode";
 
+import { RunMode } from "../../types";
 import { clearOutput, isOutputVisible, showOutput, traceInfo, traceVerbose } from "../log/logging";
-import { MessageProcessor, MessageTransport } from "../messaging";
+import { ChatMessageProcessor, MessageProcessor, MessageTransport } from "../messaging";
 import { JsonChunkBuffer } from "../messaging/chunks";
 import { getCwd } from "../utils";
 import { ensureWaldiezPy } from "./common";
@@ -43,7 +44,7 @@ export class FlowRunner extends vscode.Disposable {
         }
     }
 
-    public async run(resource: vscode.Uri, transport: MessageTransport): Promise<void> {
+    public async run(resource: vscode.Uri, transport: MessageTransport, runMode: RunMode): Promise<void> {
         if (!(await this._canRun())) {
             return;
         }
@@ -60,7 +61,7 @@ export class FlowRunner extends vscode.Disposable {
                 cancellable: true,
             },
             async (_progress, token) => {
-                await this._doRun(resource, token, transport);
+                await this._doRun(resource, token, transport, runMode);
             },
         );
     }
@@ -92,6 +93,7 @@ export class FlowRunner extends vscode.Disposable {
         resource: vscode.Uri,
         token: vscode.CancellationToken,
         transport: MessageTransport,
+        runMode: RunMode,
     ): Promise<void> {
         // noinspection TypeScriptUMDGlobal
         return new Promise(resolve => {
@@ -114,8 +116,11 @@ export class FlowRunner extends vscode.Disposable {
                 parentDir.fsPath,
                 "--force",
             ];
+            if (runMode === "step") {
+                args.push("--step");
+            }
 
-            const processor = new MessageProcessor(transport, parentDir);
+            const processor = new ChatMessageProcessor(transport, parentDir);
 
             const jsonParser = new JsonChunkBuffer(
                 obj => processor.handleJson(obj),

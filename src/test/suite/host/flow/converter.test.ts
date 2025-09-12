@@ -9,7 +9,7 @@ import path from "path";
 import * as sinon from "sinon";
 import * as vscode from "vscode";
 
-import packageJSON from "../../../package.json";
+import packageJSON from "../../../../../package.json";
 
 const extensionId = `${packageJSON.publisher}.${packageJSON.name}`;
 
@@ -39,7 +39,7 @@ suite("FlowConverter Tests", () => {
 
         before(async () => {
             try {
-                const module = await import("../../host/flow/converter");
+                const module = await import("../../../../host/flow/converter");
                 FlowConverter = module.FlowConverter;
             } catch (error) {
                 console.warn("Could not import FlowConverter:", error);
@@ -48,6 +48,7 @@ suite("FlowConverter Tests", () => {
 
         test("should create converter instance", function () {
             if (!FlowConverter) {
+                console.warn("Skipping ...");
                 this.skip();
             }
 
@@ -59,6 +60,7 @@ suite("FlowConverter Tests", () => {
 
         test("should fail conversion with invalid file type", async function () {
             if (!FlowConverter) {
+                console.warn("Skipping ...");
                 this.skip();
             }
 
@@ -76,6 +78,7 @@ suite("FlowConverter Tests", () => {
 
         test("should fail conversion without python executable", async function () {
             if (!FlowConverter) {
+                console.warn("Skipping ...");
                 this.skip();
             }
 
@@ -93,6 +96,7 @@ suite("FlowConverter Tests", () => {
 
         test("should fail conversion if waldiez install fails", async function () {
             if (!FlowConverter) {
+                console.warn("Skipping ...");
                 this.skip();
             }
 
@@ -100,7 +104,7 @@ suite("FlowConverter Tests", () => {
             const converter = new FlowConverter(mockWrapper);
 
             // Mock ensureWaldiezPy to reject
-            const flowCommonModule = await import("../../host/flow/common");
+            const flowCommonModule = await import("../../../../host/flow/common");
             const ensureWaldiezPyStub = sandbox.stub(flowCommonModule, "ensureWaldiezPy").rejects();
 
             const testUri = vscode.Uri.parse("file:///test/flow.waldiez");
@@ -118,6 +122,7 @@ suite("FlowConverter Tests", () => {
         test("should convert waldiez file to python", async function () {
             // noinspection DuplicatedCode
             if (!FlowConverter) {
+                console.warn("Skipping ...");
                 this.skip();
             }
 
@@ -125,7 +130,7 @@ suite("FlowConverter Tests", () => {
             const converter = new FlowConverter(mockWrapper);
 
             // Mock ensureWaldiezPy to resolve
-            const flowCommonModule = await import("../../host/flow/common");
+            const flowCommonModule = await import("../../../../host/flow/common");
             const ensureWaldiezPyStub = sandbox.stub(flowCommonModule, "ensureWaldiezPy").resolves();
 
             // Mock spawn to return a fake process
@@ -162,13 +167,14 @@ suite("FlowConverter Tests", () => {
         test("should convert waldiez file to jupyter notebook", async function () {
             // noinspection DuplicatedCode
             if (!FlowConverter) {
+                console.warn("Skipping ...");
                 this.skip();
             }
 
             const mockWrapper = { executable: "/usr/bin/python3" };
             const converter = new FlowConverter(mockWrapper);
 
-            const flowCommonModule = await import("../../host/flow/common");
+            const flowCommonModule = await import("../../../../host/flow/common");
             const ensureWaldiezPyStub = sandbox.stub(flowCommonModule, "ensureWaldiezPy").resolves();
 
             const mockProcess = {
@@ -202,13 +208,14 @@ suite("FlowConverter Tests", () => {
         test("should fail conversion on process error", async function () {
             // noinspection DuplicatedCode
             if (!FlowConverter) {
+                console.warn("Skipping ...");
                 this.skip();
             }
 
             const mockWrapper = { executable: "/usr/bin/python3" };
             const converter = new FlowConverter(mockWrapper);
 
-            const flowCommonModule = await import("../../host/flow/common");
+            const flowCommonModule = await import("../../../../host/flow/common");
             const ensureWaldiezPyStub = sandbox.stub(flowCommonModule, "ensureWaldiezPy").resolves();
 
             const mockProcess = {
@@ -242,13 +249,14 @@ suite("FlowConverter Tests", () => {
         test("should handle stdout data", async function () {
             // noinspection DuplicatedCode
             if (!FlowConverter) {
+                console.warn("Skipping ...");
                 this.skip();
             }
 
             const mockWrapper = { executable: "/usr/bin/python3" };
             const converter = new FlowConverter(mockWrapper);
 
-            const flowCommonModule = await import("../../host/flow/common");
+            const flowCommonModule = await import("../../../../host/flow/common");
             const ensureWaldiezPyStub = sandbox.stub(flowCommonModule, "ensureWaldiezPy").resolves();
 
             const mockProcess = {
@@ -283,13 +291,14 @@ suite("FlowConverter Tests", () => {
         test("should handle stderr data with different log levels", async function () {
             // noinspection DuplicatedCode
             if (!FlowConverter) {
+                console.warn("Skipping ...");
                 this.skip();
             }
 
             const mockWrapper = { executable: "/usr/bin/python3" };
             const converter = new FlowConverter(mockWrapper);
 
-            const flowCommonModule = await import("../../host/flow/common");
+            const flowCommonModule = await import("../../../../host/flow/common");
             const ensureWaldiezPyStub = sandbox.stub(flowCommonModule, "ensureWaldiezPy").resolves();
 
             const mockProcess = {
@@ -326,6 +335,7 @@ suite("FlowConverter Tests", () => {
 
         test("should dispose properly", function () {
             if (!FlowConverter) {
+                console.warn("Skipping ...");
                 this.skip();
             }
 

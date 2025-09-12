@@ -8,8 +8,18 @@ import { useWaldiezWebview } from "./hooks";
 
 export const App = (props: { flowId: string }) => {
     const { flowId } = props;
-    const { initialized, sessionData, chat, onRun, onChange, onSave, onUpload, onConvert } =
-        useWaldiezWebview();
+    const {
+        initialized,
+        sessionData,
+        chat,
+        stepByStep,
+        onRun,
+        onStepRun,
+        onChange,
+        onSave,
+        onUpload,
+        onConvert,
+    } = useWaldiezWebview();
     const storageId = sessionData.storageId ?? flowId;
     const { nodes, edges, viewport, name, description, tags, requirements, isAsync, cacheSeed } = sessionData;
     return initialized ? (
@@ -27,11 +37,13 @@ export const App = (props: { flowId: string }) => {
             isAsync={isAsync}
             cacheSeed={cacheSeed}
             onRun={onRun}
+            onStepRun={onStepRun}
             onChange={onChange}
             onUpload={onUpload}
             onSave={onSave}
             onConvert={onConvert}
             chat={chat}
+            stepByStep={stepByStep}
         />
     ) : (
         <div className="loading">Loading...</div>

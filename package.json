@@ -154,8 +154,7 @@
         "all": "yarn clean:all && yarn forlint && yarn test && yarn build && yarn version:get"
     },
     "dependencies": {
-        "@vscode/python-extension": "^1.0.6",
-        "fs-extra": "^11.3.1"
+        "@vscode/python-extension": "^1.0.6"
     },
     "overrides": {
         "ajv": "^8.17.1",
@@ -168,6 +167,7 @@
     "devDependencies": {
         "@babel/core": "^7.28.4",
         "@babel/preset-react": "^7.27.1",
+        "@babel/preset-typescript": "^7.27.1",
         "@istanbuljs/nyc-config-typescript": "^1.0.2",
         "@stylistic/eslint-plugin": "^5.3.1",
         "@trivago/prettier-plugin-sort-imports": "^5.2.2",
@@ -200,10 +200,15 @@
         "eslint-plugin-prettier": "^5.5.4",
         "eslint-plugin-react-hooks": "^5.2.0",
         "eslint-plugin-react-refresh": "^0.4.20",
+        "fs-extra": "^11.3.1",
         "glob": "^11.0.3",
+        "highlight.js": "^11.11.1",
         "husky": "^9.1.7",
         "lint-staged": "^16.1.6",
         "markdown-it": "^14.1.0",
+        "marked": "^16.2.1",
+        "marked-highlight": "^2.2.2",
+        "marked-react": "^3.0.1",
         "mini-css-extract-plugin": "^2.9.4",
         "mocha": "^11.7.2",
         "nanoid": "^5.1.5",

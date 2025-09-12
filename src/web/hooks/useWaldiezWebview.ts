@@ -4,15 +4,16 @@
  */
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { WaldiezChatConfig, WaldiezProps } from "@waldiez/react";
+import { nanoid } from "nanoid";
+
+import { WaldiezChatConfig, WaldiezProps, WaldiezStepByStep } from "@waldiez/react";
 
 import { messaging } from "../messaging";
 import { transferFiles } from "../uploading";
-import { useHostMessages } from "./useHostMessages";
-import { getRandomId } from "./utils";
+import { useHostChatMessages } from "./useHostChatMessages";
 
 export const useWaldiezWebview = () => {
-    const randomId = useRef(getRandomId()).current;
+    const randomId = useRef(nanoid()).current;
     const hasInitialized = useRef(false);
     const messageHandlerRef = useRef<((message: any) => void) | null>(null);
     const isDisposed = useRef(false);
@@ -56,6 +57,49 @@ export const useWaldiezWebview = () => {
             onClose: onClose,
         },
     });
+    const [stepByStep, setStepByStep] = useState<WaldiezStepByStep>({
+        show: false,
+        active: false,
+        stepMode: true,
+        autoContinue: false,
+        breakpoints: [],
+        eventHistory: [],
+        activeRequest: null,
+        timeline: undefined,
+        participants: undefined,
+        pendingControlInput: null,
+        handlers: {
+            sendControl: value => {
+                messaging.send({
+                    action: "input_response",
+                    value: {
+                        ...value,
+                        id: nanoid(),
+                        type: "input_response",
+                        timestamp: new Date().toISOString(),
+                    },
+                });
+                setStepByStep(prev => ({ ...prev, pendingControlInput: null }));
+            },
+            respond: value => {
+                messaging.send({
+                    action: "input_response",
+                    value,
+                });
+                setStepByStep(prev => ({ ...prev, activeRequest: null }));
+            },
+            close: () => {
+                setStepByStep(prev => ({
+                    ...prev,
+                    show: false,
+                    active: false,
+                    eventHistory: [],
+                    activeRequest: null,
+                    pendingControlInput: null,
+                }));
+            },
+        },
+    });
 
     const [sessionData, setSessionData] = useState<WaldiezProps>({
         monacoVsPath: undefined,
@@ -76,7 +120,7 @@ export const useWaldiezWebview = () => {
 
     const [initialized, setInitialized] = useState(false);
 
-    const { createMessageHandler } = useHostMessages(
+    const { createMessageHandler } = useHostChatMessages(
         sessionData,
         chatConfig,
         setChatConfig,
@@ -97,6 +141,22 @@ export const useWaldiezWebview = () => {
                 },
             }));
             messaging.send({ action: "run", value: flowJson });
+        },
+        [onInterrupt],
+    );
+    const onStepRun = useCallback(
+        (flowJson: string) => {
+            setChatConfig(prev => ({
+                ...prev,
+                messages: [],
+                userParticipants: [],
+                activeRequest: undefined,
+                handlers: {
+                    ...prev.handlers,
+                    onInterrupt,
+                },
+            }));
+            messaging.send({ action: "step_run", value: flowJson });
         },
         [onInterrupt],
     );
@@ -145,8 +205,8 @@ export const useWaldiezWebview = () => {
         }));
     }, []);
 
-    // Stable message handler
-    const stableMessageHandler = useCallback(
+    // message handler
+    const messageHandler = useCallback(
         (message: any) => {
             // Handle dispose action specifically
             if (message.action === "dispose") {
@@ -177,7 +237,7 @@ export const useWaldiezWebview = () => {
             hasInitialized.current = true;
 
             // Set up message handler and listener
-            messaging.setMessageHandler(stableMessageHandler);
+            messaging.setMessageHandler(messageHandler);
             messaging.listen();
 
             // Add focus listener
@@ -190,7 +250,7 @@ export const useWaldiezWebview = () => {
 
         // Reset disposed state
         isDisposed.current = false;
-    }, [initialized, stableMessageHandler, checkFocus]);
+    }, [initialized, messageHandler, checkFocus]);
 
     // Cleanup effect
     useEffect(() => {
@@ -221,7 +281,9 @@ export const useWaldiezWebview = () => {
         initialized,
         sessionData,
         chat: chatConfig,
+        stepByStep,
         onRun,
+        onStepRun,
         onChange,
         onSave,
         onUpload,

@@ -45,6 +45,10 @@ export type InputRequest = {
     type: "input_request";
     value: WaldiezActiveRequest;
 };
+export type DebugInputRequest = {
+    type: "debug_input_request";
+    value: WaldiezActiveRequest;
+};
 export type UploadResponse = {
     type: "upload";
     value: any;
@@ -89,6 +93,7 @@ export type HostMessage =
     | FlowOutput
     | UploadResponse
     | InputRequest
+    | DebugInputRequest
     | ExportResponse
     | ParticipantsUpdate
     | TimelineUpdate
@@ -120,6 +125,11 @@ export type RunRequest = {
     value: any;
 };
 
+export type StepRunRequest = {
+    action: "step_run";
+    value: any;
+};
+
 export type InputResponse = {
     action: "input_response";
     value: WaldiezChatUserInput;
@@ -142,12 +152,15 @@ export type ConvertRequest = {
     };
 };
 
+export type RunMode = "chat" | "step";
+
 export type WebviewMessage =
     | ViewReady
     | Initialized
     | ContentChange
     | UploadRequest
     | RunRequest
+    | StepRunRequest
     | InputResponse
     | StopRequest
     | SaveRequest

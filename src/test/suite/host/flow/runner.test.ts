@@ -2,13 +2,13 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
-/* eslint-disable max-statements,max-lines-per-function */
+/* eslint-disable max-statements,max-lines-per-function,max-lines */
 import * as assert from "assert";
 import { afterEach, before, beforeEach, suite, test } from "mocha";
 import * as sinon from "sinon";
 import * as vscode from "vscode";
 
-import packageJSON from "../../../package.json";
+import packageJSON from "../../../../../package.json";
 
 const extensionId = `${packageJSON.publisher}.${packageJSON.name}`;
 
@@ -38,7 +38,7 @@ suite("FlowRunner Tests", () => {
 
         before(async () => {
             try {
-                const runnerModule = await import("../../host/flow/runner");
+                const runnerModule = await import("../../../../host/flow/runner");
                 FlowRunner = runnerModule.FlowRunner;
             } catch (error) {
                 console.warn("Could not import FlowRunner:", error);
@@ -47,6 +47,7 @@ suite("FlowRunner Tests", () => {
 
         test("should create FlowRunner instance", function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -64,6 +65,7 @@ suite("FlowRunner Tests", () => {
 
         test("should get running status", function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -79,6 +81,7 @@ suite("FlowRunner Tests", () => {
 
         test("should stop process", function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -103,6 +106,7 @@ suite("FlowRunner Tests", () => {
 
         test("should stop without message when not running", function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -121,6 +125,7 @@ suite("FlowRunner Tests", () => {
 
         test("should get appropriate exit messages", function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -134,6 +139,7 @@ suite("FlowRunner Tests", () => {
 
         test("should fail to run without executable", async function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -152,6 +158,7 @@ suite("FlowRunner Tests", () => {
 
         test("should handle already running scenario", async function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -174,6 +181,7 @@ suite("FlowRunner Tests", () => {
 
         test("should show error notification", async function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -191,6 +199,7 @@ suite("FlowRunner Tests", () => {
 
         test("should show success notification", async function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -208,6 +217,7 @@ suite("FlowRunner Tests", () => {
 
         test("should show cancelled notification", async function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -225,6 +235,7 @@ suite("FlowRunner Tests", () => {
 
         test("should create runner with proper wrapper", function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -243,6 +254,7 @@ suite("FlowRunner Tests", () => {
 
         test("should cleanup process on stop", function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -262,6 +274,7 @@ suite("FlowRunner Tests", () => {
 
         test("should handle cleanup without process", function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -278,6 +291,7 @@ suite("FlowRunner Tests", () => {
 
         test("should be disposable", function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -289,6 +303,7 @@ suite("FlowRunner Tests", () => {
 
         test("should dispose properly", function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -304,6 +319,7 @@ suite("FlowRunner Tests", () => {
         });
         test("should handle run method when cannot run", async function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -329,6 +345,7 @@ suite("FlowRunner Tests", () => {
 
         test("should handle run method with progress and cancellation", async function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -378,6 +395,7 @@ suite("FlowRunner Tests", () => {
 
         test("should set running state during run method", async function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -416,6 +434,7 @@ suite("FlowRunner Tests", () => {
 
         test("should build correct arguments for spawn in _doRun", function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -460,6 +479,7 @@ suite("FlowRunner Tests", () => {
 
         test("should handle _onExit with different scenarios", async function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -512,6 +532,7 @@ suite("FlowRunner Tests", () => {
 
         test("should handle _onExit with stop requested", async function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -541,8 +562,9 @@ suite("FlowRunner Tests", () => {
             assert.strictEqual((runner as any)._running, false);
         });
 
-        test("should create MessageProcessor and JsonChunkBuffer correctly", async function () {
+        test("should create ChatMessageProcessor and JsonChunkBuffer correctly", async function () {
             if (!FlowRunner) {
+                console.warn("Skipping ....");
                 this.skip();
             }
 
@@ -556,11 +578,11 @@ suite("FlowRunner Tests", () => {
             };
 
             // Mock the classes to capture their construction
-            const MessageProcessor = (await import("../../host/messaging")).MessageProcessor;
-            const JsonChunkBuffer = (await import("../../host/messaging/chunks")).JsonChunkBuffer;
+            const ChatMessageProcessor = (await import("../../../../host/messaging")).ChatMessageProcessor;
+            const JsonChunkBuffer = (await import("../../../../host/messaging/chunks")).JsonChunkBuffer;
 
-            // Test MessageProcessor construction parameters
-            const processor = new MessageProcessor(mockTransport as any, parentDir);
+            // Test ChatMessageProcessor construction parameters
+            const processor = new ChatMessageProcessor(mockTransport as any, parentDir);
             assert.ok(processor);
 
             // Test JsonChunkBuffer construction with callbacks

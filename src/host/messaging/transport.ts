@@ -6,7 +6,7 @@ import * as vscode from "vscode";
 
 import { WaldiezChatParticipant, WaldiezChatUserInput, WaldiezTimelineData } from "@waldiez/react";
 
-import type { HostMessage, UploadRequest, WebviewMessage } from "../../types";
+import type { HostMessage, RunMode, UploadRequest, WebviewMessage } from "../../types";
 import { CONVERT_TO_IPYNB, CONVERT_TO_PYTHON, TIME_TO_WAIT_FOR_INPUT } from "../constants";
 import { traceError, traceVerbose } from "../log/logging";
 
@@ -32,7 +32,7 @@ export class MessageTransport {
     constructor(
         private readonly panel: vscode.WebviewPanel,
         private readonly document: vscode.TextDocument,
-        private readonly onRun: (uri: vscode.Uri) => void,
+        private readonly onRun: (uri: vscode.Uri, mode: RunMode) => void,
         private readonly onStop: () => void,
         private readonly onInit: () => void,
     ) {
@@ -168,6 +168,8 @@ export class MessageTransport {
         switch (message.type) {
             case "input_request":
                 return `input_request_${message.value?.request_id || "default"}`;
+            case "debug_input_request":
+                return `debug_input_request_${message.value?.request_id || "default"}`;
             case "messages_update":
                 return "messages_update";
             case "init":
@@ -318,6 +320,41 @@ export class MessageTransport {
         return this._inputPromise;
     }
 
+    public askForControl({
+        request_id,
+        prompt,
+    }: {
+        request_id: string;
+        prompt: string;
+    }): Promise<WaldiezChatUserInput | undefined> {
+        // Use lock key to prevent duplicate input requests
+        this.sendMessage(
+            {
+                type: "debug_input_request",
+                value: { request_id, prompt },
+            },
+            { lockKey: `debug_input_request_${request_id}`, debounceMs: 0 }, // No delay for input requests
+        );
+
+        // noinspection TypeScriptUMDGlobal
+        this._inputPromise = new Promise(resolve => {
+            const timeout = setTimeout(() => {
+                resolve(undefined);
+                this._inputPromise = null;
+                this._inputResolve = null;
+            }, TIME_TO_WAIT_FOR_INPUT);
+
+            this._inputResolve = value => {
+                clearTimeout(timeout);
+                resolve(value);
+                this._inputPromise = null;
+                this._inputResolve = null;
+            };
+        });
+
+        return this._inputPromise;
+    }
+
     private _handleInputResponse(value: WaldiezChatUserInput) {
         if (this._inputResolve) {
             this._inputResolve(value);
@@ -397,7 +434,13 @@ export class MessageTransport {
                 /* c8 ignore next 4 */
                 this.updateDocument(message.value);
                 await vscode.workspace.save(this.document.uri);
-                this.onRun(this.document.uri);
+                this.onRun(this.document.uri, "chat");
+                break;
+
+            case "step_run":
+                this.updateDocument(message.value);
+                await vscode.workspace.save(this.document.uri);
+                this.onRun(this.document.uri, "step");
                 break;
 
             case "stop_request":

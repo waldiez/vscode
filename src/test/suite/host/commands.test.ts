@@ -6,11 +6,11 @@ import * as assert from "assert";
 import { before, suite, test } from "mocha";
 import * as vscode from "vscode";
 
-import packageJSON from "../../../package.json";
+import packageJSON from "../../../../package.json";
 
 const extensionId = `${packageJSON.publisher}.${packageJSON.name}`;
 
-suite("Extension Test Suite", () => {
+suite("Extension commands Test Suite", () => {
     before(async () => {
         const ext = vscode.extensions.getExtension(extensionId);
         if (!ext) {

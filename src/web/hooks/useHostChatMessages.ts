@@ -12,13 +12,13 @@ import {
     WaldiezProps,
     WaldiezTimelineData,
     importFlow,
-    showSnackbar,
 } from "@waldiez/react";
 
 import type { ContentUpdate, HostMessage, Initialization } from "../../types";
 import { messaging } from "../messaging";
+import { useHostActions } from "./useHostActions";
 
-export const useHostMessages = (
+export const useHostChatMessages = (
     sessionData: WaldiezProps,
     chatConfig: WaldiezChatConfig,
     setChatConfig: React.Dispatch<React.SetStateAction<WaldiezChatConfig>>,
@@ -29,6 +29,7 @@ export const useHostMessages = (
         (hostMsg: Initialization | ContentUpdate) => {
             setInitialized(true);
             const flowData = typeof hostMsg.value === "string" ? hostMsg.value : hostMsg.value.flow;
+            // let's use CDN for monaco editor files
             const monacoVsPath = undefined;
 
             try {
@@ -112,7 +113,8 @@ export const useHostMessages = (
     const handleWorkflowEnd = useCallback(() => {
         setChatConfig(prev => ({
             ...prev,
-            showUI: false,
+            show: false,
+            active: false,
             activeRequest: undefined,
             handlers: {
                 ...prev.handlers,
@@ -127,51 +129,7 @@ export const useHostMessages = (
         });
     }, []);
 
-    const handleSaveResult = useCallback(
-        (value: { success: boolean; message?: string }) => {
-            if (!value.success) {
-                showSnackbar({
-                    flowId: sessionData.flowId,
-                    message: `Error saving file: ${value.message}`,
-                    level: "error",
-                    details: value.message,
-                    duration: 5000,
-                    withCloseButton: true,
-                });
-            } else {
-                showSnackbar({
-                    flowId: sessionData.flowId,
-                    message: "File saved successfully!",
-                    level: "success",
-                    duration: 2000,
-                    withCloseButton: true,
-                });
-            }
-        },
-        [sessionData.flowId],
-    );
-
-    const onConvertResponse = useCallback(
-        (response: { success: boolean; message?: string; content?: string }) => {
-            if (!response.success) {
-                showSnackbar({
-                    flowId: sessionData.flowId,
-                    message: `Error converting flow: ${response.message}`,
-                    level: "error",
-                    details: response.message,
-                    withCloseButton: true,
-                });
-            } else {
-                showSnackbar({
-                    flowId: sessionData.flowId,
-                    message: "Flow converted successfully!",
-                    level: "success",
-                    withCloseButton: true,
-                });
-            }
-        },
-        [sessionData.flowId],
-    );
+    const { onConvert, onSave } = useHostActions(sessionData);
 
     const createMessageHandler = useCallback(
         () => (msg: HostMessage) => {
@@ -203,10 +161,10 @@ export const useHostMessages = (
                     handleResolved();
                     break;
                 case "save_result":
-                    handleSaveResult(msg.value);
+                    onSave(msg.value);
                     break;
                 case "export":
-                    onConvertResponse(msg.value);
+                    onConvert(msg.value);
                     break;
                 default:
                     break;
@@ -220,8 +178,8 @@ export const useHostMessages = (
             handleTimelineUpdate,
             handleWorkflowEnd,
             handleResolved,
-            handleSaveResult,
-            onConvertResponse,
+            onSave,
+            onConvert,
             setInitialized,
         ],
     );
