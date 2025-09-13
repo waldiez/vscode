@@ -2,19 +2,43 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
+/* eslint-disable max-lines */
 import * as vscode from "vscode";
 
-import { WaldiezChatParticipant, WaldiezChatUserInput, WaldiezTimelineData } from "@waldiez/react";
+import { nanoid } from "nanoid";
 
-import type { HostMessage, RunMode, UploadRequest, WebviewMessage } from "../../types";
+import {
+    WaldiezChatMessage,
+    WaldiezChatParticipant,
+    WaldiezStepByStep,
+    WaldiezTimelineData,
+} from "@waldiez/react";
+
+import type { HostMessage, RunMode, UploadRequest, WaldiezUserInput, WebviewMessage } from "../../types";
 import { CONVERT_TO_IPYNB, CONVERT_TO_PYTHON, TIME_TO_WAIT_FOR_INPUT } from "../constants";
 import { traceError, traceVerbose } from "../log/logging";
 
 export class MessageTransport {
     private _disposable: vscode.Disposable;
-    private _inputPromise: Promise<WaldiezChatUserInput | undefined> | null = null;
-    private _inputResolve: ((value: WaldiezChatUserInput | undefined) => void) | null = null;
-    private _messages: any[] = [];
+    private _inputPromise: Promise<WaldiezUserInput | undefined> | null = null;
+    private _inputResolve: ((value: WaldiezUserInput | undefined) => void) | null = null;
+    private _messages: WaldiezChatMessage[] = [];
+    private _stepEvents: Set<Record<string, any>> = new Set();
+    private _stepByStep: Omit<WaldiezStepByStep, "handlers"> = {
+        show: false,
+        active: false,
+        stepMode: true,
+        autoContinue: false,
+        breakpoints: [],
+        eventHistory: [],
+        lastError: undefined,
+        currentEvent: undefined,
+        participants: undefined,
+        pendingControlInput: undefined,
+        timeline: undefined,
+        stats: undefined,
+        help: undefined,
+    };
 
     private _webview: vscode.Webview;
     // private _instanceId: string; // Add instance ID for debugging
@@ -37,14 +61,15 @@ export class MessageTransport {
         private readonly onInit: () => void,
     ) {
         this._webview = panel.webview;
-        // this._instanceId = Math.random().toString(36).substring(2, 10);
         this._disposable = this._webview.onDidReceiveMessage(this._handleMessage.bind(this));
-
-        // traceVerbose(`<Waldiez> MessageTransport ${this._instanceId} created for ${document.uri.toString()}`);
     }
 
     public asWebviewUri(uri: vscode.Uri): vscode.Uri {
         return this.panel.webview.asWebviewUri(uri);
+    }
+
+    public get stepEvents(): Set<Record<string, any>> {
+        return this._stepEvents;
     }
 
     public dispose() {
@@ -58,8 +83,6 @@ export class MessageTransport {
         this._pendingMessages.clear();
         this._lastSentMessageHashes.clear();
         this._lastMessageTimestamps.clear();
-
-        // traceVerbose(`<Waldiez> MessageTransport ${this._instanceId} disposed, cleared all locks and state`);
     }
 
     // eslint-disable-next-line max-statements
@@ -228,7 +251,6 @@ export class MessageTransport {
         return new Promise(resolve => {
             if (this.panel.active) {
                 this._webview.postMessage(message);
-                // traceVerbose(`<Waldiez> Sent safe message: ${key}`);
             }
             // Small delay to prevent immediate re-sending
             setTimeout(resolve, 10);
@@ -247,21 +269,44 @@ export class MessageTransport {
         );
     }
 
-    public updateTimeline(timeline: WaldiezTimelineData | undefined) {
+    public updateStepByStepState(stepByStep: Partial<WaldiezStepByStep>, clearHistory: boolean = false) {
+        if (clearHistory) {
+            this._stepEvents.clear();
+        } else {
+            if (stepByStep.eventHistory) {
+                stepByStep.eventHistory.forEach(entry => {
+                    this._stepEvents.add(entry);
+                });
+            }
+            if (stepByStep.currentEvent) {
+                this._stepEvents.add(stepByStep.currentEvent);
+            }
+        }
+        this._stepByStep = {
+            ...this._stepByStep,
+            ...stepByStep,
+            eventHistory: Array.from(this._stepEvents).reverse(),
+        };
+        this.sendMessage({ type: "step_update", value: this._stepByStep }, { debounceMs: 100 });
+    }
+
+    public updateTimeline(timeline: WaldiezTimelineData | undefined, runMode: RunMode) {
         this.sendMessage(
             {
                 type: "timeline_update",
                 value: timeline,
+                runMode,
             },
             { skipDuplicates: false }, // Override default for longer debounce
         );
     }
 
-    public updateParticipants(participants: WaldiezChatParticipant[]) {
+    public updateParticipants(participants: WaldiezChatParticipant[], runMode: RunMode) {
         this.sendMessage(
             {
                 type: "participants_update",
                 value: participants,
+                runMode,
             },
             { skipDuplicates: false }, // Override default for longer debounce
         );
@@ -273,9 +318,13 @@ export class MessageTransport {
      * @param message - Optional message to display upon completion.
      * Defaults to "Workflow execution completed".
      */
-    public onWorkflowEnd(code: number, message: string = "Workflow execution completed"): void {
+    public onWorkflowEnd(
+        code: number,
+        message: string = "Workflow execution completed",
+        runMode: RunMode,
+    ): void {
         this.sendMessage(
-            { type: "workflow_end", value: { success: code === 0, message } },
+            { type: "workflow_end", value: { success: code === 0, message }, runMode },
             {
                 skipDuplicates: false,
                 debounceMs: 100,
@@ -287,18 +336,21 @@ export class MessageTransport {
         request_id,
         prompt,
         password = false,
+        runMode,
     }: {
         request_id: string;
         prompt: string;
         password?: boolean;
-    }): Promise<WaldiezChatUserInput | undefined> {
+        runMode: RunMode;
+    }): Promise<WaldiezUserInput | undefined> {
         // Use lock key to prevent duplicate input requests
+        const typePrefix = runMode === "step" ? "debug_" : "";
         this.sendMessage(
             {
-                type: "input_request",
+                type: `${typePrefix}input_request`,
                 value: { request_id, prompt, password },
             },
-            { lockKey: `input_request_${request_id}`, debounceMs: 0 }, // No delay for input requests
+            { lockKey: `${typePrefix}input_request_${request_id}`, debounceMs: 0 }, // No delay for input requests
         );
 
         // noinspection TypeScriptUMDGlobal
@@ -311,7 +363,8 @@ export class MessageTransport {
 
             this._inputResolve = value => {
                 clearTimeout(timeout);
-                resolve(value);
+                const response = this._getResolvedResponse(value, request_id);
+                resolve(response);
                 this._inputPromise = null;
                 this._inputResolve = null;
             };
@@ -326,14 +379,20 @@ export class MessageTransport {
     }: {
         request_id: string;
         prompt: string;
-    }): Promise<WaldiezChatUserInput | undefined> {
+    }): Promise<WaldiezUserInput | undefined> {
         // Use lock key to prevent duplicate input requests
         this.sendMessage(
             {
-                type: "debug_input_request",
-                value: { request_id, prompt },
+                type: "step_update",
+                value: {
+                    show: true,
+                    active: true,
+                    stepMode: true,
+                    autoContinue: false,
+                    pendingControlInput: { request_id, prompt },
+                },
             },
-            { lockKey: `debug_input_request_${request_id}`, debounceMs: 0 }, // No delay for input requests
+            { lockKey: `step_update_${request_id}`, debounceMs: 0 }, // No delay for input requests
         );
 
         // noinspection TypeScriptUMDGlobal
@@ -345,8 +404,10 @@ export class MessageTransport {
             }, TIME_TO_WAIT_FOR_INPUT);
 
             this._inputResolve = value => {
+                traceError("Got control response....");
                 clearTimeout(timeout);
-                resolve(value);
+                const response = this._getResolvedResponse(value, request_id);
+                resolve(response);
                 this._inputPromise = null;
                 this._inputResolve = null;
             };
@@ -355,9 +416,28 @@ export class MessageTransport {
         return this._inputPromise;
     }
 
-    private _handleInputResponse(value: WaldiezChatUserInput) {
+    private _getResolvedResponse(value: WaldiezUserInput | undefined, request_id: string) {
+        let requestId = value?.request_id;
+        if (requestId === "<unknown>") {
+            requestId = request_id;
+        }
+        const data = value?.data || "";
+        const response = {
+            ...value,
+            data,
+            id: value?.id || nanoid(),
+            timestamp: value?.timestamp || new Date().getMilliseconds(),
+            type: "input_response" as const,
+            request_id: requestId,
+        };
+        return response;
+    }
+
+    private _handleInputResponse(value: WaldiezUserInput) {
         if (this._inputResolve) {
             this._inputResolve(value);
+        } else {
+            traceError("Not expecting input....");
         }
     }
 
@@ -455,6 +535,10 @@ export class MessageTransport {
                 this._handleInputResponse(message.value);
                 break;
 
+            case "debug_input_response":
+                this._handleInputResponse(message.value);
+                break;
+
             case "save":
                 this.updateDocument(message.value);
                 break;
@@ -463,7 +547,6 @@ export class MessageTransport {
                 /* c8 ignore next 3 */
                 this.onConvert(message.value);
                 break;
-
             default:
                 /* c8 ignore next 3 */
                 traceVerbose("<Waldiez> Unknown webview message:", message);

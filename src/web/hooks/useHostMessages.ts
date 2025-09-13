@@ -10,21 +10,25 @@ import {
     WaldiezChatMessage,
     WaldiezChatParticipant,
     WaldiezProps,
+    WaldiezStepByStep,
     WaldiezTimelineData,
     importFlow,
 } from "@waldiez/react";
 
-import type { ContentUpdate, HostMessage, Initialization } from "../../types";
+import type { ContentUpdate, HostMessage, Initialization, RunMode } from "../../types";
 import { messaging } from "../messaging";
 import { useHostActions } from "./useHostActions";
 
-export const useHostChatMessages = (
-    sessionData: WaldiezProps,
-    chatConfig: WaldiezChatConfig,
-    setChatConfig: React.Dispatch<React.SetStateAction<WaldiezChatConfig>>,
-    setSessionData: React.Dispatch<React.SetStateAction<WaldiezProps>>,
-    setInitialized: React.Dispatch<React.SetStateAction<boolean>>,
-) => {
+export const useHostMessages = (props: {
+    sessionData: WaldiezProps;
+    chatConfig: WaldiezChatConfig;
+    stepByStep: WaldiezStepByStep;
+    setChatConfig: React.Dispatch<React.SetStateAction<WaldiezChatConfig>>;
+    setStepByStep: React.Dispatch<React.SetStateAction<WaldiezStepByStep>>;
+    setSessionData: React.Dispatch<React.SetStateAction<WaldiezProps>>;
+    setInitialized: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+    const { sessionData, chatConfig, setChatConfig, setStepByStep, setSessionData, setInitialized } = props;
     const initialize = useCallback(
         (hostMsg: Initialization | ContentUpdate) => {
             setInitialized(true);
@@ -87,47 +91,107 @@ export const useHostChatMessages = (
     );
 
     const handleParticipantsUpdate = useCallback(
-        (participants: WaldiezChatParticipant[]) => {
-            console.debug("Updating participants in chat config", participants);
-            const current = chatConfig.userParticipants;
-            if (JSON.stringify(current) !== JSON.stringify(participants)) {
-                setChatConfig(prev => ({
+        (participants: WaldiezChatParticipant[], runMode: RunMode) => {
+            console.debug(`Updating participants in ${runMode} mode`, participants);
+            if (runMode === "chat") {
+                const current = chatConfig.userParticipants;
+                if (JSON.stringify(current) !== JSON.stringify(participants)) {
+                    setChatConfig(prev => ({
+                        ...prev,
+                        userParticipants: participants,
+                    }));
+                }
+                return;
+            }
+            if (runMode === "step") {
+                console.error("Updating step participants");
+                setStepByStep(prev => ({
                     ...prev,
-                    userParticipants: participants,
+                    show: true,
+                    active: true,
+                    participants,
                 }));
             }
         },
-        [chatConfig.userParticipants, setChatConfig],
+        [chatConfig.userParticipants, setChatConfig, setStepByStep],
     );
 
     const handleTimelineUpdate = useCallback(
-        (timeline: WaldiezTimelineData | undefined) => {
-            setChatConfig(prev => ({
-                ...prev,
-                timeline,
-            }));
+        (timeline: WaldiezTimelineData | undefined, runMode: RunMode) => {
+            if (runMode === "chat") {
+                setChatConfig(prev => ({
+                    ...prev,
+                    timeline,
+                }));
+                return;
+            }
+            if (runMode === "step") {
+                setStepByStep(prev => ({
+                    ...prev,
+                    timeline,
+                }));
+            }
         },
-        [setChatConfig],
+        [setChatConfig, setStepByStep],
     );
 
-    const handleWorkflowEnd = useCallback(() => {
-        setChatConfig(prev => ({
-            ...prev,
-            show: false,
-            active: false,
-            activeRequest: undefined,
-            handlers: {
-                ...prev.handlers,
-                onInterrupt: undefined, // Clear interrupt handler
-            },
-        }));
-    }, [setChatConfig]);
+    const handleWorkflowEnd = useCallback(
+        (runMode: RunMode) => {
+            if (runMode === "chat") {
+                setChatConfig(prev => ({
+                    ...prev,
+                    show: false,
+                    active: false,
+                    activeRequest: undefined,
+                    handlers: {
+                        ...prev.handlers,
+                        onInterrupt: undefined, // Clear interrupt handler
+                    },
+                }));
+                return;
+            }
+            if (runMode === "step") {
+                setStepByStep(prev => ({
+                    ...prev,
+                    active: false,
+                    eventHistory: [],
+                    activeRequest: undefined,
+                    pendingControlInput: undefined,
+                    currentEvent: undefined,
+                }));
+            }
+        },
+        [setChatConfig, setStepByStep],
+    );
 
     const handleResolved = useCallback(() => {
         messaging.send({
             action: "ready",
         });
     }, []);
+
+    const onControlRequest = useCallback(
+        (activeRequest: WaldiezActiveRequest) => {
+            setStepByStep(prev => ({
+                ...prev,
+                show: true,
+                active: true,
+                activeRequest,
+                pendingControlInput: undefined,
+            }));
+        },
+        [setStepByStep],
+    );
+
+    const onStepUpdate = useCallback(
+        (stepByStep: Partial<WaldiezStepByStep>) => {
+            setStepByStep(prev => ({
+                ...prev,
+                ...stepByStep,
+            }));
+        },
+        [setStepByStep],
+    );
 
     const { onConvert, onSave } = useHostActions(sessionData);
 
@@ -142,20 +206,26 @@ export const useHostChatMessages = (
                 case "input_request":
                     onInputRequest(msg.value);
                     break;
+                case "debug_input_request":
+                    onControlRequest(msg.value);
+                    break;
+                case "step_update":
+                    onStepUpdate(msg.value);
+                    break;
                 case "messages_update":
                     handleMessagesUpdate(msg.value);
                     break;
                 case "participants_update":
-                    handleParticipantsUpdate(msg.value);
+                    handleParticipantsUpdate(msg.value, msg.runMode);
                     break;
                 case "timeline_update":
-                    handleTimelineUpdate(msg.value);
+                    handleTimelineUpdate(msg.value, msg.runMode);
                     break;
                 case "dispose":
                     setInitialized(false);
                     break;
                 case "workflow_end":
-                    handleWorkflowEnd();
+                    handleWorkflowEnd(msg.runMode);
                     break;
                 case "resolved":
                     handleResolved();
@@ -173,14 +243,16 @@ export const useHostChatMessages = (
         [
             initialize,
             onInputRequest,
+            onControlRequest,
             handleMessagesUpdate,
             handleParticipantsUpdate,
             handleTimelineUpdate,
+            setInitialized,
             handleWorkflowEnd,
             handleResolved,
             onSave,
             onConvert,
-            setInitialized,
+            onStepUpdate,
         ],
     );
 

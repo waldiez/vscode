@@ -10,7 +10,7 @@ import { WaldiezChatConfig, WaldiezProps, WaldiezStepByStep } from "@waldiez/rea
 
 import { messaging } from "../messaging";
 import { transferFiles } from "../uploading";
-import { useHostChatMessages } from "./useHostChatMessages";
+import { useHostMessages } from "./useHostMessages";
 
 export const useWaldiezWebview = () => {
     const randomId = useRef(nanoid()).current;
@@ -70,21 +70,36 @@ export const useWaldiezWebview = () => {
         pendingControlInput: null,
         handlers: {
             sendControl: value => {
+                let request_id = value.request_id;
+                if (request_id === "<unknown>") {
+                    if (stepByStep.pendingControlInput?.request_id) {
+                        request_id = stepByStep.pendingControlInput.request_id;
+                    } else {
+                        if (stepByStep.activeRequest?.request_id) {
+                            request_id = stepByStep.activeRequest.request_id;
+                        }
+                    }
+                }
                 messaging.send({
-                    action: "input_response",
+                    action: "debug_input_response",
                     value: {
                         ...value,
                         id: nanoid(),
-                        type: "input_response",
+                        type: "debug_input_response",
+                        request_id,
                         timestamp: new Date().toISOString(),
                     },
                 });
                 setStepByStep(prev => ({ ...prev, pendingControlInput: null }));
             },
             respond: value => {
+                let request_id = value.request_id;
+                if (request_id === "<unknown>" && stepByStep.activeRequest) {
+                    request_id = stepByStep.activeRequest.request_id;
+                }
                 messaging.send({
                     action: "input_response",
-                    value,
+                    value: { ...value, request_id },
                 });
                 setStepByStep(prev => ({ ...prev, activeRequest: null }));
             },
@@ -110,7 +125,7 @@ export const useWaldiezWebview = () => {
         nodes: [],
         edges: [],
         chat: chatConfig,
-        stepByStep: undefined,
+        stepByStep: stepByStep,
         viewport: { zoom: 1, x: 0, y: 0 },
         name: "",
         description: "",
@@ -120,18 +135,22 @@ export const useWaldiezWebview = () => {
 
     const [initialized, setInitialized] = useState(false);
 
-    const { createMessageHandler } = useHostChatMessages(
+    const { createMessageHandler } = useHostMessages({
         sessionData,
         chatConfig,
+        stepByStep,
         setChatConfig,
+        setStepByStep,
         setSessionData,
         setInitialized,
-    );
+    });
 
     const onRun = useCallback(
         (flowJson: string) => {
             setChatConfig(prev => ({
                 ...prev,
+                active: true,
+                show: true,
                 messages: [],
                 userParticipants: [],
                 activeRequest: undefined,
@@ -144,22 +163,21 @@ export const useWaldiezWebview = () => {
         },
         [onInterrupt],
     );
-    const onStepRun = useCallback(
-        (flowJson: string) => {
-            setChatConfig(prev => ({
-                ...prev,
-                messages: [],
-                userParticipants: [],
-                activeRequest: undefined,
-                handlers: {
-                    ...prev.handlers,
-                    onInterrupt,
-                },
-            }));
-            messaging.send({ action: "step_run", value: flowJson });
-        },
-        [onInterrupt],
-    );
+    const onStepRun = useCallback((flowJson: string) => {
+        setChatConfig(prev => ({
+            ...prev,
+            messages: [],
+            userParticipants: [],
+            activeRequest: undefined,
+            active: false,
+            show: false,
+        }));
+        setStepByStep(prev => ({
+            ...prev,
+            show: true,
+        }));
+        messaging.send({ action: "step_run", value: flowJson });
+    }, []);
 
     const onChange = useCallback(
         (flowJson: string) => messaging.send({ action: "change", value: flowJson }),

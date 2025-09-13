@@ -491,18 +491,14 @@ suite("FlowRunner Tests", () => {
                 onWorkflowEnd: sandbox.spy(),
             };
 
-            const mockProcessor = {
-                transporter: mockTransport,
-            };
-
             // Test successful exit
             const resolveSpy1 = sandbox.spy();
             (runner as any)._running = true;
 
-            await (runner as any)._onExit(resolveSpy1, false, mockProcessor, 0);
+            await (runner as any)._onExit(resolveSpy1, false, mockTransport, "chat", 0);
 
             sinon.assert.calledOnce(resolveSpy1);
-            sinon.assert.calledWith(mockTransport.onWorkflowEnd, 0, "Flow execution completed");
+            sinon.assert.calledWith(mockTransport.onWorkflowEnd, 0, "Flow execution completed", "chat");
             assert.strictEqual((runner as any)._running, false);
 
             // Reset
@@ -512,10 +508,10 @@ suite("FlowRunner Tests", () => {
             const resolveSpy2 = sandbox.spy();
             (runner as any)._running = true;
 
-            await (runner as any)._onExit(resolveSpy2, false, mockProcessor, 1);
+            await (runner as any)._onExit(resolveSpy2, false, mockTransport, "chat", 1);
 
             sinon.assert.calledOnce(resolveSpy2);
-            sinon.assert.calledWith(mockTransport.onWorkflowEnd, 1, "Flow execution failed");
+            sinon.assert.calledWith(mockTransport.onWorkflowEnd, 1, "Flow execution failed", "chat");
 
             // Reset
             mockTransport.onWorkflowEnd.resetHistory();
@@ -524,10 +520,10 @@ suite("FlowRunner Tests", () => {
             const resolveSpy3 = sandbox.spy();
             (runner as any)._running = true;
 
-            await (runner as any)._onExit(resolveSpy3, true, mockProcessor, 1);
+            await (runner as any)._onExit(resolveSpy3, true, mockTransport, "step", 1);
 
             sinon.assert.calledOnce(resolveSpy3);
-            sinon.assert.calledWith(mockTransport.onWorkflowEnd, 1, "Flow execution cancelled");
+            sinon.assert.calledWith(mockTransport.onWorkflowEnd, 1, "Flow execution cancelled", "step");
         });
 
         test("should handle _onExit with stop requested", async function () {
@@ -544,16 +540,12 @@ suite("FlowRunner Tests", () => {
                 onWorkflowEnd: sandbox.spy(),
             };
 
-            const mockProcessor = {
-                transporter: mockTransport,
-            };
-
             // Set stop requested
             (runner as any)._stopRequested = true;
             (runner as any)._running = true;
 
             const resolveSpy = sandbox.spy();
-            await (runner as any)._onExit(resolveSpy, false, mockProcessor, 0);
+            await (runner as any)._onExit(resolveSpy, false, mockTransport, "chat", 0);
 
             // Should resolve immediately without calling onWorkflowEnd
             sinon.assert.calledOnce(resolveSpy);

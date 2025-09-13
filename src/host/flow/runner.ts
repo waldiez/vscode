@@ -7,7 +7,7 @@ import * as vscode from "vscode";
 
 import { RunMode } from "../../types";
 import { clearOutput, isOutputVisible, showOutput, traceInfo, traceVerbose } from "../log/logging";
-import { ChatMessageProcessor, MessageProcessor, MessageTransport } from "../messaging";
+import { ChatMessageProcessor, MessageTransport, StepMessageProcessor } from "../messaging";
 import { JsonChunkBuffer } from "../messaging/chunks";
 import { getCwd } from "../utils";
 import { ensureWaldiezPy } from "./common";
@@ -52,7 +52,6 @@ export class FlowRunner extends vscode.Disposable {
         this._running = true;
         clearOutput();
         showOutput();
-        traceInfo(`Running flow: ${resource.fsPath}`);
 
         return vscode.window.withProgress(
             {
@@ -102,6 +101,7 @@ export class FlowRunner extends vscode.Disposable {
                 cancelled = true;
                 this._cleanup();
             });
+            traceInfo(`Starting flow ${resource.fsPath} in ${runMode} mode...`);
             const parentDir = vscode.Uri.joinPath(resource, "..");
             const args = [
                 "-m",
@@ -120,7 +120,10 @@ export class FlowRunner extends vscode.Disposable {
                 args.push("--step");
             }
 
-            const processor = new ChatMessageProcessor(transport, parentDir);
+            const processor =
+                runMode === "chat"
+                    ? new ChatMessageProcessor(transport, parentDir)
+                    : new StepMessageProcessor(transport, parentDir);
 
             const jsonParser = new JsonChunkBuffer(
                 obj => processor.handleJson(obj),
@@ -134,7 +137,10 @@ export class FlowRunner extends vscode.Disposable {
             this._proc.stdout?.on("data", chunk => jsonParser.handleChunk(chunk));
             this._proc.stderr?.on("data", chunk => jsonParser.handleChunk(chunk));
 
-            this._proc.on("exit", this._onExit.bind(this, resolve, cancelled, processor));
+            this._proc.on(
+                "exit",
+                this._onExit.bind(this, resolve, cancelled, processor.transporter, runMode),
+            );
             processor.stdin = this._proc?.stdin;
         });
     }
@@ -145,7 +151,8 @@ export class FlowRunner extends vscode.Disposable {
     private async _onExit(
         resolve: () => void,
         isCancelled: boolean,
-        processor: MessageProcessor,
+        transporter: MessageTransport,
+        runMode: RunMode,
         code: number,
     ) {
         this._running = false;
@@ -158,7 +165,7 @@ export class FlowRunner extends vscode.Disposable {
         }
 
         const message = this._getExitMessage(code, isCancelled);
-        processor.transporter.onWorkflowEnd(code, message);
+        transporter.onWorkflowEnd(code, message, runMode);
         traceVerbose(`Process exited with code ${code}: ${message}`);
 
         await this._showExitNotification(code, isCancelled, message);

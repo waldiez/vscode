@@ -7,6 +7,7 @@ import {
     WaldiezChatMessage,
     WaldiezChatParticipant,
     WaldiezChatUserInput,
+    WaldiezStepByStep,
     WaldiezTimelineData,
 } from "@waldiez/react";
 
@@ -64,14 +65,21 @@ export type ExportResponse = {
 export type ParticipantsUpdate = {
     type: "participants_update";
     value: WaldiezChatParticipant[];
+    runMode: RunMode;
 };
 export type TimelineUpdate = {
     type: "timeline_update";
     value: WaldiezTimelineData | undefined;
+    runMode: RunMode;
 };
 export type MessagesUpdate = {
     type: "messages_update";
     value: WaldiezChatMessage[];
+};
+
+export type StepUpdate = {
+    type: "step_update";
+    value: Partial<WaldiezStepByStep>;
 };
 
 export type WorkflowEnd = {
@@ -80,6 +88,7 @@ export type WorkflowEnd = {
         success: boolean;
         message?: string;
     };
+    runMode: RunMode;
 };
 
 export type Dispose = {
@@ -98,6 +107,7 @@ export type HostMessage =
     | ParticipantsUpdate
     | TimelineUpdate
     | MessagesUpdate
+    | StepUpdate
     | WorkflowEnd
     | SaveResult
     | Dispose;
@@ -132,7 +142,12 @@ export type StepRunRequest = {
 
 export type InputResponse = {
     action: "input_response";
-    value: WaldiezChatUserInput;
+    value: WaldiezUserInput;
+};
+
+export type DebugInputResponse = {
+    action: "debug_input_response";
+    value: WaldiezUserInput;
 };
 
 export type StopRequest = {
@@ -153,6 +168,9 @@ export type ConvertRequest = {
 };
 
 export type RunMode = "chat" | "step";
+export type WaldiezUserInput = Omit<WaldiezChatUserInput, "type"> & {
+    type: "debug_input_response" | "input_response";
+};
 
 export type WebviewMessage =
     | ViewReady
@@ -162,6 +180,7 @@ export type WebviewMessage =
     | RunRequest
     | StepRunRequest
     | InputResponse
+    | DebugInputResponse
     | StopRequest
     | SaveRequest
     | ConvertRequest;

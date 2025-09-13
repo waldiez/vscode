@@ -923,11 +923,19 @@ suite("MessageTransport Tests", () => {
             });
 
             // Simulate receiving an 'input_response' message
-            const inputResponse = { request_id: "test-123", value: "user input", cancelled: false };
+            const inputResponse = {
+                request_id: "test-123",
+                value: "user input",
+                type: "input_response",
+                data: "",
+                cancelled: false,
+            };
             messageHandler({ action: "input_response", value: inputResponse });
 
             // The input promise should resolve with the response
             return inputPromise.then((result: any) => {
+                delete result.id;
+                delete result.timestamp;
                 assert.deepStrictEqual(result, inputResponse);
             });
         });
