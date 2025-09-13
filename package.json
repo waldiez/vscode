@@ -159,9 +159,11 @@
     "overrides": {
         "ajv": "^8.17.1",
         "markdown-it": "^14.1.0",
+        "tmp": "0.2.5",
         "xml2js": "^0.6.2"
     },
     "resolutions": {
+        "tmp": "0.2.5",
         "xml2js": "^0.6.2"
     },
     "devDependencies": {
@@ -226,6 +228,7 @@
         "stylelint-prettier": "^5.0.3",
         "tar-stream": "^3.1.7",
         "terser-webpack-plugin": "^5.3.14",
+        "tmp": "0.2.5",
         "ts-loader": "^9.5.4",
         "ts-node": "^10.9.2",
         "tsx": "^4.20.5",
