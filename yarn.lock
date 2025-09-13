@@ -2129,9 +2129,9 @@ __metadata:
   linkType: hard
 
 "@types/d3-array@npm:^3.0.3":
-  version: 3.2.1
-  resolution: "@types/d3-array@npm:3.2.1"
-  checksum: 10/4a9ecacaa859cff79e10dcec0c79053f027a4749ce0a4badeaff7400d69a9c44eb8210b147916b6ff5309be049030e7d68a0e333294ff3fa11c44aa1af4ba458
+  version: 3.2.2
+  resolution: "@types/d3-array@npm:3.2.2"
+  checksum: 10/1afebd05b688cafaaea295f765b409789f088b274b8a7ca40a4bc2b79760044a898e06a915f40bbc59cf39eabdd2b5d32e960b136fc025fd05c9a9d4435614c6
   languageName: node
   linkType: hard
 
@@ -2300,11 +2300,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:^24.3.1":
-  version: 24.3.1
-  resolution: "@types/node@npm:24.3.1"
+  version: 24.3.3
+  resolution: "@types/node@npm:24.3.3"
   dependencies:
     undici-types: "npm:~7.10.0"
-  checksum: 10/b9a52ed8f2fb1fa764ce988828b8d579761f944f1bb0492adbdeaa676a161086bad1a807b590799681ad93b3d272468b5c5ddccf5678735d487d1b65e481bc07
+  checksum: 10/6e6614a0f0fad14aa79094fd0372a70adce61f2c196c26220460d99e27c18ff52ed0ac2b446b552a98b5d5a60e0502a0d9bf8c793800fefb29426eebf661d9a3
   languageName: node
   linkType: hard
 
@@ -2341,11 +2341,11 @@ __metadata:
   linkType: hard
 
 "@types/react@npm:^19.1.12":
-  version: 19.1.12
-  resolution: "@types/react@npm:19.1.12"
+  version: 19.1.13
+  resolution: "@types/react@npm:19.1.13"
   dependencies:
     csstype: "npm:^3.0.2"
-  checksum: 10/c03d595b84faecb15079757555c96871e84ea6eef9a5eddb13ec1f648f718f9624bebc4199e86267edb825b23df97758324ea39ff840d9ad328386f96971f588
+  checksum: 10/a4e12df335ded76e931cc2ba2a4c8a61872ed840081eca83612fbdadc4afbf0cbd0ae31fdedc7fae7f0e02c90dac98dda517dfa73bec653dd4b1de2755431a62
   languageName: node
   linkType: hard
 
@@ -2749,7 +2749,7 @@ __metadata:
 
 "@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
   version: 0.5.10
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=1f1163fc4be61575784445e82597b8186f9acd76"
+  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=7a41882a3e331f5751662838e2334eebd7a37459"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.8"
@@ -2778,7 +2778,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.1.1
     react-dom: ^18.3.1 || ^19.1.1
-  checksum: 10/770b27db34afffe29be175c927dac6954f69152e6273943e3588e4e81ffa77fe6284ec3af4fdbdfa78aef57989a7a7ae29c2dde15fe5b5e2dbb035cab07980b7
+  checksum: 10/af00a7020b66da59f669fcf33b1d350a11843440edcf9dcf7c5f40e15f27ccdcddec8039ebad3ac7ed7966d7b0aa69362fc71844121197bbc1ada476c470ce23
   languageName: node
   linkType: hard
 
