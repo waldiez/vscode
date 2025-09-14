@@ -1037,10 +1037,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource/fredoka@npm:^5.2.8":
-  version: 5.2.8
-  resolution: "@fontsource/fredoka@npm:5.2.8"
-  checksum: 10/b25729e2f4c9a29742bde4f3be29191ad19f5ac6fb81795d36b18192a8af2ec1579a0349fc34be7bd1730649f472405f3594b91004baaa67378aaec11a402b26
+"@fontsource/fredoka@npm:^5.2.9":
+  version: 5.2.9
+  resolution: "@fontsource/fredoka@npm:5.2.9"
+  checksum: 10/05a6f11c48ac572e139ee2ba02e2aaf54a4965bb25f08d307c21e7c6827edd7ade1df0fa85f1f13535dca56e90ec0afad0f18131f3afdcf0dff2cc6832431737
   languageName: node
   linkType: hard
 
@@ -2747,12 +2747,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
-  version: 0.5.10
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=d29004cfce16336a24f879771def47e54cc5eade"
+"@waldiez/react@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@waldiez/react@npm:0.6.0"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
-    "@fontsource/fredoka": "npm:^5.2.8"
+    "@fontsource/fredoka": "npm:^5.2.9"
     "@monaco-editor/react": "npm:^4.7.0"
     "@radix-ui/react-checkbox": "npm:^1.3.3"
     "@radix-ui/react-slider": "npm:^1.3.6"
@@ -2778,7 +2778,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.1.1
     react-dom: ^18.3.1 || ^19.1.1
-  checksum: 10/0dc0b333c6aa4320503a8de03bbf798c42290e7566ac7b35e739afcdf3cc73ed844040635382ae1cdd4ff7eb8198b56307278893b08333bd5837f9f564638322
+  checksum: 10/403c3c750b78092e09c864824b2d2c33b742abb362c7db21cc74d7b3db4a6d66aa255e915be8a4d60df3130ca203b10af40a35ec09d7ff634a694834ea63b722
   languageName: node
   linkType: hard
 
@@ -3371,11 +3371,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.8.2":
-  version: 2.8.2
-  resolution: "baseline-browser-mapping@npm:2.8.2"
+  version: 2.8.3
+  resolution: "baseline-browser-mapping@npm:2.8.3"
   bin:
     baseline-browser-mapping: dist/cli.js
-  checksum: 10/a4fe2b87fd244eb48a8bd7b0ed7bfee8b7e4ddad7987552a09e69221611d5e97438b54c475cd7235c2f7ede6dc83510c8223163a33421d204289f0a6c22c336e
+  checksum: 10/e663e4ef3eb9eedc861a8282ce7ba8c00937ef2a9905b8e5f4a7afa4ab4c59a2ad3a910c06f207ffb711c3f62fbc20cdb4b3a2dd5025eee391b0af7f931cdb97
   languageName: node
   linkType: hard
 
@@ -4303,14 +4303,14 @@ __metadata:
   linkType: hard
 
 "debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4, debug@npm:^4.3.5, debug@npm:^4.4.1":
-  version: 4.4.1
-  resolution: "debug@npm:4.4.1"
+  version: 4.4.3
+  resolution: "debug@npm:4.4.3"
   dependencies:
     ms: "npm:^2.1.3"
   peerDependenciesMeta:
     supports-color:
       optional: true
-  checksum: 10/8e2709b2144f03c7950f8804d01ccb3786373df01e406a0f66928e47001cf2d336cbed9ee137261d4f90d68d8679468c755e3548ed83ddacdc82b194d2468afe
+  checksum: 10/9ada3434ea2993800bd9a1e320bd4aa7af69659fb51cca685d390949434bc0a8873c21ed7c9b852af6f2455a55c6d050aa3937d52b3c69f796dab666f762acad
   languageName: node
   linkType: hard
 
@@ -9921,7 +9921,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.11"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.6.0"
-    "@waldiez/react": "git+https://github.com/waldiez/waldiez.git#dev"
+    "@waldiez/react": "npm:^0.6.0"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
