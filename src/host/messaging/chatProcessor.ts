@@ -53,7 +53,7 @@ export class ChatMessageProcessor extends MessageProcessor {
                 this._messages.push(result.message);
                 this._onMessagesUpdate();
             }
-            if (result.participants && result.participants) {
+            if (result.participants) {
                 this._onParticipantsUpdate(result.participants);
                 return;
             }

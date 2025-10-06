@@ -107,7 +107,6 @@ export class StepMessageProcessor extends MessageProcessor {
         }
     }
     private _handleStepResult(result?: WaldiezStepByStepProcessingResult) {
-        traceVerbose("Step result: ", result);
         if (!result) {
             return;
         }
