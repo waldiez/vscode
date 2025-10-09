@@ -19,12 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5.0.0
         with:
           node-version: 22
+          package-manager-cache: false
       - name: Install Yarn
         run: |
           corepack enable
@@ -41,12 +42,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5.0.0
         with:
           node-version: 22
+          package-manager-cache: false
       - name: Setup Yarn
         run: |
           corepack enable
@@ -54,7 +56,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6.0.0
         with:
           python-version: "3.12"
 
