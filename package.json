@@ -176,7 +176,7 @@
         "@types/babel__core": "^7.20.5",
         "@types/fs-extra": "^11.0.4",
         "@types/mocha": "^10.0.10",
-        "@types/node": "^24.7.2",
+        "@types/node": "^24.8.1",
         "@types/react": "^19.2.2",
         "@types/react-dom": "^19.2.2",
         "@types/sinon": "^17.0.4",

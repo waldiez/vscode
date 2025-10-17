@@ -1260,7 +1260,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@monaco-editor/react@npm:4.7.0":
+"@monaco-editor/react@npm:^4.7.0":
   version: 4.7.0
   resolution: "@monaco-editor/react@npm:4.7.0"
   dependencies:
@@ -1797,8 +1797,8 @@ __metadata:
   linkType: hard
 
 "@reduxjs/toolkit@npm:1.x.x || 2.x.x":
-  version: 2.9.0
-  resolution: "@reduxjs/toolkit@npm:2.9.0"
+  version: 2.9.1
+  resolution: "@reduxjs/toolkit@npm:2.9.1"
   dependencies:
     "@standard-schema/spec": "npm:^1.0.0"
     "@standard-schema/utils": "npm:^0.3.0"
@@ -1814,7 +1814,7 @@ __metadata:
       optional: true
     react-redux:
       optional: true
-  checksum: 10/d2f1b59c96638d9a36c3709f31f24ec1ce25604f2010eebb89506e6782142dfa3a97bd64f6b4650d9230d1a8a7f09a2dfed5ee2eb7a4454cbeb08fcb8cc6cf36
+  checksum: 10/d545e62b9a8a34ebc5ea6eae4cbe59ea622d9fe65a736cc5d92854aa2db24f7f04a19f53e1067b6d7cddd1e7ddca29bc3d88a526782682126383fd2b930c13aa
   languageName: node
   linkType: hard
 
@@ -2334,12 +2334,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^24.7.2":
-  version: 24.7.2
-  resolution: "@types/node@npm:24.7.2"
+"@types/node@npm:*, @types/node@npm:^24.8.1":
+  version: 24.8.1
+  resolution: "@types/node@npm:24.8.1"
   dependencies:
     undici-types: "npm:~7.14.0"
-  checksum: 10/62073022f7fc11363683e6ce82332193129c3053e7f973127a83b0daa5d755ecf5806d310f5a7c78375e6c3d309aa15b4ae87c4c1797a9eec091425d36098b60
+  checksum: 10/4f944466766ca8cc0d635386e2b9b42b1948723ca0ec7d24624e80513e5816d6e96197db7c05f8f67b544a228a06a1c0598d66a5526aa4c1f5919db0d3c5bf8c
   languageName: node
   linkType: hard
 
@@ -2784,12 +2784,12 @@ __metadata:
 
 "@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
   version: 0.6.0
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=a2a155c132bd7eec8bf772535f11539be145f9e4"
+  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=2969124d2d20da81f141813f5e144e6824d95cc6"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
     "@monaco-editor/loader": "npm:^1.6.1"
-    "@monaco-editor/react": "npm:4.7.0"
+    "@monaco-editor/react": "npm:^4.7.0"
     "@radix-ui/react-checkbox": "npm:^1.3.3"
     "@radix-ui/react-slider": "npm:^1.3.6"
     "@radix-ui/react-tooltip": "npm:^1.2.8"
@@ -2815,7 +2815,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19.1.1
     react-dom: ^18.3.1 || ^19.1.1
-  checksum: 10/7c7c94e87bd67e6713d3d80af55f7dbaee2f2c4448d5024a02a066ffae89d296c8a5b32c209709be96d5d74d7308b6ff1eb0b2938ab174d5ddf4bb8c6acf21ba
+  checksum: 10/1bbab180f1b158ad7369d21ba53b04c897a757698f500a495073f6d5c44c74ac18daef68d67872808e5fe6ad497f5f2cc1fb2e713b32c8715a3f708c8cc900b8
   languageName: node
   linkType: hard
 
@@ -3427,11 +3427,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.8.9":
-  version: 2.8.16
-  resolution: "baseline-browser-mapping@npm:2.8.16"
+  version: 2.8.17
+  resolution: "baseline-browser-mapping@npm:2.8.17"
   bin:
     baseline-browser-mapping: dist/cli.js
-  checksum: 10/52a5807591daeffc810b783b1afa20c4017dd94e5bb74934bcde4dd408758e492610e330cfe6e609a0f0bde5ce210dd934271540fb931389d6838db17ec8cfef
+  checksum: 10/241045decb543c589840e8d442f28c2e47b1111a051b446807ee9500c6dd2b0bb560df0bb3890154cb066d2d92f2a67d15eb2678765e7229af80cbe93c481221
   languageName: node
   linkType: hard
 
@@ -3718,9 +3718,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001746":
-  version: 1.0.30001750
-  resolution: "caniuse-lite@npm:1.0.30001750"
-  checksum: 10/2b912758d817cd2c2c179246e282f8b598695ec733bc446183e1d381eada60889c4770a1dfd86075e046a43d55f9922e2eaed1501347fcb12a38716cc14be297
+  version: 1.0.30001751
+  resolution: "caniuse-lite@npm:1.0.30001751"
+  checksum: 10/608f7e1248b7023020382c7dbb0ef389693b3fc98193c3ccea2d44126306d6ac905a5061cf9e62bf640535a86e7a98e563b34c02f909296cfe228f41627a4dc7
   languageName: node
   linkType: hard
 
@@ -5784,9 +5784,9 @@ __metadata:
   linkType: hard
 
 "hookified@npm:^1.12.0, hookified@npm:^1.12.1":
-  version: 1.12.1
-  resolution: "hookified@npm:1.12.1"
-  checksum: 10/eeecf7557d1e5ee88695c4e1939f926b84451219d3f021080399f433ae51a588429eaa575160d605f56568e9fcf9280f1042078bd1d4bc56230f70bcf7c5002f
+  version: 1.12.2
+  resolution: "hookified@npm:1.12.2"
+  checksum: 10/d445956d47ea8a3d30b29a9c1fe9945536577fa027d83c69eff9de4d47e22167fbe2b0721a8c4df6a0a2b53f0cc0b9eeda3a311ea9b4f20e09b2bb556105b035
   languageName: node
   linkType: hard
 
@@ -6967,12 +6967,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:16.4.0, marked@npm:^16.0.0":
+"marked@npm:16.4.0":
   version: 16.4.0
   resolution: "marked@npm:16.4.0"
   bin:
     marked: bin/marked.js
   checksum: 10/5174b345ccc61e2030c2eb8abb3e5cbebeb6697a6d2b609f64ffa2ff6e482f5f1e1fda1912db19c747f43971b1fa54ae53c1ab1ce5d2f58566d6db4bc3016833
+  languageName: node
+  linkType: hard
+
+"marked@npm:^16.0.0":
+  version: 16.4.1
+  resolution: "marked@npm:16.4.1"
+  bin:
+    marked: bin/marked.js
+  checksum: 10/b5f475dbe297162dc988b7f345b559d03248fde1023822b9f2a68f50cbca0981c78c42f380c3aa5e133b5f5c069a2c6cd683413c12c83710e983a7bc46cdf4a2
   languageName: node
   linkType: hard
 
@@ -7419,9 +7428,9 @@ __metadata:
   linkType: hard
 
 "node-releases@npm:^2.0.21":
-  version: 2.0.23
-  resolution: "node-releases@npm:2.0.23"
-  checksum: 10/f937b23e279b791bc7842d71536e8520ea12efa2c307e5803227ecbba1c807a932bbe3c26d6a8c0e12e21cb3f9c6a6d4ed14beee489ff9e9be49f6d4cf0c7aa4
+  version: 2.0.25
+  resolution: "node-releases@npm:2.0.25"
+  checksum: 10/f2d01bf94c4c629c38495329ed132fce87e0072fa36af7333a4a2071c89bdd6573bc267abeda152bd401247c261b4cf4554b8b70e306ce584c93dd6f63c7a202
   languageName: node
   linkType: hard
 
@@ -8339,8 +8348,8 @@ __metadata:
   linkType: hard
 
 "recharts@npm:^3.2.1":
-  version: 3.2.1
-  resolution: "recharts@npm:3.2.1"
+  version: 3.3.0
+  resolution: "recharts@npm:3.3.0"
   dependencies:
     "@reduxjs/toolkit": "npm:1.x.x || 2.x.x"
     clsx: "npm:^2.1.1"
@@ -8357,7 +8366,7 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-is: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/9342f6ab07e57d9c079bf492afb533a0cdb1b41a50e2d0586a7daaaf10e76e24cd91cefa9e0906b487dd77ed234b729e4c3cd6fe6ccb6424a93769a1e675bb94
+  checksum: 10/9842fb31627343e461b468f4bbb80c1ca47c478f0cdf72e8ccad6f547bdfdc561580bf5b7530799a8676c08d33a88eb1ee5852c2e9beae461e7aa65c593ae7d6
   languageName: node
   linkType: hard
 
@@ -9982,7 +9991,7 @@ __metadata:
     "@types/babel__core": "npm:^7.20.5"
     "@types/fs-extra": "npm:^11.0.4"
     "@types/mocha": "npm:^10.0.10"
-    "@types/node": "npm:^24.7.2"
+    "@types/node": "npm:^24.8.1"
     "@types/react": "npm:^19.2.2"
     "@types/react-dom": "npm:^19.2.2"
     "@types/sinon": "npm:^17.0.4"
