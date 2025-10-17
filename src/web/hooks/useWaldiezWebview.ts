@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { nanoid } from "nanoid";
 
-import { WaldiezChatConfig, WaldiezProps, WaldiezStepByStep } from "@waldiez/react";
+import { WaldiezBreakpoint, WaldiezChatConfig, WaldiezProps, WaldiezStepByStep } from "@waldiez/react";
 
 import { messaging } from "../messaging";
 import { transferFiles } from "../uploading";
@@ -28,6 +28,7 @@ export const useWaldiezWebview = () => {
     }, []);
 
     const onClose = useCallback(() => {
+        messaging.send({ action: "stop_request" });
         setChatConfig(prev => ({
             ...prev,
             show: false,
@@ -104,6 +105,7 @@ export const useWaldiezWebview = () => {
                 setStepByStep(prev => ({ ...prev, activeRequest: null }));
             },
             close: () => {
+                messaging.send({ action: "stop_request" });
                 setStepByStep(prev => ({
                     ...prev,
                     show: false,
@@ -163,7 +165,21 @@ export const useWaldiezWebview = () => {
         },
         [onInterrupt],
     );
-    const onStepRun = useCallback((flowJson: string) => {
+    const waldiezBreakpointToString: (breakpoint: WaldiezBreakpoint | string) => string = bp => {
+        if (typeof bp === "string") {
+            return bp;
+        }
+        let bp_string = "";
+        if (bp.type === "event" && bp.event_type) {
+            bp_string += `${bp.type}:${bp.event_type}`;
+        } else if (bp.type === "agent" && bp.agent) {
+            bp_string += `${bp.type}:${bp.agent}`;
+        } else if (bp.type === "agent_event") {
+            //
+        }
+        return bp_string;
+    };
+    const onStepRun = useCallback((flowJson: string, breakpoints?: (string | WaldiezBreakpoint)[]) => {
         setChatConfig(prev => ({
             ...prev,
             messages: [],
@@ -176,7 +192,18 @@ export const useWaldiezWebview = () => {
             ...prev,
             show: true,
         }));
-        messaging.send({ action: "step_run", value: flowJson });
+        const bpArgs = breakpoints ? breakpoints.map(waldiezBreakpointToString) : undefined;
+        const args: string[] = [];
+        if (bpArgs) {
+            for (const arg of bpArgs) {
+                args.push("--breakpoints", arg);
+            }
+        }
+        if (args.length > 0) {
+            messaging.send({ action: "step_run", value: flowJson, args });
+        } else {
+            messaging.send({ action: "step_run", value: flowJson });
+        }
     }, []);
 
     const onChange = useCallback(

@@ -28,8 +28,9 @@ export class StepMessageProcessor extends MessageProcessor {
      * This method processes the line, extracts messages, and handles user input requests.
      * @param line - The line of data to process.
      */
+    // eslint-disable-next-line max-statements
     protected handleLine(line: string) {
-        traceVerbose("Processing line:\n", line);
+        traceVerbose("Processing line:\n", line.slice(0, 300) + "...");
         const result = WaldiezStepByStepProcessor.process(line, {
             requestId: this._requestId,
         });
@@ -63,7 +64,11 @@ export class StepMessageProcessor extends MessageProcessor {
                         this._stdin?.write("\n");
                         return;
                     }
-                    this.handleInputResponse(response, false);
+                    this.handleInputResponse(response);
+                    this._transport.updateStepByStepState({
+                        pendingControlInput: undefined,
+                        lastError: undefined,
+                    });
                 })
                 .catch(err => {
                     traceError("Error handling control request:", err);
@@ -72,6 +77,7 @@ export class StepMessageProcessor extends MessageProcessor {
             return;
         }
         if (result?.error) {
+            traceVerbose(result.error);
             this._handleStepResultError(line, result);
             return;
         }

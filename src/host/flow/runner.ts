@@ -6,7 +6,14 @@ import { ChildProcess, spawn } from "child_process";
 import * as vscode from "vscode";
 
 import { RunMode } from "../../types";
-import { clearOutput, isOutputVisible, showOutput, traceInfo, traceVerbose } from "../log/logging";
+import {
+    clearOutput,
+    isOutputVisible,
+    showOutput,
+    traceError,
+    traceInfo,
+    traceVerbose,
+} from "../log/logging";
 import { ChatMessageProcessor, MessageTransport, StepMessageProcessor } from "../messaging";
 import { JsonChunkBuffer } from "../messaging/chunks";
 import { getCwd } from "../utils";
@@ -44,7 +51,12 @@ export class FlowRunner extends vscode.Disposable {
         }
     }
 
-    public async run(resource: vscode.Uri, transport: MessageTransport, runMode: RunMode): Promise<void> {
+    public async run(
+        resource: vscode.Uri,
+        transport: MessageTransport,
+        runMode: RunMode,
+        args?: string[],
+    ): Promise<void> {
         if (!(await this._canRun())) {
             return;
         }
@@ -60,7 +72,7 @@ export class FlowRunner extends vscode.Disposable {
                 cancellable: true,
             },
             async (_progress, token) => {
-                await this._doRun(resource, token, transport, runMode);
+                await this._doRun(resource, token, transport, runMode, args);
             },
         );
     }
@@ -93,6 +105,7 @@ export class FlowRunner extends vscode.Disposable {
         token: vscode.CancellationToken,
         transport: MessageTransport,
         runMode: RunMode,
+        extraArgs?: string[],
     ): Promise<void> {
         // noinspection TypeScriptUMDGlobal
         return new Promise(resolve => {
@@ -119,6 +132,12 @@ export class FlowRunner extends vscode.Disposable {
             if (runMode === "step") {
                 args.push("--step");
             }
+            if (extraArgs) {
+                for (const extraArg of extraArgs) {
+                    args.push(extraArg);
+                }
+            }
+            traceVerbose(`CMD: ${this.wrapper.executable!} ${args.join(" ")}`);
 
             const processor =
                 runMode === "chat"
@@ -136,7 +155,9 @@ export class FlowRunner extends vscode.Disposable {
             });
             this._proc.stdout?.on("data", chunk => jsonParser.handleChunk(chunk));
             this._proc.stderr?.on("data", chunk => jsonParser.handleChunk(chunk));
-
+            this._proc.stdin?.on("error", err => {
+                traceError("stdin error:", err);
+            });
             this._proc.on(
                 "exit",
                 this._onExit.bind(this, resolve, cancelled, processor.transporter, runMode),

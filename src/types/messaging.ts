@@ -138,6 +138,7 @@ export type RunRequest = {
 export type StepRunRequest = {
     action: "step_run";
     value: any;
+    args?: string[];
 };
 
 export type InputResponse = {

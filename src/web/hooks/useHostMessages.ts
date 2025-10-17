@@ -104,7 +104,7 @@ export const useHostMessages = (props: {
                 return;
             }
             if (runMode === "step") {
-                console.error("Updating step participants");
+                console.debug("Updating step participants");
                 setStepByStep(prev => ({
                     ...prev,
                     show: true,
@@ -143,10 +143,6 @@ export const useHostMessages = (props: {
                     show: false,
                     active: false,
                     activeRequest: undefined,
-                    handlers: {
-                        ...prev.handlers,
-                        onInterrupt: undefined, // Clear interrupt handler
-                    },
                 }));
                 return;
             }
@@ -176,8 +172,11 @@ export const useHostMessages = (props: {
                 ...prev,
                 show: true,
                 active: true,
-                activeRequest,
-                pendingControlInput: undefined,
+                activeRequest: undefined,
+                pendingControlInput: {
+                    prompt: activeRequest.prompt,
+                    request_id: activeRequest.request_id,
+                },
             }));
         },
         [setStepByStep],

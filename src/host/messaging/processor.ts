@@ -62,19 +62,25 @@ export abstract class MessageProcessor {
      * This method processes the response from the user input request and writes it to the stdin stream.
      * @param response - The user input response to handle.
      */
-    public handleInputResponse(userInput: WaldiezUserInput | undefined, isControl: boolean) {
+    public handleInputResponse(userInput: WaldiezUserInput | undefined) {
         if (!userInput || userInput.request_id !== this._requestId) {
             traceWarn("Mismatched or missing input response");
             return;
         }
         const data = this._extractUserResponseContent(userInput.data);
         const obj = {
-            type: isControl && this._runMode === "step" ? "debug_input_response" : "input_response",
+            type: "input_response",
             request_id: userInput.request_id,
             data,
         };
         traceVerbose(`Sending input response: ${JSON.stringify(obj)}`);
-        this._stdin?.write(JSON.stringify(obj) + "\n");
+        this._stdin?.write(`${data}\n`, err => {
+            if (err) {
+                traceError("Failed to write to stdin:", err);
+            } else {
+                traceVerbose(`Successfully sent input response: ${data.trim()}`);
+            }
+        });
     }
 
     protected askForInput(requestId: string, prompt: string, password: boolean) {
@@ -91,7 +97,7 @@ export abstract class MessageProcessor {
                     this._stdin?.write("\n");
                     return;
                 }
-                this.handleInputResponse(response, false);
+                this.handleInputResponse(response);
             })
             .catch(err => {
                 traceError("Error handling input request:", err);

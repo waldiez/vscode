@@ -32,7 +32,7 @@ export class ChatMessageProcessor extends MessageProcessor {
      * @param line - The line of data to process.
      */
     protected handleLine(line: string) {
-        traceVerbose("Processing line:\n", line);
+        traceVerbose("Processing line:\n", line.slice(0, 300));
         // {uploads_route: "file://path/to/uploads", ...}
         // imageUrlReplacement: file://path/to/uploads/{requestId}.png
         let imageUrlReplacement: string | undefined;

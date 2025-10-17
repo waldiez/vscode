@@ -56,7 +56,7 @@ export class MessageTransport {
     constructor(
         private readonly panel: vscode.WebviewPanel,
         private readonly document: vscode.TextDocument,
-        private readonly onRun: (uri: vscode.Uri, mode: RunMode) => void,
+        private readonly onRun: (uri: vscode.Uri, opts: { mode: RunMode; args?: string[] }) => void,
         private readonly onStop: () => void,
         private readonly onInit: () => void,
     ) {
@@ -72,7 +72,28 @@ export class MessageTransport {
         return this._stepEvents;
     }
 
+    public cleanup() {
+        this._messages = [];
+        this._stepEvents.clear();
+        this._stepByStep = {
+            show: false,
+            active: false,
+            stepMode: true,
+            autoContinue: false,
+            breakpoints: [],
+            eventHistory: [],
+            lastError: undefined,
+            currentEvent: undefined,
+            participants: undefined,
+            pendingControlInput: undefined,
+            timeline: undefined,
+            stats: undefined,
+            help: undefined,
+        };
+    }
+
     public dispose() {
+        this.cleanup();
         this._disposable.dispose();
         // Clear all timeouts
         this._debounceTimeouts.forEach(timeout => clearTimeout(timeout));
@@ -302,6 +323,11 @@ export class MessageTransport {
     }
 
     public updateParticipants(participants: WaldiezChatParticipant[], runMode: RunMode) {
+        if (runMode === "step") {
+            this._stepByStep.active = true;
+            this._stepByStep.show = true;
+            this._stepByStep.participants = participants;
+        }
         this.sendMessage(
             {
                 type: "participants_update",
@@ -381,6 +407,8 @@ export class MessageTransport {
         prompt: string;
     }): Promise<WaldiezUserInput | undefined> {
         // Use lock key to prevent duplicate input requests
+        this._stepByStep.active = true;
+        this._stepByStep.show = true;
         this.sendMessage(
             {
                 type: "step_update",
@@ -404,7 +432,6 @@ export class MessageTransport {
             }, TIME_TO_WAIT_FOR_INPUT);
 
             this._inputResolve = value => {
-                traceError("Got control response....");
                 clearTimeout(timeout);
                 const response = this._getResolvedResponse(value, request_id);
                 resolve(response);
@@ -514,13 +541,13 @@ export class MessageTransport {
                 /* c8 ignore next 4 */
                 this.updateDocument(message.value);
                 await vscode.workspace.save(this.document.uri);
-                this.onRun(this.document.uri, "chat");
+                this.onRun(this.document.uri, { mode: "chat" });
                 break;
 
             case "step_run":
                 this.updateDocument(message.value);
                 await vscode.workspace.save(this.document.uri);
-                this.onRun(this.document.uri, "step");
+                this.onRun(this.document.uri, { mode: "step", args: message.args });
                 break;
 
             case "stop_request":

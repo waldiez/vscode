@@ -107,9 +107,9 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
         webviewPanel.webview.html = this._getWebviewContent(webviewPanel.webview);
 
         // Define the callback to run a flow file
-        const onRun = (path: vscode.Uri, runMode: RunMode) => {
+        const onRun = (path: vscode.Uri, opts: { mode: RunMode; args?: string[] }) => {
             if (this._runner) {
-                this._runner.run(path, messageTransport, runMode);
+                this._runner.run(path, messageTransport, opts.mode, opts.args);
             }
         };
         const onStop = () => {
