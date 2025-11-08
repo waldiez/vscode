@@ -5,7 +5,9 @@
 import * as vscode from "vscode";
 
 import { RunMode } from "../types";
+import { CheckpointsManager } from "./flow/checkpoints";
 import { FlowRunner } from "./flow/runner";
+import { traceError } from "./log/logging";
 import { MessageTransport } from "./messaging";
 import { getNonce, getUri } from "./utils";
 import { ViewStateHandler } from "./viewStateHandler";
@@ -17,6 +19,7 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
     // View type identifier for the custom editor
     static readonly viewType = "waldiez.flow";
     private _runner?: FlowRunner;
+    private _checkpointsManager?: CheckpointsManager;
     private _statusBarItem: vscode.StatusBarItem;
 
     /**
@@ -28,8 +31,10 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
     constructor(
         private readonly context: vscode.ExtensionContext,
         runner: FlowRunner,
+        checkpointsManager: CheckpointsManager,
     ) {
         this._runner = runner;
+        this._checkpointsManager = checkpointsManager;
 
         // Set a callback to handle Python interpreter changes
         this._runner.wrapper.setOnChangePythonInterpreter(this._onChangedPythonInterpreter.bind(this));
@@ -119,6 +124,17 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
                 vscode.window.showWarningMessage("Flow runner not yet initialized. Try again shortly.");
             }
         };
+        const onGetCheckpoints = async (flowName: string) => {
+            if (!this._checkpointsManager) {
+                return {};
+            }
+            try {
+                return await this._checkpointsManager.getCheckpoints(flowName);
+            } catch (error) {
+                traceError(error);
+                return {};
+            }
+        };
         // Initialize the message transporter
         // for communication between the webview and the extension
         const messageTransport = new MessageTransport(
@@ -126,6 +142,7 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
             document,
             onRun,
             onStop,
+            onGetCheckpoints,
             this._showStatusBarItem.bind(this),
         );
 

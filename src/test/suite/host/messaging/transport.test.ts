@@ -68,8 +68,16 @@ suite("MessageTransport Tests", () => {
             const onRun = sandbox.spy();
             const onStop = sandbox.spy();
             const onInit = sandbox.spy();
+            const onGetCheckpoints = sandbox.spy();
 
-            const transport = new MessageTransport(mockPanel, mockDocument, onRun, onStop, onInit);
+            const transport = new MessageTransport(
+                mockPanel,
+                mockDocument,
+                onRun,
+                onStop,
+                onGetCheckpoints,
+                onInit,
+            );
 
             assert.ok(transport);
         });
@@ -97,6 +105,7 @@ suite("MessageTransport Tests", () => {
             const transport = new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},
@@ -133,6 +142,7 @@ suite("MessageTransport Tests", () => {
             const transport = new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},
@@ -174,6 +184,7 @@ suite("MessageTransport Tests", () => {
                 () => {},
                 () => {},
                 () => {},
+                () => {},
             );
 
             transport.sendMessage({ type: "test", value: "data" });
@@ -207,6 +218,7 @@ suite("MessageTransport Tests", () => {
             const transport = new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},
@@ -247,6 +259,7 @@ suite("MessageTransport Tests", () => {
                 () => {},
                 () => {},
                 () => {},
+                () => {},
             );
 
             const newContent = '{"new": "content"}';
@@ -283,6 +296,7 @@ suite("MessageTransport Tests", () => {
             const transport = new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},
@@ -326,6 +340,7 @@ suite("MessageTransport Tests", () => {
                 () => {},
                 () => {},
                 () => {},
+                () => {},
             );
 
             transport.onConvert({ flow: '{"data": "test"}', to: "ipynb" });
@@ -360,6 +375,7 @@ suite("MessageTransport Tests", () => {
             const transport = new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},
@@ -410,6 +426,7 @@ suite("MessageTransport Tests", () => {
                 () => {},
                 () => {},
                 () => {},
+                () => {},
             );
 
             transport.dispose();
@@ -443,6 +460,7 @@ suite("MessageTransport Tests", () => {
             const transport = new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},
@@ -484,6 +502,7 @@ suite("MessageTransport Tests", () => {
                 () => {},
                 () => {},
                 () => {},
+                () => {},
             );
 
             transport.onReady();
@@ -520,6 +539,7 @@ suite("MessageTransport Tests", () => {
             const transport = new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},
@@ -573,6 +593,7 @@ suite("MessageTransport Tests", () => {
                 () => {},
                 () => {},
                 () => {},
+                () => {},
             );
 
             const message = { type: "test", value: "data" };
@@ -607,6 +628,7 @@ suite("MessageTransport Tests", () => {
             const transport = new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},
@@ -649,6 +671,7 @@ suite("MessageTransport Tests", () => {
             new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},
@@ -697,6 +720,7 @@ suite("MessageTransport Tests", () => {
                 mockDocument,
                 () => {},
                 () => {},
+                () => {},
                 onInitSpy,
             );
 
@@ -736,6 +760,7 @@ suite("MessageTransport Tests", () => {
             new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},
@@ -785,6 +810,7 @@ suite("MessageTransport Tests", () => {
                 onRunSpy,
                 () => {},
                 () => {},
+                () => {},
             );
 
             const newContent = '{"new": "content"}';
@@ -831,6 +857,7 @@ suite("MessageTransport Tests", () => {
                 () => {},
                 onStopSpy,
                 () => {},
+                () => {},
             );
 
             // Simulate receiving a 'stop_request' message
@@ -869,6 +896,7 @@ suite("MessageTransport Tests", () => {
             new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},
@@ -911,6 +939,7 @@ suite("MessageTransport Tests", () => {
             const transport = new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},
@@ -970,6 +999,7 @@ suite("MessageTransport Tests", () => {
                 () => {},
                 () => {},
                 () => {},
+                () => {},
             );
 
             // Simulate receiving a message without action
@@ -1007,6 +1037,7 @@ suite("MessageTransport Tests", () => {
             new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 onInitSpy,
@@ -1061,6 +1092,7 @@ suite("MessageTransport Tests", () => {
             const transport = new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},
@@ -1119,6 +1151,7 @@ suite("MessageTransport Tests", () => {
                 () => {},
                 () => {},
                 () => {},
+                () => {},
             );
 
             const testFile = {
@@ -1171,6 +1204,7 @@ suite("MessageTransport Tests", () => {
             new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},
@@ -1236,6 +1270,7 @@ suite("MessageTransport Tests", () => {
                 () => {},
                 () => {},
                 () => {},
+                () => {},
             );
 
             const uploadMessage = {
@@ -1286,6 +1321,7 @@ suite("MessageTransport Tests", () => {
             const transport = new MessageTransport(
                 mockPanel,
                 mockDocument,
+                () => {},
                 () => {},
                 () => {},
                 () => {},

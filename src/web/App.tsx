@@ -19,6 +19,7 @@ export const App = (props: { flowId: string }) => {
         onSave,
         onUpload,
         onConvert,
+        onGetCheckpoints,
     } = useWaldiezWebview();
     const storageId = sessionData.storageId ?? flowId;
     const { nodes, edges, viewport, name, description, tags, requirements, isAsync, cacheSeed } = sessionData;
@@ -44,6 +45,9 @@ export const App = (props: { flowId: string }) => {
             onConvert={onConvert}
             chat={chat}
             stepByStep={stepByStep}
+            checkpoints={{
+                get: onGetCheckpoints,
+            }}
         />
     ) : (
         <div className="loading">Loading...</div>

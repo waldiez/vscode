@@ -14,9 +14,19 @@ import {
     WaldiezTimelineData,
 } from "@waldiez/react";
 
-import type { HostMessage, RunMode, UploadRequest, WaldiezUserInput, WebviewMessage } from "../../types";
+import type {
+    HostMessage,
+    RunMode,
+    UploadRequest,
+    WaldiezUserInput,
+    WebviewMessage,
+    WebviewRequest,
+} from "../../types";
 import { CONVERT_TO_IPYNB, CONVERT_TO_PYTHON, TIME_TO_WAIT_FOR_INPUT } from "../constants";
 import { traceError, traceVerbose } from "../log/logging";
+
+export const isWebviewRequest = (m: unknown): m is WebviewRequest =>
+    !!m && typeof m === "object" && (m as any).action === "request";
 
 export class MessageTransport {
     private _disposable: vscode.Disposable;
@@ -58,6 +68,7 @@ export class MessageTransport {
         private readonly document: vscode.TextDocument,
         private readonly onRun: (uri: vscode.Uri, opts: { mode: RunMode; args?: string[] }) => void,
         private readonly onStop: () => void,
+        private readonly onGetCheckpoints: (flowName: string) => Promise<Record<string, any>>,
         private readonly onInit: () => void,
     ) {
         this._webview = panel.webview;
@@ -220,6 +231,8 @@ export class MessageTransport {
                 return "init";
             case "update":
                 return "update";
+            case "response":
+                return `response_${message.channel}}_${message.reqId}`;
             default:
                 return `${message.type}_${this._messageSequence++}`;
         }
@@ -574,6 +587,9 @@ export class MessageTransport {
                 /* c8 ignore next 3 */
                 this.onConvert(message.value);
                 break;
+            case "request":
+                await this._handleRequest(message);
+                break;
             default:
                 /* c8 ignore next 3 */
                 traceVerbose("<Waldiez> Unknown webview message:", message);
@@ -622,5 +638,41 @@ export class MessageTransport {
         const command = value.to === "py" ? CONVERT_TO_PYTHON : CONVERT_TO_IPYNB;
         // noinspection JSIgnoredPromiseFromCall
         vscode.commands.executeCommand(command, this.document.uri, value.flow);
+    }
+
+    private async _handleRequest(message: WebviewMessage) {
+        if (message.action !== "request") {
+            return;
+        }
+        if (message.type === "get_checkpoints") {
+            if (typeof message.payload !== "string") {
+                this.sendMessage({
+                    type: "response",
+                    channel: message.channel,
+                    reqId: message.reqId,
+                    success: false,
+                    error: "Invalid payload",
+                });
+                return;
+            }
+            try {
+                const response = await this.onGetCheckpoints(message.payload);
+                this.sendMessage({
+                    type: "response",
+                    channel: message.channel,
+                    reqId: message.reqId,
+                    success: true,
+                    data: response,
+                });
+            } catch (error) {
+                this.sendMessage({
+                    type: "response",
+                    channel: message.channel,
+                    reqId: message.reqId,
+                    success: false,
+                    error: (error as Error).message,
+                });
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ import { ExtensionContext } from "vscode";
 
 import { registerCommands } from "./host/commands";
 import { NEW_WALDIEZ_FILE } from "./host/constants";
+import { CheckpointsManager } from "./host/flow/checkpoints";
 import { FlowConverter } from "./host/flow/converter";
 import { PythonWrapper } from "./host/flow/python";
 import { FlowRunner } from "./host/flow/runner";
@@ -125,8 +126,11 @@ async function initializeAfterPythonReady(
         const flowConverter = new FlowConverter(wrapper);
         waldiezExtensionDisposables.push(flowConverter);
 
+        const checkpointsManager = new CheckpointsManager(wrapper);
+        waldiezExtensionDisposables.push(checkpointsManager);
+
         // custom editor provider to display and edit flows
-        const provider = new WaldiezEditorProvider(context, flowRunner);
+        const provider = new WaldiezEditorProvider(context, flowRunner, checkpointsManager);
         waldiezExtensionDisposables.push(provider);
         provider.initialize(flowRunner);
 

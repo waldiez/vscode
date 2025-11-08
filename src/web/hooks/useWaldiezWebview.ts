@@ -179,32 +179,38 @@ export const useWaldiezWebview = () => {
         }
         return bp_string;
     };
-    const onStepRun = useCallback((flowJson: string, breakpoints?: (string | WaldiezBreakpoint)[]) => {
-        setChatConfig(prev => ({
-            ...prev,
-            messages: [],
-            userParticipants: [],
-            activeRequest: undefined,
-            active: false,
-            show: false,
-        }));
-        setStepByStep(prev => ({
-            ...prev,
-            show: true,
-        }));
-        const bpArgs = breakpoints ? breakpoints.map(waldiezBreakpointToString) : undefined;
-        const args: string[] = [];
-        if (bpArgs) {
-            for (const arg of bpArgs) {
-                args.push("--breakpoints", arg);
+    const onStepRun = useCallback(
+        (flowJson: string, breakpoints?: (string | WaldiezBreakpoint)[], checkpoint?: string | null) => {
+            setChatConfig(prev => ({
+                ...prev,
+                messages: [],
+                userParticipants: [],
+                activeRequest: undefined,
+                active: false,
+                show: false,
+            }));
+            setStepByStep(prev => ({
+                ...prev,
+                show: true,
+            }));
+            const bpArgs = breakpoints ? breakpoints.map(waldiezBreakpointToString) : undefined;
+            const args: string[] = [];
+            if (bpArgs) {
+                for (const arg of bpArgs) {
+                    args.push("--breakpoints", arg);
+                }
             }
-        }
-        if (args.length > 0) {
-            messaging.send({ action: "step_run", value: flowJson, args });
-        } else {
-            messaging.send({ action: "step_run", value: flowJson });
-        }
-    }, []);
+            if (checkpoint) {
+                args.push("--checkpoint", checkpoint);
+            }
+            if (args.length > 0) {
+                messaging.send({ action: "step_run", value: flowJson, args });
+            } else {
+                messaging.send({ action: "step_run", value: flowJson });
+            }
+        },
+        [],
+    );
 
     const onChange = useCallback(
         (flowJson: string) => messaging.send({ action: "change", value: flowJson }),
@@ -212,6 +218,14 @@ export const useWaldiezWebview = () => {
     );
 
     const onUpload = useCallback((files: File[]) => transferFiles(files), []);
+
+    const onGetCheckpoints = useCallback(async (flowName: string) => {
+        return await messaging.sendRequest<string, Record<string, any>>(
+            "get_checkpoints",
+            "runner",
+            flowName,
+        );
+    }, []);
 
     const onConvertRequest = useCallback((flow: string, to: "py" | "ipynb") => {
         messaging.send({ action: "convert", value: { flow, to } });
@@ -248,6 +262,7 @@ export const useWaldiezWebview = () => {
             edges: [],
             viewport: { zoom: 1, x: 0, y: 0 },
         }));
+        messaging.dispose();
     }, []);
 
     // message handler
@@ -333,5 +348,6 @@ export const useWaldiezWebview = () => {
         onSave,
         onUpload,
         onConvert: onConvertRequest,
+        onGetCheckpoints,
     };
 };

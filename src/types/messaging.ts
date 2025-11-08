@@ -95,6 +95,10 @@ export type Dispose = {
     type: "dispose";
 };
 
+export type HostResponse<T = unknown> =
+    | { type: "response"; channel: string; reqId: string; success: true; data: T }
+    | { type: "response"; channel: string; reqId: string; success: false; error: string };
+
 export type HostMessage =
     | Initialization
     | Resolved
@@ -110,7 +114,8 @@ export type HostMessage =
     | StepUpdate
     | WorkflowEnd
     | SaveResult
-    | Dispose;
+    | Dispose
+    | HostResponse;
 
 // Webview messages
 // These messages are sent from the webview to the host (VS Code extension)
@@ -173,6 +178,14 @@ export type WaldiezUserInput = Omit<WaldiezChatUserInput, "type"> & {
     type: "debug_input_response" | "input_response";
 };
 
+export type WebviewRequest<TPayload = unknown> = {
+    action: "request";
+    channel: string; // runner/editor/..
+    reqId: string;
+    type: string;
+    payload: TPayload;
+};
+
 export type WebviewMessage =
     | ViewReady
     | Initialized
@@ -184,4 +197,5 @@ export type WebviewMessage =
     | DebugInputResponse
     | StopRequest
     | SaveRequest
-    | ConvertRequest;
+    | ConvertRequest
+    | WebviewRequest;

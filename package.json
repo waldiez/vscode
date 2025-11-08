@@ -156,16 +156,6 @@
     "dependencies": {
         "@vscode/python-extension": "^1.0.6"
     },
-    "overrides": {
-        "ajv": "^8.17.1",
-        "markdown-it": "^14.1.0",
-        "tmp": "0.2.5",
-        "xml2js": "^0.6.2"
-    },
-    "resolutions": {
-        "tmp": "0.2.5",
-        "xml2js": "^0.6.2"
-    },
     "devDependencies": {
         "@babel/core": "^7.28.5",
         "@babel/preset-react": "^7.28.5",
@@ -189,7 +179,7 @@
         "@typescript-eslint/parser": "^8.46.3",
         "@vscode/test-cli": "^0.0.12",
         "@vscode/test-electron": "^2.5.2",
-        "@vscode/vsce": "^3.6.2",
+        "@vscode/vsce": "^3.7.0",
         "@waldiez/react": "git+https://github.com/waldiez/waldiez.git#dev",
         "ajv": "^8.17.1",
         "all-contributors-cli": "^6.26.1",
@@ -235,6 +225,16 @@
         "vscode-test": "^1.6.1",
         "webpack": "^5.102.1",
         "webpack-cli": "^6.0.1",
+        "xml2js": "^0.6.2"
+    },
+    "overrides": {
+        "ajv": "^8.17.1",
+        "markdown-it": "^14.1.0",
+        "tmp": "0.2.5",
+        "xml2js": "^0.6.2"
+    },
+    "resolutions": {
+        "tmp": "0.2.5",
         "xml2js": "^0.6.2"
     },
     "lint-staged": {
