@@ -17,8 +17,6 @@ on:
 jobs:
   build-waldiez:
     runs-on: ubuntu-latest
-    outputs:
-      cache-key: ${{ steps.waldiez-cache.outputs.cache-hit }}
     steps:
       - name: Get waldiez dev branch commit
         id: waldiez-commit
@@ -26,19 +24,10 @@ jobs:
           COMMIT=$(curl -s https://api.github.com/repos/waldiez/waldiez/commits/dev | jq -r '.sha[0:7]')
           echo "commit=$COMMIT" >> $GITHUB_OUTPUT
 
-      - name: Cache waldiez build
-        id: waldiez-cache
-        uses: actions/cache@v4.3.0
-        with:
-          path: ./.local/waldiez-react.tgz
-          key: waldiez-react-${{ steps.waldiez-commit.outputs.commit }}
-
       - name: Setup bun
-        if: steps.waldiez-cache.outputs.cache-hit != 'true'
         uses: oven-sh/setup-bun@v2.0.2
 
       - name: Build waldiez
-        if: steps.waldiez-cache.outputs.cache-hit != 'true'
         run: |
           mkdir -p ./.local
           git clone --depth 1 --branch dev https://github.com/waldiez/waldiez.git
@@ -49,7 +38,7 @@ jobs:
           cp out/archive/waldiez-react-*.tgz ../.local/waldiez-react.tgz
 
       - name: Upload waldiez artifact
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v5.0.0
         with:
           name: waldiez-react
           path: ./.local/waldiez-react.tgz
@@ -68,18 +57,8 @@ jobs:
           node-version: 22
           package-manager-cache: false
 
-      - name: Cache Yarn dependencies
-        uses: actions/cache@v4.3.0
-        with:
-          path: |
-            .yarn/cache
-            .yarn/install-state.gz
-          key: yarn-lint-dev-${{ runner.os }}-${{ hashFiles('yarn.lock', 'package.json') }}
-          restore-keys: |
-            yarn-lint-dev-${{ runner.os }}-
-
       - name: Download waldiez artifact
-        uses: actions/download-artifact@v5.0.0
+        uses: actions/download-artifact@v6.0.0
         with:
           name: waldiez-react
           path: .local
@@ -116,18 +95,8 @@ jobs:
           node-version: 22
           package-manager-cache: false
 
-      - name: Cache Yarn dependencies
-        uses: actions/cache@v4.3.0
-        with:
-          path: |
-            .yarn/cache
-            .yarn/install-state.gz
-          key: yarn-test-dev-${{ runner.os }}-${{ hashFiles('yarn.lock', 'package.json') }}
-          restore-keys: |
-            yarn-test-dev-${{ runner.os }}-
-
       - name: Download waldiez artifact
-        uses: actions/download-artifact@v5.0.0
+        uses: actions/download-artifact@v6.0.0
         with:
           name: waldiez-react
           path: .local
