@@ -2010,22 +2010,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@textlint/ast-node-types@npm:15.2.3":
-  version: 15.2.3
-  resolution: "@textlint/ast-node-types@npm:15.2.3"
-  checksum: 10/35fae7e5c13771fc9049f1c7584b154fc9806b22565f02ec72e3d0f2d3c73751dae655bcb5b4bffb775556beaf19d627a032132dfe573a7c7f8f040c320eade2
+"@textlint/ast-node-types@npm:15.3.0":
+  version: 15.3.0
+  resolution: "@textlint/ast-node-types@npm:15.3.0"
+  checksum: 10/407d7794a79fb5fd56785e5e59a631ea181fc3e00fb83133545a75c88d1e7b6443b7ab66812726a96ca979974550a7dead791d85d0b3055c3e814409785d1ea7
   languageName: node
   linkType: hard
 
 "@textlint/linter-formatter@npm:^15.2.0":
-  version: 15.2.3
-  resolution: "@textlint/linter-formatter@npm:15.2.3"
+  version: 15.3.0
+  resolution: "@textlint/linter-formatter@npm:15.3.0"
   dependencies:
     "@azu/format-text": "npm:^1.0.2"
     "@azu/style-format": "npm:^1.0.1"
-    "@textlint/module-interop": "npm:15.2.3"
-    "@textlint/resolver": "npm:15.2.3"
-    "@textlint/types": "npm:15.2.3"
+    "@textlint/module-interop": "npm:15.3.0"
+    "@textlint/resolver": "npm:15.3.0"
+    "@textlint/types": "npm:15.3.0"
     chalk: "npm:^4.1.2"
     debug: "npm:^4.4.3"
     js-yaml: "npm:^3.14.1"
@@ -2035,30 +2035,30 @@ __metadata:
     strip-ansi: "npm:^6.0.1"
     table: "npm:^6.9.0"
     text-table: "npm:^0.2.0"
-  checksum: 10/fd50b904106c273b7bc220f6dd27e30903f424d43aaf52d8afacfec73866b7bd9bfd8545b85252c6df36dc01c3da4982655e1e1d2a0d7b8d5084b9457f9e0760
+  checksum: 10/de67bb7331e12c9e99ba6e2887c7c09a9f1c1f63686ecf39afbb0169db0078dd9258b2ed9825f2b48cf6090bb68b6d4ec0f813d201f328cb12c6b66490cbd504
   languageName: node
   linkType: hard
 
-"@textlint/module-interop@npm:15.2.3, @textlint/module-interop@npm:^15.2.0":
-  version: 15.2.3
-  resolution: "@textlint/module-interop@npm:15.2.3"
-  checksum: 10/c75e4a2ccf41995602f4efbe2afea4ede67ffae9a28d41ed032d2a7b48584a2888f46f62cab904e20caf9bb45eea43c550eb31475f12cebc85d254edd6367b87
+"@textlint/module-interop@npm:15.3.0, @textlint/module-interop@npm:^15.2.0":
+  version: 15.3.0
+  resolution: "@textlint/module-interop@npm:15.3.0"
+  checksum: 10/31eca413893aae32bbd79dcb04d27c342e0e0fb3a13b78226fd9e3fa459950f336215ee62ad4a793ae46b7b1128ce803c14ea67cd3f8fd73b5fcb757f546c8a2
   languageName: node
   linkType: hard
 
-"@textlint/resolver@npm:15.2.3":
-  version: 15.2.3
-  resolution: "@textlint/resolver@npm:15.2.3"
-  checksum: 10/5c58f7383d4c7704a5ae243c38c56cbd58203f10c057bc9457b6e49ea760a598a76d6a65c38ee91077b17fe0f4cf36713b78f1daa0bfb6834640cb90b1bef88a
+"@textlint/resolver@npm:15.3.0":
+  version: 15.3.0
+  resolution: "@textlint/resolver@npm:15.3.0"
+  checksum: 10/5e9ff7a5b14dc6db8dcb65cf1f9820ca5148c12874c6351706af577584906e2855782fb8a6939be4006486f13b61410af9ffd0147b1601119c259d269fc0ddad
   languageName: node
   linkType: hard
 
-"@textlint/types@npm:15.2.3, @textlint/types@npm:^15.2.0":
-  version: 15.2.3
-  resolution: "@textlint/types@npm:15.2.3"
+"@textlint/types@npm:15.3.0, @textlint/types@npm:^15.2.0":
+  version: 15.3.0
+  resolution: "@textlint/types@npm:15.3.0"
   dependencies:
-    "@textlint/ast-node-types": "npm:15.2.3"
-  checksum: 10/b4e9c28fdeec53cfc6ead0c31247435a06cbfa47358c8e20beef80fef209311bb6d900853eb2bff978af324cffff7863f5e63fafdd2cf3519d20d96233fb7e8e
+    "@textlint/ast-node-types": "npm:15.3.0"
+  checksum: 10/51a09ef85b1d077947203e32e621fff65b54e20081e9c4d08045ec3b40b2115f49057ec47b28a2f5f1241d02605c2d8599adab9ccafa8d2ac71225410df44045
   languageName: node
   linkType: hard
 
@@ -2795,9 +2795,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
-  version: 0.6.1
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=b1b974bcbebbfec1e062563d4b3357a299896fae"
+"@waldiez/react@npm:^0.6.2":
+  version: 0.6.2
+  resolution: "@waldiez/react@npm:0.6.2"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
@@ -2828,7 +2828,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19
     react-dom: ^18.3.1 || ^19
-  checksum: 10/6375819bf1f755be51d9458e5d581725f1a1aea776a405d1f83f5084e7b2a243aa9bd64a98a7b628fb1223d7a38fbfb38fcd8f06dbb53eab2648a472c3bf8ec9
+  checksum: 10/d816d2f464c8a914fe84800e7358e5b2349102e237eabce9ec4ab5bbf59c78df6c32dd168fa46e494935109e0a0288abfb683259a299a5114e2cd2cadbc79c10
   languageName: node
   linkType: hard
 
@@ -6080,9 +6080,9 @@ __metadata:
   linkType: hard
 
 "ip-address@npm:^10.0.1":
-  version: 10.0.1
-  resolution: "ip-address@npm:10.0.1"
-  checksum: 10/09731acda32cd8e14c46830c137e7e5940f47b36d63ffb87c737331270287d631cf25aa95570907a67d3f919fdb25f4470c404eda21e62f22e0a55927f4dd0fb
+  version: 10.1.0
+  resolution: "ip-address@npm:10.1.0"
+  checksum: 10/a6979629d1ad9c1fb424bc25182203fad739b40225aebc55ec6243bbff5035faf7b9ed6efab3a097de6e713acbbfde944baacfa73e11852bb43989c45a68d79e
   languageName: node
   linkType: hard
 
@@ -8375,8 +8375,8 @@ __metadata:
   linkType: hard
 
 "recharts@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "recharts@npm:3.3.0"
+  version: 3.4.1
+  resolution: "recharts@npm:3.4.1"
   dependencies:
     "@reduxjs/toolkit": "npm:1.x.x || 2.x.x"
     clsx: "npm:^2.1.1"
@@ -8393,7 +8393,7 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-is: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/9842fb31627343e461b468f4bbb80c1ca47c478f0cdf72e8ccad6f547bdfdc561580bf5b7530799a8676c08d33a88eb1ee5852c2e9beae461e7aa65c593ae7d6
+  checksum: 10/f05d69d54c9c44ed7ee513d30a05b04708c0ccd07780e3a1cc8283a7239bddb8719e6bff7981b96a71a967ce6ba910c5fb05ffac93f49a75354230e8d04f6958
   languageName: node
   linkType: hard
 
@@ -10033,7 +10033,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.12"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.7.0"
-    "@waldiez/react": "git+https://github.com/waldiez/waldiez.git#dev"
+    "@waldiez/react": "npm:^0.6.2"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
