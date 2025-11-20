@@ -382,34 +382,36 @@ export class MessageTransport {
         password?: boolean;
         runMode: RunMode;
     }): Promise<WaldiezUserInput | undefined> {
-        // Use lock key to prevent duplicate input requests
-        const typePrefix = runMode === "step" ? "debug_" : "";
-        this.sendMessage(
-            {
-                type: `${typePrefix}input_request`,
-                value: { request_id, prompt, password },
-            },
-            { lockKey: `${typePrefix}input_request_${request_id}`, debounceMs: 0 }, // No delay for input requests
-        );
+        if (runMode === "chat") {
+            // Use lock key to prevent duplicate input requests
+            this.sendMessage(
+                {
+                    type: "input_request",
+                    value: { request_id, prompt, password },
+                },
+                { lockKey: `input_request_${request_id}`, debounceMs: 0 }, // No delay for input requests
+            );
 
-        // noinspection TypeScriptUMDGlobal
-        this._inputPromise = new Promise(resolve => {
-            const timeout = setTimeout(() => {
-                resolve(undefined);
-                this._inputPromise = null;
-                this._inputResolve = null;
-            }, TIME_TO_WAIT_FOR_INPUT);
+            // noinspection TypeScriptUMDGlobal
+            this._inputPromise = new Promise(resolve => {
+                const timeout = setTimeout(() => {
+                    resolve(undefined);
+                    this._inputPromise = null;
+                    this._inputResolve = null;
+                }, TIME_TO_WAIT_FOR_INPUT);
 
-            this._inputResolve = value => {
-                clearTimeout(timeout);
-                const response = this._getResolvedResponse(value, request_id);
-                resolve(response);
-                this._inputPromise = null;
-                this._inputResolve = null;
-            };
-        });
+                this._inputResolve = value => {
+                    clearTimeout(timeout);
+                    const response = this._getResolvedResponse(value, request_id);
+                    resolve(response);
+                    this._inputPromise = null;
+                    this._inputResolve = null;
+                };
+            });
 
-        return this._inputPromise;
+            return this._inputPromise;
+        }
+        return this._ask_for_step_input(request_id, prompt, false);
     }
 
     public askForControl({
@@ -419,20 +421,36 @@ export class MessageTransport {
         request_id: string;
         prompt: string;
     }): Promise<WaldiezUserInput | undefined> {
-        // Use lock key to prevent duplicate input requests
+        return this._ask_for_step_input(request_id, prompt, true);
+    }
+
+    private _ask_for_step_input(request_id: string, prompt: string, isControl: boolean) {
         this._stepByStep.active = true;
         this._stepByStep.show = true;
+        const message: HostMessage = isControl
+            ? {
+                  type: "step_update",
+                  value: {
+                      show: true,
+                      active: true,
+                      stepMode: true,
+                      autoContinue: false,
+                      pendingControlInput: { request_id, prompt },
+                  },
+              }
+            : {
+                  type: "step_update",
+                  value: {
+                      show: true,
+                      active: true,
+                      stepMode: true,
+                      autoContinue: false,
+                      activeRequest: { request_id, prompt },
+                      pendingControlInput: undefined,
+                  },
+              };
         this.sendMessage(
-            {
-                type: "step_update",
-                value: {
-                    show: true,
-                    active: true,
-                    stepMode: true,
-                    autoContinue: false,
-                    pendingControlInput: { request_id, prompt },
-                },
-            },
+            message,
             { lockKey: `step_update_${request_id}`, debounceMs: 0 }, // No delay for input requests
         );
 
