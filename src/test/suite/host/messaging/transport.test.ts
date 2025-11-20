@@ -391,11 +391,17 @@ suite("MessageTransport Tests", () => {
             sinon.assert.calledOnce(mockPanel.webview.postMessage);
 
             const messageCall = mockPanel.webview.postMessage.getCall(0);
-            assert.strictEqual(messageCall.args[0].type, "input_request");
+            assert.strictEqual(messageCall.args[0].type, "step_update");
             assert.deepStrictEqual(messageCall.args[0].value, {
-                request_id: "test-123",
-                prompt: "Enter name:",
-                password: false,
+                active: true,
+                show: true,
+                autoContinue: false,
+                stepMode: true,
+                pendingControlInput: undefined,
+                activeRequest: {
+                    request_id: "test-123",
+                    prompt: "Enter name:",
+                },
             });
         });
 
