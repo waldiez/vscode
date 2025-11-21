@@ -28,13 +28,22 @@ const extensionConfig = {
     entry: "./src/extension.ts",
     cache: isDev ? { type: "filesystem", cacheDirectory } : false,
     devtool: isDev ? "source-map" : false,
+    plugins: [new MiniCssExtractPlugin()],
     output: {
         filename: "extension.js",
         libraryTarget: "commonjs2",
         path: path.resolve(__dirname, "dist"),
     },
     resolve: { extensions: [".ts", ".js"] },
-    module: { rules: [{ test: /\.ts$/, loader: "ts-loader" }] },
+    module: {
+        rules: [
+            { test: /\.ts$/, loader: "ts-loader" },
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, "css-loader"],
+            },
+        ],
+    },
     optimization: {
         minimize: true,
         minimizer: [new TerserPlugin()],

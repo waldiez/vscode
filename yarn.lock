@@ -1245,12 +1245,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@monaco-editor/loader@npm:^1.5.0, @monaco-editor/loader@npm:^1.6.1":
-  version: 1.6.1
-  resolution: "@monaco-editor/loader@npm:1.6.1"
+"@monaco-editor/loader@npm:^1.5.0, @monaco-editor/loader@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "@monaco-editor/loader@npm:1.7.0"
   dependencies:
     state-local: "npm:^1.0.6"
-  checksum: 10/16e2bc752cf5826805be268b86fd313a7a6f6d19fc6e1254cc66c87c643c753142cea940e8d2e086a9d67c323700d3d1c1cbf51fd51b37a30f787fc41afab405
+  checksum: 10/7ee7406f0a7036e2638430d151c65593dcce88e3f344e2e19556c284c23c1b51d5edb08b8c15a6454aaa62f5af459a296db76b9543686e2ea5037c54723d2f2d
   languageName: node
   linkType: hard
 
@@ -2790,11 +2790,11 @@ __metadata:
 
 "@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
   version: 0.6.2
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=717214795cd38f5629903003bd7e5b3f197b8816"
+  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=ab82ea8eb6573dab6c629c50c234f98e8ee3c758"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
-    "@monaco-editor/loader": "npm:^1.6.1"
+    "@monaco-editor/loader": "npm:^1.7.0"
     "@monaco-editor/react": "npm:^4.7.0"
     "@radix-ui/react-checkbox": "npm:^1.3.3"
     "@radix-ui/react-slider": "npm:^1.3.6"
@@ -2805,7 +2805,7 @@ __metadata:
     highlight.js: "npm:^11.11.1"
     jszip: "npm:^3.10.1"
     lucide-react: "npm:^0.554.0"
-    marked: "npm:^17.0.0"
+    marked: "npm:^17.0.1"
     marked-highlight: "npm:^2.2.3"
     microdiff: "npm:^1.5.0"
     nanoid: "npm:^5.1.6"
@@ -2821,7 +2821,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19
     react-dom: ^18.3.1 || ^19
-  checksum: 10/8c6c7bb8a76953e7a9a7069579845b30928109fd0a8331bbc0694d5ede61b30403b842d6a9cfaaf9e5eb912f9c276223de8dec0fbb489a1542d96dc81b116d60
+  checksum: 10/9fa84de6de1eb48f7b7735f25c9517a0e4ab3b2c01bc900290bf15ca9a8e58708b6ffdb5fad174567c484e6552e137fc4803694afab4e96092494195400783bf
   languageName: node
   linkType: hard
 
@@ -6998,12 +6998,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:^17.0.0":
-  version: 17.0.0
-  resolution: "marked@npm:17.0.0"
+"marked@npm:^17.0.1":
+  version: 17.0.1
+  resolution: "marked@npm:17.0.1"
   bin:
     marked: bin/marked.js
-  checksum: 10/5544d27547851986c4e994a3f5739ea30bfe2616a9e1d5d5c8ced0fd561b5e971b3c7ee62b4fea1ea530e9886b89102d5c3b3bf962756494ced021f1accd6854
+  checksum: 10/8d39cf5a1eb97288d09d47dba57a613b8c45a212287b27aa16b4bc41baaebb147340c359d379da1bc6d351474d169aa3a63f981770b67f7663ed0a479dd950c2
   languageName: node
   linkType: hard
 
