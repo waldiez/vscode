@@ -2788,9 +2788,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.6.3":
-  version: 0.6.3
-  resolution: "@waldiez/react@npm:0.6.3"
+"@waldiez/react@npm:^0.6.4":
+  version: 0.6.4
+  resolution: "@waldiez/react@npm:0.6.4"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
@@ -2821,7 +2821,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19
     react-dom: ^18.3.1 || ^19
-  checksum: 10/27bef81f1ac98ea6c9bdee300d7b38f425553f22930f1e3d0d195201e843f20327417867d1c28dfbbc991290c2bbfbfdc5ae447fe86632ed0cee9f25da59430f
+  checksum: 10/9df7a384ee1b864c4b1a2ce7e2c9f33a29736827544b0348df5ca6abacbcdc860cb74fbc4108b591af082da0823305ac6aec1638416240ccc8df420517271be4
   languageName: node
   linkType: hard
 
@@ -10044,7 +10044,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.12"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.7.0"
-    "@waldiez/react": "npm:^0.6.3"
+    "@waldiez/react": "npm:^0.6.4"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
