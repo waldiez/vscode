@@ -2788,9 +2788,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.6.4":
-  version: 0.6.4
-  resolution: "@waldiez/react@npm:0.6.4"
+"@waldiez/react@npm:^0.6.5":
+  version: 0.6.5
+  resolution: "@waldiez/react@npm:0.6.5"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
@@ -2814,14 +2814,14 @@ __metadata:
     react-hotkeys-hook: "npm:^5.2.1"
     react-icons: "npm:^5.5.0"
     react-select: "npm:^5.10.2"
-    recharts: "npm:^3.4.1"
+    recharts: "npm:^3.5.0"
     strip-ansi: "npm:^7.1.2"
     zundo: "npm:^2.3.0"
     zustand: "npm:^5.0.8"
   peerDependencies:
     react: ^18.3.1 || ^19
     react-dom: ^18.3.1 || ^19
-  checksum: 10/9df7a384ee1b864c4b1a2ce7e2c9f33a29736827544b0348df5ca6abacbcdc860cb74fbc4108b591af082da0823305ac6aec1638416240ccc8df420517271be4
+  checksum: 10/0b5fab124c3fb9b537d65d92321cbac13556b15ebdc98d11e78516b757d02055086c0d879a5be14d494ec0b505360c1f54abd47a55f470ffec40961e75c57b95
   languageName: node
   linkType: hard
 
@@ -3433,11 +3433,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.8.25":
-  version: 2.8.30
-  resolution: "baseline-browser-mapping@npm:2.8.30"
+  version: 2.8.31
+  resolution: "baseline-browser-mapping@npm:2.8.31"
   bin:
     baseline-browser-mapping: dist/cli.js
-  checksum: 10/c62a7c9dc3bdf559e6fac3f8065c1cde0b9d8520f742070c4d35862d836c77df894c50cd63e7d55f73e0ce15d27d55f0ec31ddd9bb53ffcdb8751151d8943785
+  checksum: 10/aefad7523ab6e93a28d278c2faae08b934d6f8899f9b6868a50cccb2e2cbb12bad0f5eda3ccb70d7f2e2f9e58cc1973050523e867e6bb0793ab0c63e194956b6
   languageName: node
   linkType: hard
 
@@ -4932,6 +4932,15 @@ __metadata:
   peerDependencies:
     eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
   checksum: 10/12e96c68d58c6588305fd17d660524a1ef1e872650ec591d5b138f059431290831c373d4b1c9ae8991fb25f96c43935497d2149678c027e65d0417d3d99ecc85
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-react-perf@npm:^3.3.3":
+  version: 3.3.3
+  resolution: "eslint-plugin-react-perf@npm:3.3.3"
+  peerDependencies:
+    eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
+  checksum: 10/fc3446aa785714a1d6d06a52c0e6a28ca41c498185f0d3d7154c312d3d8b74059cb5c6ece4b2babb5cc0b3ad350870c84c098122c30a4d70098b58b819da555f
   languageName: node
   linkType: hard
 
@@ -7457,12 +7466,12 @@ __metadata:
   linkType: hard
 
 "node-sarif-builder@npm:^3.2.0":
-  version: 3.3.0
-  resolution: "node-sarif-builder@npm:3.3.0"
+  version: 3.3.1
+  resolution: "node-sarif-builder@npm:3.3.1"
   dependencies:
     "@types/sarif": "npm:^2.1.7"
     fs-extra: "npm:^11.1.1"
-  checksum: 10/9b04744dbac0eaf6f680f2d50673980653e89d27007ab9dd3ed306a2f1b36b605b60b747d5645ee63fbf52ecd3ba492b3b653f3ee8cf35b10db21ac7a8d6005b
+  checksum: 10/2e7826aa5bd43b5d7fa9384f596b2307a5efff1342581f2177646220032d356cbc6a023566c7ff789e76d0c4e963da4be984048cdfc15f13d83b5d8c5ead34b0
   languageName: node
   linkType: hard
 
@@ -8385,14 +8394,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recharts@npm:^3.4.1":
-  version: 3.4.1
-  resolution: "recharts@npm:3.4.1"
+"recharts@npm:^3.5.0":
+  version: 3.5.0
+  resolution: "recharts@npm:3.5.0"
   dependencies:
     "@reduxjs/toolkit": "npm:1.x.x || 2.x.x"
     clsx: "npm:^2.1.1"
     decimal.js-light: "npm:^2.5.1"
     es-toolkit: "npm:^1.39.3"
+    eslint-plugin-react-perf: "npm:^3.3.3"
     eventemitter3: "npm:^5.0.1"
     immer: "npm:^10.1.1"
     react-redux: "npm:8.x.x || 9.x.x"
@@ -8404,7 +8414,7 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-is: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/f05d69d54c9c44ed7ee513d30a05b04708c0ccd07780e3a1cc8283a7239bddb8719e6bff7981b96a71a967ce6ba910c5fb05ffac93f49a75354230e8d04f6958
+  checksum: 10/8561aa32e7a316093755123a934936db01fa72cd61deed5f819b526f1b158eb9ce4fec52d09a873266c0fed6fde0ffcbf2ff00f2c5fca671f8bbd9dcbed852c7
   languageName: node
   linkType: hard
 
@@ -10044,7 +10054,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.12"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.7.0"
-    "@waldiez/react": "npm:^0.6.4"
+    "@waldiez/react": "npm:^0.6.5"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
