@@ -14,10 +14,13 @@ import "./index.css";
 
 export const startApp = () => {
     const flowId = document.querySelector('meta[property="csp-nonce"]')?.getAttribute("content") ?? nanoid();
+    //  <meta property="monaco-root" content="${monacoRoot}" />
+    const monacoVsPath =
+        document.querySelector('meta[property="monaco-root"]')?.getAttribute("content") || undefined;
     ReactDOM.createRoot(document.getElementById("root")!).render(
         <React.StrictMode>
             <div data-vscode-context='{"webviewSection": "main", "preventDefaultContextMenuItems": true}'>
-                <App flowId={flowId} />
+                <App flowId={flowId} monacoVsPath={monacoVsPath} />
             </div>
         </React.StrictMode>,
     );

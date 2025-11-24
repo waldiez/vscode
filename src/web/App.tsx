@@ -6,8 +6,8 @@ import { Waldiez } from "@waldiez/react";
 
 import { useWaldiezWebview } from "./hooks";
 
-export const App = (props: { flowId: string }) => {
-    const { flowId } = props;
+export const App = (props: { flowId: string; monacoVsPath?: string }) => {
+    const { flowId, monacoVsPath } = props;
     const {
         initialized,
         sessionData,
@@ -25,7 +25,7 @@ export const App = (props: { flowId: string }) => {
     const { nodes, edges, viewport, name, description, tags, requirements, isAsync, cacheSeed } = sessionData;
     return initialized ? (
         <Waldiez
-            monacoVsPath={undefined}
+            monacoVsPath={monacoVsPath}
             flowId={flowId}
             storageId={storageId}
             nodes={nodes}

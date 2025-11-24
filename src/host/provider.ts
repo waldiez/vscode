@@ -5,6 +5,7 @@
 import * as vscode from "vscode";
 
 import { RunMode } from "../types";
+import { MONACO_VERSION } from "./constants";
 import { CheckpointsManager } from "./flow/checkpoints";
 import { FlowRunner } from "./flow/runner";
 import { traceError } from "./log/logging";
@@ -99,6 +100,7 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
         const localResourceRoots = [
             vscode.Uri.joinPath(this.context.extensionUri, "dist"),
             vscode.Uri.joinPath(this.context.extensionUri, "public"),
+            vscode.Uri.joinPath(this.context.extensionUri, "icons"),
         ];
         if (vscode.workspace.workspaceFolders?.[0]?.uri) {
             localResourceRoots.push(vscode.workspace.workspaceFolders[0].uri);
@@ -147,7 +149,7 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
         );
 
         // Set webview panel icon and title
-        webviewPanel.iconPath = vscode.Uri.joinPath(this.context.extensionUri, "public", "icon.png");
+        webviewPanel.iconPath = vscode.Uri.joinPath(this.context.extensionUri, "icons", "logo.png");
         webviewPanel.title = "Waldiez";
 
         // Register a content provider for the text document
@@ -213,6 +215,7 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
         const extensionUri = this.context.extensionUri;
         const scriptUri = getUri(webview, extensionUri, ["dist", "main.js"]);
         const stylesUri = getUri(webview, extensionUri, ["dist", "main.css"]);
+        const monacoRoot = `https://cdn.jsdelivr.net/npm/monaco-editor@${MONACO_VERSION}/min/vs`;
         const nonce = getNonce();
 
         // Set content security policy sources
@@ -233,6 +236,7 @@ export class WaldiezEditorProvider implements vscode.CustomTextEditorProvider {
               <meta charset="UTF-8" />
               <meta name="viewport" content="width=device-width, initial-scale=1.0" />
               <meta property="csp-nonce" content="${nonce}" />
+              <meta property="monaco-root" content="${monacoRoot}" />
               <meta http-equiv="Content-Security-Policy" content="${cspContent}">
               <link rel="stylesheet" type="text/css" href="${stylesUri}">
               <title>Waldiez</title>
