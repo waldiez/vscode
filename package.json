@@ -2,7 +2,7 @@
     "name": "waldiez-vscode",
     "displayName": "Waldiez",
     "description": "A Waldiez vscode extension",
-    "version": "0.6.5",
+    "version": "0.6.6",
     "engines": {
         "vscode": "^1.95.0"
     },
@@ -167,7 +167,7 @@
         "@types/fs-extra": "^11.0.4",
         "@types/mocha": "^10.0.10",
         "@types/node": "^24.10.1",
-        "@types/react": "^19.2.6",
+        "@types/react": "^19.2.7",
         "@types/react-dom": "^19.2.3",
         "@types/sinon": "^21.0.0",
         "@types/source-map-support": "^0.5.10",
@@ -179,8 +179,8 @@
         "@typescript-eslint/parser": "^8.47.0",
         "@vscode/test-cli": "^0.0.12",
         "@vscode/test-electron": "^2.5.2",
-        "@vscode/vsce": "^3.7.0",
-        "@waldiez/react": "^0.6.5",
+        "@vscode/vsce": "^3.7.1",
+        "@waldiez/react": "^0.6.6",
         "ajv": "^8.17.1",
         "all-contributors-cli": "^6.26.1",
         "babel-loader": "^10.0.0",
