@@ -74,7 +74,7 @@ export abstract class MessageProcessor {
             data,
         };
         traceVerbose(`Sending input response: ${JSON.stringify(obj)}`);
-        this._stdin?.write(`${data}\n`, err => {
+        this._stdin?.write(`${JSON.stringify(obj)}\n`, err => {
             if (err) {
                 traceError("Failed to write to stdin:", err);
             } else {
