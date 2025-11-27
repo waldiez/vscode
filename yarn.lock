@@ -540,25 +540,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cacheable/memory@npm:^2.0.5":
-  version: 2.0.5
-  resolution: "@cacheable/memory@npm:2.0.5"
+"@cacheable/memory@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "@cacheable/memory@npm:2.0.6"
   dependencies:
-    "@cacheable/utils": "npm:^2.3.0"
-    "@keyv/bigmap": "npm:^1.1.0"
-    hookified: "npm:^1.12.2"
+    "@cacheable/utils": "npm:^2.3.2"
+    "@keyv/bigmap": "npm:^1.3.0"
+    hookified: "npm:^1.13.0"
     keyv: "npm:^5.5.4"
-  checksum: 10/29cb22cb62056072654f735330014588dfe62165bf187757223973841a8ccc77378e5c83d121e473590f63f664026364c6ac29e06ffe3bba729627d5b00f1401
+  checksum: 10/1b6d295129db0306d8f42dcbb5bc3c017755c527fbf74a484751db3c2a6beb7348f606176c9fa09430399434ea35b1de088532a6a56824c688540a6b347e6185
   languageName: node
   linkType: hard
 
-"@cacheable/utils@npm:^2.3.0":
-  version: 2.3.1
-  resolution: "@cacheable/utils@npm:2.3.1"
+"@cacheable/utils@npm:^2.3.2":
+  version: 2.3.2
+  resolution: "@cacheable/utils@npm:2.3.2"
   dependencies:
     hashery: "npm:^1.2.0"
     keyv: "npm:^5.5.4"
-  checksum: 10/3693c9c999adfbed2ddc1a682e207964918de419eb8f210e159c2f12cb4ae7768c219900f2432aee248dd001f26cea6be5831239811aa0fede98d34f0a4c9846
+  checksum: 10/3acb6dea167ccec1eaa3c38e876c81fc2a1442d2818e49c67a5cf9a17fd51595622d02ecbd3110776f987814af7000bec6beea16bf08b47ee58553c71ad8a23d
   languageName: node
   linkType: hard
 
@@ -1226,7 +1226,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@keyv/bigmap@npm:^1.1.0":
+"@keyv/bigmap@npm:^1.3.0":
   version: 1.3.0
   resolution: "@keyv/bigmap@npm:1.3.0"
   dependencies:
@@ -2787,9 +2787,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.6.6":
-  version: 0.6.6
-  resolution: "@waldiez/react@npm:0.6.6"
+"@waldiez/react@npm:^0.6.7":
+  version: 0.6.7
+  resolution: "@waldiez/react@npm:0.6.7"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
@@ -2803,7 +2803,7 @@ __metadata:
     framer-motion: "npm:^12.23.24"
     highlight.js: "npm:^11.11.1"
     jszip: "npm:^3.10.1"
-    lucide-react: "npm:^0.554.0"
+    lucide-react: "npm:^0.555.0"
     marked: "npm:^17.0.1"
     marked-highlight: "npm:^2.2.3"
     microdiff: "npm:^1.5.0"
@@ -2820,7 +2820,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19
     react-dom: ^18.3.1 || ^19
-  checksum: 10/48707459aceb62721e4180e565d73f67af3ba449f8a50b8c289e1dbf3e5724b2b450fb9ddc50ce1a4b1f95bde81126d2fc72ac5f7f8d52fc4e18016bedd366bd
+  checksum: 10/36d33ad5b9752e44c2b2cf015791d57a42712e0abf8ffcaf6500370e547cd12b96d761387f615eb75ed4bc182ce231dc5ef13503b793d9da7a27f0933fb6a7df
   languageName: node
   linkType: hard
 
@@ -3655,15 +3655,15 @@ __metadata:
   linkType: hard
 
 "cacheable@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "cacheable@npm:2.2.0"
+  version: 2.3.0
+  resolution: "cacheable@npm:2.3.0"
   dependencies:
-    "@cacheable/memory": "npm:^2.0.5"
-    "@cacheable/utils": "npm:^2.3.0"
+    "@cacheable/memory": "npm:^2.0.6"
+    "@cacheable/utils": "npm:^2.3.2"
     hookified: "npm:^1.13.0"
     keyv: "npm:^5.5.4"
     qified: "npm:^0.5.2"
-  checksum: 10/dbb59d6414cb755ab164d6be7f380697b73478bce29f63396e50e47a250d92b5d093c7727d2e68d29bfd60830e9180752e3de770d6c04b53a04f6c02c5fc1eb9
+  checksum: 10/5f128fca344faecaf1cdb00d81aa2781aa43d176eac68731d8fe8ea6043e22ef04719f18c4cdf27c4ed922c060c2421bc75487b87e30d724a7096bc014c47f07
   languageName: node
   linkType: hard
 
@@ -4583,9 +4583,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.249":
-  version: 1.5.261
-  resolution: "electron-to-chromium@npm:1.5.261"
-  checksum: 10/a180f24bd8a15bc587c60e1a397607398acc84344ad23332312d61c750401cf5901270df271249b451cf99b8bf5687368d757d241b83b95cfa2260ec1d0f0d94
+  version: 1.5.262
+  resolution: "electron-to-chromium@npm:1.5.262"
+  checksum: 10/9934da5f5f24b7e1b82964ad171426671ddf99032079847739138af01eb3dd943b2c479a4ab633f3293549cce3ae6bb75804cd86e1fec9be93b9c77ab60ff479
   languageName: node
   linkType: hard
 
@@ -4677,11 +4677,11 @@ __metadata:
   linkType: hard
 
 "envinfo@npm:^7.14.0":
-  version: 7.20.0
-  resolution: "envinfo@npm:7.20.0"
+  version: 7.21.0
+  resolution: "envinfo@npm:7.21.0"
   bin:
     envinfo: dist/cli.js
-  checksum: 10/9dab1e64e0b6614243b72b07d782434e0984ff6104ef8906c3b5e1562f96e0cde8bf38a9dcf373494a020b9752a0edeeec2a4fdf7bcd41d5d704791f93097ffe
+  checksum: 10/2469a72802ded4e43c007dcd1c5dd44d8049b7d18276874dcc3f3f14a54bc72806fa35e82760974ca1442d82f5f9df3651048204e72791f81bcdd5f07422a561
   languageName: node
   linkType: hard
 
@@ -5826,7 +5826,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hookified@npm:^1.12.2, hookified@npm:^1.13.0":
+"hookified@npm:^1.13.0":
   version: 1.13.0
   resolution: "hookified@npm:1.13.0"
   checksum: 10/d125d8df589b37f3ebf5e1bc66d5be2220c22fdac7ad27705a2d061f198e8ff905e9d71f665ca76ad288dc7d95543d49b1ebeab935ff007d2f7df99cfb9d4587
@@ -6920,12 +6920,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.554.0":
-  version: 0.554.0
-  resolution: "lucide-react@npm:0.554.0"
+"lucide-react@npm:^0.555.0":
+  version: 0.555.0
+  resolution: "lucide-react@npm:0.555.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/3f21ca482ca0b73ae30da06675c2f064c27f0ba165e55a064318443a6d92c6affc8b6ffefc94a8d082d27aaaf34f45df281ca21087d58c2361f7cfae16daba08
+  checksum: 10/3f6c7ea61df3927e43cb9251ceddec58382b6bddf266737ee2c8462fd80cc022e972f7a807ce594d17b75828579bea8363be069023062f78724ffa2a56184e42
   languageName: node
   linkType: hard
 
@@ -10060,7 +10060,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.12"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.7.1"
-    "@waldiez/react": "npm:^0.6.6"
+    "@waldiez/react": "npm:^0.6.7"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
