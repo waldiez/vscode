@@ -2340,12 +2340,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^24.10.2":
-  version: 24.10.2
-  resolution: "@types/node@npm:24.10.2"
+"@types/node@npm:*":
+  version: 25.0.0
+  resolution: "@types/node@npm:25.0.0"
   dependencies:
     undici-types: "npm:~7.16.0"
-  checksum: 10/75b34e33087dc707aa76723f7269cd66acd2fae4272d127544ad20f295e7537dbd1e4a4405717b3093aeae2ff8ae35283fdec826a4f593273e326bb3deae588d
+  checksum: 10/ea56dfde037d8c832ba0246066fcd0fb56204d35fc09b8eb2ae8b8a26cb16724f824a47557090b1b51a2c466964c5af700dd6897dd037c1868667cd96afecbd7
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^24.10.2":
+  version: 24.10.3
+  resolution: "@types/node@npm:24.10.3"
+  dependencies:
+    undici-types: "npm:~7.16.0"
+  checksum: 10/b5f3f3431b333d077fe8f656edc2a352597a0c83a21157d7cbf2811d20ba31ecf31182aaf5013f83b72bf94e368ece736e76ff0e578ceee6a30b43a666b5071f
   languageName: node
   linkType: hard
 
@@ -2453,9 +2462,9 @@ __metadata:
   linkType: hard
 
 "@types/vscode@npm:>=1.95.0":
-  version: 1.106.1
-  resolution: "@types/vscode@npm:1.106.1"
-  checksum: 10/3b60a3e1f719c1174d0c9dfe14aa4070a9a869fef891dbe1a0ba5dbc97baf232ec5ab72bfb4b71547c2bd030074687162a8607d3fc922ca2e58b1cd680b0cd19
+  version: 1.107.0
+  resolution: "@types/vscode@npm:1.107.0"
+  checksum: 10/eca5be10fe35617c9b33c6c659575b9a8a2d9be45b0b1cc37185ee148578ff326cd6f22b89abe32e99c35948a5db27a357efde02749842eb3aede732ed955263
   languageName: node
   linkType: hard
 
@@ -2793,9 +2802,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
-  version: 0.6.7
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=8bc57d2496e6c5e50e8e9c748c038611b5bfab81"
+"@waldiez/react@npm:^0.6.9":
+  version: 0.6.9
+  resolution: "@waldiez/react@npm:0.6.9"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
@@ -2826,7 +2835,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19
     react-dom: ^18.3.1 || ^19
-  checksum: 10/cb75ebe51df01941c85ea26b9d0178ccc7f164b59a8bbc48f3c811d44f0c7da0f4375bd9b701e39421f30681d305ba33bfa0ecfb4d5add0ffee2acabf7e8701b
+  checksum: 10/8cbdca623d066cc2bdf7a123b297f92c4aaa27a0d5577856ff5a016425614d76d2dfceeecc27321278680473b01eb09c9fa29ac99b0a12afb71af38f0d1c87fc
   languageName: node
   linkType: hard
 
@@ -3438,11 +3447,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.9.0":
-  version: 2.9.5
-  resolution: "baseline-browser-mapping@npm:2.9.5"
+  version: 2.9.6
+  resolution: "baseline-browser-mapping@npm:2.9.6"
   bin:
     baseline-browser-mapping: dist/cli.js
-  checksum: 10/4b07dfdac31f8ca9aa585bdfac86d00400d282f1d22d1ce1d9b31b66b66c530295bdac2527197b50d23d0b58467d971ed5acf1c031d9f780f4687f2ce11a7e43
+  checksum: 10/f187cb6420908a4374db07b5c54116e15f7d4742f81b3f0390e0b07105ddbca23df630104d37c8d7c34ac3da9d0bf90caddbd0c943b76ef816623461269bdc96
   languageName: node
   linkType: hard
 
@@ -5377,8 +5386,8 @@ __metadata:
   linkType: hard
 
 "framer-motion@npm:^12.23.25":
-  version: 12.23.25
-  resolution: "framer-motion@npm:12.23.25"
+  version: 12.23.26
+  resolution: "framer-motion@npm:12.23.26"
   dependencies:
     motion-dom: "npm:^12.23.23"
     motion-utils: "npm:^12.23.6"
@@ -5394,7 +5403,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/0b55dc0a5319cd923cdddcb42726352f0d74a8160f5222a3f090af53bbb2ed0d93c8482da41c9ffa875a3f7f666586e43be7594dca3612e70a1dea6bfbefebb4
+  checksum: 10/29d51ac57ce8c2599664bf706d7a83c2aba4fe1dee1c0c7d75d5c45c120b1c2ca5d257c3ff608992b26bf8e9cf258cacf231b0873d7b16f01c5eeb42b9831f78
   languageName: node
   linkType: hard
 
@@ -10050,7 +10059,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.12"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.7.1"
-    "@waldiez/react": "git+https://github.com/waldiez/waldiez.git#dev"
+    "@waldiez/react": "npm:^0.6.9"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"

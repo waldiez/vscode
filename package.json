@@ -2,7 +2,7 @@
     "name": "waldiez-vscode",
     "displayName": "Waldiez",
     "description": "A Waldiez vscode extension",
-    "version": "0.6.7",
+    "version": "0.6.9",
     "engines": {
         "vscode": "^1.95.0"
     },
@@ -180,7 +180,7 @@
         "@vscode/test-cli": "^0.0.12",
         "@vscode/test-electron": "^2.5.2",
         "@vscode/vsce": "^3.7.1",
-        "@waldiez/react": "git+https://github.com/waldiez/waldiez.git#dev",
+        "@waldiez/react": "^0.6.9",
         "ajv": "^8.17.1",
         "all-contributors-cli": "^6.26.1",
         "babel-loader": "^10.0.0",
@@ -229,11 +229,13 @@
     },
     "overrides": {
         "ajv": "^8.17.1",
+        "jws": "3.2.3",
         "markdown-it": "^14.1.0",
         "tmp": "0.2.5",
         "xml2js": "^0.6.2"
     },
     "resolutions": {
+        "jws": "3.2.3",
         "tmp": "0.2.5",
         "xml2js": "^0.6.2"
     },
