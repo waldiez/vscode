@@ -2802,9 +2802,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.6.9":
-  version: 0.6.9
-  resolution: "@waldiez/react@npm:0.6.9"
+"@waldiez/react@npm:^0.6.10":
+  version: 0.6.10
+  resolution: "@waldiez/react@npm:0.6.10"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
@@ -2815,10 +2815,10 @@ __metadata:
     "@radix-ui/react-tooltip": "npm:^1.2.8"
     "@xyflow/react": "npm:^12.10.0"
     dompurify: "npm:^3.3.1"
-    framer-motion: "npm:^12.23.25"
+    framer-motion: "npm:^12.23.26"
     highlight.js: "npm:^11.11.1"
     jszip: "npm:^3.10.1"
-    lucide-react: "npm:^0.556.0"
+    lucide-react: "npm:^0.560.0"
     marked: "npm:^17.0.1"
     marked-highlight: "npm:^2.2.3"
     microdiff: "npm:^1.5.0"
@@ -2835,7 +2835,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19
     react-dom: ^18.3.1 || ^19
-  checksum: 10/8cbdca623d066cc2bdf7a123b297f92c4aaa27a0d5577856ff5a016425614d76d2dfceeecc27321278680473b01eb09c9fa29ac99b0a12afb71af38f0d1c87fc
+  checksum: 10/e90fe1fcc4e38bb5b933ec349733af6978c8a72af3f99c92715ad2ec52f439e2e3a24d019e59ce717fdcca7983d99595dae215e7fc52d74fe2203dce43617b28
   languageName: node
   linkType: hard
 
@@ -5385,7 +5385,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^12.23.25":
+"framer-motion@npm:^12.23.26":
   version: 12.23.26
   resolution: "framer-motion@npm:12.23.26"
   dependencies:
@@ -6919,12 +6919,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.556.0":
-  version: 0.556.0
-  resolution: "lucide-react@npm:0.556.0"
+"lucide-react@npm:^0.560.0":
+  version: 0.560.0
+  resolution: "lucide-react@npm:0.560.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/571df5109953ca6bd91e2723ae9347a647f0c31274f79ac4c53cb9faa3ca22cf68aace5211dcb61197e5fdec7bcadd4a9b8a0ae22e6ba5669e8a8ae6ddd906e0
+  checksum: 10/20a7ed9db37108f07992db63835dcd93f6ee12ec4fb0d8da707a5360cf0fb0948f73e8a4a3dc1558b6f45ca05a2ad99cfb96e9c8d7e87810ff9e2f264ac89983
   languageName: node
   linkType: hard
 
@@ -10059,7 +10059,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.12"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.7.1"
-    "@waldiez/react": "npm:^0.6.9"
+    "@waldiez/react": "npm:^0.6.10"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
