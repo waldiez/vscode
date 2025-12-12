@@ -65,10 +65,28 @@ export class StepMessageProcessor extends MessageProcessor {
                         return;
                     }
                     this.handleInputResponse(response);
-                    this._transport.updateStepByStepState({
-                        pendingControlInput: undefined,
-                        lastError: undefined,
-                    });
+                    if (response && (response.data.content === "q" || response.data === "q")) {
+                        this._transport.updateStepByStepState({
+                            show: false,
+                            active: false,
+                            stepMode: true,
+                            autoContinue: false,
+                            breakpoints: [],
+                            eventHistory: [],
+                            lastError: undefined,
+                            currentEvent: undefined,
+                            participants: undefined,
+                            pendingControlInput: undefined,
+                            timeline: undefined,
+                            stats: undefined,
+                            help: undefined,
+                        });
+                    } else {
+                        this._transport.updateStepByStepState({
+                            pendingControlInput: undefined,
+                            lastError: undefined,
+                        });
+                    }
                 })
                 .catch(err => {
                     traceError("Error handling control request:", err);

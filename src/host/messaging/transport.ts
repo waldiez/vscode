@@ -583,6 +583,7 @@ export class MessageTransport {
 
             case "stop_request":
                 this.onStop();
+                this.cleanup();
                 break;
 
             case "upload":

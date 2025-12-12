@@ -63,8 +63,8 @@ export abstract class MessageProcessor {
      * @param response - The user input response to handle.
      */
     public handleInputResponse(userInput: WaldiezUserInput | undefined) {
-        if (!userInput || userInput.request_id !== this._requestId) {
-            traceWarn("Mismatched or missing input response");
+        if (!userInput) {
+            traceWarn("Missing userInput");
             return;
         }
         const data = this._extractUserResponseContent(userInput.data);
@@ -77,8 +77,6 @@ export abstract class MessageProcessor {
         this._stdin?.write(`${JSON.stringify(obj)}\n`, err => {
             if (err) {
                 traceError("Failed to write to stdin:", err);
-            } else {
-                traceVerbose(`Successfully sent input response: ${data.trim()}`);
             }
         });
     }
