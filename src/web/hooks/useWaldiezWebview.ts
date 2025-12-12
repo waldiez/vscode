@@ -2,6 +2,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * Copyright 2024 - 2025 Waldiez & contributors
  */
+/* eslint-disable max-lines-per-function */
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { nanoid } from "nanoid";
@@ -54,8 +55,8 @@ export const useWaldiezWebview = () => {
                 messaging.send({ action: "input_response", value });
                 setChatConfig(prev => ({ ...prev, activeRequest: undefined }));
             },
-            onInterrupt: onInterrupt,
-            onClose: onClose,
+            onInterrupt,
+            onClose,
         },
     });
     const [stepByStep, setStepByStep] = useState<WaldiezStepByStep>({
@@ -110,8 +111,13 @@ export const useWaldiezWebview = () => {
                     ...prev,
                     show: false,
                     active: false,
+                    stepMode: true,
+                    autoContinue: false,
+                    breakpoints: [],
                     eventHistory: [],
                     activeRequest: null,
+                    timeline: undefined,
+                    participants: undefined,
                     pendingControlInput: null,
                 }));
             },
@@ -161,6 +167,19 @@ export const useWaldiezWebview = () => {
                     onInterrupt,
                 },
             }));
+            setStepByStep(prev => ({
+                ...prev,
+                show: false,
+                active: false,
+                stepMode: true,
+                autoContinue: false,
+                breakpoints: [],
+                eventHistory: [],
+                activeRequest: null,
+                timeline: undefined,
+                participants: undefined,
+                pendingControlInput: null,
+            }));
             messaging.send({ action: "run", value: flowJson });
         },
         [onInterrupt],
@@ -192,6 +211,15 @@ export const useWaldiezWebview = () => {
             setStepByStep(prev => ({
                 ...prev,
                 show: true,
+                active: false,
+                stepMode: true,
+                autoContinue: false,
+                breakpoints: [],
+                eventHistory: [],
+                activeRequest: null,
+                timeline: undefined,
+                participants: undefined,
+                pendingControlInput: null,
             }));
             const bpArgs = breakpoints ? breakpoints.map(waldiezBreakpointToString) : undefined;
             const args: string[] = [];
