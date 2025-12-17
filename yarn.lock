@@ -1798,8 +1798,8 @@ __metadata:
   linkType: hard
 
 "@reduxjs/toolkit@npm:1.x.x || 2.x.x":
-  version: 2.11.1
-  resolution: "@reduxjs/toolkit@npm:2.11.1"
+  version: 2.11.2
+  resolution: "@reduxjs/toolkit@npm:2.11.2"
   dependencies:
     "@standard-schema/spec": "npm:^1.0.0"
     "@standard-schema/utils": "npm:^0.3.0"
@@ -1815,7 +1815,7 @@ __metadata:
       optional: true
     react-redux:
       optional: true
-  checksum: 10/ecf14fd7815e34b5139580e226f8374ce53c6092773ca05ab58d06c1e2de6b9e100818ed48dd30f69b270ccc534c535b5be5b2e47ebb9fa5eec5206ae882ae8d
+  checksum: 10/2e1098c7fcd10b770344d0b39c58a3b9cb3aec7da0979c02f1ac1ef8f56619ac787c623e480bef0cf6f2c05f1c13fd4d44045c794e2c2d3460f9bf0d2875995c
   languageName: node
   linkType: hard
 
@@ -1981,9 +1981,9 @@ __metadata:
   linkType: hard
 
 "@standard-schema/spec@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@standard-schema/spec@npm:1.0.0"
-  checksum: 10/aee780cc1431888ca4b9aba9b24ffc8f3073fc083acc105e3951481478a2f4dc957796931b2da9e2d8329584cf211e4542275f188296c1cdff3ed44fd93a8bc8
+  version: 1.1.0
+  resolution: "@standard-schema/spec@npm:1.1.0"
+  checksum: 10/a209615c9e8b2ea535d7db0a5f6aa0f962fd4ab73ee86a46c100fb78116964af1f55a27c1794d4801e534a196794223daa25ff5135021e03c7828aa3d95e1763
   languageName: node
   linkType: hard
 
@@ -2802,9 +2802,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:^0.6.11":
+"@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
   version: 0.6.11
-  resolution: "@waldiez/react@npm:0.6.11"
+  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=70f8b4e51845eb878c99b0e73564cc37714c4f60"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
@@ -2818,7 +2818,7 @@ __metadata:
     framer-motion: "npm:^12.23.26"
     highlight.js: "npm:^11.11.1"
     jszip: "npm:^3.10.1"
-    lucide-react: "npm:^0.560.0"
+    lucide-react: "npm:^0.561.0"
     marked: "npm:^17.0.1"
     marked-highlight: "npm:^2.2.3"
     microdiff: "npm:^1.5.0"
@@ -2828,14 +2828,14 @@ __metadata:
     react-hotkeys-hook: "npm:^5.2.1"
     react-icons: "npm:^5.5.0"
     react-select: "npm:^5.10.2"
-    recharts: "npm:^3.5.1"
+    recharts: "npm:^3.6.0"
     strip-ansi: "npm:^7.1.2"
     zundo: "npm:^2.3.0"
     zustand: "npm:^5.0.9"
   peerDependencies:
     react: ^18.3.1 || ^19
     react-dom: ^18.3.1 || ^19
-  checksum: 10/f1e728173b23062fe94e8b7ffe9eed925d10c39ac640d5bbd23356c2e7f80b5a69c4ca010e52daa4853e145845a4c8c66871978cf97cf71d46fee3c880bc3379
+  checksum: 10/fcb76e9edd203193a4f11d3628ec3ccf9b3a9bcc0c568bd8637548cd8a2f738adfe4459c2c18b80b6a88dfa5230cfb075f137693b438ec0b618a9ded3f9d8348
   languageName: node
   linkType: hard
 
@@ -6919,12 +6919,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.560.0":
-  version: 0.560.0
-  resolution: "lucide-react@npm:0.560.0"
+"lucide-react@npm:^0.561.0":
+  version: 0.561.0
+  resolution: "lucide-react@npm:0.561.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/20a7ed9db37108f07992db63835dcd93f6ee12ec4fb0d8da707a5360cf0fb0948f73e8a4a3dc1558b6f45ca05a2ad99cfb96e9c8d7e87810ff9e2f264ac89983
+  checksum: 10/fb305e06527849c2d475b245c524ac56c6554afe648ce1d0ede9d5105366ce296c0f2fa2cbf5c57ef0c14449462a2ec30f35db2656626e9fcf2c96fd124738d0
   languageName: node
   linkType: hard
 
@@ -8399,9 +8399,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recharts@npm:^3.5.1":
-  version: 3.5.1
-  resolution: "recharts@npm:3.5.1"
+"recharts@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "recharts@npm:3.6.0"
   dependencies:
     "@reduxjs/toolkit": "npm:1.x.x || 2.x.x"
     clsx: "npm:^2.1.1"
@@ -8418,7 +8418,7 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-is: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/91e06875198411f6392a618052a6bc484876c25476a6d0d1cb93e7bd09ee0879978f584b24ae6ae5d9bf9d3065d31b93561425db58e7ff4f3cac006b4dcb8163
+  checksum: 10/3a03a24a0b573a76f219a2eea18a4e0afc6395fc3eec097f47bc9d9492c88428f10754e5f4d47b406de4dae31a16634da433db0e4268618689f90395bfe50c1a
   languageName: node
   linkType: hard
 
@@ -10059,7 +10059,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.12"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.7.1"
-    "@waldiez/react": "npm:^0.6.11"
+    "@waldiez/react": "git+https://github.com/waldiez/waldiez.git#dev"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"

@@ -19,6 +19,7 @@ import { traceError, traceInfo, traceWarn } from "../log/logging";
  */
 /* eslint-disable max-statements */
 export const ensureWaldiezPy = (executable: string | undefined): Promise<void> => {
+    const isFromGit = MINIMUM_REQUIRED_WALDIEZ_PY_VERSION.startsWith("git+https");
     // noinspection TypeScriptUMDGlobal
     return new Promise<void>((resolve, reject) => {
         if (!executable) {
@@ -31,6 +32,9 @@ export const ensureWaldiezPy = (executable: string | undefined): Promise<void> =
             const result = spawnSync(executable, ["-m", "waldiez", "--version"]);
             // check if the waldiez module is installed and the version is at least the minimum required
             if (result.status === 0) {
+                if (isFromGit) {
+                    return installWaldiezPy(executable, true).then(resolve, reject);
+                }
                 const commandOutput = result.stdout.toString().trim();
                 const version = commandOutput.match(/(\d+\.\d+\.\d+)/)?.[0];
                 if (!version) {
@@ -48,7 +52,11 @@ export const ensureWaldiezPy = (executable: string | undefined): Promise<void> =
                 return installWaldiezPy(executable).then(resolve, reject);
             } else {
                 // If the module is not found, attempt to install it
-                traceWarn("Waldiez Python module not found in the current Python environment. Installing...");
+                if (!isFromGit) {
+                    traceWarn(
+                        "Waldiez Python module not found in the current Python environment. Installing...",
+                    );
+                }
                 return installWaldiezPy(executable).then(resolve, reject);
             }
         } catch (error) {
@@ -58,13 +66,18 @@ export const ensureWaldiezPy = (executable: string | undefined): Promise<void> =
     });
 };
 
-const installWaldiezPy = (executable: string) => {
+const installWaldiezPy = (executable: string, skipInfo: boolean = false) => {
     // noinspection TypeScriptUMDGlobal
     return new Promise<void>((resolve, reject) => {
-        // noinspection JSIgnoredPromiseFromCall
-        vscode.window.showInformationMessage(
-            "Waldiez Python module not found in the current Python environment. Installing...",
-        );
+        if (!skipInfo) {
+            // noinspection JSIgnoredPromiseFromCall
+            vscode.window.showInformationMessage(
+                "Waldiez Python module not found in the current Python environment. Installing...",
+            );
+        }
+        const toInstall = MINIMUM_REQUIRED_WALDIEZ_PY_VERSION.startsWith("git+https")
+            ? ` @ ${MINIMUM_REQUIRED_WALDIEZ_PY_VERSION}`
+            : `>=${MINIMUM_REQUIRED_WALDIEZ_PY_VERSION}`;
         try {
             const result = spawnSync(executable, [
                 "-m",
@@ -72,7 +85,7 @@ const installWaldiezPy = (executable: string) => {
                 "install",
                 "--upgrade",
                 "--break-system-packages",
-                `waldiez>=${MINIMUM_REQUIRED_WALDIEZ_PY_VERSION}`,
+                `waldiez${toInstall}`,
             ]);
             if (result.status === 0) {
                 traceInfo(result.stdout.toString());
