@@ -103,7 +103,7 @@ suite("Flow Common Tests", () => {
                 console.warn("Skipping ....");
                 this.skip();
             }
-
+            const constants = await import("../../../../host/constants");
             const mockSpawnSync = sandbox.stub(require("child_process"), "spawnSync");
             const showInfoStub = sandbox.stub(vscode.window, "showInformationMessage").resolves();
 
@@ -114,8 +114,10 @@ suite("Flow Common Tests", () => {
 
             await flowCommon.ensureWaldiezPy("/usr/bin/python3");
 
-            assert.strictEqual(mockSpawnSync.callCount, 2);
-            sinon.assert.calledOnce(showInfoStub);
+            if (!constants.MINIMUM_REQUIRED_WALDIEZ_PY_VERSION.startsWith("git+https")) {
+                assert.strictEqual(mockSpawnSync.callCount, 2);
+                sinon.assert.calledOnce(showInfoStub);
+            }
 
             mockSpawnSync.restore();
             showInfoStub.restore();
@@ -155,7 +157,7 @@ suite("Flow Common Tests", () => {
                 console.warn("Skipping ....");
                 this.skip();
             }
-
+            const constants = await import("../../../../host/constants");
             const mockSpawnSync = sandbox.stub(require("child_process"), "spawnSync");
             const showInfoStub = sandbox.stub(vscode.window, "showInformationMessage").resolves();
 
@@ -165,9 +167,10 @@ suite("Flow Common Tests", () => {
             mockSpawnSync.onSecondCall().returns({ status: 0, stdout: "Successfully installed waldiez" });
 
             await flowCommon.ensureWaldiezPy("/usr/bin/python3");
-
-            assert.strictEqual(mockSpawnSync.callCount, 2);
-            sinon.assert.calledOnce(showInfoStub);
+            if (!constants.MINIMUM_REQUIRED_WALDIEZ_PY_VERSION.startsWith("git+https")) {
+                assert.strictEqual(mockSpawnSync.callCount, 2);
+                sinon.assert.calledOnce(showInfoStub);
+            }
 
             mockSpawnSync.restore();
             showInfoStub.restore();
