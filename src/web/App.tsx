@@ -15,7 +15,6 @@ export const App = (props: { flowId: string; monacoVsPath?: string }) => {
         stepByStep,
         onRun,
         onStepRun,
-        onChange,
         onSave,
         onUpload,
         onConvert,
@@ -39,7 +38,6 @@ export const App = (props: { flowId: string; monacoVsPath?: string }) => {
             cacheSeed={cacheSeed}
             onRun={onRun}
             onStepRun={onStepRun}
-            onChange={onChange}
             onUpload={onUpload}
             onSave={onSave}
             onConvert={onConvert}

@@ -603,6 +603,7 @@ export class MessageTransport {
                 break;
 
             case "convert":
+                await this.updateDocument(message.value.flow);
                 /* c8 ignore next 3 */
                 this.onConvert(message.value);
                 break;
@@ -636,19 +637,21 @@ export class MessageTransport {
         );
     }
 
-    public updateDocument(content: string) {
+    public async updateDocument(content: string) {
         const currentText = this.document.getText();
         if (currentText === content) {
-            // No change needed
             return;
         }
+
         const edit = new vscode.WorkspaceEdit();
         const fullRange = new vscode.Range(0, 0, this.document.lineCount, 0);
         edit.replace(this.document.uri, fullRange, content);
-        // noinspection JSIgnoredPromiseFromCall
-        vscode.workspace.applyEdit(edit);
 
-        // Use debounced sending for update messages
+        const success = await vscode.workspace.applyEdit(edit);
+        if (success) {
+            await this.document.save();
+        }
+
         this.sendMessage({ type: "update", value: content }, { debounceMs: 50, skipDuplicates: true });
     }
 

@@ -240,11 +240,6 @@ export const useWaldiezWebview = () => {
         [],
     );
 
-    const onChange = useCallback(
-        (flowJson: string) => messaging.send({ action: "change", value: flowJson }),
-        [],
-    );
-
     const onUpload = useCallback((files: File[]) => transferFiles(files), []);
 
     const onGetCheckpoints = useCallback(async (flowName: string) => {
@@ -372,7 +367,6 @@ export const useWaldiezWebview = () => {
         stepByStep,
         onRun,
         onStepRun,
-        onChange,
         onSave,
         onUpload,
         onConvert: onConvertRequest,
