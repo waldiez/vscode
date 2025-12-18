@@ -62,6 +62,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: sandbox.stub().returns('{"type": "flow"}'),
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -100,6 +101,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
             const transport = new MessageTransport(
@@ -137,6 +139,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
             const transport = new MessageTransport(
@@ -176,6 +179,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
             const transport = new MessageTransport(
@@ -210,6 +214,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: sandbox.stub().returns(currentContent),
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -248,6 +253,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: sandbox.stub().returns('{"old": "content"}'),
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -289,6 +295,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
             const executeCommandStub = sandbox.stub(vscode.commands, "executeCommand").resolves();
@@ -330,6 +337,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
             const executeCommandStub = sandbox.stub(vscode.commands, "executeCommand").resolves();
@@ -370,6 +378,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
             const transport = new MessageTransport(
@@ -424,6 +433,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
             const transport = new MessageTransport(
@@ -460,6 +470,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => testContent,
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -499,6 +510,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "", // Empty document
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -539,6 +551,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -590,6 +603,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -628,6 +642,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -671,6 +686,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => '{"test": "data"}',
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -718,6 +734,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -758,6 +775,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => '{"old": "content"}',
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -804,6 +822,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => '{"old": "content"}',
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -854,6 +873,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -894,6 +914,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => '{"old": "content"}',
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -939,6 +960,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -996,6 +1018,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -1037,6 +1060,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -1073,6 +1097,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("vscode-vfs://test/document.waldiez"), // Non-file scheme
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -1140,6 +1165,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test/document.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -1195,6 +1221,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test/document.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -1259,6 +1286,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test/document.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
@@ -1312,6 +1340,7 @@ suite("MessageTransport Tests", () => {
             const mockDocument = {
                 uri: vscode.Uri.parse("file:///test/subfolder/document.waldiez"),
                 getText: () => "{}",
+                save: sandbox.stub().resolves(true),
                 lineCount: 1,
             };
 
