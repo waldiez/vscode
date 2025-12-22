@@ -581,9 +581,9 @@ __metadata:
   linkType: hard
 
 "@csstools/css-syntax-patches-for-csstree@npm:^1.0.19":
-  version: 1.0.21
-  resolution: "@csstools/css-syntax-patches-for-csstree@npm:1.0.21"
-  checksum: 10/1bd1338f60eaff43837cf31d717b09879850814527d1e4ee30cf4baf278adae55c267335742906ff334688fb5686fe7a0af7997315f96518fb9243750cfd1e66
+  version: 1.0.22
+  resolution: "@csstools/css-syntax-patches-for-csstree@npm:1.0.22"
+  checksum: 10/3fa886d931646ba331979c35fcabc196013533becf777b5d61925ed262c07b9e818eccfadddad47ec659d9d97374ae9d5d66b3639078853ddfda3d21ceaa7bd4
   languageName: node
   linkType: hard
 
@@ -2793,9 +2793,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
-  version: 0.6.11
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=24eb9e6a3f24dec9437bb1bf428750616b3ddf0b"
+"@waldiez/react@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@waldiez/react@npm:0.7.0"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
@@ -2826,7 +2826,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19
     react-dom: ^18.3.1 || ^19
-  checksum: 10/21b95ef03fd2e8f8920fc5fefd217b475dc7a01a391b67d1244cf1e64941afa141eea55a4905b7b094679bfb8d562540f24646b45207bfcef1f1fc3a3ed0353b
+  checksum: 10/c62f532da4402d8564ccdc47e8ea8be500ceb916fc3fe95e3d058b62fb097bd285c6d328397f52ef5b849289de3fcafa5d15fffe072b101b9200140548fcc337
   languageName: node
   linkType: hard
 
@@ -10057,7 +10057,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.12"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.7.1"
-    "@waldiez/react": "git+https://github.com/waldiez/waldiez.git#dev"
+    "@waldiez/react": "npm:0.7.0"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
