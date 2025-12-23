@@ -2793,9 +2793,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@npm:0.7.0":
+"@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
   version: 0.7.0
-  resolution: "@waldiez/react@npm:0.7.0"
+  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=a11c3542f3b1ee84363a11d33b62a3875b00d8c1"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
@@ -2826,7 +2826,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19
     react-dom: ^18.3.1 || ^19
-  checksum: 10/c62f532da4402d8564ccdc47e8ea8be500ceb916fc3fe95e3d058b62fb097bd285c6d328397f52ef5b849289de3fcafa5d15fffe072b101b9200140548fcc337
+  checksum: 10/d995fcf8a88f376785435f7264dfaacb20516441d11a1a622d6c55fd76ab5e2c7305d42204180376a590c8187c6c424b9be89d8ce8c1c182169345d1415e0048
   languageName: node
   linkType: hard
 
@@ -10057,7 +10057,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.12"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.7.1"
-    "@waldiez/react": "npm:0.7.0"
+    "@waldiez/react": "git+https://github.com/waldiez/waldiez.git#dev"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"

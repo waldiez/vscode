@@ -28,7 +28,6 @@ export class StepMessageProcessor extends MessageProcessor {
      * This method processes the line, extracts messages, and handles user input requests.
      * @param line - The line of data to process.
      */
-    // eslint-disable-next-line max-statements
     protected handleLine(line: string) {
         traceVerbose("Processing line:\n", line.slice(0, 300) + "...");
         const result = WaldiezStepByStepProcessor.process(line, {
@@ -95,13 +94,12 @@ export class StepMessageProcessor extends MessageProcessor {
             return;
         }
         if (result?.error) {
-            traceVerbose(result.error);
             this._handleStepResultError(line, result);
             return;
         }
-        this._handleStepResult(result);
+        this._handleStepResult(line, result);
     }
-    private _handleStepResultError(line: string, result: WaldiezStepByStepProcessingResult) {
+    private _handleNoStepResult(line: string) {
         let imageUrlReplacement: string | undefined;
         if (this._requestId) {
             imageUrlReplacement = this.transporter
@@ -109,19 +107,27 @@ export class StepMessageProcessor extends MessageProcessor {
                 .toString();
         }
         const chatResult = WaldiezChatMessageProcessor.process(line, this._requestId, imageUrlReplacement);
+        // traceVerbose("Chat step result:", chatResult);
         if (chatResult?.participants) {
             this._onParticipantsUpdate(chatResult.participants);
-            return;
+            return true;
         }
         if (chatResult?.timeline) {
             this._onTimelineUpdate(chatResult.timeline);
-            return;
+            return true;
         }
         if (chatResult?.message) {
             this._transport.updateStepByStepState({
                 eventHistory: [chatResult.message],
                 currentEvent: chatResult.message,
             });
+            return true;
+        }
+        return false;
+    }
+    private _handleStepResultError(line: string, result: WaldiezStepByStepProcessingResult) {
+        const handled = this._handleNoStepResult(line);
+        if (handled) {
             return;
         }
         if (result.error) {
@@ -130,8 +136,10 @@ export class StepMessageProcessor extends MessageProcessor {
             });
         }
     }
-    private _handleStepResult(result?: WaldiezStepByStepProcessingResult) {
+    private _handleStepResult(line: string, result?: WaldiezStepByStepProcessingResult) {
+        // traceVerbose("stepResult:", result);
         if (!result) {
+            this._handleNoStepResult(line);
             return;
         }
         if (result.stateUpdate) {

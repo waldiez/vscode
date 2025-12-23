@@ -180,7 +180,7 @@
         "@vscode/test-cli": "^0.0.12",
         "@vscode/test-electron": "^2.5.2",
         "@vscode/vsce": "^3.7.1",
-        "@waldiez/react": "0.7.0",
+        "@waldiez/react": "git+https://github.com/waldiez/waldiez.git#dev",
         "ajv": "^8.17.1",
         "all-contributors-cli": "^6.26.1",
         "babel-loader": "^10.0.0",
