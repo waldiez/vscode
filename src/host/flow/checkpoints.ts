@@ -43,12 +43,12 @@ export class CheckpointsManager extends vscode.Disposable {
             throw new Error("Failed to install waldiez");
         }
 
-        const args = ["-m", "waldiez.storage", "--session", flowName, "--history"];
+        const args = ["-m", "waldiez.storage", "--session", `"${flowName}"`, "--history"];
         traceVerbose(`Calling: ${this._wrapper.executable} ${args.join(" ")}`);
 
         const stdoutChunks: string[] = [];
         const stderrChunks: string[] = [];
-        const timeoutMs = 15_000;
+        const timeoutMs = 30_000;
 
         return await new Promise<Record<string, any>>((resolve, reject) => {
             if (!this._wrapper.executable) {
