@@ -129,6 +129,7 @@ export const useWaldiezWebview = () => {
         flowId: randomId,
         storageId: randomId,
         cacheSeed: undefined,
+        skipDeps: null,
         isAsync: false,
         nodes: [],
         edges: [],

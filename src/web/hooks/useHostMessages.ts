@@ -28,7 +28,15 @@ export const useHostMessages = (props: {
     setSessionData: React.Dispatch<React.SetStateAction<WaldiezProps>>;
     setInitialized: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-    const { sessionData, chatConfig, setChatConfig, setStepByStep, setSessionData, setInitialized } = props;
+    const {
+        sessionData,
+        chatConfig,
+        stepByStep,
+        setChatConfig,
+        setStepByStep,
+        setSessionData,
+        setInitialized,
+    } = props;
     const initialize = useCallback(
         (hostMsg: Initialization | ContentUpdate) => {
             setInitialized(true);
@@ -39,6 +47,7 @@ export const useHostMessages = (props: {
             try {
                 const parsed = JSON.parse(flowData);
                 const imported = importFlow(parsed);
+                // console.debug(imported);
                 setSessionData({
                     ...imported,
                     monacoVsPath,
@@ -138,26 +147,80 @@ export const useHostMessages = (props: {
     const handleWorkflowEnd = useCallback(
         (runMode: RunMode) => {
             if (runMode === "chat") {
+                setStepByStep(prev => ({
+                    ...prev,
+                    show: false,
+                    active: false,
+                    stepMode: true,
+                    autoContinue: false,
+                    breakpoints: [],
+                    eventHistory: [],
+                    activeRequest: null,
+                    timeline: undefined,
+                    participants: undefined,
+                    pendingControlInput: null,
+                    currentEvent: undefined,
+                }));
+                if (!chatConfig.timeline) {
+                    setChatConfig(prev => ({
+                        ...prev,
+                        show: false,
+                        active: false,
+                        activeRequest: undefined,
+                    }));
+                } else {
+                    setChatConfig(prev => ({
+                        ...prev,
+                        show: true,
+                        active: false,
+                        activeRequest: undefined,
+                    }));
+                }
+                return;
+            }
+            if (runMode === "step") {
                 setChatConfig(prev => ({
                     ...prev,
                     show: false,
                     active: false,
+                    messages: [],
+                    userParticipants: [],
+                    error: undefined,
+                    timeline: undefined,
                     activeRequest: undefined,
                 }));
-                return;
-            }
-            if (runMode === "step") {
-                setStepByStep(prev => ({
-                    ...prev,
-                    active: false,
-                    eventHistory: [],
-                    activeRequest: undefined,
-                    pendingControlInput: undefined,
-                    currentEvent: undefined,
-                }));
+                if (!stepByStep.timeline) {
+                    setStepByStep(prev => ({
+                        ...prev,
+                        show: false,
+                        active: false,
+                        stepMode: true,
+                        autoContinue: false,
+                        breakpoints: [],
+                        eventHistory: [],
+                        activeRequest: null,
+                        timeline: undefined,
+                        participants: undefined,
+                        pendingControlInput: null,
+                        currentEvent: undefined,
+                    }));
+                } else {
+                    setStepByStep(prev => ({
+                        ...prev,
+                        show: true,
+                        active: false,
+                        stepMode: true,
+                        autoContinue: false,
+                        breakpoints: [],
+                        activeRequest: null,
+                        participants: undefined,
+                        pendingControlInput: null,
+                        currentEvent: undefined,
+                    }));
+                }
             }
         },
-        [setChatConfig, setStepByStep],
+        [setChatConfig, setStepByStep, stepByStep.timeline, chatConfig.timeline],
     );
 
     const handleResolved = useCallback(() => {

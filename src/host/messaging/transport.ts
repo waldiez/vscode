@@ -632,7 +632,7 @@ export class MessageTransport {
             {
                 lockKey: "init_message",
                 debounceMs: 100,
-                allowReInit: true, // Allow legitimate re-initialization
+                allowReInit: true,
             },
         );
     }

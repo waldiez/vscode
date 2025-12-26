@@ -21,7 +21,8 @@ export const App = (props: { flowId: string; monacoVsPath?: string }) => {
         onGetCheckpoints,
     } = useWaldiezWebview();
     const storageId = sessionData.storageId ?? flowId;
-    const { nodes, edges, viewport, name, description, tags, requirements, isAsync, cacheSeed } = sessionData;
+    const { nodes, edges, viewport, name, description, tags, requirements, isAsync, cacheSeed, skipDeps } =
+        sessionData;
     return initialized ? (
         <Waldiez
             monacoVsPath={monacoVsPath}
@@ -36,6 +37,7 @@ export const App = (props: { flowId: string; monacoVsPath?: string }) => {
             requirements={requirements}
             isAsync={isAsync}
             cacheSeed={cacheSeed}
+            skipDeps={skipDeps}
             onRun={onRun}
             onStepRun={onStepRun}
             onUpload={onUpload}
