@@ -2795,7 +2795,7 @@ __metadata:
 
 "@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
   version: 0.7.0
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=5dd676100e3eda9a8ee8c7bc4b60d4a6fdf91097"
+  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=15a3fde5a3c43d2c3a259194fb1e737dabf09476"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
@@ -2806,7 +2806,7 @@ __metadata:
     "@radix-ui/react-tooltip": "npm:^1.2.8"
     "@xyflow/react": "npm:^12.10.0"
     dompurify: "npm:^3.3.1"
-    framer-motion: "npm:^12.23.26"
+    framer-motion: "npm:^12.23.27"
     highlight.js: "npm:^11.11.1"
     jszip: "npm:^3.10.1"
     lucide-react: "npm:^0.562.0"
@@ -2814,7 +2814,7 @@ __metadata:
     marked-highlight: "npm:^2.2.3"
     microdiff: "npm:^1.5.0"
     nanoid: "npm:^5.1.6"
-    react-error-boundary: "npm:^6.0.1"
+    react-error-boundary: "npm:^6.0.2"
     react-fast-compare: "npm:^3.2.2"
     react-hotkeys-hook: "npm:^5.2.1"
     react-icons: "npm:^5.5.0"
@@ -2826,7 +2826,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19
     react-dom: ^18.3.1 || ^19
-  checksum: 10/3183b264b282c27a7b170e4cf9a2b116ab62492dda09c75e60c244862a9442a8176afb0ff3264583bf2bb43394b403e0c960cbc2be284ddcee517f3e363041d4
+  checksum: 10/3af25127a8b07c35ef9bc71d1e51707ce434a07604005f5ce99f39d59d77326adb5033e84bc0751d568c0c3c5ca98ddef5950a6fda60aba3fe742bc2d6097d0b
   languageName: node
   linkType: hard
 
@@ -5383,12 +5383,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^12.23.26":
-  version: 12.23.26
-  resolution: "framer-motion@npm:12.23.26"
+"framer-motion@npm:^12.23.27":
+  version: 12.23.28
+  resolution: "framer-motion@npm:12.23.28"
   dependencies:
-    motion-dom: "npm:^12.23.23"
-    motion-utils: "npm:^12.23.6"
+    motion-dom: "npm:^12.23.28"
+    motion-utils: "npm:^12.23.28"
     tslib: "npm:^2.4.0"
   peerDependencies:
     "@emotion/is-prop-valid": "*"
@@ -5401,7 +5401,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/29d51ac57ce8c2599664bf706d7a83c2aba4fe1dee1c0c7d75d5c45c120b1c2ca5d257c3ff608992b26bf8e9cf258cacf231b0873d7b16f01c5eeb42b9831f78
+  checksum: 10/a56a430d9fcbae374605f254667d93d0d2860495358676d2f3eee7ecaecdc67bf75abcb6f32cdc9e5025faa4e4943ce07834f2d6802c24faa5075e94d8bbef97
   languageName: node
   linkType: hard
 
@@ -7317,19 +7317,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"motion-dom@npm:^12.23.23":
-  version: 12.23.23
-  resolution: "motion-dom@npm:12.23.23"
+"motion-dom@npm:^12.23.28":
+  version: 12.23.28
+  resolution: "motion-dom@npm:12.23.28"
   dependencies:
-    motion-utils: "npm:^12.23.6"
-  checksum: 10/6bec34c28b478622bd23ce919c0d64e7f372cbc3f88e665f1e34fbf590e9bb53eebea086fb28f4e0c31941bd5274e086dc9b5360b68c4976891b94c4e92ca01a
+    motion-utils: "npm:^12.23.28"
+  checksum: 10/415898ed7fea781ad7d8e9641dbace77069cfcf9da8da59be635eb924a0cb52bcaf17ec051e0a0a2b3315ad5e31b5bc264911f63fb037e7fa956168e0a73cca9
   languageName: node
   linkType: hard
 
-"motion-utils@npm:^12.23.6":
-  version: 12.23.6
-  resolution: "motion-utils@npm:12.23.6"
-  checksum: 10/fae741319e72389eca8f3e73e644ffe6501409d00c7febb2f9b836629ae86ef735e73d670d0591706ca5e93ce10228ddbcff0ecdeb09b4cd8df14df7007aedd9
+"motion-utils@npm:^12.23.28":
+  version: 12.23.28
+  resolution: "motion-utils@npm:12.23.28"
+  checksum: 10/2d481eb26134f282019e0117abae7b5788e89504a88113d7f53e94c5a6aae34e552d3b14a804ebc5d46596946839190963a3fb8189c55b5b38cf82fb16069a77
   languageName: node
   linkType: hard
 
@@ -8228,13 +8228,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-error-boundary@npm:^6.0.1":
-  version: 6.0.1
-  resolution: "react-error-boundary@npm:6.0.1"
+"react-error-boundary@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "react-error-boundary@npm:6.0.2"
   peerDependencies:
     react: ^18.0.0 || ^19.0.0
     react-dom: ^18.0.0 || ^19.0.0
-  checksum: 10/cd7713cf9d83f6391c497c6e4729f7b447c05af91107f16762978dd22373f1a6626f18efa77ad4b8def5481d68af6016990e90b69296e954becbab6dfa1ce06b
+  checksum: 10/726b696885ecef594dcaa45d7d6cf70ee100594f9b317c829f294507a06a78c11ec3efb2e1466292035426955704e77d9f91a87cd0fee2f47192ddcc0d1866f4
   languageName: node
   linkType: hard
 
