@@ -48,7 +48,7 @@ export class CheckpointsManager extends vscode.Disposable {
 
         const stdoutChunks: string[] = [];
         const stderrChunks: string[] = [];
-        const timeoutMs = 30_000;
+        const timeoutMs = 60_000;
 
         return await new Promise<Record<string, any>>((resolve, reject) => {
             if (!this._wrapper.executable) {
