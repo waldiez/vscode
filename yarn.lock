@@ -2069,9 +2069,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@trivago/prettier-plugin-sort-imports@npm:^6.0.1":
-  version: 6.0.1
-  resolution: "@trivago/prettier-plugin-sort-imports@npm:6.0.1"
+"@trivago/prettier-plugin-sort-imports@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "@trivago/prettier-plugin-sort-imports@npm:6.0.2"
   dependencies:
     "@babel/generator": "npm:^7.28.0"
     "@babel/parser": "npm:^7.28.0"
@@ -2096,7 +2096,7 @@ __metadata:
       optional: true
     svelte:
       optional: true
-  checksum: 10/470bb8cba341693fe28b96a5ac2cd6dcca1a48aa98fb13a03ce2c5b37982467490c3b81a18e5165340df684da66b5ee4ab810a2f1cf160544a1e26ba9b4ea472
+  checksum: 10/979138364aa6a6fe5f98ab699cce120bcfa33e6e54059580a96ff28f4c5b056d4e0d8df59e857987c0aea3b5b6159e8613002aabb6035356a8e3da62060fe5dc
   languageName: node
   linkType: hard
 
@@ -2795,7 +2795,7 @@ __metadata:
 
 "@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
   version: 0.7.0
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=c3768f626c611e5422222c7e43c6dc89689bdb8b"
+  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=d72c100492acfb4386ceff5870ce8a323af8e4f0"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
@@ -2806,7 +2806,7 @@ __metadata:
     "@radix-ui/react-tooltip": "npm:^1.2.8"
     "@xyflow/react": "npm:^12.10.0"
     dompurify: "npm:^3.3.1"
-    framer-motion: "npm:^12.24.7"
+    framer-motion: "npm:^12.24.10"
     highlight.js: "npm:^11.11.1"
     jszip: "npm:^3.10.1"
     lucide-react: "npm:^0.562.0"
@@ -2826,7 +2826,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19
     react-dom: ^18.3.1 || ^19
-  checksum: 10/93a7a11e073feb42dcefb06d6e68ab5a5c0055260785782937dbbedfa62e5f5cb38e044087cfd3b9c3f85a75488568860eb24ad66f114d595fea65c8db8fd509
+  checksum: 10/dfb00cac1cadc7d953d55ad718e284a6faae49fd25a640ba87cb8f269552fd5db8db234f29aa204cab2c9e9593da44c758ea8689cd361b49047113b55a873d25
   languageName: node
   linkType: hard
 
@@ -3438,11 +3438,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.9.0":
-  version: 2.9.11
-  resolution: "baseline-browser-mapping@npm:2.9.11"
+  version: 2.9.12
+  resolution: "baseline-browser-mapping@npm:2.9.12"
   bin:
     baseline-browser-mapping: dist/cli.js
-  checksum: 10/d71fe6693f999ee0bf1fcd72b31c01390f2bfac40d179175817f24cdb11b19d14a102227a8fa28e0a4733a17c780458c17384c75f2227e45b0e8a0080caf6532
+  checksum: 10/07af71d6139d177bfed83ed70ac6b12f3326903f67338a6e36fbb529dfc8f384da9b054650f0d44d1b2619e673ff1df2540f63bbf5d9412bad15101e6d657aff
   languageName: node
   linkType: hard
 
@@ -5383,12 +5383,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^12.24.7":
-  version: 12.24.7
-  resolution: "framer-motion@npm:12.24.7"
+"framer-motion@npm:^12.24.10":
+  version: 12.24.10
+  resolution: "framer-motion@npm:12.24.10"
   dependencies:
-    motion-dom: "npm:^12.24.3"
-    motion-utils: "npm:^12.23.28"
+    motion-dom: "npm:^12.24.10"
+    motion-utils: "npm:^12.24.10"
     tslib: "npm:^2.4.0"
   peerDependencies:
     "@emotion/is-prop-valid": "*"
@@ -5401,7 +5401,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/8062f24f872b47c468eb7776afbf94ccbc2ad6cc4ae4f92202270f0d7a522ed89db971dd1c7c59adb9dc644210f1a13ae565f21dcf312ee7cb23293324977d35
+  checksum: 10/a42347a5875178dc6d8f258124f16ce942d68337b98f5512ce2621ffcdaf5df8a1d1d293a27ed312b36b0e4135f7655c10bb73f4abd90b83f9966196f5c01560
   languageName: node
   linkType: hard
 
@@ -7317,19 +7317,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"motion-dom@npm:^12.24.3":
-  version: 12.24.3
-  resolution: "motion-dom@npm:12.24.3"
+"motion-dom@npm:^12.24.10":
+  version: 12.24.10
+  resolution: "motion-dom@npm:12.24.10"
   dependencies:
-    motion-utils: "npm:^12.23.28"
-  checksum: 10/6de28bef1326e8e10cdabf4528df0287453cd7e78c8c28a6f474ab03e65922a73863845c3683c639c75a8570d2f5aa54c693e28a26067197e35111bb5e7285a5
+    motion-utils: "npm:^12.24.10"
+  checksum: 10/f6603a628ebd4723a86f835cbaac9930378c92d0c5b1054a56d16999fabef46aa9929bd5d1d03983cb84c5f8cc0219c0bc0c8697347bc637e1cc0a631ee2383d
   languageName: node
   linkType: hard
 
-"motion-utils@npm:^12.23.28":
-  version: 12.23.28
-  resolution: "motion-utils@npm:12.23.28"
-  checksum: 10/2d481eb26134f282019e0117abae7b5788e89504a88113d7f53e94c5a6aae34e552d3b14a804ebc5d46596946839190963a3fb8189c55b5b38cf82fb16069a77
+"motion-utils@npm:^12.24.10":
+  version: 12.24.10
+  resolution: "motion-utils@npm:12.24.10"
+  checksum: 10/b023223fe617a32d2ade933b6a505caa11252eb2094f0ea65eda6db35d463a7b3cc766708141a7828405ab8d5c3651bb71fbf6e8e63769ef7d36e7d77b755b58
   languageName: node
   linkType: hard
 
@@ -10037,7 +10037,7 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.28.5"
     "@istanbuljs/nyc-config-typescript": "npm:^1.0.2"
     "@stylistic/eslint-plugin": "npm:^5.6.1"
-    "@trivago/prettier-plugin-sort-imports": "npm:^6.0.1"
+    "@trivago/prettier-plugin-sort-imports": "npm:^6.0.2"
     "@types/babel__core": "npm:^7.20.5"
     "@types/fs-extra": "npm:^11.0.4"
     "@types/mocha": "npm:^10.0.10"
