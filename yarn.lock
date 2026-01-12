@@ -2804,7 +2804,7 @@ __metadata:
 
 "@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
   version: 0.7.0
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=6fd67a7836bc1231cdd109ebdba190ddf3762fbf"
+  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=2c375cfb9233c626edd56eaa3bd0cc913067af0c"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
@@ -5411,8 +5411,8 @@ __metadata:
   linkType: hard
 
 "framer-motion@npm:^12.25.0":
-  version: 12.26.0
-  resolution: "framer-motion@npm:12.26.0"
+  version: 12.26.1
+  resolution: "framer-motion@npm:12.26.1"
   dependencies:
     motion-dom: "npm:^12.24.11"
     motion-utils: "npm:^12.24.10"
@@ -5428,7 +5428,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/b6822f11edf122e7532e98ea2fd2f5de1a08dfa661236183d71b80204a45502b9da1f2bfbb6ada72c4cd43f82a900686d81fcf8c7de7066247d51ebbef793fc4
+  checksum: 10/f5e71de5c7cd13c1151cbbd8578ed95a4a92225a96757eae36f3131325ac6337a75fd21d58d984fc835d0e197d4abd5943151828653813d32a0f025e8d6af0f6
   languageName: node
   linkType: hard
 
