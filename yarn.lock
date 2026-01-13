@@ -2793,9 +2793,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waldiez/react@git+https://github.com/waldiez/waldiez.git#dev":
-  version: 0.7.0
-  resolution: "@waldiez/react@https://github.com/waldiez/waldiez.git#commit=f024c5305c990aae91b031746468474ccfecbba8"
+"@waldiez/react@npm:^0.7.1":
+  version: 0.7.1
+  resolution: "@waldiez/react@npm:0.7.1"
   dependencies:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@fontsource/fredoka": "npm:^5.2.10"
@@ -2826,7 +2826,7 @@ __metadata:
   peerDependencies:
     react: ^18.3.1 || ^19
     react-dom: ^18.3.1 || ^19
-  checksum: 10/0127b9b0eefd47ec60af80554a039a34f1b21b30d864a3109b46655e535fcc91b6abff132089d74118da0d70225864f188c7e9f3c9539cafde7b1cdf55b53f65
+  checksum: 10/8cec788c8f26d7fe602c835456bad8f9679a6b3d145f4030174ed211616d6002f4103e07db470a7212f09b9fa8d197b47e89151a107ed2582f1052fd13a7eef4
   languageName: node
   linkType: hard
 
@@ -5402,10 +5402,10 @@ __metadata:
   linkType: hard
 
 "framer-motion@npm:^12.26.1":
-  version: 12.26.1
-  resolution: "framer-motion@npm:12.26.1"
+  version: 12.26.2
+  resolution: "framer-motion@npm:12.26.2"
   dependencies:
-    motion-dom: "npm:^12.24.11"
+    motion-dom: "npm:^12.26.2"
     motion-utils: "npm:^12.24.10"
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -5419,7 +5419,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/f5e71de5c7cd13c1151cbbd8578ed95a4a92225a96757eae36f3131325ac6337a75fd21d58d984fc835d0e197d4abd5943151828653813d32a0f025e8d6af0f6
+  checksum: 10/80d43806c4d3b1208b3ef4766e332f738fcf1fdd1c2b90f1601ff78072865a20fb41f67a495702be95c5d41b4ca54657e94dc81d02f97fdc4bee6271ef39cf14
   languageName: node
   linkType: hard
 
@@ -7335,12 +7335,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"motion-dom@npm:^12.24.11":
-  version: 12.24.11
-  resolution: "motion-dom@npm:12.24.11"
+"motion-dom@npm:^12.26.2":
+  version: 12.26.2
+  resolution: "motion-dom@npm:12.26.2"
   dependencies:
     motion-utils: "npm:^12.24.10"
-  checksum: 10/08a56090ddf5dfc295649073b6a9f90bd71ca3f4608c60d224d561a403a02dc22dd07c4a212980a59437f65e0381ddc05238593cc282ce0c98e4a88b3f0cc458
+  checksum: 10/a24f7df17673433ab32820e508a475d681830b2edbd1a92f9ca64604a02a5ffb53e8bfec317344c34c65a601f2332d0486f038eed0c7db13b8dbc5c750f0063f
   languageName: node
   linkType: hard
 
@@ -10073,7 +10073,7 @@ __metadata:
     "@vscode/test-cli": "npm:^0.0.12"
     "@vscode/test-electron": "npm:^2.5.2"
     "@vscode/vsce": "npm:^3.7.1"
-    "@waldiez/react": "git+https://github.com/waldiez/waldiez.git#dev"
+    "@waldiez/react": "npm:^0.7.1"
     ajv: "npm:^8.17.1"
     all-contributors-cli: "npm:^6.26.1"
     babel-loader: "npm:^10.0.0"
