@@ -3,3 +3,5 @@ dev/
 !.gitignore
 !*.waldiez
 !*.txt
+!/README.md
+
